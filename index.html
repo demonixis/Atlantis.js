@@ -18,7 +18,12 @@
 <script src="Engine/Atlantis.js"></script>
 <script src="Engine/Display/Sprite.js"></script>
 <script>
+    var engine = new Atlantis.Game(640, 480);
 
+    (function loop() {
+        requestAnimationFrame(loop);
+        engine.run();
+    })();
 </script>
 </body>
 </html>
