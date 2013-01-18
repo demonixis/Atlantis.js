@@ -1,14 +1,13 @@
 var Atlantis = window.Atlantis || {};
-Atlantis.Content = Atlantis.Content || {};
 
 (function () {
     var assets = [];
 
-    Atlantis.Content = function (rootDirectory) {
+    Atlantis = function (rootDirectory) {
         this.rootDirectory = rootDirectory || "";
     }
 
-    Atlantis.Content.prototype.load = function (assetName) {
+    Atlantis.prototype.load = function (assetName) {
         if (typeof(this.assets[assetName]) != "undefined") {
             return this.assets[assetName];
         } 
@@ -34,7 +33,7 @@ Atlantis.Content = Atlantis.Content || {};
         }
     };
 
-    Atlantis.Content.prototype.dispose = function () {
+    Atlantis.prototype.dispose = function () {
         
     };
 })();

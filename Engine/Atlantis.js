@@ -1,0 +1,2 @@
+var Atlantis = window.Atlantis || {};
+

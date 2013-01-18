@@ -1,8 +1,7 @@
 var Atlantis = window.Atlantis || {};
-Atlantis.Utils = Atlantis.Utils || {};
 
 (function() {
-    Atlantis.Utils.ajax = function(params) {
+    Atlantis.ajax = function(params) {
         var url = parameters.url;
         var method = parameters.method || "GET";
         var params = parameters.params || "";
@@ -42,7 +41,7 @@ Atlantis.Utils = Atlantis.Utils || {};
         }
     };
 
-    Atlantis.Utils.notify = function (name, params) {
+    Atlantis.notify = function (name, params) {
         if (typeof(events[name]) != "undefined") {
       
             var event = events[name];
