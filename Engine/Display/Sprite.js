@@ -15,6 +15,24 @@ var Atlantis = window.Atlantis || {};
 
 		this.hasAnimation = false;
 		this.texture = null;
+		this.textureName = "";
+		this.assetLoaded = false;
+		this.width = 0;
+		this.height = 0;
+		
+		Object.defineProperty(this, "x", { 
+		    get: function() { return that.position.x; },
+		    set: function(value) { that.position.x = value; },
+		    enumerable: true,
+		    configurable: true
+		});
+		
+		Object.defineProperty(this, "y", { 
+		    get: function() { return that.position.y; },
+		    set: function(value) { that.position.y = value; },
+		    enumerable: true,
+		    configurable: true
+		});
 	};
 
 	Atlantis.Sprite.prototype.initialize = function () {
@@ -22,14 +40,18 @@ var Atlantis = window.Atlantis || {};
 	};
 
 	Atlantis.Sprite.prototype.loadContent = function (contentManager) {
-
+	    if (this.textureName != "" && this.assetLoaded == false) {
+		this.texture = contentManager.load(this.textureName);
+		this.width = this.texture.getWidth();
+		this.height = this.texture.getHeight();
+	    }
 	};
 
 	Atlantis.Sprite.prototype.update = function (gameTime) {
 
 	};
 
-	Atlantis.Sprite.prototype.draw = function (gameTime, spriteBatch) {
-
+	Atlantis.Sprite.prototype.draw = function (gameTime, context) {
+	    context.drawImage(this.texture, this.position.x, this.position.y, this.width, this.height);
 	};
 })();

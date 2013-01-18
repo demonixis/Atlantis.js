@@ -5,7 +5,7 @@ var Atlantis = window.Atlantis || {};
 
     };
 
-    Atlantis.keyboard.prototype.initialize = function () {
+    Atlantis.Keyboard.prototype.initialize = function () {
     	var that = this;
     	this.addEventListener("keydown", function (event) { that.onKeyStateChange(event, that); }, false);
     	this.addEventListener("keyup", function (event) { that.onKeyStateChange(event, that); }, false);
