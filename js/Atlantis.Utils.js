@@ -10,8 +10,7 @@ Atlantis.Utils = Atlantis.Utils || {};
     
         var xhr = new XMLHttpRequest();
     
-        if (method == "POST")
-        {
+        if (method == "POST") {
             xhr.open("POST", url, true);
     
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -28,29 +27,30 @@ Atlantis.Utils = Atlantis.Utils || {};
             xhr.send(params);
         }
         else {
-          var finalUrl = params != "" ? url + "?" + params : url;
-          xhr.open("GET", finalUrl, true);
+            var finalUrl = params != "" ? url + "?" + params : url;
+            xhr.open("GET", finalUrl, true);
 
-          xhr.onreadystatechange = function() { 
-              if(xhr.readyState == 4) {
-                if (callback != null)
-                  callback(xhr.responseText);
-              }    
-          };
-          xhr.send(null);
+            xhr.onreadystatechange = function() { 
+                if(xhr.readyState == 4) {
+                    if (callback != null) {
+                        callback(xhr.responseText);
+                    }
+                }    
+            };
+
+            xhr.send(null);
         }
     };
 
-    Atlantis.Utils.notify = function (name, params) 
-    {
+    Atlantis.Utils.notify = function (name, params) {
         if (typeof(events[name]) != "undefined") {
       
             var event = events[name];
 
             if (params instanceof Object) {
-            for(var i in params) {
-                event[i] = params[i];
-            }
+                for(var i in params) {
+                    event[i] = params[i];
+                }
             }
 
             document.dispatchEvent(event);
