@@ -11,11 +11,15 @@ var Atlantis = window.Atlantis || {};
         this.canvasContext = this.canvas.getContext("2d");
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
+        this.keyboard = new Atlantis.KeyboardState();
     };
 
     Atlantis.Game.prototype.initialize = function () {
     	var that = this;
 
+        this.components.initialize();
+        this.keyboard.initialize();
+        
     	this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false);
     };
 

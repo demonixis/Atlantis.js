@@ -2,15 +2,23 @@ var Atlantis = window.Atlantis || {};
 Atlantis.Graphics = Atlantis.Graphics || {};
 
 (function () {
-    Atlantis.Graphics.DrawCircle = function (canvasContext, x, y, rayon) {
-        canvasContext.beginPath();
-        canvasContext.arc(x, y, rayon, 0, Math.PI * 2, true);
-        canvasContext.fill();
+    Atlantis.Graphics.beginDraw = function (context) {
+        context.beginPath();
     };
 
-    Atlantis.Graphics.DrawRectPoint = function (canvasContext, x, y, width, height) {
-        canvasContext.beginPath();
-        canvasContext.rect(x, y, width, height);
-        canvasContext.fill();
+    Atlantis.Graphics.endDraw = function (context) {
+        context.fill();
+    };
+
+    Atlantis.Graphics.drawCircle = function (context, x, y, rayon, color) {
+        
+        context.arc(x, y, rayon, 0, Math.PI * 2, true);
+        context.fillStyle = color || '#ffffff';
+        
+    };
+
+    Atlantis.Graphics.drawRectPoint = function (context, x, y, width, height, color) {
+        context.rect(x, y, width, height);
+        context.fillStyle = color || '#ffffff';
     };
 })();

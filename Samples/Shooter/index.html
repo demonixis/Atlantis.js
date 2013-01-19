@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Atlantis Game Engine</title>
+</head>
+<body>
+<script src="../../Framework/AudioManager.js"></script>
+<script src="../../Framework/ContentManager.js"></script>
+<script src="../../Framework/GameComponent.js"></script>
+<script src="../../Framework/Graphics.js"></script>
+<script src="../../Framework/Helpers.js"></script>
+<script src="../../Framework/Rectangle.js"></script>
+<script src="../../Framework/Vector2.js"></script>
+<script src="../../Framework/Input/KeyboardState.js"></script>
+<script src="../../Framework/Input/MouseState.js"></script>
+<script src="../../Framework/Input/TouchState.js"></script>
+<script src="../../Framework/Game.js"></script>
+<script src="../../Engine/Atlantis.js"></script>
+<script src="../../Engine/Display/Sprite.js"></script>
+<script>
+    var Background = function (game) {
+        Atlantis.DrawableGameComponent.call(this);
+
+        var StarEntity = function (x, y, size, color) {
+
+            var position = { x: x, y: y };
+
+            this.update = function (gameTime) {
+                if (position.y > 480) {
+                    position.y = 0;
+                }
+
+                position.y += gameTime * 0.4;
+            };
+
+            this.draw = function (gameTime, context) {
+                Atlantis.Graphics.drawCircle(context, position.x, position.y, size, color);
+            };
+        };
+
+        var stars = [];
+        var nbStars = 50;
+
+        for (var i = 0; i < nbStars; i++) {
+            stars.push(new StarEntity(Math.random() * 640, Math.random() * 480, Math.random() * 2, (Math.random() * 3) > 1 ? "#F8FF75" : "#9A7EB5"));
+        }
+
+        // Update all stars
+        this.update = function (gameTime) {
+            for (var i = 0; i < nbStars; i++) {
+                stars[i].update(gameTime);
+            }
+        };
+
+        // Draw all stars
+        this.draw = function (gameTime, context) {
+            Atlantis.Graphics.beginDraw(context);
+            for (var i = 0; i < nbStars; i++) {
+                stars[i].draw(gameTime, context);
+            }
+            Atlantis.Graphics.endDraw(context);
+        };
+    };
+
+    Background.prototype = new Atlantis.DrawableGameComponent();
+
+    var Ammo = function (game, x, y) {
+        Atlantis.DrawableGameComponent.call(this);
+
+        var texture = game.content.load("Content/Ammo.png");
+        var position = { x: x, y: y };
+        var speed = 0.5;
+
+        this.update = function (gameTime) {
+            position.y -= gameTime * speed;
+        };
+
+        this.draw = function (gameTime, context) {
+            context.drawImage(texture, position.x, position.y);
+        }
+    };
+
+    Ammo.prototype = new Atlantis.DrawableGameComponent();
+
+    var Player = function (game) {
+        Atlantis.DrawableGameComponent.call(this);
+
+        var speed = 0.6;
+        var position = { x: 300, y: 400 };
+        var texture = game.content.load("Content/ShipR.png");
+        var ammos = [];
+        var shootInterval = null;
+        var canShoot = true;
+
+        this.update = function (gameTime) {
+            if (game.keyboard.keys[Keys.left]) {
+                position.x -= speed * gameTime;
+            }
+            else if (game.keyboard.keys[Keys.right]) {
+                position.x += speed * gameTime;
+            }
+
+            if (canShoot && game.keyboard.keys[Keys.space]) {
+                var ammo = new Ammo(game, position.x + 27, position.y - 5);
+                ammos.push(ammo);
+                canShoot = false;
+
+                shootInterval = setInterval(function (t) {
+                    canShoot = true;
+                    clearInterval(shootInterval);
+                }, 200);
+            }
+
+            for (var i in ammos) {
+                ammos[i].update(gameTime);
+            }
+        };
+
+        this.draw = function (gameTime, context) {
+
+            context.drawImage(texture, position.x, position.y);
+
+            for (var i in ammos) {
+                ammos[i].draw(gameTime, context);
+            }
+        };
+    };
+
+    Player.prototype = new Atlantis.DrawableGameComponent();
+</script>
+<script>
+    var game = new Atlantis.Game(640, 480);
+    game.initialize();
+
+    var background = new Background(game);
+    game.components.add(background);
+
+    var player = new Player(game);
+    game.components.add(player);
+
+    (function loop() {
+        requestAnimationFrame(loop);
+        game.run();
+    })();
+</script>
+</body>
+</html>

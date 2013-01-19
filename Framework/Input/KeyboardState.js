@@ -1,24 +1,36 @@
 var Atlantis = window.Atlantis || {};
+var Keys = window.Keys || {};
 
 (function() {
+    Keys = {
+      up: 38, down: 40, left: 37, right: 39, space: 32, escape: 27  
+    };   
+
     Atlantis.KeyboardState = function () {
-        this.keys = {
-            up: false, down: false, left: false, right: false, space: false, escape: false  
-        };
+        this.keys = [];
+       
+        for (var i = 0; i < 110; i++) {
+            this.keys[i] = false;
+        }
     };
 
     Atlantis.KeyboardState.prototype.initialize = function () {
-    	var that = this;
-    	this.addEventListener("keydown", function (event) { that.onKeyStateChange(event, that); }, false);
-    	this.addEventListener("keyup", function (event) { that.onKeyStateChange(event, that); }, false);
+        resetKeyState(this.keys);
+
+    	var that = this; 
+    	document.addEventListener("keydown", function (event) { that.onKeyStateChange(event, that); }, false);
+    	document.addEventListener("keyup", function (event) { that.onKeyStateChange(event, that); }, false);
     };
 
     Atlantis.KeyboardState.prototype.onKeyStateChange = function (event, instance) {
-    	if (event.type == "keydown") {
-            console.log(event.keyCode)
-    	}
-    	else if (event.type == "keyup") {
+    	var pressed = event.type == "keydown" ? true : false;
 
-    	}
+        instance.keys[event.keyCode] = pressed;
     };
+
+    function resetKeyState(keys) {
+        for (var i = 0; i < 110; i++) {
+            keys[i] = false;
+        }
+    }
 })()

@@ -43,29 +43,23 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
+    Atlantis.GameComponentCollection.prototype.initialize = function () {
+        for (var i = 0, l = this.components.length; i < l; i++) {
+            this.components[i].initialize();
+        }
+    };
+
     Atlantis.GameComponentCollection.prototype.update = function (gameTime) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             this.components[i].update(gameTime);
         }  
     };
 
-    Atlantis.GameComponentCollection.prototype.draw = function (gameTime, canvasContext) {
-        var drawableGameComponents = getDrawableGameComponents(this.components);
-
-        for (var i = 0, l = drawableGameComponents.length; i < l; i++) {
-            drawableGameComponents[i].draw(gameTime, canvasContext);
-        }  
+    Atlantis.GameComponentCollection.prototype.draw = function (gameTime, context) {
+        for (var i = 0, l = this.components.length; i < l; i++) {
+            if (this.components[i] instanceof Atlantis.DrawableGameComponent) {
+                this.components[i].draw(gameTime, context);
+            }
+        }   
     };
-
-    function getDrawableGameComponents(collection) {
-       var drawableGameComponents = [];
-
-       for (var i = 0, l = collection.length; i < l; i++) {
-           if (collection[i] instanceof Atlantis.DrawableGameComponent) {
-               drawableGameComponents.push(collection[i]);
-           }
-       }
-
-       return drawableGameComponents;
-    }
 })();
