@@ -36,16 +36,16 @@ var Atlantis = Atlantis || {};
     };
 
     Atlantis.Rectangle.prototype.contains = function(value) {
-        if (object instanceof Atlantis.Point) {
+        if (value instanceof Atlantis.Point) {
             return (this.x <= value.x) && (value.x < this.getRight()) && (this.y <= value.y) && (value.y < this.getBottom());
         }
-        else if (object instanceof Atlantis.Rectangle) {
+        else if (value instanceof Atlantis.Rectangle) {
             return (this.x <= value.x) && (value.getRight() <= this.getRight()) && (this.y <= value.y) && (value.getBottom() <= this.getBottom());
         }
         return false;
     };
 
-    Atlantis.Rectangle.prototype.intersects = function (rectangle) {
+    Atlantis.Rectangle.prototype.intersects = function (rectangle) { 
         return (rectangle.getLeft() < this.getRight()) && (this.getLeft() < rectangle.getRight()) && (rectangle.getTop() < this.getBottom()) && (this.getTop() < rectangle.getBottom());  
     };
 })();

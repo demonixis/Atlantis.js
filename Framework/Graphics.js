@@ -2,17 +2,11 @@ var Atlantis = window.Atlantis || {};
 Atlantis.Graphics = Atlantis.Graphics || {};
 
 (function () {
-    Atlantis.Graphics.beginDraw = function (context) {
-        context.beginPath();
-    };
-
-    Atlantis.Graphics.endDraw = function (context) {
-        context.fill();
-    };
-
     Atlantis.Graphics.drawCircle = function (context, x, y, rayon, color) {
+        context.beginPath();
         context.arc(x, y, rayon, 0, Math.PI * 2, true);
         context.fillStyle = color || '#ffffff';
+        context.fill();
     };
 
     Atlantis.Graphics.drawRectPoint = function (context, x, y, width, height, color) {

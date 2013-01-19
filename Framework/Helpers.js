@@ -61,7 +61,7 @@ var Atlantis = window.Atlantis || {};
             events[name] = document.createEvent("HTMLEvents");
             events[name].initEvent(name, true, false);
 
-            return ujs.notify(name, params);
+            return Atlantis.notify(name, params);
         }
     };
 })();
