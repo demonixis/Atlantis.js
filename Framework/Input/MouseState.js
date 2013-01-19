@@ -15,6 +15,7 @@ var Atlantis = window.Atlantis || {};
 
     Atlantis.MouseState.prototype.initialize = function(domElement) {
 	    if (!this.initialized) {
+            var that = this;
 	        // Mouse events
 	        this.domElement.addEventListener("mousedown", function (e) { that.update(e, that); }, false);
 	        this.domElement.addEventListener("mousemove", function (e) { that.update(e, that); }, false);

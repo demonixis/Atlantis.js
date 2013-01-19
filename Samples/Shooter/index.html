@@ -5,6 +5,9 @@
     <title>Atlantis Game Engine</title>
 </head>
 <body>
+<script>
+    requestAnimationFrame = window.requestAnimationFrame || mozRequestAnimationFrame;
+</script>
 <script src="../../Framework/AudioManager.js"></script>
 <script src="../../Framework/ContentManager.js"></script>
 <script src="../../Framework/GameComponent.js"></script>
@@ -90,8 +93,8 @@
     var Enemy = function (game, x, y, type) {
     
         var texture = null;
-
-        if (type == 0) {
+        console.log(type)
+        if (type > 2) {
             texture = game.content.load("Content/Enemy_1.png");
         }
         else {
@@ -221,11 +224,11 @@
                 if (enemies[i].y > this.height) {
                     enemiesToRemove.push(enemies[i]);
                 }
-            }
 
-            // Test if a laser collide with an enemy
-            for (var i in player.ammos) {
-                
+                // Test if a laser collide with an enemy
+                for (var i in player.ammos) {
+                    
+                }
             }
 
             // Remove unused enemies

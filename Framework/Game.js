@@ -12,6 +12,7 @@ var Atlantis = window.Atlantis || {};
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
         this.keyboard = new Atlantis.KeyboardState();
+        this.mouse = new Atlantis.MouseState();
     };
 
     Atlantis.Game.prototype.initialize = function () {
@@ -19,6 +20,7 @@ var Atlantis = window.Atlantis || {};
 
         this.components.initialize();
         this.keyboard.initialize();
+        this.mouse.initialize();
         
     	this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false);
     };
