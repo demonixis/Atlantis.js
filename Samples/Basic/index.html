@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Atlantis Game Engine</title>
+</head>
+<body>
+<script src="../../Framework/AudioManager.js"></script>
+<script src="../../Framework/ContentManager.js"></script>
+<script src="../../Framework/GameComponent.js"></script>
+<script src="../../Framework/Graphics.js"></script>
+<script src="../../Framework/Helpers.js"></script>
+<script src="../../Framework/Rectangle.js"></script>
+<script src="../../Framework/Vector2.js"></script>
+<script src="../../Framework/Input/KeyboardState.js"></script>
+<script src="../../Framework/Input/MouseState.js"></script>
+<script src="../../Framework/Input/TouchState.js"></script>
+<script src="../../Framework/Game.js"></script>
+<script src="../../Engine/Atlantis.js"></script>
+<script src="../../Engine/Display/Sprite.js"></script>
+<script>
+    var Player = function (game) {
+        Atlantis.DrawableGameComponent.call(this);
+   
+        var texture = game.content.load("Content/ShipR.png");
+
+        this.update = function (gameTime) {
+           
+        };
+
+        this.draw = function (gameTime, context) {
+            
+            context.drawImage(texture, 10, 10);
+        };
+    };
+
+    Player.prototype = new Atlantis.DrawableGameComponent();
+</script>
+<script>
+    var game = new Atlantis.Game(640, 480);
+
+    var player = new Player(game);
+    game.components.add(player);
+
+    (function loop() {
+        requestAnimationFrame(loop);
+        game.run();
+    })();
+</script>
+</body>
+</html>

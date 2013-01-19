@@ -1,13 +1,12 @@
 var Atlantis = window.Atlantis || {};
 
 (function () {
-    var assets = [];
-
-    Atlantis = function (rootDirectory) {
+    Atlantis.ContentManager = function (rootDirectory) {
         this.rootDirectory = rootDirectory || "";
+        this.assets = [];
     }
 
-    Atlantis.prototype.load = function (assetName) {
+    Atlantis.ContentManager.prototype.load = function (assetName) {
         if (typeof(this.assets[assetName]) != "undefined") {
             return this.assets[assetName];
         } 
@@ -34,7 +33,9 @@ var Atlantis = window.Atlantis || {};
                 case "js":
                     loadResource(this.assets, assetName, ext);
                     break;
-            } 
+            }
+
+            return this.assets[assetName]; 
         }
     };
 
@@ -43,13 +44,8 @@ var Atlantis = window.Atlantis || {};
      */
     function loadImage(assetCollection, imageName) {
         var image = new Image();
-
-        image.onLoad = function (event) {
-            assetCollection[imageName] = image;
-        };
-
         image.src = imageName;
-
+        assetCollection[imageName] = image;
         return image;
     }
 
@@ -60,11 +56,7 @@ var Atlantis = window.Atlantis || {};
         var audio = document.createElement("audio");
         audio.source = audioName;
         audio.controls = false;
-
-        audio.onLoad = function (event) {
-           assetCollection[audioName] = audio; 
-        };
-
+        assetCollection[audioName] = audio; 
         return audio;
     }
 
@@ -74,11 +66,7 @@ var Atlantis = window.Atlantis || {};
     function loadVideo(assetCollection, videoName) {
         var video = document.createElement("video");
         video.source = videoName;
-
-        video.onLoad = function (event) {
-            assetCollection[videoName] = video;
-        };
-        
+        assetCollection[videoName] = video;
         return video;
     }
 
@@ -109,7 +97,7 @@ var Atlantis = window.Atlantis || {};
     /*
      * Dispose all assets
      */
-    Atlantis.prototype.dispose = function () {
+    Atlantis.ContentManager.prototype.dispose = function () {
         this.assets = [];
     };
 })();

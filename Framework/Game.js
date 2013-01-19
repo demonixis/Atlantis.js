@@ -9,6 +9,8 @@ var Atlantis = window.Atlantis || {};
         this.domElement = domElement || document.body;
     	this.canvas = params.canvas || createCanvas2D(this.width, this.height, document.body);
         this.canvasContext = this.canvas.getContext("2d");
+        this.components = new Atlantis.GameComponentCollection();
+        this.content = new Atlantis.ContentManager();
     };
 
     Atlantis.Game.prototype.initialize = function () {
@@ -21,14 +23,15 @@ var Atlantis = window.Atlantis || {};
      * Update
      */
     Atlantis.Game.prototype.update = function (gameTime) {
-        
+        this.components.update(gameTime);
     };
 
     /*
      * Draw on screen
      */
     Atlantis.Game.prototype.draw = function (gameTime, context) {
-
+        context.clearRect(0, 0, this.width, this.height);
+        this.components.draw(gameTime, context)
     };
 
     /* 

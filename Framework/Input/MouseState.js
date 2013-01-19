@@ -1,37 +1,37 @@
 var Atlantis = window.Atlantis || {};
 
 (function() {
-    Atlantis.Mouse = function (domElement) {	
+    Atlantis.MouseState = function (domElement) {	
     	this.x = 0;
-	this.y = 0; 
-	this.last =  { x: 0, y: 0 };
-	this.delta = { x: 0, y: 0 };
-	this.click = false;
-	this.release = true;
-	this.drag = false;
-	this.domElement = document;
-	this.initialized = false;
+	    this.y = 0; 
+	    this.last =  { x: 0, y: 0 };
+	    this.delta = { x: 0, y: 0 };
+	    this.click = false;
+	    this.release = true;
+	    this.drag = false;
+	    this.domElement = document;
+	    this.initialized = false;
     };
 
-    Atlantis.Mouse.prototype.initialize = function(domElement) {
-	if (!this.initialized) {
-	    // Mouse events
-	    this.domElement.addEventListener("mousedown", function (e) { that.update(e, that); }, false);
-	    this.domElement.addEventListener("mousemove", function (e) { that.update(e, that); }, false);
-	    this.domElement.addEventListener("mouseup", function (e) { that.update(e, that); }, false);
-	    this.domElement.addEventListener("click", function (e) { that.update(e, that); }, false);
+    Atlantis.MouseState.prototype.initialize = function(domElement) {
+	    if (!this.initialized) {
+	        // Mouse events
+	        this.domElement.addEventListener("mousedown", function (e) { that.update(e, that); }, false);
+	        this.domElement.addEventListener("mousemove", function (e) { that.update(e, that); }, false);
+	        this.domElement.addEventListener("mouseup", function (e) { that.update(e, that); }, false);
+	        this.domElement.addEventListener("click", function (e) { that.update(e, that); }, false);
 
-	    // Touch events
-	    this.domElement.addEventListener("touchstart", function (e) { that.update(e, that); }, false);
-	    this.domElement.addEventListener("touchmove", function (e) { that.update(e, that); }, false);
-	    this.domElement.addEventListener("touchend", function (e) { that.update(e, that); }, false);
-	    this.domElement.addEventListener("touchcancer", function (e) { that.update(e, that); }, false);
+	        // Touch events
+	        this.domElement.addEventListener("touchstart", function (e) { that.update(e, that); }, false);
+	        this.domElement.addEventListener("touchmove", function (e) { that.update(e, that); }, false);
+	        this.domElement.addEventListener("touchend", function (e) { that.update(e, that); }, false);
+	        this.domElement.addEventListener("touchcancer", function (e) { that.update(e, that); }, false);
 
-	    this.initialized = true;
-	}
+	        this.initialized = true;
+	    }
     };
 
-    Atlantis.Mouse.prototype.update = function (event, instance) {
+    Atlantis.MouseState.prototype.update = function (event, instance) {
 	    event.preventDefault();
 	    updatePositions(event, instance);
 	    updateClickStates(event, instance);

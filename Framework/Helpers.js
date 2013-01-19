@@ -1,6 +1,9 @@
 var Atlantis = window.Atlantis || {};
 
 (function() {
+    // Registered events
+    var events = [];
+
     Atlantis.ajax = function(params) {
         var url = parameters.url;
         var method = parameters.method || "GET";
