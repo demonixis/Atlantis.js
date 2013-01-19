@@ -22,16 +22,18 @@
     var Background = function (game) {
         Atlantis.DrawableGameComponent.call(this);
 
+        // Define a star entity
         var StarEntity = function (x, y, size, color) {
 
             var position = { x: x, y: y };
+            this.speed = 0.4;
 
             this.update = function (gameTime) {
-                if (position.y > 480) {
+                if (position.y > game.height) {
                     position.y = 0;
                 }
 
-                position.y += gameTime * 0.4;
+                position.y += gameTime * this.speed;
             };
 
             this.draw = function (gameTime, context) {
@@ -41,15 +43,33 @@
 
         var stars = [];
         var nbStars = 50;
+        var score = 0;
 
         for (var i = 0; i < nbStars; i++) {
-            stars.push(new StarEntity(Math.random() * 640, Math.random() * 480, Math.random() * 2, (Math.random() * 3) > 1 ? "#F8FF75" : "#9A7EB5"));
+            stars.push(new StarEntity(Math.random() * game.width, Math.random() * game.height, Math.random() * 2, (Math.random() * 3) > 1 ? "#F8FF75" : "#9A7EB5"));
+        }
+
+        document.addEventListener("onScoreChanged", function (event) {
+            score += event.score;
+        }, false);
+
+        this.changeSpeed = function (value) {
+            for (var i = 0; i < nbStars; i++) {
+                stars[i].speed = value;
+            }
         }
 
         // Update all stars
         this.update = function (gameTime) {
             for (var i = 0; i < nbStars; i++) {
                 stars[i].update(gameTime);
+            }
+
+            if (game.keyboard.keys[Keys.up]) {
+                this.changeSpeed(1);
+            }
+            else {
+                this.changeSpeed(0.4);
             }
         };
 
@@ -60,14 +80,37 @@
                 stars[i].draw(gameTime, context);
             }
             Atlantis.Graphics.endDraw(context);
+
+            Atlantis.Graphics.drawText(context, "Score " + score + " points", 100, 30, { color: "#266", size: 18 });
         };
     };
 
     Background.prototype = new Atlantis.DrawableGameComponent();
 
-    var Ammo = function (game, x, y) {
-        Atlantis.DrawableGameComponent.call(this);
+    var Enemy = function (game, x, y, type) {
+    
+        var texture = null;
 
+        if (type == 0) {
+            texture = game.content.load("Content/Enemy_1.png");
+        }
+        else {
+            texture = game.content.load("Content/Enemy_2.png");
+        }
+
+        var position = { x: x, y: y };
+        var speed = 0.2;
+
+        this.update = function (gameTime) {
+            position.y += gameTime * speed;
+        };
+
+        this.draw = function (gameTime, context) {
+            context.drawImage(texture, position.x, position.y);
+        }
+    };
+
+    var Ammo = function (game, x, y) {
         var texture = game.content.load("Content/Ammo.png");
         var position = { x: x, y: y };
         var speed = 0.5;
@@ -81,29 +124,37 @@
         }
     };
 
-    Ammo.prototype = new Atlantis.DrawableGameComponent();
-
     var Player = function (game) {
         Atlantis.DrawableGameComponent.call(this);
 
         var speed = 0.6;
-        var position = { x: 300, y: 400 };
+        var size = { x: 52, y: 52 };
+        var position = { x: (game.width / 2) - (size.x / 2), y: game.height - (2 * size.y) };
         var texture = game.content.load("Content/ShipR.png");
-        var ammos = [];
+        this.ammos = [];
+        var ammoSound = game.content.load("Content/fire.wav");
         var shootInterval = null;
         var canShoot = true;
 
         this.update = function (gameTime) {
-            if (game.keyboard.keys[Keys.left]) {
+            if (game.keyboard.keys[Keys.left] && position.x > 0) {
                 position.x -= speed * gameTime;
             }
-            else if (game.keyboard.keys[Keys.right]) {
+            else if (game.keyboard.keys[Keys.right] && position.x + size.x < game.width) {
                 position.x += speed * gameTime;
             }
 
+            if (game.keyboard.keys[Keys.up] && position.y > 0) {
+                position.y -= speed * gameTime;
+            }
+            else if (game.keyboard.keys[Keys.down] && position.y + size.y < game.height) {
+                position.y += speed * gameTime;
+            }
+
             if (canShoot && game.keyboard.keys[Keys.space]) {
-                var ammo = new Ammo(game, position.x + 27, position.y - 5);
-                ammos.push(ammo);
+                var ammo = new Ammo(game, position.x + 8, position.y - 5);
+                this.ammos.push(ammo);
+                ammoSound.play();
                 canShoot = false;
 
                 shootInterval = setInterval(function (t) {
@@ -112,8 +163,8 @@
                 }, 200);
             }
 
-            for (var i in ammos) {
-                ammos[i].update(gameTime);
+            for (var i in this.ammos) {
+                this.ammos[i].update(gameTime);
             }
         };
 
@@ -121,23 +172,84 @@
 
             context.drawImage(texture, position.x, position.y);
 
-            for (var i in ammos) {
-                ammos[i].draw(gameTime, context);
+            for (var i in this.ammos) {
+                this.ammos[i].draw(gameTime, context);
             }
         };
     };
 
     Player.prototype = new Atlantis.DrawableGameComponent();
+
+    var Game = function () {
+        Atlantis.Game.call(this, 320, 540);
+
+        this.initialize();
+
+        var music = this.content.load("Content/DST-DasElectron.mp3");
+        //music.play();
+
+        var background = new Background(this);
+        this.components.add(background);
+
+        var player = new Player(this);
+        this.components.add(player);
+
+        var enemies = [];
+        var enemiesToRemove = [];
+        var canSpawn = true;
+        var spawnInterval = null;
+
+        this.spawnNewEnemy = function (x, y) {
+            enemies.push(new Enemy(this, x, y, Math.random() * 3));
+            canSpawn = false;
+            spawnInterval = setInterval(function (t) {
+                canSpawn = true;
+                clearInterval(spawnInterval);
+            }, 3000);
+        };
+
+        // Override the base method
+        this.update = function (gameTime) {
+            Atlantis.Game.prototype.update.call(this, gameTime);
+
+            if (canSpawn) {
+                this.spawnNewEnemy(Math.random() * this.width, 0);
+            }
+
+            for (var i = 0, l = enemies.length; i < l; i++) {
+                enemies[i].update(gameTime);
+                if (enemies[i].y > this.height) {
+                    enemiesToRemove.push(enemies[i]);
+                }
+            }
+
+            // Test if a laser collide with an enemy
+            for (var i in player.ammos) {
+                
+            }
+
+            // Remove unused enemies
+            if (enemiesToRemove.length > 0) {
+                for (var i = 0, l = enemiesToRemove.length; i < l; i++) {
+                    var index = enemies.indexOf(enemiesToRemove[i]);
+                    enemies.splice(index, 1);
+                }
+            }
+        };
+
+        this.draw = function (gameTime, context) {
+            Atlantis.Game.prototype.draw.call(this, gameTime, context);
+
+            for (var i = 0, l = enemies.length; i < l; i++) {
+                enemies[i].draw(gameTime, context);
+            }
+        };
+    };
+
+    Game.prototype = new Atlantis.Game();
 </script>
 <script>
-    var game = new Atlantis.Game(640, 480);
-    game.initialize();
-
-    var background = new Background(game);
-    game.components.add(background);
-
-    var player = new Player(game);
-    game.components.add(player);
+    var game = new Game();
 
     (function loop() {
         requestAnimationFrame(loop);

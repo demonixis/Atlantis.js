@@ -22,7 +22,7 @@ var Atlantis = window.Atlantis || {};
                     break;
                 case "mp3":
                 case "ogg":
-                case "wave":
+                case "wav":
                     loadAudio(this.assets, assetName);
                     break;
                 case "mp4":
@@ -54,9 +54,9 @@ var Atlantis = window.Atlantis || {};
      */
     function loadAudio(assetCollection, audioName) {
         var audio = document.createElement("audio");
-        audio.source = audioName;
+        audio.src = audioName;
         audio.controls = false;
-        assetCollection[audioName] = audio; 
+        assetCollection[audioName] = audio;
         return audio;
     }
 
@@ -65,7 +65,7 @@ var Atlantis = window.Atlantis || {};
      */
     function loadVideo(assetCollection, videoName) {
         var video = document.createElement("video");
-        video.source = videoName;
+        video.src = videoName;
         assetCollection[videoName] = video;
         return video;
     }
