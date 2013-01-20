@@ -35,11 +35,11 @@ var Atlantis = window.Atlantis || {};
         this.hasAnimation = true;
     };
 
-    Atlantis.Sprite.prototype.addAnimation(name, framesIndex, frameRate, reversed) {
+    Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate, reversed) {
         
     };
 
-    Atlantis.Sprite.prototype.play(animationName) {
+    Atlantis.Sprite.prototype.play = function (animationName) {
         if (this.hasAnimation) {
            
         };

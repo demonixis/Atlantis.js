@@ -28,13 +28,17 @@ var Atlantis = window.Atlantis || {};
         this.width = width;
         this.height = height;
         this.domElement = domElement || document.body;
-    	this.canvas = params.canvas || createCanvas2D(this.width, this.height, document.body);
-        this.canvasContext = this.canvas.getContext("2d");
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
         this.keyboard = new Atlantis.KeyboardState();
         this.mouse = new Atlantis.MouseState();
+
+        // Fix for Windows 8/RT
+        if (this.domElement != null) {
+            this.canvas = params.canvas || createCanvas2D(this.width, this.height, document.body);
+            this.canvasContext = this.canvas.getContext("2d");
+        }
     };
 
     Atlantis.Game.prototype.initialize = function () {
