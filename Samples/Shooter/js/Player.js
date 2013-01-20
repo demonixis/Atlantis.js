@@ -1,0 +1,83 @@
+//
+// DEFINE AN AMMO
+//
+var Ammo = function (game, x, y) {
+    var texture = game.content.load("Content/Ammo.png");
+    var position = { x: x, y: y };
+    var speed = 350;
+
+    this.enabled = true;
+    this.rectangle = new Atlantis.Rectangle(position.x, position.y, 4, 8);
+
+    this.update = function (gameTime) {
+        position.y -= gameTime * speed;
+        this.rectangle.y = position.y;
+    };
+
+    this.draw = function (gameTime, context) {
+        context.drawImage(texture, position.x, position.y);
+    }
+};
+
+//
+// THE PLAYER CLASS
+// 
+var Player = function (game) {
+    Atlantis.DrawableGameComponent.call(this);
+
+    var speed = 180;
+    var size = { x: 52, y: 52 };
+    var position = { x: (game.width / 2) - (size.x / 2), y: game.height - (2 * size.y) };
+    var texture = game.content.load("Content/ShipR.png");
+    this.ammos = [];
+    var ammoSound = game.content.load("Content/fire.wav");
+    var shootInterval = null;
+    var canShoot = true;
+
+    this.update = function (gameTime) {
+        if (game.keyboard.keys[Keys.left] && position.x > 0) {
+            position.x -= speed * gameTime;
+        }
+        else if (game.keyboard.keys[Keys.right] && position.x + size.x < game.width) {
+            position.x += speed * gameTime;
+        }
+
+        if (game.keyboard.keys[Keys.up] && position.y > 0) {
+            position.y -= speed * gameTime;
+        }
+        else if (game.keyboard.keys[Keys.down] && position.y + size.y < game.height) {
+            position.y += speed * gameTime;
+        }
+
+        if (canShoot && game.keyboard.keys[Keys.space]) {
+            var ammo = new Ammo(game, position.x + 8, position.y - 5);
+            this.ammos.push(ammo);
+            ammoSound.play();
+            canShoot = false;
+
+            shootInterval = setInterval(function (t) {
+                canShoot = true;
+                clearInterval(shootInterval);
+            }, 200);
+        }
+
+        for (var i in this.ammos) {
+            if (this.ammos[i].enabled) {
+                this.ammos[i].update(gameTime);
+            }
+        }
+    };
+
+    this.draw = function (gameTime, context) {
+
+        context.drawImage(texture, position.x, position.y);
+
+        for (var i in this.ammos) {
+            if (this.ammos[i].enabled) {
+                this.ammos[i].draw(gameTime, context);
+            }
+        }
+    };
+};
+
+Player.prototype = new Atlantis.DrawableGameComponent();

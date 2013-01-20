@@ -1,6 +1,27 @@
 var Atlantis = window.Atlantis || {};
 
 (function() {
+    Atlantis.GameTime = function () {
+        var currentTime = new Date().getTime();
+        var elapsedTime = 0;
+        var totalGameTime = 0;
+        
+        this.getElapsedTime = function () {
+            return elapsedTime * 0.001;
+        };
+
+        this.getTotalGameTime = function () {
+            return totalGameTime * 0.001;
+        };
+
+        this.update = function () {
+            var now = new Date().getTime();
+            elapsedTime = now - currentTime;
+            totalGameTime += elapsedTime;
+            currentTime = now;
+        };
+    };
+
     Atlantis.Game = function (width, height, domElement, params) {
     	var params = params || {};
 
@@ -9,6 +30,7 @@ var Atlantis = window.Atlantis || {};
         this.domElement = domElement || document.body;
     	this.canvas = params.canvas || createCanvas2D(this.width, this.height, document.body);
         this.canvasContext = this.canvas.getContext("2d");
+        this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
         this.keyboard = new Atlantis.KeyboardState();
@@ -44,8 +66,9 @@ var Atlantis = window.Atlantis || {};
      * Methods called by the main loop
      */
     Atlantis.Game.prototype.run = function () {
-        this.update(1);
-        this.draw(1, this.canvasContext);  
+        this.gameTime.update();
+        this.update(this.gameTime.getElapsedTime());
+        this.draw(this.gameTime.getElapsedTime(), this.canvasContext);  
     };
 
     /*
