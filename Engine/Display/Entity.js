@@ -1,7 +1,7 @@
 var Atlantis = window.Atlantis || {};
 
 (function () {
-    Atlantis.TouchState = function () {
+    Atlantis.Entity = function (params) {
 
     };
 })();
