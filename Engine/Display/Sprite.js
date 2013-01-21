@@ -2,6 +2,8 @@ var Atlantis = window.Atlantis || {};
 
 (function() {
 	Atlantis.Sprite = function(params) {
+        Atlantis.Entity.call(this);
+
 		this.position = new Atlantis.Vector2();
         this.direction = new Atlantis.Vector2();
         this.lastPosition = new Atlantis.Vector2();
@@ -31,14 +33,13 @@ var Atlantis = window.Atlantis || {};
 		this.textureName = "";
 		this.assetLoaded = false;
         
-        this.enabled = true;
-        this.visible = true;
-
         var params = params || {};
         for (var i in params) {
             this[i] = params[i];
         }
 	};
+
+    Atlantis.Sprite.prototype = new Atlantis.Entity();
 
     Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
@@ -57,12 +58,7 @@ var Atlantis = window.Atlantis || {};
     /*
      * Load the content from the content manager
      */
-	Atlantis.Sprite.prototype.loadContent = function (contentManager, textureName) {
-        if (typeof(textureName) != "undefined") {
-            this.textureName = textureName;
-            this.assetLoaded = false;    
-        }
-
+	Atlantis.Sprite.prototype.loadContent = function (contentManager) {
 	    if (this.textureName != "" && this.assetLoaded == false) {
 		    this.texture = contentManager.load(this.textureName);
 
@@ -109,52 +105,52 @@ var Atlantis = window.Atlantis || {};
 	};
 
     Atlantis.Sprite.prototype.postUpdate = function (gameTime) {
-        this.direction.x = this.position.x - this.lastPosition.x;
-        this.direction.y = this.position.y - this.lastPosition.y;
+        if (this.enabled) {
+            this.direction.x = this.position.x - this.lastPosition.x;
+            this.direction.y = this.position.y - this.lastPosition.y;
 
-        // Force the sprite to stay inside screen
-        if (this.insideScreen) {
-            if (this.position.x < this.viewport.x) {
-                this.position.x = this.viewport.x;
-                this.velocity.multiply(0);
-            }
-            else if (this.rectangle.getRight() > this.viewport.width) {
-                this.position.x = this.viewport.width - this.rectangle.width;
-                this.velocity.multiply(0);
-            }
+            // Force the sprite to stay inside screen
+            if (this.insideScreen) {
+                if (this.position.x < this.viewport.x) {
+                    this.position.x = this.viewport.x;
+                    this.velocity.multiply(0);
+                }
+                else if (this.rectangle.getRight() > this.viewport.width) {
+                    this.position.x = this.viewport.width - this.rectangle.width;
+                    this.velocity.multiply(0);
+                }
 
-            if (this.y < this.viewport.y) {
-                this.position.y = this.viewport.y;
-                this.velocity.multiply(0);
-            }
-            else if (this.rectangle.getBottom() > this.viewport.height) {
-                this.position.y = this.viewport.height - this.rectangle.height;
-                this.velocity.multiply(0);
-            }
-        }
-
-        // The sprite move throw the screen
-        else if (this.acrossScreen) {
-            if (this.rectangle.getRight() < this.viewport.x) {
-                this.position.x = this.viewport.width
-            }
-            else if (this.x > this.viewport.width) {
-                this.position.x = this.viewport.x;
+                if (this.y < this.viewport.y) {
+                    this.position.y = this.viewport.y;
+                    this.velocity.multiply(0);
+                }
+                else if (this.rectangle.getBottom() > this.viewport.height) {
+                    this.position.y = this.viewport.height - this.rectangle.height;
+                    this.velocity.multiply(0);
+                }
             }
 
-            if (this.rectangle.getBottom() < this.viewport.y) {
-                this.position.y = this.viewport.height;
+            // The sprite move throw the screen
+            else if (this.acrossScreen) {
+                if (this.rectangle.getRight() < this.viewport.x) {
+                    this.position.x = this.viewport.width
+                }
+                else if (this.x > this.viewport.width) {
+                    this.position.x = this.viewport.x;
+                }
+
+                if (this.rectangle.getBottom() < this.viewport.y) {
+                    this.position.y = this.viewport.height;
+                }
+                else if (this.y > this.viewport.height) {
+                    this.position.y = this.viewport.y;
+                }
             }
-            else if (this.y > this.viewport.height) {
-                this.position.y = this.viewport.y;
-            }
-        }
+        }      
     };
 
 	Atlantis.Sprite.prototype.draw = function (gameTime, context) {
-        if (this.enabled) {
-            this.postUpdate(gameTime);
-        }
+        this.postUpdate(gameTime);
         
         if (this.visible && this.assetLoaded) {
             if (this.hasAnimation) {

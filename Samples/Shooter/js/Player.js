@@ -12,6 +12,10 @@ var Ammo = function (game, x, y) {
     this.update = function (gameTime) {
         position.y -= gameTime * speed;
         this.rectangle.y = position.y;
+
+        if (position.y + 8 == 0) {
+            this.enabled = false;
+        }
     };
 
     this.draw = function (gameTime, context) {
@@ -50,8 +54,12 @@ var Player = function (game) {
         }
 
         if (canShoot && game.keyboard.keys[Keys.space]) {
-            var ammo = new Ammo(game, position.x + 8, position.y - 5);
+            var ammo = new Ammo(game, position.x + 4, position.y - 5);
             this.ammos.push(ammo);
+
+            var ammo2 = new Ammo(game, position.x + 44, position.y - 5);
+            this.ammos.push(ammo2);
+
             ammoSound.play();
             canShoot = false;
 

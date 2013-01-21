@@ -50,6 +50,9 @@ var Background = function (game) {
         if (game.keyboard.keys[Keys.up]) {
             this.changeSpeed(450);
         }
+        else if (game.keyboard.keys[Keys.down]) {
+            this.changeSpeed(75);
+        }
         else {
             this.changeSpeed(100);
         }
