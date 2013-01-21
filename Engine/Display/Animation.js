@@ -7,17 +7,16 @@ var Atlantis = window.Atlantis || {};
      */
     Atlantis.SpriteAnimation = function (length, frameRate) {
         this.rectangles = new Array(length);
-        this.framerate = frameRate;
-
+        this.frameRate = frameRate;
         this.index = 0;
         this.max = length;
         this.elapsedTime = 0;
         this.length = length;
     }
 
-    Atlantis.SpriteAnimation.next = function (elapsedTime) {
+    Atlantis.SpriteAnimation.prototype.next = function (elapsedTime) {
         this.elapsedTime += elapsedTime;
-
+   
         if (this.elapsedTime > this.frameRate) {
             this.index++;
             if (this.index >= this.max) {
@@ -30,7 +29,7 @@ var Atlantis = window.Atlantis || {};
 
             this.elapsedTime = 0;
         }
-
+ 
         return this.rectangles[this.index];
     };
 
@@ -40,7 +39,7 @@ var Atlantis = window.Atlantis || {};
      */
     Atlantis.SpriteAnimator = function () {
         // Dictionary <string, SpriteAnimation>
-        this.animations = [];
+        this.animations = {};
         this.spriteWidth = 0;
         this.spriteHeight = 0;
         this.textureWidth = 0;
@@ -51,14 +50,14 @@ var Atlantis = window.Atlantis || {};
     };
 
     Atlantis.SpriteAnimator.prototype.initialize = function(animationWidth, animationHeight, textureWidth, textureHeight) {
-        this.animations = [];
+        this.animations = {};
         this.spriteWidth = animationWidth;
         this.spriteHeight = animationHeight;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
         this.nbSpriteX = this.textureWidth / this.spriteWidth;
         this.nbSpriteY = this.textureHeight / this.spriteHeight;
-        this.spritesheetLength = this.nbSpriteX * this.nbSpriteY;
+        this.spritesheetLength = this.nbSpriteX * this.nbSpriteY; 
     };
 
     Atlantis.SpriteAnimator.prototype.add = function (name, framesIndex, frameRate) {
@@ -86,5 +85,9 @@ var Atlantis = window.Atlantis || {};
         }
         
         this.animations[name] = animation;
+    };
+
+    Atlantis.SpriteAnimator.prototype.update = function (gameTime, lastDistance) {
+        
     };
 })();

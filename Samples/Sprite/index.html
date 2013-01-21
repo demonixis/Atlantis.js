@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Atlantis Game Engine</title>
+</head>
+<body>
+<script>
+    requestAnimationFrame = window.requestAnimationFrame || mozRequestAnimationFrame;
+</script>
+<!-- Framework -->
+<script src="../../Framework/AudioManager.js"></script>
+<script src="../../Framework/ContentManager.js"></script>
+<script src="../../Framework/GameComponent.js"></script>
+<script src="../../Framework/Graphics.js"></script>
+<script src="../../Framework/Helpers.js"></script>
+<script src="../../Framework/Rectangle.js"></script>
+<script src="../../Framework/Vector2.js"></script>
+<script src="../../Framework/Input/KeyboardState.js"></script>
+<script src="../../Framework/Input/MouseState.js"></script>
+<script src="../../Framework/Input/TouchState.js"></script>
+<script src="../../Framework/Input/GamepadState.js"></script>
+<script src="../../Framework/Game.js"></script>
+<!-- Engine -->
+<script src="../../Engine/Engine.js"></script>
+<script src="../../Engine/StateManager.js"></script>
+<script src="../../Engine/Display/Animation.js"></script>
+<script src="../../Engine/Display/Entity.js"></script>
+<script src="../../Engine/Display/SpriteGroup.js"></script>
+<script src="../../Engine/Display/Sprite.js"></script>
+<!-- In production use the compiled version
+<script src="../../Build/AtlantisEngine.js"></script>
+-->
+
+<!-- The sprite game -->
+<script>
+    var Game = function () {
+        Atlantis.Game.call(this, 640, 480);
+
+        this.initialize();
+
+        var background = new Atlantis.Entity();
+        background.textureName = "Content/forest.png";
+        background.loadContent(this.content);
+        background.rectangle.width = 640;
+        background.rectangle.height = 480;
+
+        // Oh my god ! There are too much code for just playing a fucking animation ;)
+        // I know, it will be moved later, but wait, it's working, that's pretty cool isn't it ? Well.. it's ok man
+        var sprite = new Atlantis.Sprite();
+        sprite.textureName = "Content/chocobo.png";
+        sprite.loadContent(this.content);
+        sprite.initialize();
+        sprite.texture.width = 192;
+        sprite.texture.height = 192;
+        sprite.prepareAnimation(48, 48);
+        sprite.addAnimation("down", [0, 1, 2, 3], 25);
+        sprite.addAnimation("left", [4, 5, 6, 7], 25);
+        sprite.addAnimation("right", [8, 9, 10, 11], 25);
+        sprite.addAnimation("up", [12, 13, 14, 15], 25);
+        sprite.play("left");
+        sprite.rectangle.width = 96;
+        sprite.rectangle.height = 96;
+        sprite.position.x = 260;
+        sprite.position.y = 360;
+
+        // Override the base method
+        this.update = function (gameTime) {
+            Atlantis.Game.prototype.update.call(this, gameTime);
+            sprite.update(gameTime);
+
+            if (game.keyboard.keys[Keys.up]) {
+                sprite.position.y -= 5;
+                sprite.play("up");
+            }
+            else if (game.keyboard.keys[Keys.down]) {
+                sprite.position.y += 5;
+                sprite.play("down");
+            }
+
+            if (game.keyboard.keys[Keys.left]) {
+                sprite.position.x -= 5;
+                sprite.play("left");
+            }
+            else if (game.keyboard.keys[Keys.right]) {
+                sprite.position.x += 5;
+                sprite.play("right");
+            }
+        };
+
+        this.draw = function (gameTime, context) {
+            Atlantis.Game.prototype.draw.call(this, gameTime, context);
+            background.draw(gameTime, context);
+            sprite.draw(game, context);
+        }; ;
+    };
+
+    Game.prototype = new Atlantis.Game();
+    </script>
+<script>
+    var game = new Game();
+
+    (function loop() {
+        requestAnimationFrame(loop);
+        game.run();
+    })();
+</script>
+</body>
+</html>

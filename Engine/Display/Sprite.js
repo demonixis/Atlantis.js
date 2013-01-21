@@ -27,11 +27,6 @@ var Atlantis = window.Atlantis || {};
         this.spriteAnimator = new Atlantis.SpriteAnimator();
 		this.hasAnimation = false;
         this.elapsedTime = 0;
-
-        // Texture
-		this.texture = null;
-		this.textureName = "";
-		this.assetLoaded = false;
         
         var params = params || {};
         for (var i in params) {
@@ -43,16 +38,18 @@ var Atlantis = window.Atlantis || {};
 
     Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
-        this.spriteAnimator.initialize(width, height, this.rectangle.width, this.rectangle.height);
+        this.spriteAnimator.initialize(width, height, this.texture.width, this.texture.height);
+        this.rectangle.width = width;
+        this.rectangle.height = height;
     };
 
     Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
         this.spriteAnimator.add(name, framesIndex, frameRate);
-        this.sourceRectangle = this.spriteAnimator.animations[name].rectangle[0];
+        this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     };
 
     Atlantis.Sprite.prototype.play = function (animationName) {
-        this.sourceRectangle = this.animator.animations[animationName].next(this.elapsedTime);
+        this.sourceRectangle = this.spriteAnimator.animations[animationName].next(this.elapsedTime);
     };
 
     /*
@@ -78,15 +75,11 @@ var Atlantis = window.Atlantis || {};
 
 	Atlantis.Sprite.prototype.update = function (gameTime) {
         if (this.enabled) {
-            this.elapsedTime += gameTime.elapsedTime;
-
-            // Update the rectangle position
-            this.rectangle.x = this.position.x;
-            this.rectangle.y = this.position.y;
+            this.elapsedTime += gameTime;
 
             // Determine the last position
             this.lastPosition.x = this.position.x;
-            this.lastPosition.y = this.postion.y;
+            this.lastPosition.y = this.position.y;
 
             // Determine the last distance
             this.lastDistance.x = this.position.x - this.lastPosition.x;
@@ -97,9 +90,13 @@ var Atlantis = window.Atlantis || {};
             this.position.y += this.velocity.y * this.acceleration.y;
             this.velocity.multiply(this.maxVelocity);
 
+            // Update the rectangle position
+            this.rectangle.x = this.position.x;
+            this.rectangle.y = this.position.y;
+
             // Update animation
             if (this.hasAnimation) {
-                this.animator.update(gameTime, this.lastDistance);
+                this.spriteAnimator.update(gameTime, this.lastDistance);
             }
         }
 	};
