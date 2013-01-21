@@ -11,6 +11,7 @@ SET js=%js% --js=Framework\Input\TouchState.js
 SET js=%js% --js=Framework\Input\GamepadState.js
 SET js=%js% --js=Framework\Game.js
 SET js=%js% --js=Engine\Atlantis.js
+SET js=%js% --js=Engine\StateManager.js
 SET js=%js% --js=Engine\Display\Animation.js
 SET js=%js% --js=Engine\Display\Entity.js
 SET js=%js% --js=Engine\Display\Sprite.js
