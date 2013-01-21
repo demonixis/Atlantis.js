@@ -37,6 +37,7 @@ var Player = function (game) {
     var ammoSound = game.content.load("Content/fire.wav");
     var shootInterval = null;
     var canShoot = true;
+    var autoShoot = true;
 
     this.update = function (gameTime) {
         if (game.keyboard.keys[Keys.left] && position.x > 0) {
@@ -53,7 +54,12 @@ var Player = function (game) {
             position.y += speed * gameTime;
         }
 
-        if (canShoot && game.keyboard.keys[Keys.space]) {
+        if (game.mouse.click) {
+            position.x = game.mouse.x;
+            autoShoot = true;
+        }
+
+        if ((autoShoot || game.keyboard.keys[Keys.space]) && canShoot) {
             var ammo = new Ammo(game, position.x + 4, position.y - 5);
             this.ammos.push(ammo);
 
@@ -68,6 +74,8 @@ var Player = function (game) {
                 clearInterval(shootInterval);
             }, 200);
         }
+
+        autoShoot = false;
 
         for (var i in this.ammos) {
             if (this.ammos[i].enabled) {

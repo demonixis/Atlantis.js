@@ -7,7 +7,7 @@ var Game = function () {
     this.initialize();
 
     var music = this.content.load("Content/DST-DasElectron.mp3");
-    //music.play();
+    music.play();
 
     var background = new Background(this);
     this.components.add(background);
