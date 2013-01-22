@@ -64,4 +64,16 @@ var Atlantis = window.Atlantis || {};
             return Atlantis.notify(name, params);
         }
     };
+
+    // Get the image size
+    Atlantis.getImageSize = function (image) {
+        image.style.position = "absolute";
+        image.style.left = "-9999px";
+
+        document.body.appendChild(image);
+        document.body.removeChild(image);
+
+        image.style.position = "";
+        image.style.left = "";
+    }
 })();

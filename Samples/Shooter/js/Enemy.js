@@ -18,7 +18,7 @@ var Enemy = function (game, x, y, type) {
     this.rectangle = new Atlantis.Rectangle(this.position.x, this.position.y, 64, 64);
 
     this.update = function (gameTime) {
-        this.position.y += gameTime * speed;
+        this.position.y += gameTime.getElapsedTime() * speed;
         this.rectangle.y = this.position.y;
     };
 

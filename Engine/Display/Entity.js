@@ -9,6 +9,24 @@ var Atlantis = window.Atlantis || {};
 		this.textureName = "";
 		this.assetLoaded = false;
         this.rectangle = new Atlantis.Rectangle();
+
+        var params = params || {};
+        for (var i in params) {
+            this[i] = params[i];
+        }
+    };
+
+    Atlantis.Entity.prototype.setPosition = function (x, y) {
+        this.position.x = x;
+        this.position.y = y || this.position.y;
+        
+        this.rectangle.x = x;
+        this.rectangle.y = y || this.rectangle.x;
+    };
+
+    Atlantis.Entity.prototype.setSize = function (width, height) {
+        this.rectangle.width = width;
+        this.rectangle.height = height || this.rectangle.width;
     };
 
     Atlantis.Entity.prototype.initialize = function () { };

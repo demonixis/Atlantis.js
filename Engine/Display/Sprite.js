@@ -4,15 +4,15 @@ var Atlantis = window.Atlantis || {};
 	Atlantis.Sprite = function(params) {
         Atlantis.Entity.call(this);
 
-		this.position = new Atlantis.Vector2();
+	   this.position = new Atlantis.Vector2();
         this.direction = new Atlantis.Vector2();
         this.lastPosition = new Atlantis.Vector2();
         this.lastDistance = new Atlantis.Vector2();
 
         // Some physics
         this.acceleration = new Atlantis.Vector2(1, 1);
-		this.velocity = new Atlantis.Vector2();
-		this.maxVelocity = 1;
+    	this.velocity = new Atlantis.Vector2();
+    	this.maxVelocity = 1;
 
 	    // Rectangle and viewport
         this.rectangle = new Atlantis.Rectangle();
@@ -20,27 +20,30 @@ var Atlantis = window.Atlantis || {};
         this.viewport = new Atlantis.Rectangle();
 
         // Force the sprite to stay in screen or to enable across screen
-		this.insideScreen = false;
-		this.acrossScreen = false;
+    	this.insideScreen = false;
+    	this.acrossScreen = false;
 
         // Animation
+        this.isFullyLoaded = false;
         this.spriteAnimator = new Atlantis.SpriteAnimator();
-		this.hasAnimation = false;
+	    this.hasAnimation = false;
         this.elapsedTime = 0;
         
         var params = params || {};
         for (var i in params) {
             this[i] = params[i];
         }
-	};
+    };
 
     Atlantis.Sprite.prototype = new Atlantis.Entity();
 
     Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
-        this.spriteAnimator.initialize(width, height, this.texture.width, this.texture.height);
-        this.rectangle.width = width;
-        this.rectangle.height = height;
+        var animationWidth = width;
+        var animationHeight = height || animationWidth;
+        this.spriteAnimator.initialize(animationWidth, animationHeight, this.texture.width, this.texture.height);
+        this.rectangle.width = animationWidth;
+        this.rectangle.height = animationHeight;
     };
 
     Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
@@ -61,21 +64,17 @@ var Atlantis = window.Atlantis || {};
 
             this.sourceRectangle.x = 0;
             this.sourceRectangle.y = 0;
-            this.sourceRectangle.width = this.texture.width;
-            this.sourceRectangle.height = this.texture.height;
 	    
             this.rectangle.x = 0;
             this.rectangle.y = 0;
-            this.rectangle.width = this.texture.width;
-            this.rectangle.height = this.texture.height;
 
             this.assetLoaded = true;
         }
-	};
+    };
 
-	Atlantis.Sprite.prototype.update = function (gameTime) {
+    Atlantis.Sprite.prototype.update = function (gameTime) {
         if (this.enabled) {
-            this.elapsedTime += gameTime;
+            this.elapsedTime += gameTime.getElapsedTime();
 
             // Determine the last position
             this.lastPosition.x = this.position.x;
@@ -117,7 +116,7 @@ var Atlantis = window.Atlantis || {};
                     this.velocity.multiply(0);
                 }
 
-                if (this.y < this.viewport.y) {
+                if (this.position.y < this.viewport.y) {
                     this.position.y = this.viewport.y;
                     this.velocity.multiply(0);
                 }
@@ -132,14 +131,14 @@ var Atlantis = window.Atlantis || {};
                 if (this.rectangle.getRight() < this.viewport.x) {
                     this.position.x = this.viewport.width
                 }
-                else if (this.x > this.viewport.width) {
+                else if (this.position.x > this.viewport.width) {
                     this.position.x = this.viewport.x;
                 }
 
-                if (this.rectangle.getBottom() < this.viewport.y) {
+                if (this.rectangle.getBottom() < this.viewport.y) { 
                     this.position.y = this.viewport.height;
                 }
-                else if (this.y > this.viewport.height) {
+                else if (this.position.y > this.viewport.height) {
                     this.position.y = this.viewport.y;
                 }
             }

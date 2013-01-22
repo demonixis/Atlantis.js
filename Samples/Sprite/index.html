@@ -39,11 +39,11 @@
 
         this.initialize();
 
-        var background = new Atlantis.Entity();
-        background.textureName = "Content/forest.png";
+        var background = new Atlantis.Entity({ textureName: "Content/forest.png"});
+        //background.textureName = "Content/forest.png";
         background.loadContent(this.content);
-        background.rectangle.width = 640;
-        background.rectangle.height = 480;
+        background.rectangle.width = this.width;
+        background.rectangle.height = this.height;
 
         // Oh my god ! There are too much code for just playing a fucking animation ;)
         // I know, it will be moved later, but wait, it's working, that's pretty cool isn't it ? Well.. it's ok man
@@ -53,16 +53,20 @@
         sprite.initialize();
         sprite.texture.width = 192;
         sprite.texture.height = 192;
-        sprite.prepareAnimation(48, 48);
-        sprite.addAnimation("down", [0, 1, 2, 3], 25);
-        sprite.addAnimation("left", [4, 5, 6, 7], 25);
-        sprite.addAnimation("right", [8, 9, 10, 11], 25);
-        sprite.addAnimation("up", [12, 13, 14, 15], 25);
-        sprite.play("left");
-        sprite.rectangle.width = 96;
-        sprite.rectangle.height = 96;
-        sprite.position.x = 260;
-        sprite.position.y = 360;
+        sprite.viewport = new Atlantis.Rectangle(0, 0, 640, 480);
+
+        sprite.prepareAnimation(48);
+        sprite.addAnimation("down", [0, 1, 2, 3], 150);
+        sprite.addAnimation("left", [4, 5, 6, 7], 150);
+        sprite.addAnimation("right", [8, 9, 10, 11], 150);
+        sprite.addAnimation("up", [12, 13, 14, 15], 150);
+
+        sprite.setPosition(260, 320);
+        sprite.setSize(96);
+		sprite.insideScreen = true;
+        sprite.maxVelocity = 0.95;
+
+        var speed = 10;
 
         // Override the base method
         this.update = function (gameTime) {
@@ -70,20 +74,20 @@
             sprite.update(gameTime);
 
             if (game.keyboard.keys[Keys.up]) {
-                sprite.position.y -= 5;
+                sprite.velocity.y -= speed * gameTime.getElapsedTime();
                 sprite.play("up");
             }
             else if (game.keyboard.keys[Keys.down]) {
-                sprite.position.y += 5;
+                sprite.velocity.y += speed * gameTime.getElapsedTime();
                 sprite.play("down");
             }
 
             if (game.keyboard.keys[Keys.left]) {
-                sprite.position.x -= 5;
+                sprite.velocity.x -= speed * gameTime.getElapsedTime();
                 sprite.play("left");
             }
             else if (game.keyboard.keys[Keys.right]) {
-                sprite.position.x += 5;
+                sprite.velocity.x += speed * gameTime.getElapsedTime();
                 sprite.play("right");
             }
         };
@@ -96,7 +100,7 @@
     };
 
     Game.prototype = new Atlantis.Game();
-    </script>
+</script>
 <script>
     var game = new Game();
 

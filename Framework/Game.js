@@ -71,8 +71,8 @@ var Atlantis = window.Atlantis || {};
      */
     Atlantis.Game.prototype.run = function () {
         this.gameTime.update();
-        this.update(this.gameTime.getElapsedTime());
-        this.draw(this.gameTime.getElapsedTime(), this.canvasContext);  
+        this.update(this.gameTime);
+        this.draw(this.gameTime, this.canvasContext);  
     };
 
     /*

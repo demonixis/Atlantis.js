@@ -15,7 +15,7 @@ var Background = function (game) {
                 position.y = 0;
             }
 
-            position.y += gameTime * this.speed;
+            position.y += gameTime.getElapsedTime() * this.speed;
         };
 
         this.draw = function (gameTime, context) {

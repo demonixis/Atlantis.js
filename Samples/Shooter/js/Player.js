@@ -10,7 +10,7 @@ var Ammo = function (game, x, y) {
     this.rectangle = new Atlantis.Rectangle(position.x, position.y, 4, 8);
 
     this.update = function (gameTime) {
-        position.y -= gameTime * speed;
+        position.y -= gameTime.getElapsedTime() * speed;
         this.rectangle.y = position.y;
 
         if (position.y + 8 == 0) {
@@ -41,17 +41,17 @@ var Player = function (game) {
 
     this.update = function (gameTime) {
         if (game.keyboard.keys[Keys.left] && position.x > 0) {
-            position.x -= speed * gameTime;
+            position.x -= speed * gameTime.getElapsedTime();
         }
         else if (game.keyboard.keys[Keys.right] && position.x + size.x < game.width) {
-            position.x += speed * gameTime;
+            position.x += speed * gameTime.getElapsedTime();
         }
 
         if (game.keyboard.keys[Keys.up] && position.y > 0) {
-            position.y -= speed * gameTime;
+            position.y -= speed * gameTime.getElapsedTime();
         }
         else if (game.keyboard.keys[Keys.down] && position.y + size.y < game.height) {
-            position.y += speed * gameTime;
+            position.y += speed * gameTime.getElapsedTime();
         }
 
         if (game.mouse.click) {
