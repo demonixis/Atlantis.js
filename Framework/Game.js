@@ -37,6 +37,7 @@ var Atlantis = window.Atlantis || {};
         // Fix for Windows 8/RT
         if (this.domElement != null) {
             this.canvas = params.canvas || createCanvas2D(this.width, this.height, document.body);
+            this.canvas.style.msTouchAction = "none";
             this.canvasContext = this.canvas.getContext("2d");
         }
     };

@@ -4,7 +4,7 @@ var Atlantis = window.Atlantis || {};
 	Atlantis.Sprite = function(params) {
         Atlantis.Entity.call(this);
 
-	   this.position = new Atlantis.Vector2();
+	    this.position = new Atlantis.Vector2();
         this.direction = new Atlantis.Vector2();
         this.lastPosition = new Atlantis.Vector2();
         this.lastDistance = new Atlantis.Vector2();
