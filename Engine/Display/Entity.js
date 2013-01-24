@@ -9,6 +9,8 @@ var Atlantis = window.Atlantis || {};
 		this.textureName = "";
 		this.assetLoaded = false;
         this.rectangle = new Atlantis.Rectangle();
+        this.enableSyncLoading = false;
+        this.syncInterval = 100;
 
         var params = params || {};
         for (var i in params) {
@@ -34,9 +36,27 @@ var Atlantis = window.Atlantis || {};
     Atlantis.Entity.prototype.loadContent = function (contentManager) { 
         if (this.textureName != "" && this.assetLoaded == false) {
 		    this.texture = contentManager.load(this.textureName);
-            this.rectangle.width = this.texture.width;
-            this.rectangle.height = this.texture.height;
-            this.assetLoaded = true;
+
+            if (this.enableSyncLoading) {
+                this.texture.addEventListener("load", function (event) {
+                    Atlantis.getImageSize(this.texture);
+                    this.rectangle.width = this.texture.width;
+                    this.rectangle.height = this.texture.height;
+                    this.sourceRectangle.width = this.texture.width;
+                    this.sourceRectangle.height = this.texture.height;
+                    this.assetLoaded = true;
+                }, false);
+
+                var that = this;
+                var interval = setInterval(function (t) {
+                    if (that.assetLoaded) {
+                        clearInterval(interval);    
+                    }
+                }, this.syncInterval);
+            }
+            else {
+                this.assetLoaded = true;
+            }
         }
     };
 
