@@ -15,8 +15,6 @@ var Atlantis = window.Atlantis || {};
     	this.maxVelocity = 1;
 
 	    // Rectangle and viewport
-        this.rectangle = new Atlantis.Rectangle();
-        this.sourceRectangle = new Atlantis.Rectangle();
         this.viewport = new Atlantis.Rectangle();
 
         // Force the sprite to stay in screen or to enable across screen
@@ -47,29 +45,12 @@ var Atlantis = window.Atlantis || {};
     };
 
     Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
-        this.spriteAnimator.add(name, framesIndex, frameRate);
+        this.spriteAnimator.add(name, framesIndex, frameRate); 
         this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     };
 
     Atlantis.Sprite.prototype.play = function (animationName) {
         this.sourceRectangle = this.spriteAnimator.animations[animationName].next(this.elapsedTime);
-    };
-
-    /*
-     * Load the content from the content manager
-     */
-	Atlantis.Sprite.prototype.loadContent = function (contentManager) {
-	    if (this.textureName != "" && this.assetLoaded == false) {
-		    this.texture = contentManager.load(this.textureName);
-
-            this.sourceRectangle.x = 0;
-            this.sourceRectangle.y = 0;
-	    
-            this.rectangle.x = 0;
-            this.rectangle.y = 0;
-
-            this.assetLoaded = true;
-        }
     };
 
     Atlantis.Sprite.prototype.update = function (gameTime) {
@@ -147,7 +128,7 @@ var Atlantis = window.Atlantis || {};
 
 	Atlantis.Sprite.prototype.draw = function (gameTime, context) {
         this.postUpdate(gameTime);
-        
+
         if (this.visible && this.assetLoaded) {
             if (this.hasAnimation) {
                 context.drawImage(this.texture, this.sourceRectangle.x, this.sourceRectangle.y, this.sourceRectangle.width, this.sourceRectangle.height, this.rectangle.x, this.rectangle.y, this.rectangle.width, this.rectangle.height);

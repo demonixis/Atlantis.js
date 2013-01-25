@@ -9,8 +9,7 @@ var Atlantis = window.Atlantis || {};
 		this.textureName = "";
 		this.assetLoaded = false;
         this.rectangle = new Atlantis.Rectangle();
-        this.enableSyncLoading = false;
-        this.syncInterval = 100;
+        this.sourceRectangle = new Atlantis.Rectangle();
 
         var params = params || {};
         for (var i in params) {
@@ -18,44 +17,25 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    Atlantis.Entity.prototype.setPosition = function (x, y) {
-        this.position.x = x;
-        this.position.y = y || this.position.y;
-        
-        this.rectangle.x = x;
-        this.rectangle.y = y || this.rectangle.x;
-    };
-
-    Atlantis.Entity.prototype.setSize = function (width, height) {
-        this.rectangle.width = width;
-        this.rectangle.height = height || this.rectangle.width;
-    };
-
     Atlantis.Entity.prototype.initialize = function () { };
 
     Atlantis.Entity.prototype.loadContent = function (contentManager) { 
         if (this.textureName != "" && this.assetLoaded == false) {
+            var that = this;
+
 		    this.texture = contentManager.load(this.textureName);
-
-            if (this.enableSyncLoading) {
-                this.texture.addEventListener("load", function (event) {
-                    Atlantis.getImageSize(this.texture);
-                    this.rectangle.width = this.texture.width;
-                    this.rectangle.height = this.texture.height;
-                    this.sourceRectangle.width = this.texture.width;
-                    this.sourceRectangle.height = this.texture.height;
-                    this.assetLoaded = true;
-                }, false);
-
-                var that = this;
-                var interval = setInterval(function (t) {
-                    if (that.assetLoaded) {
-                        clearInterval(interval);    
-                    }
-                }, this.syncInterval);
+            
+            if (this.texture.width == 0 && this.texture.height == 0) {
+                this.texture.addEventListener("load", function (event) { 
+                    that.updateSizes();
+                    that.assetLoaded = true;
+                    Atlantis.notify("Atlantis.Entity.AssetLoaded", { entity: that.texture });
+                }, false);   
             }
             else {
+                this.updateSizes();
                 this.assetLoaded = true;
+                Atlantis.notify("Atlantis.Entity.AssetLoaded", { entity: that.texture });
             }
         }
     };
@@ -67,4 +47,42 @@ var Atlantis = window.Atlantis || {};
             context.drawImage(this.texture, this.rectangle.x, this.rectangle.y, this.rectangle.width, this.rectangle.height);
         }
     };
+
+    Atlantis.Entity.prototype.updateSizes = function () {
+        Atlantis.getImageSize(this.texture);
+        this.rectangle.width = this.texture.width;
+        this.rectangle.height = this.texture.height;
+    };
+
+    Atlantis.Entity.prototype.setSize = function (width, height) {
+        if (!this.assetLoaded) {
+            var that = this;
+            var timer = setInterval(function (time) {
+                if (that.assetLoaded) {
+                    that.rectangle.width = width;
+                    that.rectangle.height = height || width;
+                    clearInterval(timer); 
+                }
+            }, 150);
+        }
+        else {
+            this.rectangle.width = width;
+            this.rectangle.height = height || width; 
+        }
+    };
+
+    Atlantis.Entity.prototype.setPosition = function (value1, value2) {
+        if (value1 instanceof Atlantis.Point || value1 instanceof Atlantis.Rectangle) {
+            this.position.x = value1.x;
+            this.position.y = value1.y;
+            this.rectangle.x = value1.x;
+            this.rectangle.y = value1.y;
+        }
+        else {
+            this.position.x = value1;
+            this.position.y = value2 || value1;
+            this.rectangle.x = value1;
+            this.rectangle.y = value2 || value1;
+        }
+    }
 })();
