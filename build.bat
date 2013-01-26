@@ -8,7 +8,7 @@ SET js=%js% --js=Framework\Vector2.js
 SET js=%js% --js=Framework\Input\KeyboardState.js
 SET js=%js% --js=Framework\Input\MouseState.js
 SET js=%js% --js=Framework\Input\TouchState.js
-SET js=%js% --js=Framework\Engine.js
+SET js=%js% --js=Engine\Engine.js
 SET js=%js% --js=Engine\StateManager.js
 SET js=%js% --js=Engine\Display\Animation.js
 SET js=%js% --js=Engine\Display\Entity.js

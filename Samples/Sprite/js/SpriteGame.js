@@ -1,4 +1,3 @@
-// Sprite by http://rajawalivx.wordpress.com/2011/02/12/pertamax/
 var SpriteGame = function () {
     Atlantis.Engine.call(this, 640, 480);
 
