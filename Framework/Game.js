@@ -45,7 +45,8 @@ var Atlantis = window.Atlantis || {};
     Atlantis.Game.prototype.initialize = function () {
     	var that = this;
 
-        this.components.initialize();
+        this.components.loadContent(this.content);
+     
         this.keyboard.initialize();
         this.mouse.initialize();
         

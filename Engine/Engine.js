@@ -16,24 +16,29 @@ Atlantis.Engine = Atlantis.Engine || {};
     Atlantis.Engine.height = 0;
 
     Atlantis.Engine = function (width, height, domElement) {
-        Atlantis.Game.call(this, width, height, domElement);
+        var game = new Atlantis.Game(width, height, domElement);
 
-        Atlantis.Engine.game = this;
-        Atlantis.Engine.content = this.content;
-        Atlantis.Engine.component = this.components;
-        Atlantis.Engine.keyboard = this.keyboard;
-        Atlantis.Engine.mouse = this.mouse;
-        Atlantis.Engine.touch = this.touch;
+        Atlantis.Engine.game = game;
+        Atlantis.Engine.content = game.content;
+        Atlantis.Engine.component = game.components;
+        Atlantis.Engine.keyboard = game.keyboard;
+        Atlantis.Engine.mouse = game.mouse;
+        Atlantis.Engine.touch = game.touch;
+        Atlantis.Engine.width = game.width;
+        Atlantis.Engine.height = game.height;
 
-        this.stateManager = new Atlantis.StateManager(this);
-        this.components.add(this.stateManager);
+        this.stateManager = new Atlantis.StateManager(game);
+        game.components.add(this.stateManager);
     };
 
-    Atlantis.Engine.prototype = new Atlantis.Game();
+    Atlantis.Engine.prototype.run = function () {
+        Atlantis.Engine.game.initialize();
+        loop();  
+    };
 
     function loop() {
         requestAnimationFrame(loop);
-        Atlantis.game.run();
+        Atlantis.Engine.game.run();
     }
 })();
 

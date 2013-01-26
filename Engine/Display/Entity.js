@@ -61,7 +61,7 @@ var Atlantis = window.Atlantis || {};
                 if (that.assetLoaded) {
                     that.rectangle.width = width;
                     that.rectangle.height = height || width;
-                    clearInterval(timer); 
+                    clearInterval(timer);
                 }
             }, 150);
         }

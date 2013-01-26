@@ -2,19 +2,38 @@ var Atlantis = window.Atlantis || {};
 Atlantis.Engine = Atlantis.Engine || {};
 
 (function() {
-    // Define a base state
+    /**
+     * Define a base state class
+     */
     Atlantis.State = function(name) {
+        this.name = name;
     	this.active = true;
-        this.initialize = function () { };
-        this.loadContent = function (contentManager) { };
-        this.update = function (gameTime) { };
-        this.draw = function (gameTime, context) { };
+        this.stateManager = null;
+        this.initialized = false;
+        this.scene = new Atlantis.SpriteGroup(); 
+    };
+    
+    Atlantis.State.prototype.loadContent = function (contentManager) {
+        this.scene.loadContent(contentManager);
+        this.scene.initialize();
+        this.initialized = true;
     };
 
-    // The state manager
+    Atlantis.State.prototype.update = function (gameTime) {
+        this.scene.update(gameTime);
+    };
+
+    Atlantis.State.prototype.draw = function (gameTime, context) { 
+        this.scene.draw(gameTime, context);
+    };
+
+    /*
+     * The State Manager
+     */
     Atlantis.StateManager = function (game) {
-        Atlantis.DrawableGameComponent.call(this);
+        Atlantis.DrawableGameComponent.call(this, game);
         this.states = [];
+        this.initialized = false;
     };
 
     Atlantis.StateManager.prototype = new Atlantis.DrawableGameComponent();
@@ -23,10 +42,10 @@ Atlantis.Engine = Atlantis.Engine || {};
     // Game state pattern
     //
 
-    Atlantis.StateManager.prototype.initialize = function () {
+    Atlantis.StateManager.prototype.loadContent = function (content) { 
     	for (var i = 0, l = this.states.length; i < l; i++) {
-    		this.states[i].loadContent(this.game.content);		
-    		this.states[i].initialize();
+    		this.states[i].loadContent(content);		
+            this.initialized = true; 
     	}
     };
 
@@ -51,22 +70,35 @@ Atlantis.Engine = Atlantis.Engine || {};
     //
 
     Atlantis.StateManager.prototype.setStateActive = function (stateParam, disableOtherStates) {
-
+     
     	if (typeof(disableOtherStates) != "undefined" && disableOtherStates == true) {
     		this.disableStates();
     	}
 
-		if (stateParam instanceof Atlantis.state) {
+		if (stateParam instanceof Atlantis.State) {
     		var index = this.states.indexOf(stateParam);
     		if (index > -1) {
     			this.states[index].active = true;
     		}
     	}
+        else if (typeof(stateParam) == "string") {
+            var i = 0;
+    		var index = -1;
+            var size = this.states.length;
+
+    		while (i < size && index == -1) {
+    			if (this.states[i].name == stateParam) {
+                    this.states[i].active = true;
+                    index = i;
+    			}
+    			i++;
+    		}
+        }
     	else {
     		if (stateParam > -1) {
     			this.states[stateParam].active = true;
     		}
-    	}
+    	} 
     };
 
     Atlantis.StateManager.prototype.disableStates = function () {
@@ -84,7 +116,7 @@ Atlantis.Engine = Atlantis.Engine || {};
     // Collection methods
     //
 
-    Atlantis.StateManager.prototype.add = function (stateParam, disableOtherStates) {
+    Atlantis.StateManager.prototype.add = function (stateParam, isActive, disableOtherStates) {
     	
     	if (typeof(disableOtherStates) != "undefined" && disableOtherStates == true) {
     		this.disableStates();
@@ -92,10 +124,28 @@ Atlantis.Engine = Atlantis.Engine || {};
 
     	if (stateParam instanceof Array) {
     		for (var i = 0, l = stateParam.length; i < l; i++) {
+                stateParam[i].stateManager = this;
+                stateParam[i].active = isActive;
+
+                // If the state manager is already initialized we must load an initialize the state
+                if (this.initialized) {
+                    stateParam[i].loadContent(this.game.content);
+                    stateParam[i].initialize();
+                }
+
     			this.states.push(stateParam[i]);
     		}
     	}
     	else {
+            stateParam.stateManager = this;
+            stateParam.active = isActive;
+
+            // If the state manager is already initialized we must load an initialize the state
+            if (this.initialized) {
+                stateParam[i].loadContent(this.game.content);
+                stateParam[i].initialize();
+            }
+
     		this.states.push(stateParam);
     	}
     };

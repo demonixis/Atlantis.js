@@ -57,13 +57,13 @@ var Atlantis = window.Atlantis || {};
         if (this.enabled) {
             this.elapsedTime += gameTime.getElapsedTime();
 
+            // Determine the last distance and direction
+            this.lastDistance.x = this.position.x - this.lastPosition.x;
+            this.lastDistance.y = this.position.y - this.lastPosition.y;   
+
             // Determine the last position
             this.lastPosition.x = this.position.x;
             this.lastPosition.y = this.position.y;
-
-            // Determine the last distance
-            this.lastDistance.x = this.position.x - this.lastPosition.x;
-            this.lastDistance.y = this.position.y - this.lastPosition.y;
 
             // Update physics
             this.position.x += this.velocity.x * this.acceleration.x;

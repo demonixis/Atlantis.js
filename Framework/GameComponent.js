@@ -17,7 +17,7 @@ var Atlantis = window.Atlantis || {};
     Atlantis.GameComponent.prototype.draw = function (gameTime, context) { };
 
     // GameComponent collection
-        Atlantis.GameComponentCollection = function () {
+    Atlantis.GameComponentCollection = function () {
         this.components = [];
     };
 
@@ -43,9 +43,9 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    Atlantis.GameComponentCollection.prototype.initialize = function () {
+    Atlantis.GameComponentCollection.prototype.loadContent = function (content) {
         for (var i = 0, l = this.components.length; i < l; i++) {
-            this.components[i].initialize();
+            this.components[i].loadContent(content);
         }
     };
 

@@ -10,9 +10,8 @@ Atlantis.Graphics = Atlantis.Graphics || {};
     };
 
     Atlantis.Graphics.drawRectPoint = function (context, x, y, width, height, color) {
-        context.rect(x, y, width, height);
         context.fillStyle = color || "#ffffff";
-	context.fill();
+        context.fillRect(x, y, width, height);
     };
 
     Atlantis.Graphics.drawText = function (context, text, x, y, params) {
