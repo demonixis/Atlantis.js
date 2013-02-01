@@ -10,8 +10,15 @@ var Atlantis = window.Atlantis || {};
         var params = parameters.params || "";
         var callback = parameters.success || null;
     
-        var xhr = new XMLHttpRequest();
-    
+        var xhr;
+
+		if (window.XMLHttpRequest) {
+			xhr = new XMLHttpRequest();
+		}
+		else {
+			xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
         if (method == "POST") {
             xhr.open("POST", url, true);
     

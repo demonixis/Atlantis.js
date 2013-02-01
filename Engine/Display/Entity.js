@@ -11,6 +11,42 @@ var Atlantis = window.Atlantis || {};
         this.rectangle = new Atlantis.Rectangle();
         this.sourceRectangle = new Atlantis.Rectangle();
 
+        Object.defineProperty(this, 'x', {
+            get: function () {
+                return this.rectangle.x;
+            },
+            set: function (value) {
+                this.rectangle.x = value;
+            } 
+        });
+
+        Object.defineProperty(this, 'y', {
+            get: function () {
+                return this.rectangle.y;
+            },
+            set: function (value) {
+                this.rectangle.y = value;
+            } 
+        });
+
+        Object.defineProperty(this, 'width', {
+            get: function () {
+                return this.rectangle.width;
+            },
+            set: function (value) {
+                this.rectangle.width = value;
+            } 
+        });
+
+        Object.defineProperty(this, 'height', {
+            get: function () {
+                return this.rectangle.height;
+            },
+            set: function (value) {
+                this.rectangle.height = value;
+            } 
+        });
+
         var params = params || {};
         for (var i in params) {
             this[i] = params[i];
