@@ -12,9 +12,6 @@ Atlantis.Engine = Atlantis.Engine || {};
     Atlantis.Engine.width = 0;
     Atlantis.Engine.height = 0;
 
-    Atlantis.Engine.width = 0;
-    Atlantis.Engine.height = 0;
-
     Atlantis.Engine = function (width, height, domElement) {
         var game = new Atlantis.Game(width, height, domElement);
 
