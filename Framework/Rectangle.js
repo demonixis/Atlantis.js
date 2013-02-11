@@ -7,7 +7,9 @@ var Atlantis = Atlantis || {};
 		this.y = y || 0;
 	};
 
-    // Define a rectangle
+    /**
+     * Create a new Rectangle
+     */
 	Atlantis.Rectangle = function (x, y, width, height) {
 		this.x = x || 0;
 		this.y = y || 0;
@@ -15,22 +17,42 @@ var Atlantis = Atlantis || {};
 		this.height = height || 0;
 	};
 
+    /**
+     * Gets the top value.
+     * @return Top coordinate (y)
+     */
     Atlantis.Rectangle.prototype.getTop = function() {
         return this.y;
     };
 
+    /**
+     * Gets the bottom value.
+     * @return Bottom coordinate (y + height)
+     */
     Atlantis.Rectangle.prototype.getBottom = function() {
         return this.y + this.height;
     };
 
+    /**
+     * Gets the left value.
+     * @return Left coordinate (x)
+     */
     Atlantis.Rectangle.prototype.getLeft = function() {
        return this.x; 
     };
 
+    /**
+     * Gets the right value.
+     * @return Right value (x + width)
+     */
     Atlantis.Rectangle.prototype.getRight = function() {
         return this.x + this.width;
     };
 
+    /**
+     * Gets the center value.
+     * @return Center of the rectangle
+     */
     Atlantis.Rectangle.prototype.getCenter = function () {
         return new Atlantis.Point(this.x + (this.width / 2), this.y + (this.height / 2));
     };

@@ -4,6 +4,9 @@ var Atlantis = window.Atlantis || {};
     // Registered events
     var events = [];
 
+    /**
+     * Ajax method for POST and GET calls
+     */
     Atlantis.ajax = function(params) {
         var url = parameters.url;
         var method = parameters.method || "GET";
@@ -51,6 +54,9 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
+    /**
+     * An event notifier. If the event doesn't exists it created and stored.
+     */
     Atlantis.notify = function (name, params) {
         if (typeof(events[name]) != "undefined") {
       
