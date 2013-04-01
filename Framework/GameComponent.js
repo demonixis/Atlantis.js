@@ -1,42 +1,77 @@
 var Atlantis = window.Atlantis || {};
 
-(function() {
+/**
+ * An interface for game components
+ */
+Atlantis.GameComponent = (function () {
     /**
-     * Interface for a GameComponent
+     * Create a game component.
+     * @constructor
+     * @param {Atlantis.Game} game A game instance.
      */
-    Atlantis.GameComponent = function (game) { 
+    var gameComponent = function (game) {
         this.game = game;
     };
 
-    // Initialization of component
-    Atlantis.GameComponent.prototype.initialize = function () { };
-    
-    // Update logic
-    Atlantis.GameComponent.prototype.update = function (gameTime) { };
+    /**
+     * Initialize the logic of the component.
+     * @method initialize
+     */
+    gameComponent.prototype.initialize = function () { };
 
     /**
-     * Interface for a DrawableGameComponent
+     * Update the logic of the component.
+     * @method update
+     * @param {Atlantis.GameTime} gameTime
      */
-    Atlantis.DrawableGameComponent = function (game) {
+    gameComponent.prototype.update = function (gameTime) { };
+
+    return gameComponent;
+})();
+
+/**
+ * An interface for drawable game components.
+ */
+Atlantis.DrawableGameComponent = (function () {
+    /**
+     * Create a drawable game component.
+     * @constructor
+     * @param {Atlantis.Game} game A game instance.
+     */
+    var drawableGameComponent = function (game) {
         Atlantis.GameComponent.call(this, game);
     };
 
-    Atlantis.DrawableGameComponent.prototype = new Atlantis.GameComponent();
+    drawableGameComponent.prototype = new Atlantis.GameComponent();
     
-    // Draw graphics on screen
-    Atlantis.GameComponent.prototype.draw = function (gameTime, context) { };
-
-    /**
-     * GameComponent collection
+    /** 
+     * Draw the component on screen.
+     * @method draw
+     * @param {Atlantis.GameTime} gameTime
+     * @param {Object} context The canvas context.
      */
-    Atlantis.GameComponentCollection = function () {
+    drawableGameComponent.prototype.draw = function (gameTime, context) { };
+
+    return drawableGameComponent;
+})();
+
+/**
+ * A collection who'll initialize, load, update and draw components.
+ */
+Atlantis.GameComponentCollection = (function () {
+    /**
+     * Create a collection of game components.
+     * @constructor
+     */
+    var gameComponentCollection = function () {
         this.components = [];
     };
 
     /**
      * Add a component to the collection
+     * @method add
      */
-    Atlantis.GameComponentCollection.prototype.add = function (gameComponent) {
+    gameComponentCollection.add = function (gameComponent) {
         if (this.components.indexOf(gameComponent) == -1) {
             this.components.push(gameComponent);
         }
@@ -44,8 +79,9 @@ var Atlantis = window.Atlantis || {};
 
     /**
      * Get a component from the collection
+     * @method get
      */
-    Atlantis.GameComponentCollection.prototype.get = function (gameComponent) {
+    gameComponentCollection.get = function (gameComponent) {
         var index = this.components.indexOf(gameComponent);
         if (index > -1) {
             return this.components[index];
@@ -56,8 +92,9 @@ var Atlantis = window.Atlantis || {};
 
     /**
      * Remove a component from the collection
+     * @method remove
      */
-    Atlantis.GameComponentCollection.prototype.remove = function (gameComponent) {
+    gameComponentCollection.remove = function (gameComponent) {
         var index = this.components.indexOf(gameComponent);
         if (index > -1) {
             this.components.splice(index, 1);
@@ -66,17 +103,19 @@ var Atlantis = window.Atlantis || {};
 
     /**
      * Load assets
+     * @method loadContent
      */
-    Atlantis.GameComponentCollection.prototype.loadContent = function (content) {
+    gameComponentCollection.loadContent = function (content) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             this.components[i].loadContent(content);
         }
     };
 
     /**
-     * Update all components 
+     * Update all components
+     * @method update
      */
-    Atlantis.GameComponentCollection.prototype.update = function (gameTime) {
+    gameComponentCollection.update = function (gameTime) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             this.components[i].update(gameTime);
         }  
@@ -84,12 +123,15 @@ var Atlantis = window.Atlantis || {};
 
     /**
      * Draw all components
+     * @method draw
      */
-    Atlantis.GameComponentCollection.prototype.draw = function (gameTime, context) {
+    gameComponentCollection.draw = function (gameTime, context) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             if (this.components[i] instanceof Atlantis.DrawableGameComponent) {
                 this.components[i].draw(gameTime, context);
             }
         }   
     };
+
+    return gameComponentCollection;
 })();

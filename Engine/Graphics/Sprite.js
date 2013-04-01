@@ -1,7 +1,7 @@
 var Atlantis = window.Atlantis || {};
 
-(function() {
-	Atlantis.Sprite = function(params) {
+Atlantis.Sprite = (function() {
+	var sprite = function(params) {
         Atlantis.Entity.call(this);
 
 	    this.position = new Atlantis.Vector2();
@@ -33,9 +33,9 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    Atlantis.Sprite.prototype = new Atlantis.Entity();
+    sprite.prototype = new Atlantis.Entity();
 
-    Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
+    sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
         var animationWidth = width;
         var animationHeight = height || animationWidth;
@@ -44,16 +44,16 @@ var Atlantis = window.Atlantis || {};
         this.rectangle.height = animationHeight;
     };
 
-    Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
+    sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
         this.spriteAnimator.add(name, framesIndex, frameRate); 
         this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     };
 
-    Atlantis.Sprite.prototype.play = function (animationName) {
+    sprite.prototype.play = function (animationName) {
         this.sourceRectangle = this.spriteAnimator.animations[animationName].next(this.elapsedTime);
     };
 
-    Atlantis.Sprite.prototype.update = function (gameTime) {
+    sprite.prototype.update = function (gameTime) {
         if (this.enabled) {
             this.elapsedTime += gameTime.getElapsedTime();
 
@@ -81,7 +81,7 @@ var Atlantis = window.Atlantis || {};
         }
 	};
 
-    Atlantis.Sprite.prototype.postUpdate = function (gameTime) {
+    sprite.prototype.postUpdate = function (gameTime) {
         if (this.enabled) {
             this.direction.x = this.position.x - this.lastPosition.x;
             this.direction.y = this.position.y - this.lastPosition.y;
@@ -126,7 +126,7 @@ var Atlantis = window.Atlantis || {};
         }      
     };
 
-	Atlantis.Sprite.prototype.draw = function (gameTime, context) {
+	sprite.prototype.draw = function (gameTime, context) {
         this.postUpdate(gameTime);
 
         if (this.visible && this.assetLoaded) {
@@ -138,4 +138,6 @@ var Atlantis = window.Atlantis || {};
             }
         }
 	};
+
+    return sprite;
 })();

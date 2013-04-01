@@ -1,5 +1,5 @@
 var Atlantis = window.Atlantis || {};
-Atlantis.MusicState = Atlantis.MusicState || {};
+Atlantis.MusicState = {};
 
 Atlantis.AudioManager = (function () {
     Atlantis.MusicState.PLAYING = 1;

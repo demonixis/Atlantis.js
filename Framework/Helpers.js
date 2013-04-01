@@ -5,13 +5,15 @@ var Atlantis = window.Atlantis || {};
     var events = [];
 
     /**
-     * Ajax method for POST and GET calls
+     * Ajax method for POST and GET calls.
+     * @method ajax
      */
-    Atlantis.ajax = function(params) {
+    Atlantis.ajax = function(parameters) {
+        var params = parameters.params || {};
         var url = parameters.url;
         var method = parameters.method || "GET";
-        var params = parameters.params || "";
         var callback = parameters.success || null;
+        var async = typeof(parameters.async) != "undefined" ? parameters.async : true; 
     
         var xhr;
 
@@ -23,7 +25,7 @@ var Atlantis = window.Atlantis || {};
 		}
 		
         if (method == "POST") {
-            xhr.open("POST", url, true);
+            xhr.open("POST", url, async);
     
             xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhr.setRequestHeader("Content-length", params.length);
@@ -40,7 +42,7 @@ var Atlantis = window.Atlantis || {};
         }
         else {
             var finalUrl = params != "" ? url + "?" + params : url;
-            xhr.open("GET", finalUrl, true);
+            xhr.open("GET", finalUrl, async);
 
             xhr.onreadystatechange = function() { 
                 if(xhr.readyState == 4) {
@@ -56,6 +58,9 @@ var Atlantis = window.Atlantis || {};
 
     /**
      * An event notifier. If the event doesn't exists it created and stored.
+     * @method notify
+     * @param {String} name The name of the event to emit.
+     * @param {Object} params An object to emit with the event.
      */
     Atlantis.notify = function (name, params) {
         if (typeof(events[name]) != "undefined") {
@@ -78,7 +83,12 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    // Get the image size
+    /**
+     * Gets the size of an image. This function add the image to the DOM an remove from it.
+     * After that we can gets the size of the image.
+     * @method getImageSize
+     * @param {Image} image An instance of Image.
+     */
     Atlantis.getImageSize = function (image) {
         image.style.position = "absolute";
         image.style.left = "-9999px";

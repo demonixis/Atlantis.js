@@ -1,4 +1,4 @@
-var Atlantis = Atlantis || {};
+Atlantis = Atlantis || {};
 
 Atlantis.Point = (function () {
     /**

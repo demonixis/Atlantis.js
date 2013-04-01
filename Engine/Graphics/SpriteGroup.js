@@ -1,26 +1,26 @@
 var Atlantis = window.Atlantis || {};
 
-(function () {
-    Atlantis.SpriteGroup = function (size) {
+Atlantis.SpriteGroup = (function () {
+    var spriteGroup = function (size) {
     	Atlantis.Entity.call(this);
     	this.entities = [];	
     };
 
-    Atlantis.SpriteGroup.prototype = new Atlantis.Entity();
+    spriteGroup.prototype = new Atlantis.Entity();
 
-    Atlantis.SpriteGroup.prototype.initialize = function () {
+    spriteGroup.prototype.initialize = function () {
     	for (var i = 0, l = this.entities.length; i < l; i++) {
     		this.entities[i].initialize();
     	}
     };
 
-    Atlantis.SpriteGroup.prototype.loadContent = function (content) {
+    spriteGroup.prototype.loadContent = function (content) {
     	for (var i = 0, l = this.entities.length; i < l; i++) {
     		this.entities[i].loadContent(content);
     	}
     };
 
-    Atlantis.SpriteGroup.prototype.update = function (gameTime) {
+    spriteGroup.prototype.update = function (gameTime) {
     	if (this.enabled) {
     		for (var i = 0, l = this.entities.length; i < l; i++) {
 	    		this.entities[i].update(gameTime);
@@ -28,7 +28,7 @@ var Atlantis = window.Atlantis || {};
     	}
     };
 
-    Atlantis.SpriteGroup.prototype.draw = function (gameTime, context) {
+    spriteGroup.prototype.draw = function (gameTime, context) {
     	if (this.visible) {
     		for (var i = 0, l = this.entities.length; i < l; i++) {
 	    		this.entities[i].draw(gameTime, context);
@@ -36,7 +36,7 @@ var Atlantis = window.Atlantis || {};
     	}
     };
 
-    Atlantis.SpriteGroup.prototype.add = function (entity) {
+    spriteGroup.prototype.add = function (entity) {
     	if (entity instanceof Array) {
     		for (var i = 0, l = entity.length; i < l; i++) {
     			this.entities.push(entity[i]);
@@ -47,7 +47,7 @@ var Atlantis = window.Atlantis || {};
     	}
     };
 
-    Atlantis.SpriteGroup.prototype.remove = function (entityOrIndex) {
+    spriteGroup.prototype.remove = function (entityOrIndex) {
     	var entity = null;
 
     	if (entityOrIndex instanceof Atlantis.Entity) {
@@ -67,7 +67,7 @@ var Atlantis = window.Atlantis || {};
     	return entity;
     };
 
-    Atlantis.SpriteGroup.prototype.get = function (entityOrIndex) {
+    spriteGroup.prototype.get = function (entityOrIndex) {
     	var entity = null;
 
     	if (entityOrIndex instanceof Atlantis.Entity) {
@@ -84,4 +84,6 @@ var Atlantis = window.Atlantis || {};
 
     	return entity;
     };
+
+    return spriteGroup;
 })();

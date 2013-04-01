@@ -1,13 +1,13 @@
 var Atlantis = window.Atlantis || {};
 
-(function () {
-	// Define a basic entity
-    Atlantis.Entity = function (params) {
-    	this.enabled = true;
+Atlantis.Entity = (function () {
+    // Define a basic entity
+    var entity = function (params) {
+        this.enabled = true;
         this.visible = true;
         this.texture = null;
-		this.textureName = "";
-		this.assetLoaded = false;
+        this.textureName = "";
+        this.assetLoaded = false;
         this.rectangle = new Atlantis.Rectangle();
         this.sourceRectangle = new Atlantis.Rectangle();
 
@@ -17,7 +17,7 @@ var Atlantis = window.Atlantis || {};
             },
             set: function (value) {
                 this.rectangle.x = value;
-            } 
+            }
         });
 
         Object.defineProperty(this, 'y', {
@@ -26,7 +26,7 @@ var Atlantis = window.Atlantis || {};
             },
             set: function (value) {
                 this.rectangle.y = value;
-            } 
+            }
         });
 
         Object.defineProperty(this, 'width', {
@@ -35,7 +35,7 @@ var Atlantis = window.Atlantis || {};
             },
             set: function (value) {
                 this.rectangle.width = value;
-            } 
+            }
         });
 
         Object.defineProperty(this, 'height', {
@@ -44,7 +44,7 @@ var Atlantis = window.Atlantis || {};
             },
             set: function (value) {
                 this.rectangle.height = value;
-            } 
+            }
         });
 
         var params = params || {};
@@ -53,20 +53,20 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    Atlantis.Entity.prototype.initialize = function () { };
+    entity.prototype.initialize = function () { };
 
-    Atlantis.Entity.prototype.loadContent = function (contentManager) { 
+    entity.prototype.loadContent = function (contentManager) {
         if (this.textureName != "" && this.assetLoaded == false) {
             var that = this;
 
-		    this.texture = contentManager.load(this.textureName);
-            
+            this.texture = contentManager.load(this.textureName);
+
             if (this.texture.width == 0 && this.texture.height == 0) {
-                this.texture.addEventListener("load", function (event) { 
+                this.texture.addEventListener("load", function (event) {
                     that.updateSizes();
                     that.assetLoaded = true;
                     Atlantis.notify("Atlantis.Entity.AssetLoaded", { entity: that.texture });
-                }, false);   
+                }, false);
             }
             else {
                 this.updateSizes();
@@ -76,21 +76,21 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    Atlantis.Entity.prototype.update = function (gameTime) { };
+    entity.prototype.update = function (gameTime) { };
 
-    Atlantis.Entity.prototype.draw = function (gameTime, context) {
+    entity.prototype.draw = function (gameTime, context) {
         if (this.visible) {
             context.drawImage(this.texture, this.rectangle.x, this.rectangle.y, this.rectangle.width, this.rectangle.height);
         }
     };
 
-    Atlantis.Entity.prototype.updateSizes = function () {
+    entity.prototype.updateSizes = function () {
         Atlantis.getImageSize(this.texture);
         this.rectangle.width = this.texture.width;
         this.rectangle.height = this.texture.height;
     };
 
-    Atlantis.Entity.prototype.setSize = function (width, height) {
+    entity.prototype.setSize = function (width, height) {
         if (!this.assetLoaded) {
             var that = this;
             var timer = setInterval(function (time) {
@@ -103,11 +103,11 @@ var Atlantis = window.Atlantis || {};
         }
         else {
             this.rectangle.width = width;
-            this.rectangle.height = height || width; 
+            this.rectangle.height = height || width;
         }
     };
 
-    Atlantis.Entity.prototype.setPosition = function (value1, value2) {
+    entity.prototype.setPosition = function (value1, value2) {
         if (value1 instanceof Atlantis.Point || value1 instanceof Atlantis.Rectangle) {
             this.position.x = value1.x;
             this.position.y = value1.y;
@@ -121,4 +121,6 @@ var Atlantis = window.Atlantis || {};
             this.rectangle.y = value2 || value1;
         }
     }
+
+    return entity;
 })();
