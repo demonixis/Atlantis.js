@@ -1,12 +1,12 @@
 var Atlantis = window.Atlantis || {};
 
-(function () {
-    Atlantis.ContentManager = function (rootDirectory) {
+Atlantis.ContentManager = (function () {
+    var contentManager = function (rootDirectory) {
         this.rootDirectory = rootDirectory || "";
         this.assets = [];
     }
 
-    Atlantis.ContentManager.prototype.load = function (assetName) {
+    contentManager.prototype.load = function (assetName) {
         if (typeof(this.assets[assetName]) != "undefined") {
             return this.assets[assetName];
         } 
@@ -97,7 +97,9 @@ var Atlantis = window.Atlantis || {};
     /*
      * Dispose all assets
      */
-    Atlantis.ContentManager.prototype.dispose = function () {
+    contentManager.prototype.dispose = function () {
         this.assets = [];
     };
+
+    return contentManager;
 })();

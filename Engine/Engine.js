@@ -1,7 +1,7 @@
 var Atlantis = window.Atlantis || {};
 Atlantis.Engine = Atlantis.Engine || {};
 
-(function() {
+Atlantis.Engine = (function () {
     Atlantis.Engine.game = null;
     Atlantis.Engine.content = null;
     Atlantis.Engine.components = null;
@@ -12,7 +12,7 @@ Atlantis.Engine = Atlantis.Engine || {};
     Atlantis.Engine.width = 0;
     Atlantis.Engine.height = 0;
 
-    Atlantis.Engine = function (width, height, domElement) {
+    var engine = function (width, height, domElement) {
         var game = new Atlantis.Game(width, height, domElement);
 
         Atlantis.Engine.game = game;
@@ -28,14 +28,16 @@ Atlantis.Engine = Atlantis.Engine || {};
         game.components.add(this.stateManager);
     };
 
-    Atlantis.Engine.prototype.run = function () {
+    engine.prototype.run = function () {
         Atlantis.Engine.game.initialize();
-        loop();  
+        loop();
     };
 
     function loop() {
         requestAnimationFrame(loop);
         Atlantis.Engine.game.run();
     }
+
+    return engine;
 })();
 

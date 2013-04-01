@@ -2,27 +2,29 @@
 // DEFINE AN ENEMY
 //
 var Enemy = function (game, x, y, type) {
+    Atlantis.Sprite.call(this);
 
-    var texture = null;
+    var speed = 0.8;
 
-    if (type > 2) {
-        texture = game.content.load("Content/Enemy_1.png");
-    }
-    else {
-        texture = game.content.load("Content/Enemy_2.png");
-    }
+    this.texture = game.content.load("Content/alien.png");
 
-    var speed = 65;
-    this.enabled = true;
-    this.position = { x: x, y: y };
-    this.rectangle = new Atlantis.Rectangle(this.position.x, this.position.y, 64, 64);
+    this.texture.width = 128;
+    this.texture.height = 32;
+    this.viewport = new Atlantis.Rectangle(0, 0, game.width, game.height);
+
+    this.prepareAnimation(32);
+    this.addAnimation("move", [0, 1, 2, 3], 100);
+    this.setPosition(x, y); console.log(this.texture)
 
     this.update = function (gameTime) {
+        Atlantis.Sprite.prototype.update.call(this, gameTime);
         this.position.y += gameTime.getElapsedTime() * speed;
-        this.rectangle.y = this.position.y;
+        this.play("move");
     };
 
     this.draw = function (gameTime, context) {
-        context.drawImage(texture, this.position.x, this.position.y);
+        Atlantis.Sprite.prototype.draw.call(this, gameTime, context);
     }
 };
+
+Enemy.prototype = new Atlantis.Sprite();

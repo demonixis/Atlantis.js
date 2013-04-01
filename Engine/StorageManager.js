@@ -1,15 +1,30 @@
 var Atlantis = window.Atlantis || {};
 
-(function () {
-    Atlantis.StorageManager = function () {
+Atlantis.StorageManager = (function () {
+    var storageManager = function () {
         
     };
 
-    Atlantis.StorageManager.prototype.save = function (name, data, container) {
-        
+    storageManager.prototype.save = function (name, data, container) {
+        localStorage.setItem(getLocalStorageKey(name, container), data)
     };
 
-    Atlantis.StorageManager.prototype.load = function (name, container) {
-        
+    storageManager.prototype.load = function (name, container, deserializeObject) {
+        var data = localStorage.getItem(getLocalStorageKey(name, container));
+
+        if (data != null && deserializeObject) {
+            return JSON.parse(data);
+        }
+        else {
+            return data;
+        }
     };
+
+    function getLocalStorageKey (name, container) {
+        var container = container || "Atlantis.Engine";
+        var localStorageKey = container + "." + name;
+        return localStorageKey;
+    };
+
+    return storageManager;
 })();
