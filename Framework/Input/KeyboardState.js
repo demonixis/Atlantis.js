@@ -1,3 +1,11 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+ 
 var Atlantis = window.Atlantis || {};
 
 var Keys = {
@@ -8,6 +16,7 @@ Atlantis.KeyboardState = (function () {
     /**
      * A keyboard input manager.
      * @constructor
+     * @class KeyboardState
      */
     var keyboardState = function () {
         this.keys = [];

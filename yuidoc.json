@@ -1,0 +1,14 @@
+{
+    "name": "AtlantisEngine.js",
+    "description": "A 2D game engine in JavaScript using Canvas 2D",
+    "version": "0.0.2",
+    "url": "http://blog.demonixis.net",
+    "options": {
+		"linkNatives": "true",        
+        "attributesEmit": "true",
+        "selleck": "true",
+		"exclude": "vendors",
+        "paths": ["./Engine/", "Framework"],
+        "outdir": "Build/Docs"
+    }
+}

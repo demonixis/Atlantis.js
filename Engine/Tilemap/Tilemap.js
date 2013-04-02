@@ -1,7 +1,21 @@
-var Atlantis = window.Atlantis || {};
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
 
-(function () {
-    Atlantis.Tilemap = function (layers) {
+ var Atlantis = window.Atlantis || {};
+
+Atlantis.Tilemap = (function () {
+    /**
+     * A tilemap.
+     * @constructor
+     * @class Tilemap
+     * @param {Array} layers A collection of Atlantis.Layer or an instance of Altantis.Layer
+     */
+    var tilemap = function (layers) {
         this.layers = [];
         this.camera = new Atlantis.Rectangle();
 
@@ -15,17 +29,29 @@ var Atlantis = window.Atlantis || {};
         }
     };
 
-    Atlantis.Tilemap.prototype.loadContent = function (content) {
+    /**
+     * Load assets from all layers.
+     * @method loadContent
+     */
+    tilemap.prototype.loadContent = function (content) {
         for (var i = 0, l = this.layers.length; i < l; i++) {
             this.layers[i].loadContent(content);  
         }
     };
 
-    Atlantis.Tilemap.prototype.draw = function (gameTime, context) {
+    /**
+     * Draw layers on screen.
+     * @method draw
+     * @param {Atlantis.GameTime} gameTime An instance of GameTime.
+     * @param {Object} context The canvas context.
+     */
+    tilemap.prototype.draw = function (gameTime, context) {
         if (this.visible) {
             for (var i = 0, l = this.layers.length; i < l; i++) {
                 this.layers[i].draw(gameTime, context, this.camera);  
             }
         }
     };
+
+    return tilemap;
 })();

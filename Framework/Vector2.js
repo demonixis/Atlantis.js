@@ -1,3 +1,11 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+ 
 var Atlantis = window.Atlantis || {};
 
 /**

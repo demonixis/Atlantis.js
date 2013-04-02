@@ -1,5 +1,16 @@
-var Atlantis = window.Atlantis || {};
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
 
+ var Atlantis = window.Atlantis || {};
+
+/**
+ * @class Helpers
+ */
 (function() {
     // Registered events
     var events = [];

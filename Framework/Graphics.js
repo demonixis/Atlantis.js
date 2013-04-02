@@ -1,6 +1,18 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
+
 Atlantis.Graphics = Atlantis.Graphics || {};
 
+/**
+ * @class Graphics
+ */
 (function () {
     Atlantis.Graphics.drawCircle = function (context, x, y, rayon, color) {
         context.beginPath();

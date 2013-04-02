@@ -1,7 +1,19 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+ 
 var Atlantis = window.Atlantis || {};
 
 Atlantis.Entity = (function () {
-    // Define a basic entity
+    /** 
+	 * A basic entity
+	 * @constructor
+	 * @class Entity
+	 */
     var entity = function (params) {
         this.enabled = true;
         this.visible = true;

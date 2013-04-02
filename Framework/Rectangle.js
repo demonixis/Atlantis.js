@@ -1,9 +1,21 @@
-Atlantis = Atlantis || {};
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
 
+ var Atlantis = Atlantis || {};
+
+/**
+ * A class that represent a point structure
+ */
 Atlantis.Point = (function () {
     /**
     * Create a point structure.
     * @constructor
+    * @class Point
     * @param {Number} x A value for X coordinate.
     * @param {Number} y A value for Y coordinate.
     */
@@ -15,10 +27,15 @@ Atlantis.Point = (function () {
     return point;
 })();
 
+/** 
+ * A class that represent a rectangle structure
+ *
+ */
 Atlantis.Rectangle = (function () {
     /**
      * Create a rectangle structure.
      * @constructor
+     * @class Rectangle
      * @param {Number} x A value for X coordinate.
      * @param {Number} y A value for Y coordinate.
      * @param {Number} width A value for the width of the rectangle.

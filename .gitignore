@@ -2,3 +2,4 @@ Thumbs.db
 robots.txt
 *.directory
 *.DS_Store
+Build/Docs/*

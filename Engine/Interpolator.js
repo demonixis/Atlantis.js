@@ -1,9 +1,19 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
 
 Atlantis.Interpolator = (function () {
     /**
-    * An interpolator class 
-    */
+     * An interpolator class that can be used for animations.
+	 * @constructor
+	 * @class Interpolator
+     */
     var interpolator = function () {
         this.active = false;
         this.elapsedTime = 0;
@@ -13,6 +23,13 @@ Atlantis.Interpolator = (function () {
         this.interpolatedValue = 0;
     };
 
+    /**
+     * Start the interpolation process.
+     * @method startInterpolation
+     * @param {Number} start The start value.
+     * @param {Number} end The end value.
+     * @param {Number} duration Desired duration for interpolation.
+     */
     interpolator.prototype.startInterpolation = function (start, end, duration) {
         this.startValue = start;
         this.endValue = end;
@@ -22,6 +39,12 @@ Atlantis.Interpolator = (function () {
         this.active = true;
     };
 
+    /**
+     * Gets the interpolated value.
+     * @method getInterpolatedValue
+     * @param {Number} elapsedMilliseconds The elapsed time since the last call.
+     * @return {Number} An interpolated value.
+     */
     interpolator.prototype.getInterpolatedValue = function (elapsedMilliseconds) {
         if (this.active) {
             this.elapsedTime += elapsedMilliseconds;
@@ -40,10 +63,21 @@ Atlantis.Interpolator = (function () {
         return this.interpolatedValue;
     };
 
+    /**
+     * Interplate a value.
+     * @method interpolateValue
+     * @param {Number} step The step.
+     * @return {Number} An interpolated value.
+     */
     interpolator.prototype.interpolateValue = function (step) {
         this.interpolatedValue = lerp(this.startValue, this.endValue, step);
     };
 
+    /**
+     * Math function lerp
+     * @method lerp
+     * @return {Number}
+     */
     function lerp(value1, value2, amount) {
         amount = amount < 0 ? 0 : amount;
         amount = amount > 1 ? 1 : amount;

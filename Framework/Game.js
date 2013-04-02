@@ -1,9 +1,18 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
 
 Atlantis.GameTime = (function () {
     /**
      * Create a game time object who's responsible to get time informations.
      * @constructor
+     * @class GameTime
      */
     var gameTime = function () {
         var currentTime = new Date().getTime();
@@ -43,6 +52,7 @@ Atlantis.Game = (function () {
     /**
      * Create a game instance who is the starting point of the Framework.
      * @constructor
+     * @class Game
      * @param {Number} width Desired screen width.
      * @param {height} height Desired screen height.
      * @param {domElement} (optional) domElement Sepecify a DOM element to attach the canvas.

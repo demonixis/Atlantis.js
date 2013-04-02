@@ -1,13 +1,40 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
 
-(function () {
-    Atlantis.Tile = function (id, width, height) {
+Atlantis.Tile = (function () {
+	/**
+	 * Define a Tile object that compose a layer.
+	 * @constructor
+	 * @class Tile
+	 * @param {Number} id The index on the texture for this tile.
+	 * @param {Number} width The width of the tile.
+	 * @param {Number} height The height of the tile.
+	 */
+    var tile = function (id, width, height) {
         this.id = id;
         this.width = width;
         this.height = height;  
     };
 
-    Atlantis.Layer = function (textureName, tiles, params) {
+    return tile;
+})();
+
+Atlantis.Layer = (function () {
+	/**
+	 * Define a layer object that compose a tilemap.
+	 * @constructor
+	 * @class Layer
+	 * @param {String} textureName The name of the texture to use.
+	 * @param {Array} An array of Atlantis.Tile
+	 */
+ 	var layer = function (textureName, tiles, params) {
         this.textureName = textureName;
 		this.width = tiles[0].length;
 		this.height = tiles.length;
@@ -22,7 +49,13 @@ var Atlantis = window.Atlantis || {};
 		this.rectangle = new Atlantis.Rectangle(this.offsetX, this.offsetY, this.width * this.tileWidth, this.height * this.tileHeight);
     };
 
-    Atlantis.Layer.prototype.draw = function (gameTime, context, camera) {
+    /**
+     * Draw layer on screen.
+     * @method draw
+     * @param {Atlantis.GameTime} gameTime An instance of GameTime.
+     * @param {Object} context The canvas context.
+     */
+    layer.prototype.draw = function (gameTime, context, camera) {
         var sx = 0, sy = 0;
 		for (var y = 0; y < this.tiles.length; y++) {
 			for (var x = 0; x < this.tiles[0].length; x++) {
@@ -43,4 +76,6 @@ var Atlantis = window.Atlantis || {};
 			}
 		}
     };
+
+    return layer;
 })();

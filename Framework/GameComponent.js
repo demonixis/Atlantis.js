@@ -1,3 +1,11 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
 
 /**
@@ -7,6 +15,7 @@ Atlantis.GameComponent = (function () {
     /**
      * Create a game component.
      * @constructor
+     * @class GameComponent
      * @param {Atlantis.Game} game A game instance.
      */
     var gameComponent = function (game) {
@@ -36,6 +45,7 @@ Atlantis.DrawableGameComponent = (function () {
     /**
      * Create a drawable game component.
      * @constructor
+     * @class DrawableGameComponent
      * @param {Atlantis.Game} game A game instance.
      */
     var drawableGameComponent = function (game) {

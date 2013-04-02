@@ -1,4 +1,13 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
+
 Atlantis.Engine = Atlantis.Engine || {};
 
 Atlantis.Engine = (function () {
@@ -12,6 +21,14 @@ Atlantis.Engine = (function () {
     Atlantis.Engine.width = 0;
     Atlantis.Engine.height = 0;
 
+    /**
+      * The engine class that initialize an Atlantis.Game object and setup managers and scene.
+      * @constructor 
+      * @class Engine
+      * @param {Number} width Desired screen width.
+      * @param {Number} height Desired screen height
+      * @param {Number} domElement The DOM element to use for canvas (optional).
+      */
     var engine = function (width, height, domElement) {
         var game = new Atlantis.Game(width, height, domElement);
 
@@ -28,6 +45,10 @@ Atlantis.Engine = (function () {
         game.components.add(this.stateManager);
     };
 
+    /**
+     * Launch the game engine.
+     * @method run
+     */
     engine.prototype.run = function () {
         Atlantis.Engine.game.initialize();
         loop();

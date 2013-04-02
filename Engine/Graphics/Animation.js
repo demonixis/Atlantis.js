@@ -1,9 +1,19 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+ 
 var Atlantis = window.Atlantis || {};
 
 (function() {
     /*
      * A sprite animation class that define an animation frame.
      * An animation is a serie of rectangle on a spritesheet
+	 * @constructor
+	 * @class SpriteAnimation
      */
     Atlantis.SpriteAnimation = function (length, frameRate) {
         this.rectangles = new Array(length);
@@ -36,6 +46,8 @@ var Atlantis = window.Atlantis || {};
     /*
      * A SpriteAnimator is a class that is used to play sprite animations.
      * A sprite has many animation that are stored in a dictionary[name] => spriteAnimation
+	 * @constructor
+	 * @class SpriteAnimator
      */
     Atlantis.SpriteAnimator = function () {
         // Dictionary <string, SpriteAnimation>

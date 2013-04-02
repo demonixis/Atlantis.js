@@ -1,11 +1,38 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+
 var Atlantis = window.Atlantis || {};
 
 Atlantis.ContentManager = (function () {
+    /**
+      * Create a content manager that manage assets.
+      * @constructor
+      * @class ContentManager
+      * @param {String} rootDirectory The root folder to load assets (default is the current folder).
+      */
     var contentManager = function (rootDirectory) {
         this.rootDirectory = rootDirectory || "";
         this.assets = [];
     }
 
+    /**
+     * Load an asset from the root directory.
+     * Supported formats are :
+     *      - Images : png, jpg, bmp
+     *      - Audio : mp3, ogg, wav
+     *      - Video : mp4, ogv
+     *      - Data : xml, json, js
+     *
+     *  The type is define with the file extension.
+     *
+     * @method load
+     * @param {String} assetName The asset name
+     */
     contentManager.prototype.load = function (assetName) {
         if (typeof(this.assets[assetName]) != "undefined") {
             return this.assets[assetName];
@@ -96,9 +123,10 @@ Atlantis.ContentManager = (function () {
 
     /*
      * Dispose all assets
+     * @method dispose
      */
     contentManager.prototype.dispose = function () {
-        this.assets = [];
+        this.assets.length = 0;
     };
 
     return contentManager;

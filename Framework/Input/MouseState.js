@@ -1,9 +1,18 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+ 
 var Atlantis = window.Atlantis || {};
 
 Atlantis.MouseState = (function () {
     /**
      * A mouse input manager.
      * @constructor
+     * @class MouseState
      * @param {HTMLElement} domElement The DOM node to listen mouse events
      */
     var mouseState = function (domElement) {

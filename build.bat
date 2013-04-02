@@ -17,3 +17,5 @@ SET js=%js% --js=Engine\Graphics\Sprite.js
 SET js=%js% --js=Engine\Graphics\SpriteGroup.js
 
 java -jar ..\compiler.jar %js% --js_output_file=Build\AtlantisEngine.js
+
+yuidoc .

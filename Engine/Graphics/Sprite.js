@@ -1,6 +1,19 @@
+/**
+ * Atlantis storage manager.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+ 
 var Atlantis = window.Atlantis || {};
 
 Atlantis.Sprite = (function() {
+	/** 
+	 * A sprite entity
+	 * @constructor
+	 * @class Sprite
+	 */
 	var sprite = function(params) {
         Atlantis.Entity.call(this);
 
