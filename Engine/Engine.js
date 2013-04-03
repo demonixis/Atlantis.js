@@ -41,6 +41,8 @@ Atlantis.Engine = (function () {
         Atlantis.Engine.width = game.width;
         Atlantis.Engine.height = game.height;
 
+        this.initialized = false;
+
         this.stateManager = new Atlantis.StateManager(game);
         game.components.add(this.stateManager);
     };
@@ -50,7 +52,10 @@ Atlantis.Engine = (function () {
      * @method run
      */
     engine.prototype.run = function () {
-        Atlantis.Engine.game.initialize();
+        if (!this.initialized) {
+          Atlantis.Engine.game.initialize();
+          this.initialized = true;
+        }
         loop();
     };
 

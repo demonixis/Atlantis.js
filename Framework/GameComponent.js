@@ -81,7 +81,7 @@ Atlantis.GameComponentCollection = (function () {
      * Add a component to the collection
      * @method add
      */
-    gameComponentCollection.add = function (gameComponent) {
+    gameComponentCollection.prototype.add = function (gameComponent) {
         if (this.components.indexOf(gameComponent) == -1) {
             this.components.push(gameComponent);
         }
@@ -91,7 +91,7 @@ Atlantis.GameComponentCollection = (function () {
      * Get a component from the collection
      * @method get
      */
-    gameComponentCollection.get = function (gameComponent) {
+    gameComponentCollection.prototype.get = function (gameComponent) {
         var index = this.components.indexOf(gameComponent);
         if (index > -1) {
             return this.components[index];
@@ -104,7 +104,7 @@ Atlantis.GameComponentCollection = (function () {
      * Remove a component from the collection
      * @method remove
      */
-    gameComponentCollection.remove = function (gameComponent) {
+    gameComponentCollection.prototype.remove = function (gameComponent) {
         var index = this.components.indexOf(gameComponent);
         if (index > -1) {
             this.components.splice(index, 1);
@@ -115,7 +115,7 @@ Atlantis.GameComponentCollection = (function () {
      * Load assets
      * @method loadContent
      */
-    gameComponentCollection.loadContent = function (content) {
+    gameComponentCollection.prototype.loadContent = function (content) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             this.components[i].loadContent(content);
         }
@@ -125,7 +125,7 @@ Atlantis.GameComponentCollection = (function () {
      * Update all components
      * @method update
      */
-    gameComponentCollection.update = function (gameTime) {
+    gameComponentCollection.prototype.update = function (gameTime) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             this.components[i].update(gameTime);
         }  
@@ -135,7 +135,7 @@ Atlantis.GameComponentCollection = (function () {
      * Draw all components
      * @method draw
      */
-    gameComponentCollection.draw = function (gameTime, context) {
+    gameComponentCollection.prototype.draw = function (gameTime, context) {
         for (var i = 0, l = this.components.length; i < l; i++) {
             if (this.components[i] instanceof Atlantis.DrawableGameComponent) {
                 this.components[i].draw(gameTime, context);

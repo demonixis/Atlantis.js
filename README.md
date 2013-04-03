@@ -1,8 +1,8 @@
-AtlantisGameEngine
-==================
+AtlantisEngine.js
+=================
 
 ### Summary
-Atlantis Engine is a work in progress JavaScript 2D Game Engine using HTML5 and canvas 2D. It is mainly inspired by XNA and Flixel.
+AtlantisEngine.js is a work in progress JavaScript 2D Game Engine using HTML5 and canvas 2D. It is mainly inspired by XNA and Flixel.
 
 ### Features
 * Audio manager
@@ -10,13 +10,14 @@ Atlantis Engine is a work in progress JavaScript 2D Game Engine using HTML5 and 
 * Game component system
 * Input management (Keyboard, Mouse, Touch)
 * Helpers for ajax and events
-* Sprite with easy animation and a bit of physics
+* Sprite with easy animations system and a bit of physics
 * SpriteGroup
 * State and state manager
 
 ### The next
 * Basic and isometric tilemap
 * Scene camera
+* WebGL renderer for 2D and 3D
 * More utilities (like Timer, Inerpolator, etc.)
 
 ### Example

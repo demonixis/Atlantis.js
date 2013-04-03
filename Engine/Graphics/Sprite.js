@@ -136,6 +136,10 @@ Atlantis.Sprite = (function() {
                     this.position.y = this.viewport.y;
                 }
             }
+
+            // Update the rectangle position
+            this.rectangle.x = this.position.x;
+            this.rectangle.y = this.position.y;
         }      
     };
 

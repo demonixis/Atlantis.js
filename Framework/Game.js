@@ -90,7 +90,7 @@ Atlantis.Game = (function () {
         this.keyboard.initialize();
         this.mouse.initialize();
 
-        this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false);
+        this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false); 
     };
 
     /*

@@ -69,7 +69,7 @@ Atlantis.ContentManager = (function () {
     /*
      * Load an image from an url
      */
-    function loadImage(assetCollection, imageName) {
+    function loadImage(assetCollection, imageName) { 
         var image = new Image();
         image.src = imageName;
         assetCollection[imageName] = image;

@@ -40,17 +40,17 @@ var Player = function (game) {
     var autoShoot = true;
 
     this.update = function (gameTime) {
-        if (game.keyboard.keys[Keys.left] && position.x > 0) {
+        if (game.keyboard.keys[Atlantis.Keys.left] && position.x > 0) {
             position.x -= speed * gameTime.getElapsedTime();
         }
-        else if (game.keyboard.keys[Keys.right] && position.x + size.x < game.width) {
+        else if (game.keyboard.keys[Atlantis.Keys.right] && position.x + size.x < game.width) {
             position.x += speed * gameTime.getElapsedTime();
         }
 
-        if (game.keyboard.keys[Keys.up] && position.y > 0) {
+        if (game.keyboard.keys[Atlantis.Keys.up] && position.y > 0) {
             position.y -= speed * gameTime.getElapsedTime();
         }
-        else if (game.keyboard.keys[Keys.down] && position.y + size.y < game.height) {
+        else if (game.keyboard.keys[Atlantis.Keys.down] && position.y + size.y < game.height) {
             position.y += speed * gameTime.getElapsedTime();
         }
 
@@ -59,7 +59,7 @@ var Player = function (game) {
             autoShoot = true;
         }
 
-        if ((autoShoot || game.keyboard.keys[Keys.space]) && canShoot) {
+        if ((autoShoot || game.keyboard.keys[Atlantis.Keys.space]) && canShoot) {
             var ammo = new Ammo(game, position.x + 4, position.y - 5);
             this.ammos.push(ammo);
 
