@@ -1,3 +1,11 @@
+/**
+ * AtlantisEngine.js a lightweight JavaScript game engine.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+
 (function() {
 	var lastTime = 0;
 	var vendors = ['ms', 'moz', 'webkit', 'o'];

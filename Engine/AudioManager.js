@@ -1,11 +1,10 @@
-/**
- * Atlantis storage manager.
+ /**
+ * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
  * @submodule Engine
  * @namespace Atlantis
  */
-
 
 var Atlantis = window.Atlantis || {};
 

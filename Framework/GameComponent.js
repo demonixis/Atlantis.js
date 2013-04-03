@@ -1,5 +1,5 @@
 /**
- * Atlantis storage manager.
+ * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
  * @submodule Framework

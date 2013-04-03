@@ -1,5 +1,5 @@
 /**
- * Atlantis storage manager.
+ * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
  * @submodule Framework
@@ -28,7 +28,7 @@ Atlantis.Vector2 = (function () {
      * @param {Atlantis.Vector2} value A vector or a value to add to this vector.
      */
     vector2.prototype.add = function (value) {
-        if (value instanceof vector2) {
+        if (value instanceof Atlantis.Vector2) {
             this.x += value.x;
             this.y += value.y;
         }
@@ -44,7 +44,7 @@ Atlantis.Vector2 = (function () {
      * @param {Atlantis.Vector2} value A vector or a value to subtract to this vector.
      */
     vector2.prototype.subtract = function (value) {
-        if (value instanceof vector2) {
+        if (value instanceof Atlantis.Vector2) {
             this.x -= value.x;
             this.y -= value.y;
         }
@@ -60,7 +60,7 @@ Atlantis.Vector2 = (function () {
      * @param {Atlantis.Vector2} value A vector or a value to divide to this vector.
      */
     vector2.prototype.divide = function (value) {
-        if (value instanceof vector2) {
+        if (value instanceof Atlantis.Vector2) {
             this.x /= value.x;
             this.y /= value.y;
         }
@@ -76,7 +76,7 @@ Atlantis.Vector2 = (function () {
      * @param {Atlantis.Vector2} value A vector or a value to multiply to this vector.
      */
     vector2.prototype.multiply = function (value) {
-        if (value instanceof vector2) {
+        if (value instanceof Atlantis.Vector2) {
             this.x *= value.x;
             this.y *= value.y;
         }
@@ -91,7 +91,7 @@ Atlantis.Vector2 = (function () {
      * @method negate
      */
     vector2.prototype.negate = function (value) {
-        if (value instanceof vector2) {
+        if (value instanceof Atlantis.Vector2) {
             this.x = -value.x;
             this.y = -value.y;
         }

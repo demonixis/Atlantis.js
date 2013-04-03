@@ -1,5 +1,5 @@
 /**
- * Atlantis storage manager.
+ * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
  * @submodule Framework
@@ -102,7 +102,7 @@ Atlantis.Rectangle = (function () {
         if (value instanceof Atlantis.Point) {
             return (this.x <= value.x) && (value.x < this.getRight()) && (this.y <= value.y) && (value.y < this.getBottom());
         }
-        else if (value instanceof rectangle) {
+        else if (value instanceof Atlantis.Rectangle) {
             return (this.x <= value.x) && (value.getRight() <= this.getRight()) && (this.y <= value.y) && (value.getBottom() <= this.getBottom());
         }
         return false;
