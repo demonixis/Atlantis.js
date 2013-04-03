@@ -24,6 +24,11 @@ var Atlantis = window.Atlantis || {};
         this.length = length;
     }
 
+    /**
+     *
+     * @method next
+     * @param
+     */
     Atlantis.SpriteAnimation.prototype.next = function (elapsedTime) {
         this.elapsedTime += elapsedTime;
    
@@ -61,6 +66,14 @@ var Atlantis = window.Atlantis || {};
         this.spritesheetLength = 0;
     };
 
+    /**
+     *
+     * @method initialize
+     * @param
+     * @param
+     * @param
+     * @param
+     */
     Atlantis.SpriteAnimator.prototype.initialize = function(animationWidth, animationHeight, textureWidth, textureHeight) {
         this.animations = {};
         this.spriteWidth = animationWidth;
@@ -72,6 +85,13 @@ var Atlantis = window.Atlantis || {};
         this.spritesheetLength = this.nbSpriteX * this.nbSpriteY; 
     };
 
+    /**
+     *
+     * @method add
+     * @param
+     * @param
+     * @param
+     */
     Atlantis.SpriteAnimator.prototype.add = function (name, framesIndex, frameRate) {
         var animationLength = framesIndex.length;
 
@@ -99,6 +119,12 @@ var Atlantis = window.Atlantis || {};
         this.animations[name] = animation;
     };
 
+    /**
+     *
+     * @method update
+     * @param
+     * @param
+     */
     Atlantis.SpriteAnimator.prototype.update = function (gameTime, lastDistance) {
         
     };

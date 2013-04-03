@@ -17,7 +17,6 @@ Atlantis.Sprite = (function() {
 	var sprite = function(params) {
         Atlantis.Entity.call(this);
 
-	    this.position = new Atlantis.Vector2();
         this.direction = new Atlantis.Vector2();
         this.lastPosition = new Atlantis.Vector2();
         this.lastDistance = new Atlantis.Vector2();
@@ -28,7 +27,7 @@ Atlantis.Sprite = (function() {
     	this.maxVelocity = 1;
 
 	    // Rectangle and viewport
-        this.viewport = new Atlantis.Rectangle();
+        this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.Engine.width, Atlantis.Engine.height);
 
         // Force the sprite to stay in screen or to enable across screen
     	this.insideScreen = false;
@@ -48,6 +47,12 @@ Atlantis.Sprite = (function() {
 
     sprite.prototype = new Atlantis.Entity();
 
+    /**
+     *
+     * @method prepareAnimation
+     * @param
+     * @param
+     */
     sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
         var animationWidth = width;
@@ -57,35 +62,48 @@ Atlantis.Sprite = (function() {
         this.rectangle.height = animationHeight;
     };
 
+    /**
+     *
+     * @method addAnimation
+     * @param
+     * @param
+     * @param
+     */
     sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
         this.spriteAnimator.add(name, framesIndex, frameRate); 
         this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     };
 
+    /**
+     *
+     * @method play
+     * @param
+     */
     sprite.prototype.play = function (animationName) {
         this.sourceRectangle = this.spriteAnimator.animations[animationName].next(this.elapsedTime);
     };
 
+    /**
+     *
+     * @method update
+     * @param
+     */
     sprite.prototype.update = function (gameTime) {
         if (this.enabled) {
             this.elapsedTime += gameTime.getElapsedTime();
 
             // Determine the last distance and direction
-            this.lastDistance.x = this.position.x - this.lastPosition.x;
-            this.lastDistance.y = this.position.y - this.lastPosition.y;   
+            this.lastDistance.x = this.rectangle.x - this.lastPosition.x;
+            this.lastDistance.y = this.rectangle.y - this.lastPosition.y;   
 
             // Determine the last position
-            this.lastPosition.x = this.position.x;
-            this.lastPosition.y = this.position.y;
+            this.lastPosition.x = this.rectangle.x;
+            this.lastPosition.y = this.rectangle.y;
 
             // Update physics
-            this.position.x += this.velocity.x * this.acceleration.x;
-            this.position.y += this.velocity.y * this.acceleration.y;
+            this.rectangle.x += this.velocity.x * this.acceleration.x;
+            this.rectangle.y += this.velocity.y * this.acceleration.y;
             this.velocity.multiply(this.maxVelocity);
-
-            // Update the rectangle position
-            this.rectangle.x = this.position.x;
-            this.rectangle.y = this.position.y;
 
             // Update animation
             if (this.hasAnimation) {
@@ -94,28 +112,33 @@ Atlantis.Sprite = (function() {
         }
 	};
 
+    /**
+     *
+     * @method postUpdate
+     * @param
+     */
     sprite.prototype.postUpdate = function (gameTime) {
         if (this.enabled) {
-            this.direction.x = this.position.x - this.lastPosition.x;
-            this.direction.y = this.position.y - this.lastPosition.y;
+            this.direction.x = this.rectangle.x - this.lastPosition.x;
+            this.direction.y = this.rectangle.y - this.lastPosition.y;
 
             // Force the sprite to stay inside screen
             if (this.insideScreen) {
-                if (this.position.x < this.viewport.x) {
-                    this.position.x = this.viewport.x;
+                if (this.rectangle.x < this.viewport.x) {
+                    this.rectangle.x = this.viewport.x;
                     this.velocity.multiply(0);
                 }
                 else if (this.rectangle.getRight() > this.viewport.width) {
-                    this.position.x = this.viewport.width - this.rectangle.width;
+                    this.rectangle.x = this.viewport.width - this.rectangle.width;
                     this.velocity.multiply(0);
                 }
 
-                if (this.position.y < this.viewport.y) {
-                    this.position.y = this.viewport.y;
+                if (this.rectangle.y < this.viewport.y) {
+                    this.rectangle.y = this.viewport.y;
                     this.velocity.multiply(0);
                 }
                 else if (this.rectangle.getBottom() > this.viewport.height) {
-                    this.position.y = this.viewport.height - this.rectangle.height;
+                    this.rectangle.y = this.viewport.height - this.rectangle.height;
                     this.velocity.multiply(0);
                 }
             }
@@ -123,26 +146,28 @@ Atlantis.Sprite = (function() {
             // The sprite move throw the screen
             else if (this.acrossScreen) {
                 if (this.rectangle.getRight() < this.viewport.x) {
-                    this.position.x = this.viewport.width
+                    this.rectangle.x = this.viewport.width
                 }
-                else if (this.position.x > this.viewport.width) {
-                    this.position.x = this.viewport.x;
+                else if (this.rectangle.x > this.viewport.width) {
+                    this.rectangle.x = this.viewport.x;
                 }
 
                 if (this.rectangle.getBottom() < this.viewport.y) { 
-                    this.position.y = this.viewport.height;
+                    this.rectangle.y = this.viewport.height;
                 }
                 else if (this.position.y > this.viewport.height) {
-                    this.position.y = this.viewport.y;
+                    this.rectangle.y = this.viewport.y;
                 }
             }
-
-            // Update the rectangle position
-            this.rectangle.x = this.position.x;
-            this.rectangle.y = this.position.y;
         }      
     };
 
+    /**
+     *
+     * @method draw
+     * @param
+     * @param
+     */
 	sprite.prototype.draw = function (gameTime, context) {
         this.postUpdate(gameTime);
 
