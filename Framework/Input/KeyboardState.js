@@ -29,6 +29,8 @@ Atlantis.KeyboardState = (function () {
         for (var i = 0; i < 110; i++) {
             this.keys[i] = false;
         }
+
+        this.preventDefault = true;
     };
 
     /**
@@ -50,6 +52,10 @@ Atlantis.KeyboardState = (function () {
      * @param {Object} instance The current instance.
      */
     keyboardState.prototype.onKeyStateChange = function (event, instance) {
+        if (instance.preventDefault) {
+            event.preventDefault();
+        }
+        
         var pressed = event.type == "keydown" ? true : false;
 
         instance.keys[event.keyCode] = pressed;
