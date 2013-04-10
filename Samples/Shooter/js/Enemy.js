@@ -14,11 +14,11 @@ var Enemy = function (game, x, y, type) {
 
     this.prepareAnimation(32);
     this.addAnimation("move", [0, 1, 2, 3], 100);
-    this.setPosition(x, y); console.log(this.texture)
+    this.setPosition(x, y);
 
     this.update = function (gameTime) {
         Atlantis.Sprite.prototype.update.call(this, gameTime);
-        this.position.y += gameTime.getElapsedTime() * speed;
+        this.y += gameTime.getElapsedTime() * speed;
         this.play("move");
     };
 

@@ -47,10 +47,10 @@ var Background = function (game) {
             stars[i].update(gameTime);
         }
 
-        if (game.keyboard.keys[Keys.up]) {
+        if (game.keyboard.keys[Atlantis.Keys.up]) {
             this.changeSpeed(450);
         }
-        else if (game.keyboard.keys[Keys.down]) {
+        else if (game.keyboard.keys[Atlantis.Keys.down]) {
             this.changeSpeed(75);
         }
         else {
