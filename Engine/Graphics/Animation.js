@@ -15,9 +15,9 @@ var Atlantis = window.Atlantis || {};
 	 * @constructor
 	 * @class SpriteAnimation
      */
-    Atlantis.SpriteAnimation = function (length, frameRate) {
+    Atlantis.SpriteAnimation = function (length, framerate) {
         this.rectangles = new Array(length);
-        this.frameRate = frameRate;
+        this.framerate = framerate;
         this.index = 0;
         this.max = length;
         this.elapsedTime = 0;
@@ -29,23 +29,20 @@ var Atlantis = window.Atlantis || {};
      * @method next
      * @param
      */
-    Atlantis.SpriteAnimation.prototype.next = function (elapsedTime) {
-        this.elapsedTime += elapsedTime;
-   
-        if (this.elapsedTime > this.frameRate) {
-            this.index++;
-            if (this.index >= this.max) {
-                this.index = 0;
-            }
-            
-            if (this.index == 0) {
-                Atlantis.notify("sprite.AnimationComplete");
-            }
+    Atlantis.SpriteAnimation.prototype.next = function () {
+        return this.rectangles[this.index];
+    };
 
+    Atlantis.SpriteAnimation.prototype.update = function (gameTime) {
+        this.elapsedTime += gameTime.getElapsedTime(); 
+      
+        if (this.elapsedTime > this.framerate) {
+            this.index++;
+            if (this.index == 0) {
+                Atlantis.notify("atlantis.sprite.animationCompleted");
+            }
             this.elapsedTime = 0;
         }
- 
-        return this.rectangles[this.index];
     };
 
     /*
@@ -64,6 +61,7 @@ var Atlantis = window.Atlantis || {};
         this.nbSpriteX = 0;
         this.nbSpriteY = 0;
         this.spritesheetLength = 0;
+        this.currentAnimationName = "";
     };
 
     /**
@@ -83,6 +81,7 @@ var Atlantis = window.Atlantis || {};
         this.nbSpriteX = this.textureWidth / this.spriteWidth;
         this.nbSpriteY = this.textureHeight / this.spriteHeight;
         this.spritesheetLength = this.nbSpriteX * this.nbSpriteY; 
+        this.currentAnimationName = "";
     };
 
     /**
@@ -119,6 +118,18 @@ var Atlantis = window.Atlantis || {};
         this.animations[name] = animation;
     };
 
+    Atlantis.SpriteAnimator.prototype.play = function (animationName) {
+        this.currentAnimationName = animationName;
+        return this.animations[animationName].next();  
+    };
+
+    Atlantis.SpriteAnimator.prototype.getCurrentAnimation = function () {
+        if (this.currentAnimationName !== "") {
+            return this.animations[this.currentAnimationName];
+        }
+        return null;
+    };
+
     /**
      *
      * @method update
@@ -126,6 +137,15 @@ var Atlantis = window.Atlantis || {};
      * @param
      */
     Atlantis.SpriteAnimator.prototype.update = function (gameTime, lastDistance) {
-        
+        if (this.currentAnimationName !== "") {
+            this.animations[this.currentAnimationName].update(gameTime);
+        }
+    };
+
+    Atlantis.SpriteAnimator.prototype.checkForIDLEAnimation = function (lastDirection) {
+        if (this.currentAnimationName !== "" && lastDirection.x == 0 && lastDirection.y == 0) {
+            return this.animations[this.currentAnimationName].rectangles[0];
+        }  
+        return null;
     };
 })();

@@ -20,10 +20,10 @@ GameScreen.prototype.loadContent = function (content) {
     this.sprite.viewport = new Atlantis.Rectangle(0, 0, 640, 480);
 
     this.sprite.prepareAnimation(64, 64);
-    this.sprite.addAnimation("up", [0, 1, 2, 3, 4, 5, 6, 7, 8], 150);
-    this.sprite.addAnimation("left", [9, 10, 11, 12, 13, 14, 15, 16, 17], 150);
-    this.sprite.addAnimation("down", [18, 19, 20, 21, 22, 23, 24, 25, 26], 150);
-    this.sprite.addAnimation("right", [27, 28, 29, 30, 31, 32, 33, 34, 35], 150);
+    this.sprite.addAnimation("up", [0, 1, 2, 3, 4, 5, 6, 7, 8], 50);
+    this.sprite.addAnimation("left", [9, 10, 11, 12, 13, 14, 15, 16, 17], 50);
+    this.sprite.addAnimation("down", [18, 19, 20, 21, 22, 23, 24, 25, 26], 50);
+    this.sprite.addAnimation("right", [27, 28, 29, 30, 31, 32, 33, 34, 35], 50);
 
 
     this.sprite.setPosition(260, 320);

@@ -17,7 +17,7 @@ var MenuState = (function () {
 	menu.prototype.update = function (gameTime) {
 	    Atlantis.State.prototype.update.call(this, gameTime);
 
-	    if (Atlantis.Engine.mouse.click) {
+	    if (Atlantis.Engine.pointer.click) {
 	        this.stateManager.setStateActive("game", true);
 	    }
 	};

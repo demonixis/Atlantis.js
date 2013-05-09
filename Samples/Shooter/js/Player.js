@@ -54,8 +54,8 @@ var Player = function (game) {
             position.y += speed * gameTime.getElapsedTime();
         }
 
-        if (game.mouse.click) {
-            position.x = game.mouse.x;
+        if (game.pointer.click) {
+            position.x = game.pointer.x;
             autoShoot = true;
         }
 

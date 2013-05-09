@@ -11,16 +11,18 @@ var Atlantis = window.Atlantis || {};
 Atlantis.Engine = Atlantis.Engine || {};
 
 Atlantis.Engine = (function () {
-    Atlantis.Engine.game = null;
-    Atlantis.Engine.content = null;
-    Atlantis.Engine.components = null;
-    Atlantis.Engine.stateManager = null;
-    Atlantis.Engine.keyboard = null;
-    Atlantis.Engine.mouse = null;
-    Atlantis.Engine.touch = null;
-    Atlantis.Engine.width = 0;
-    Atlantis.Engine.height = 0;
+    return {
+        game: null,
+        content: null,
+        stateManager: null,
+        keyboard: null,
+        pointer: null,
+        width: 0,
+        height: 0
+    };
+})()
 
+Atlantis.GameApplication = (function () {
     /**
       * The engine class that initialize an Atlantis.Game object and setup managers and scene.
       * @constructor 
@@ -36,8 +38,7 @@ Atlantis.Engine = (function () {
         Atlantis.Engine.content = game.content;
         Atlantis.Engine.component = game.components;
         Atlantis.Engine.keyboard = game.keyboard;
-        Atlantis.Engine.mouse = game.mouse;
-        Atlantis.Engine.touch = game.touch;
+        Atlantis.Engine.pointer = game.pointer;
         Atlantis.Engine.width = game.width;
         Atlantis.Engine.height = game.height;
 

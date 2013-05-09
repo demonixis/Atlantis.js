@@ -8,13 +8,13 @@
  
 var Atlantis = window.Atlantis || {};
 
-Atlantis.Sprite = (function() {
-	/** 
-	 * A sprite entity
-	 * @constructor
-	 * @class Sprite
-	 */
-	var sprite = function(params) {
+Atlantis.Sprite = (function () {
+    /** 
+    * A sprite entity
+    * @constructor
+    * @class Sprite
+    */
+    var sprite = function (params) {
         Atlantis.Entity.call(this);
 
         this.direction = new Atlantis.Vector2();
@@ -23,22 +23,22 @@ Atlantis.Sprite = (function() {
 
         // Some physics
         this.acceleration = new Atlantis.Vector2(1, 1);
-    	this.velocity = new Atlantis.Vector2();
-    	this.maxVelocity = 1;
+        this.velocity = new Atlantis.Vector2();
+        this.maxVelocity = 1;
 
-	    // Rectangle and viewport
+        // Rectangle and viewport
         this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.Engine.width, Atlantis.Engine.height);
 
         // Force the sprite to stay in screen or to enable across screen
-    	this.insideScreen = false;
-    	this.acrossScreen = false;
+        this.insideScreen = false;
+        this.acrossScreen = false;
 
         // Animation
         this.isFullyLoaded = false;
         this.spriteAnimator = new Atlantis.SpriteAnimator();
-	    this.hasAnimation = false;
+        this.hasAnimation = false;
         this.elapsedTime = 0;
-        
+
         var params = params || {};
         for (var i in params) {
             this[i] = params[i];
@@ -48,11 +48,11 @@ Atlantis.Sprite = (function() {
     sprite.prototype = new Atlantis.Entity();
 
     /**
-     *
-     * @method prepareAnimation
-     * @param
-     * @param
-     */
+    *
+    * @method prepareAnimation
+    * @param
+    * @param
+    */
     sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
         var animationWidth = width;
@@ -63,38 +63,38 @@ Atlantis.Sprite = (function() {
     };
 
     /**
-     *
-     * @method addAnimation
-     * @param
-     * @param
-     * @param
-     */
+    *
+    * @method addAnimation
+    * @param
+    * @param
+    * @param
+    */
     sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
-        this.spriteAnimator.add(name, framesIndex, frameRate); 
+        this.spriteAnimator.add(name, framesIndex, frameRate);
         this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     };
 
     /**
-     *
-     * @method play
-     * @param
-     */
+    *
+    * @method play
+    * @param
+    */
     sprite.prototype.play = function (animationName) {
-        this.sourceRectangle = this.spriteAnimator.animations[animationName].next(this.elapsedTime);
+        this.sourceRectangle = this.spriteAnimator.play(animationName);
     };
 
     /**
-     *
-     * @method update
-     * @param
-     */
+    *
+    * @method update
+    * @param
+    */
     sprite.prototype.update = function (gameTime) {
         if (this.enabled) {
             this.elapsedTime += gameTime.getElapsedTime();
 
             // Determine the last distance and direction
             this.lastDistance.x = this.rectangle.x - this.lastPosition.x;
-            this.lastDistance.y = this.rectangle.y - this.lastPosition.y;   
+            this.lastDistance.y = this.rectangle.y - this.lastPosition.y;
 
             // Determine the last position
             this.lastPosition.x = this.rectangle.x;
@@ -107,16 +107,19 @@ Atlantis.Sprite = (function() {
 
             // Update animation
             if (this.hasAnimation) {
-                this.spriteAnimator.update(gameTime, this.lastDistance);
+                this.spriteAnimator.update(gameTime);
+                if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
+                    this.sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
+                }
             }
         }
-	};
+    };
 
     /**
-     *
-     * @method postUpdate
-     * @param
-     */
+    *
+    * @method postUpdate
+    * @param
+    */
     sprite.prototype.postUpdate = function (gameTime) {
         if (this.enabled) {
             this.direction.x = this.rectangle.x - this.lastPosition.x;
@@ -152,23 +155,23 @@ Atlantis.Sprite = (function() {
                     this.rectangle.x = this.viewport.x;
                 }
 
-                if (this.rectangle.getBottom() < this.viewport.y) { 
+                if (this.rectangle.getBottom() < this.viewport.y) {
                     this.rectangle.y = this.viewport.height;
                 }
                 else if (this.position.y > this.viewport.height) {
                     this.rectangle.y = this.viewport.y;
                 }
             }
-        }      
+        }
     };
 
     /**
-     *
-     * @method draw
-     * @param
-     * @param
-     */
-	sprite.prototype.draw = function (gameTime, context) {
+    *
+    * @method draw
+    * @param
+    * @param
+    */
+    sprite.prototype.draw = function (gameTime, context) {
         this.postUpdate(gameTime);
 
         if (this.visible && this.assetLoaded) {
@@ -179,7 +182,7 @@ Atlantis.Sprite = (function() {
                 context.drawImage(this.texture, this.rectangle.x, this.rectangle.y, this.rectangle.width, this.rectangle.height);
             }
         }
-	};
+    };
 
     return sprite;
 })();

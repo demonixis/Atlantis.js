@@ -4,11 +4,11 @@ SET js_framework=%js_framework% --js=Framework\Graphics.js
 SET js_framework=%js_framework% --js=Framework\Helpers.js
 SET js_framework=%js_framework% --js=Framework\Rectangle.js
 SET js_framework=%js_framework% --js=Framework\Vector2.js
-SET js_framework=%js_framework% --js=Framework\Input\KeyboardState.js
-SET js_framework=%js_framework% --js=Framework\Input\MouseState.js
+SET js_framework=%js_framework% --js=Framework\Input\KeyboardManager.js
+SET js_framework=%js_framework% --js=Framework\Input\PointerManager.js
 
 SET js_engine=--js=Engine\AudioManager.js
-SET js_engine=%js_engine% --js=Engine\Engine.js
+SET js_engine=%js_engine% --js=Engine\GameApplication.js
 SET js_engine=%js_engine% --js=Engine\Interpolator.js
 SET js_engine=%js_engine% --js=Engine\StateManager.js
 SET js_engine=%js_engine% --js=Engine\StorageManager.js

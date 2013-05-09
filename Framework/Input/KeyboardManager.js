@@ -8,7 +8,7 @@
  
 var Atlantis = window.Atlantis || {};
 
-Atlantis.KeyboardState = (function () {
+Atlantis.KeyboardManager = (function () {
     /** 
      * Keys alias
      * @property Keys
@@ -21,9 +21,9 @@ Atlantis.KeyboardState = (function () {
     /**
      * A keyboard input manager.
      * @constructor
-     * @class KeyboardState
+     * @class KeyboardManager
      */
-    var keyboardState = function () {
+    var keyboardManager = function () {
         this.keys = [];
 
         for (var i = 0; i < 110; i++) {
@@ -37,7 +37,7 @@ Atlantis.KeyboardState = (function () {
      * Initialize keyboard event handlers.
      * @method initialize
      */
-    keyboardState.prototype.initialize = function () {
+    keyboardManager.prototype.initialize = function () {
         resetKeyState(this.keys);
 
         var that = this;
@@ -51,7 +51,7 @@ Atlantis.KeyboardState = (function () {
      * @param {Object} event The event object.
      * @param {Object} instance The current instance.
      */
-    keyboardState.prototype.onKeyStateChange = function (event, instance) {
+    keyboardManager.prototype.onKeyStateChange = function (event, instance) {
         if (instance.preventDefault) {
             event.preventDefault();
         }
@@ -67,5 +67,5 @@ Atlantis.KeyboardState = (function () {
         }
     }
 
-    return keyboardState;
+    return keyboardManager;
 })();

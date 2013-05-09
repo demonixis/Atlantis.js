@@ -67,8 +67,8 @@ Atlantis.Game = (function () {
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
-        this.keyboard = new Atlantis.KeyboardState();
-        this.mouse = new Atlantis.MouseState();
+        this.keyboard = new Atlantis.KeyboardManager();
+        this.pointer = new Atlantis.PointerManager(this.domElement);
 
         // Fix for Windows 8/RT
         if (this.domElement != null) {
@@ -84,12 +84,8 @@ Atlantis.Game = (function () {
      */
     game.prototype.initialize = function () {
         var that = this;
-
         this.components.loadContent(this.content);
-
         this.keyboard.initialize();
-        this.mouse.initialize();
-
         this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false); 
     };
 
