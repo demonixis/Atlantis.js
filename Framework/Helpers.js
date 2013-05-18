@@ -23,47 +23,51 @@
         var params = parameters.params || {};
         var url = parameters.url;
         var method = parameters.method || "GET";
-        var callback = parameters.success || null;
+        var callback = parameters.success || function () {};
         var async = typeof(parameters.async) != "undefined" ? parameters.async : true; 
-    
         var xhr;
 
-		if (window.XMLHttpRequest) {
-			xhr = new XMLHttpRequest();
-		}
-		else {
-			xhr = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		
-        if (method == "POST") {
-            xhr.open("POST", url, async);
-    
-            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhr.setRequestHeader("Content-length", params.length);
-            xhr.setRequestHeader("Connection", "close");
-      
-            xhr.onreadystatechange = function() {
-                if(xhr.readyState == 4 && xhr.status == 200) {
-                    if (callback != null) {
-                        callback(xhr.responseText);
-                    }
-                }
-            };
-            xhr.send(params);
+        if (typeof(WinJS) !== "undefined") {
+            WinJS.xhr({ url: url }).then(callback);
         }
         else {
-            var finalUrl = params != "" ? url + "?" + params : url;
-            xhr.open("GET", finalUrl, async);
-
-            xhr.onreadystatechange = function() { 
-                if(xhr.readyState == 4) {
-                    if (callback != null) {
-                        callback(xhr.responseText);
+		    if (window.XMLHttpRequest) {
+			    xhr = new XMLHttpRequest();
+		    }
+		    else {
+			    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+		    }
+		
+            if (method == "POST") {
+                xhr.open("POST", url, async);
+    
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.setRequestHeader("Content-length", params.length);
+                xhr.setRequestHeader("Connection", "close");
+      
+                xhr.onreadystatechange = function() {
+                    if(xhr.readyState == 4 && xhr.status == 200) {
+                        if (callback != null) {
+                            callback(xhr.responseText);
+                        }
                     }
-                }    
-            };
+                };
+                xhr.send(params);
+            }
+            else {
+                var finalUrl = params != "" ? url + "?" + params : url;
+                xhr.open("GET", finalUrl, async);
 
-            xhr.send(null);
+                xhr.onreadystatechange = function() { 
+                    if(xhr.readyState == 4) {
+                        if (callback != null) {
+                            callback(xhr.responseText);
+                        }
+                    }    
+                };
+
+                xhr.send(null);
+            }
         }
     };
 
