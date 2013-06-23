@@ -36,11 +36,11 @@ Atlantis.ContentManager = (function () {
     contentManager.prototype.load = function (assetName) {
         if (typeof(this.assets[assetName]) != "undefined") {
             return this.assets[assetName];
-        } 
+        }
         else {
             var temp = assetName.split(".");
             var ext = temp[(temp.length - 1)];
-            
+
             switch (ext) {
                 case "png":
                 case "jpg":
@@ -55,21 +55,21 @@ Atlantis.ContentManager = (function () {
                 case "mp4":
                 case "ogv":
                     loadVideo(this.assets, assetName);
-                case "xml": 
+                case "xml":
                 case "json":
                 case "js":
                     loadResource(this.assets, assetName, ext);
                     break;
             }
 
-            return this.assets[assetName]; 
+            return this.assets[assetName];
         }
     };
 
     /*
      * Load an image from an url
      */
-    function loadImage(assetCollection, imageName) { 
+    function loadImage(assetCollection, imageName) {
         var image = new Image();
         image.src = imageName;
         assetCollection[imageName] = image;
@@ -87,7 +87,7 @@ Atlantis.ContentManager = (function () {
         return audio;
     }
 
-    /* 
+    /*
      * Load a video from an url
      */
     function loadVideo(assetCollection, videoName) {

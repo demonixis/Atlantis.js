@@ -117,7 +117,7 @@ Atlantis.Vector2 = (function () {
      * @param {Atlantis.Vector2} vector2 The vector2 to use to determine the distance.
      * @return {Number} The distance between this vector and the vector passed in parameter.
      */
-    vector2.prototype.getDistance = function (vector2) {
+    vector2.prototype.distance = function (vector2) {
         var v1 = this.x - vector2.x;
         var v2 = this.y - vector2.y;
         return Math.sqrt((v1 * v1) + (v2 * v2));
