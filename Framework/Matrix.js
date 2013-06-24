@@ -97,8 +97,164 @@ Atlantis.Matrix = (function () {
     };
 
     /**
+	 * Sets the left of the matrix.
+     * @method setLeft
+	 * @param {Atlantis.Vector3} vector A vector to use.
+	 */
+	matrix.prototype.setLeft = function (vector) {
+		this.M11 = -vector.x;
+		this.M12 = -vector.y;
+		this.M13 = -vector.z;
+	};
+	
+	/**
+	 * Gets the left of the matrix.
+     * @method getLeft
+	 * @return {Atlantis.Matrix} Return a the left vector of the matrix.
+	 */
+	matrix.prototype.getLeft = function () {
+		var vector = new Atlantis.Vector3();
+		vector.x = -this.M11;
+		vector.y = -this.M12;
+		vector.z = -this.M13;
+		return vector;
+	};
+	
+	/**
+	 * Sets the right of the matrix.
+     * @method setRight
+	 * @param {Atlantis.Vector3} vector
+	 */
+	matrix.prototype.setRight = function (vector) {
+		this.M11 = vector.x;
+		this.M12 = vector.y;
+		this.M13 = vector.z;
+	};
+	
+	/**
+	 * Gets the right of the matrix.
+     * @method getRight
+	 * @return {Atlantis.Matrix} Return a the right vector of the matrix.
+	 */
+	matrix.prototype.getRight = function () {
+		var vector = new Atlantis.Vector3();
+		vector.x = this.M11;
+		vector.y = this.M12;
+		vector.z = this.M13;
+		return vector;
+	};
+	
+	/**
+	 * Sets the up of the matrix.
+     * @method setUp
+	 * @param {Atlantis.Vector3} vector
+	 */
+	matrix.prototype.setUp = function (vector) {
+		this.M21 = vector.x;
+		this.M22 = vector.y;
+		this.M23 = vector.z;
+	};
+	
+	/**
+	 * Gets the up of the matrix.
+     * @method getUp
+	 * @return {Atlantis.Matrix} Return a the up vector of the matrix.
+	 */
+	matrix.prototype.getUp = function () {
+		var vector = new Atlantis.Vector3();
+		vector.x = this.M21;
+		vector.y = this.M22;
+		vector.z = this.M23;
+		return vector;
+	};
+	
+	/**
+	 * Sets the down of the matrix.
+     * @method setDown
+	 * @param {Atlantis.Vector3} vector
+	 */
+	matrix.prototype.setDown = function (vector) {
+		this.M21 = -vector.x;
+		this.M22 = -vector.y;
+		this.M23 = -vector.z;
+	};
+	
+	/**
+	 * Gets the down of the matrix.
+     * @method getDown
+	 * @return {Atlantis.Matrix} Return a the down vector of the matrix.
+	 */
+	matrix.prototype.getDown = function () {
+		var vector = new Atlantis.Vector3();
+		vector.x = -this.M21;
+		vector.y = -this.M22;
+		vector.z = -this.M23;
+		return vector;
+	};
+	
+	/**
+	 * Sets the backward of the matrix.
+     * @method setBackward
+	 * @param {Atlantis.Vector3} vector
+	 */
+	matrix.prototype.setBackward = function (vector) {
+		this.M31 = vector.x;
+		this.M32 = vector.y;
+		this.M33 = vector.z;
+	};
+	
+	/**
+	 * Gets the backward of the matrix.
+     * @method getBackward
+	 * @return {Atlantis.Matrix} Return a the backward vector of the matrix.
+	 */
+	matrix.prototype.getBackward = function () {
+		var vector = new Atlantis.Vector3();
+		vector.x = this.M31;
+		vector.y = this.M32;
+		vector.z = this.M33;
+		return vector;
+	};
+	
+	/**
+	 * Sets the forward of the matrix.
+     * @method setForward
+	 * @param {Atlantis.Vector3} vector
+	 */
+	matrix.prototype.setForward = function (vector) {
+		this.M31 = -vector.x;
+        this.M32 = -vector.y;
+        this.M33 = -vector.z;
+	};
+	
+	/**
+	 * Gets the forward of the matrix.
+	 * @method getForward
+     * @return {Atlantis.Matrix} Return a the forward vector of the matrix.
+	 */
+	matrix.prototype.getForward = function () {
+		var vector = new Atlantis.Vector3();
+		vector.x = -this.M31;
+		vector.y = -this.M32;
+		vector.z = -this.M33;
+		return vector;
+	};
+
+    /**
+    * Sets translation.
+    * @method setTranslation
+    * @param {Atlantis.Vetor3} position The position to set.
+    */
+    matrix.prototype.setTranslation = function (position) {
+        this.M41 = position.x;
+        this.M42 = position.y;
+        this.M43 = position.z;
+    };
+
+    /**
     * Add a matrix to this matrix.
-    * @param matrix A matrix to add.
+    * @method add
+    * @param {Atlantis.Matrix} matrix A matrix to add.
     */
     matrix.prototype.add = function (matrix) {
         var mValues = this.toArray();
@@ -122,17 +278,6 @@ Atlantis.Matrix = (function () {
         var matrix = new Atlantis.Matrix(matA);
         matrix.add(matB);
         return matrix;
-    };
-
-    /**
-    * Sets translation.
-    * @method setTranslation
-    * @param {Atlantis.Vetor3} position The position to set.
-    */
-    matrix.prototype.setTranslation = function (position) {
-        this.M41 = position.x;
-        this.M42 = position.y;
-        this.M43 = position.z;
     };
 
     /**
@@ -277,7 +422,7 @@ Atlantis.Matrix = (function () {
 	 * @return {Atlantis.Matrix} Return a matrix of this type of perspective.
 	 */
 	matrix.createPerspectiveFieldOfView = function (fov, aspect, zNear, zFar) {
-		var yScale = (float)(1.0 / Math.tan(fov * 0.5f));
+		var yScale = (float)(1.0 / Math.tan(fov * 0.5));
 		var xScale = yScale / aspect;
 		var halfWidth = zNear / xScale;
 		var halfHeight = zNear / yScale;

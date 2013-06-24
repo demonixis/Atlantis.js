@@ -80,9 +80,9 @@ Atlantis.Vector2 = (function () {
     * @param {Atlantis.Vector2} A vector.
     * @param {Atlantis.Vector2} Another vector.
     */
-    vector2.add = function (vec1, vec2) {
+    vector2.subtract = function (vec1, vec2) {
         var vector = new Atlantis.Vector2(vec1);
-        vector.add(vec2);
+        vector.subtract(vec2);
         return vector;
     };
 
@@ -168,7 +168,7 @@ Atlantis.Vector2 = (function () {
         return vec.distance(vec2);
     };
 
-      /**
+    /**
     * Gets distance between this vector and the vector passed in parameter.
     * @method getDistance
     * @param {Atlantis.Vector2} vector2 The vector2 to use to determine the distance.
@@ -277,9 +277,12 @@ Atlantis.Vector2 = (function () {
     * @method normalize
     */
     vector2.prototype.normalize = function () {
-        var value = 1 / (Math.sqrt(this.x * this.x) + (this.y * this.y));
-        this.x *= value;
-        this.y *= value;
+        var factor = Atlantis.Vector3.distance(this, new Vector3());
+
+        if (factor != 0) {
+            factor = 1.0 / factor;
+            this.set(this.x * factor, this.y * factor, this.z * factor);
+        }
     };
 
     /** Gets a normalized vector.
@@ -292,6 +295,39 @@ Atlantis.Vector2 = (function () {
         var vec = new vector2(vector);
         vec.normalize();
         return vec;
+    };
+
+    /**
+    * Gets a transformed Vector3 from a position and a matrix.
+    * @method transform
+    * @param {Atlantis.Vector3} position
+    * @param {Atlantis.Matrix} matrix
+    * @return {Atlantis.Matrix} A tranformed vector.
+    */
+    vector2.transform = function (position, matrix) {
+        var vector = new Atlantis.Vector3(
+			(position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41,
+	        (position.x * matrix.M12) + (position.y * matrix.M22) + (position.z * matrix.M32) + matrix.M42,
+	        (position.x * matrix.M13) + (position.y * matrix.M23) + (position.z * matrix.M33) + matrix.M43
+		);
+
+        return vector;
+    };
+
+    /**
+    * Gets a transformed Vector3 from a position and a matrix.
+    * @method transformCoordinate
+    * @param {Atlantis.Vector3} position
+    * @param {Atlantis.Matrix} matrix
+    * @return {Atlantis.Vector4} A tranformed vector.
+    */
+    vector2.transformCoordinate = function (position, transform) {
+        var vector = new Atlantis.Vector4();
+        vector.x = (position.x * transform.M11) + (position.y * transform.M21) + (position.z * transform.M31) + transform.M41;
+        vector.y = (position.x * transform.M12) + (position.y * transform.M22) + (position.z * transform.M32) + transform.M42;
+        vector.z = (position.x * transform.M13) + (position.y * transform.M23) + (position.z * transform.M33) + transform.M43;
+        vector.w = 1.0 / ((position.x * transform.M14) + (position.y * transform.M24) + (position.z * transform.M34) + transform.M44);
+        return new Vector3(vector.x * vector.w, vector.y * vector.w, vector.z * vector.w);
     };
 
     /**

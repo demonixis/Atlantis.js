@@ -11,6 +11,6 @@ MenuScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
     if (Atlantis.Engine.pointer.click) {
-        this.stateManager.setStateActive("game", true);
+        this.stateManager.setActive("game", true);
     }
-}
+};

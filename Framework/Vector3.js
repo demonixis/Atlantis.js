@@ -30,6 +30,50 @@ Atlantis.Vector3 = (function () {
         }
     };
 
+    vector.Zero = function () {
+		return new Atlantis.Vector3(0, 0, 0);
+	};
+	
+	vector.One = function () {
+		return new Atlantis.Vector3(1.0, 1.0, 1.0);
+	};
+	
+	vector.UnitX = function () {
+		return new Atlantis.Vector3(1.0, 0.0, 0.0);
+	};
+	
+	vector.UnitY = function () {
+		return new Atlantis.Vector3(0.0, 1.0, 0.0);
+	};
+	
+	vector.UnitZ = function () {
+		return new Atlantis.Vector3(0.0, 0.0, 1.0);
+	};
+	
+	vector.Up = function () {
+		return new Atlantis.Vector3(0.0, 1.0, 0.0);
+	};
+	
+	vector.Down = function () {
+		return new Atlantis.Vector3(0.0, -1.0, 0.0);
+	};
+	
+	vector.Right = function () {
+		return new Atlantis.Vector3(1.0, 0.0, 0.0);
+	};
+	
+	vector.Left = function () {
+		return new Atlantis.Vector3(-1.0, 0.0, 0.0);
+	};
+	
+    vector.Forward = function () {
+    	return new Atlantis.Vector3(0.0, 0.0, -1.0);
+    };
+    
+    vector.Backward = function () {
+    	return new Atlantis.Vector3(0.0, 0.0, 1.0);
+    };
+
     /**
 	 * Add a Vector3 to the current vector.
      * @method add

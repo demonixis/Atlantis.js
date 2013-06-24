@@ -50,14 +50,14 @@ Atlantis.GameTime = (function () {
 
 Atlantis.Game = (function () {
     /**
-     * Create a game instance who is the starting point of the Framework.
-     * @constructor
-     * @class Game
-     * @param {Number} width Desired screen width.
-     * @param {height} height Desired screen height.
-     * @param {domElement} (optional) domElement Sepecify a DOM element to attach the canvas.
-     * @param {params} (optional) params
-     */
+    * Create a game instance who is the starting point of the Framework.
+    * @constructor
+    * @class Game
+    * @param {Number} width Desired screen width.
+    * @param {height} height Desired screen height.
+    * @param {domElement} (optional) domElement Sepecify a DOM element to attach the canvas.
+    * @param {params} (optional) params
+    */
     var game = function (width, height, domElement, params) {
         var params = params || {};
 
@@ -79,37 +79,38 @@ Atlantis.Game = (function () {
     };
 
     /**
-     * Initialize the game logic and components.
-     * @method initialize
-     */
+    * Initialize the game logic and components.
+    * @method initialize
+    */
     game.prototype.initialize = function () {
         var that = this;
+        this.components.initialize();
         this.components.loadContent(this.content);
         this.keyboard.initialize();
-        this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false); 
+        this.domElement.addEventListener("resize", function (event) { onResize(event, that); }, false);
     };
 
     /*
-     * Update
-     * @method
-     */
+    * Update
+    * @method
+    */
     game.prototype.update = function (gameTime) {
         this.components.update(gameTime);
     };
 
     /*
-     * Draw on screen
-     * @method
-     */
+    * Draw on screen
+    * @method
+    */
     game.prototype.draw = function (gameTime, context) {
         context.clearRect(0, 0, this.width, this.height);
         this.components.draw(gameTime, context)
     };
 
     /* 
-     * Methods called by the main loop on each frame who call update and draw methods.
-     * @method run
-     */
+    * Methods called by the main loop on each frame who call update and draw methods.
+    * @method run
+    */
     game.prototype.run = function () {
         this.gameTime.update();
         this.update(this.gameTime);
@@ -117,9 +118,9 @@ Atlantis.Game = (function () {
     };
 
     /*
-     * Callback for window resize
-     * @method
-     */
+    * Callback for window resize
+    * @method
+    */
     function onResize(event, instance) {
         instance.width = event.target.innerWidth;
         instance.height = event.target.innerHeight;
@@ -128,10 +129,10 @@ Atlantis.Game = (function () {
     }
 
     /*
-     * Create a canvas 2D with a size and a black background
-     * The canvas is added before any child of the specified domElement.
-     * @method
-     */
+    * Create a canvas 2D with a size and a black background
+    * The canvas is added before any child of the specified domElement.
+    * @method
+    */
     function createCanvas2D(width, height, parentNode) {
         var canvas = document.createElement("canvas");
         canvas.setAttribute("id", "Atlantis.Canvas2D");

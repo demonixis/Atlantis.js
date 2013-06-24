@@ -169,19 +169,6 @@ Atlantis.PointerManager = (function () {
     };
 
     /**
-    * Gets a string of position and states.
-    *
-    * @method toString
-    * @return {String} A string that contains informations about position and states.
-    */
-    pointerManager.prototype.toString = function () {
-        var positions = ["X: ", Math.round(this.x), " <br />Y: ", Math.round(this.y), "<br />LastState.x: ", Math.round(this.lastState.x) + " <br /> LastState.y: ", Math.round(this.lastState.y), "<br />Delta.x: ", Math.round(this.delta.x), " <br /> Delta.y: ", Math.round(this.delta.y)].join("");
-        var buttons = ["<br />Click: ", this.click, "<br />Release: ", this.release, "<br />Drag: ", this.drag, "<br />Touch: ", this.touch].join("");
-
-        return ([positions + "<br />" + buttons + "<br />"].join(""));
-    };
-
-    /**
     * Gets the event that correspond of pointer type.
     *
     * @function getEvent
