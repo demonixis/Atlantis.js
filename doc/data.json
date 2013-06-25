@@ -1,0 +1,2105 @@
+{
+    "project": {
+        "name": "AtlantisEngine.js",
+        "description": "A 2D game engine in JavaScript using Canvas 2D",
+        "version": "0.0.2",
+        "url": "http://blog.demonixis.net"
+    },
+    "files": {
+        "Engine\\Graphics\\Animation.js": {
+            "name": "Engine\\Graphics\\Animation.js",
+            "modules": {
+                "Engine": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Graphics\\Entity.js": {
+            "name": "Engine\\Graphics\\Entity.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Entity": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Graphics\\Sprite.js": {
+            "name": "Engine\\Graphics\\Sprite.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Sprite": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Graphics\\SpriteGroup.js": {
+            "name": "Engine\\Graphics\\SpriteGroup.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.SpriteGroup": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Tilemap\\Layer.js": {
+            "name": "Engine\\Tilemap\\Layer.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Tile": 1,
+                "Atlantis.Layer": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Tilemap\\Tilemap.js": {
+            "name": "Engine\\Tilemap\\Tilemap.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Tilemap": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\AudioManager.js": {
+            "name": "Engine\\AudioManager.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.AudioManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Engine.js": {
+            "name": "Engine\\Engine.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Engine": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Interpolator.js": {
+            "name": "Engine\\Interpolator.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Interpolator": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\StateManager.js": {
+            "name": "Engine\\StateManager.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.State": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\StorageManager.js": {
+            "name": "Engine\\StorageManager.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.StorageManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Input\\KeyboardState.js": {
+            "name": "Framework\\Input\\KeyboardState.js",
+            "modules": {
+                "Framework": 1
+            },
+            "classes": {
+                "Atlantis.KeyboardState": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Input\\MouseState.js": {
+            "name": "Framework\\Input\\MouseState.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.MouseState": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\ContentManager.js": {
+            "name": "Framework\\ContentManager.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.ContentManager": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Game.js": {
+            "name": "Framework\\Game.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.GameTime": 1,
+                "Atlantis.Game": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\GameComponent.js": {
+            "name": "Framework\\GameComponent.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.GameComponent": 1,
+                "Atlantis.DrawableGameComponent": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Graphics.js": {
+            "name": "Framework\\Graphics.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Graphics": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Helpers.js": {
+            "name": "Framework\\Helpers.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Helpers": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Rectangle.js": {
+            "name": "Framework\\Rectangle.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Point": 1,
+                "Atlantis.Rectangle": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Vector2.js": {
+            "name": "Framework\\Vector2.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Vector2": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        }
+    },
+    "modules": {
+        "Atlantis": {
+            "name": "Atlantis",
+            "submodules": {
+                "Engine": 1,
+                "Framework": 1
+            },
+            "classes": {
+                "Atlantis.Entity": 1,
+                "Atlantis.Sprite": 1,
+                "Atlantis.SpriteGroup": 1,
+                "Atlantis.Tile": 1,
+                "Atlantis.Layer": 1,
+                "Atlantis.Tilemap": 1,
+                "Atlantis.AudioManager": 1,
+                "Atlantis.Engine": 1,
+                "Atlantis.Interpolator": 1,
+                "Atlantis.State": 1,
+                "Atlantis.StorageManager": 1,
+                "Atlantis.KeyboardState": 1,
+                "Atlantis.MouseState": 1,
+                "Atlantis.ContentManager": 1,
+                "Atlantis.GameTime": 1,
+                "Atlantis.Game": 1,
+                "Atlantis.GameComponent": 1,
+                "Atlantis.DrawableGameComponent": 1,
+                "Atlantis.Graphics": 1,
+                "Atlantis.Helpers": 1,
+                "Atlantis.Point": 1,
+                "Atlantis.Rectangle": 1,
+                "Atlantis.Vector2": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            },
+            "file": "Framework\\Vector2.js",
+            "line": 15
+        },
+        "Engine": {
+            "name": "Engine",
+            "submodules": {},
+            "classes": {
+                "Atlantis.Entity": 1,
+                "Atlantis.Sprite": 1,
+                "Atlantis.SpriteGroup": 1,
+                "Atlantis.Tile": 1,
+                "Atlantis.Layer": 1,
+                "Atlantis.Tilemap": 1,
+                "Atlantis.AudioManager": 1,
+                "Atlantis.Engine": 1,
+                "Atlantis.Interpolator": 1,
+                "Atlantis.State": 1,
+                "Atlantis.StorageManager": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Atlantis": 1
+            },
+            "module": "Atlantis",
+            "namespace": "",
+            "file": "Engine\\StorageManager.js",
+            "line": 12,
+            "description": "Atlantis storage manager."
+        },
+        "Framework": {
+            "name": "Framework",
+            "submodules": {},
+            "classes": {
+                "Atlantis.KeyboardState": 1,
+                "Atlantis.MouseState": 1,
+                "Atlantis.ContentManager": 1,
+                "Atlantis.GameTime": 1,
+                "Atlantis.Game": 1,
+                "Atlantis.GameComponent": 1,
+                "Atlantis.DrawableGameComponent": 1,
+                "Atlantis.Graphics": 1,
+                "Atlantis.Helpers": 1,
+                "Atlantis.Point": 1,
+                "Atlantis.Rectangle": 1,
+                "Atlantis.Vector2": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {
+                "Atlantis": 1
+            },
+            "module": "Atlantis",
+            "namespace": "",
+            "file": "Framework\\Vector2.js",
+            "line": 15,
+            "description": "Atlantis storage manager."
+        }
+    },
+    "classes": {
+        "Atlantis.Entity": {
+            "name": "Atlantis.Entity",
+            "shortname": "Entity",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 12,
+            "description": "A basic entity",
+            "is_constructor": 1
+        },
+        "Atlantis.Sprite": {
+            "name": "Atlantis.Sprite",
+            "shortname": "Sprite",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 12,
+            "description": "A sprite entity",
+            "is_constructor": 1
+        },
+        "Atlantis.SpriteGroup": {
+            "name": "Atlantis.SpriteGroup",
+            "shortname": "SpriteGroup",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 12,
+            "description": "A collection that initialize, load, update and draw entities.",
+            "is_constructor": 1
+        },
+        "Atlantis.Tile": {
+            "name": "Atlantis.Tile",
+            "shortname": "Tile",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Tilemap\\Layer.js",
+            "line": 12,
+            "description": "Define a Tile object that compose a layer.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "id",
+                    "description": "The index on the texture for this tile.",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "The width of the tile.",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "The height of the tile.",
+                    "type": "Number"
+                }
+            ]
+        },
+        "Atlantis.Layer": {
+            "name": "Atlantis.Layer",
+            "shortname": "Layer",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Tilemap\\Layer.js",
+            "line": 30,
+            "description": "Define a layer object that compose a tilemap.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "textureName",
+                    "description": "The name of the texture to use.",
+                    "type": "String"
+                },
+                {
+                    "name": "An",
+                    "description": "array of Atlantis.Tile",
+                    "type": "Array"
+                }
+            ]
+        },
+        "Atlantis.Tilemap": {
+            "name": "Atlantis.Tilemap",
+            "shortname": "Tilemap",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Tilemap\\Tilemap.js",
+            "line": 12,
+            "description": "A tilemap.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "layers",
+                    "description": "A collection of Atlantis.Layer or an instance of Altantis.Layer",
+                    "type": "Array"
+                }
+            ]
+        },
+        "Atlantis.AudioManager": {
+            "name": "Atlantis.AudioManager",
+            "shortname": "AudioManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\AudioManager.js",
+            "line": 19,
+            "description": "An audio manager to play sound and musics.",
+            "is_constructor": 1
+        },
+        "Atlantis.Engine": {
+            "name": "Atlantis.Engine",
+            "shortname": "Engine",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Engine.js",
+            "line": 24,
+            "description": "The engine class that initialize an Atlantis.Game object and setup managers and scene.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "width",
+                    "description": "Desired screen width.",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "Desired screen height",
+                    "type": "Number"
+                },
+                {
+                    "name": "domElement",
+                    "description": "The DOM element to use for canvas (optional).",
+                    "type": "Number"
+                }
+            ]
+        },
+        "Atlantis.Interpolator": {
+            "name": "Atlantis.Interpolator",
+            "shortname": "Interpolator",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Interpolator.js",
+            "line": 12,
+            "description": "An interpolator class that can be used for animations.",
+            "is_constructor": 1
+        },
+        "Atlantis.State": {
+            "name": "Atlantis.State",
+            "shortname": "State",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\StateManager.js",
+            "line": 12,
+            "description": "Define a base state class that contains a basic scene.",
+            "is_constructor": 1
+        },
+        "Atlantis.StorageManager": {
+            "name": "Atlantis.StorageManager",
+            "shortname": "StorageManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\StorageManager.js",
+            "line": 12,
+            "description": "A storage manager that work with localStorage",
+            "is_constructor": 1
+        },
+        "Atlantis.KeyboardState": {
+            "name": "Atlantis.KeyboardState",
+            "shortname": "KeyboardState",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Input\\KeyboardState.js",
+            "line": 16,
+            "description": "A keyboard input manager.",
+            "is_constructor": 1
+        },
+        "Atlantis.MouseState": {
+            "name": "Atlantis.MouseState",
+            "shortname": "MouseState",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Input\\MouseState.js",
+            "line": 12,
+            "description": "A mouse input manager.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "domElement",
+                    "description": "The DOM node to listen mouse events",
+                    "type": "HTMLElement"
+                }
+            ]
+        },
+        "Atlantis.ContentManager": {
+            "name": "Atlantis.ContentManager",
+            "shortname": "ContentManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\ContentManager.js",
+            "line": 12,
+            "description": "Create a content manager that manage assets.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "rootDirectory",
+                    "description": "The root folder to load assets (default is the current folder).",
+                    "type": "String"
+                }
+            ]
+        },
+        "Atlantis.GameTime": {
+            "name": "Atlantis.GameTime",
+            "shortname": "GameTime",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Game.js",
+            "line": 12,
+            "description": "Create a game time object who's responsible to get time informations.",
+            "is_constructor": 1
+        },
+        "Atlantis.Game": {
+            "name": "Atlantis.Game",
+            "shortname": "Game",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Game.js",
+            "line": 52,
+            "description": "Create a game instance who is the starting point of the Framework.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "width",
+                    "description": "Desired screen width.",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "Desired screen height.",
+                    "type": "Height"
+                },
+                {
+                    "name": "(optional)",
+                    "description": "domElement Sepecify a DOM element to attach the canvas.",
+                    "type": "DomElement"
+                },
+                {
+                    "name": "(optional)",
+                    "description": "params",
+                    "type": "Params"
+                }
+            ]
+        },
+        "Atlantis.GameComponent": {
+            "name": "Atlantis.GameComponent",
+            "shortname": "GameComponent",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\GameComponent.js",
+            "line": 15,
+            "description": "Create a game component.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "A game instance.",
+                    "type": "Atlantis.Game"
+                }
+            ]
+        },
+        "Atlantis.DrawableGameComponent": {
+            "name": "Atlantis.DrawableGameComponent",
+            "shortname": "DrawableGameComponent",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\GameComponent.js",
+            "line": 45,
+            "description": "Create a drawable game component.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "game",
+                    "description": "A game instance.",
+                    "type": "Atlantis.Game"
+                }
+            ]
+        },
+        "Atlantis.Graphics": {
+            "name": "Atlantis.Graphics",
+            "shortname": "Graphics",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Graphics.js",
+            "line": 13
+        },
+        "Atlantis.Helpers": {
+            "name": "Atlantis.Helpers",
+            "shortname": "Helpers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Helpers.js",
+            "line": 11
+        },
+        "Atlantis.Point": {
+            "name": "Atlantis.Point",
+            "shortname": "Point",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Rectangle.js",
+            "line": 15,
+            "description": "Create a point structure.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "A value for X coordinate.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "A value for Y coordinate.",
+                    "type": "Number"
+                }
+            ]
+        },
+        "Atlantis.Rectangle": {
+            "name": "Atlantis.Rectangle",
+            "shortname": "Rectangle",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Rectangle.js",
+            "line": 35,
+            "description": "Create a rectangle structure.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "A value for X coordinate.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "A value for Y coordinate.",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "A value for the width of the rectangle.",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "A value for the height of the rectangle",
+                    "type": "Number"
+                }
+            ]
+        },
+        "Atlantis.Vector2": {
+            "name": "Atlantis.Vector2",
+            "shortname": "Vector2",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Vector2.js",
+            "line": 15,
+            "description": "Create a new Vector2",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 24,
+            "description": "Initialize of all members.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 34,
+            "description": "Load assets of all members.",
+            "itemtype": "method",
+            "name": "loadContent",
+            "params": [
+                {
+                    "name": "contentManager",
+                    "description": "An instance of ContentManager.",
+                    "type": "Atlantis.ContentManager"
+                }
+            ],
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 45,
+            "description": "Update logic of all members.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                }
+            ],
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 58,
+            "description": "Draw all members on screen.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                },
+                {
+                    "name": "context",
+                    "description": "The canvas context.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 72,
+            "description": "Add an entity to the group.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "The entity to add.",
+                    "type": "Atlantis.Entity"
+                }
+            ],
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 88,
+            "description": "remove an entity from the group.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "The entity to remove.",
+                    "type": "Atlantis.Entity"
+                }
+            ],
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\SpriteGroup.js",
+            "line": 113,
+            "description": "Gets an entity from the group.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The index of the entity on the group.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.SpriteGroup",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Tilemap\\Layer.js",
+            "line": 52,
+            "description": "Draw layer on screen.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                },
+                {
+                    "name": "context",
+                    "description": "The canvas context.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.Layer",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Tilemap\\Tilemap.js",
+            "line": 32,
+            "description": "Load assets from all layers.",
+            "itemtype": "method",
+            "name": "loadContent",
+            "class": "Atlantis.Tilemap",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Tilemap\\Tilemap.js",
+            "line": 42,
+            "description": "Draw layers on screen.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                },
+                {
+                    "name": "context",
+                    "description": "The canvas context.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.Tilemap",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\AudioManager.js",
+            "line": 31,
+            "description": "Play a music.",
+            "itemtype": "method",
+            "name": "playMusic",
+            "params": [
+                {
+                    "name": "music",
+                    "description": "An HTML Audio Element that contains the music.",
+                    "type": "AudioElement"
+                },
+                {
+                    "name": "repeat",
+                    "description": "Sets to true for enable repeat.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Atlantis.AudioManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\AudioManager.js",
+            "line": 45,
+            "description": "Stop the current played music.",
+            "itemtype": "method",
+            "name": "stopMusic",
+            "class": "Atlantis.AudioManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\AudioManager.js",
+            "line": 53,
+            "description": "Pause the current played music.",
+            "itemtype": "method",
+            "name": "pauseMusic",
+            "class": "Atlantis.AudioManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Engine.js",
+            "line": 48,
+            "description": "Launch the game engine.",
+            "itemtype": "method",
+            "name": "run",
+            "class": "Atlantis.Engine",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Interpolator.js",
+            "line": 26,
+            "description": "Start the interpolation process.",
+            "itemtype": "method",
+            "name": "startInterpolation",
+            "params": [
+                {
+                    "name": "start",
+                    "description": "The start value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "end",
+                    "description": "The end value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "duration",
+                    "description": "Desired duration for interpolation.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Interpolator",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Interpolator.js",
+            "line": 42,
+            "description": "Gets the interpolated value.",
+            "itemtype": "method",
+            "name": "getInterpolatedValue",
+            "params": [
+                {
+                    "name": "elapsedMilliseconds",
+                    "description": "The elapsed time since the last call.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "An interpolated value.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Interpolator",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Interpolator.js",
+            "line": 66,
+            "description": "Interplate a value.",
+            "itemtype": "method",
+            "name": "interpolateValue",
+            "params": [
+                {
+                    "name": "step",
+                    "description": "The step.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "An interpolated value.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Interpolator",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Interpolator.js",
+            "line": 76,
+            "description": "Math function lerp",
+            "itemtype": "method",
+            "name": "lerp",
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Atlantis.Interpolator",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 25,
+            "description": "Load assets of entities that compose the scene.",
+            "itemtype": "method",
+            "name": "loadContent",
+            "params": [
+                {
+                    "name": "contentManager",
+                    "description": "An instance of ContentManager.",
+                    "type": "Atlantis.ContentManager"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 36,
+            "description": "Update logic of scene children.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 45,
+            "description": "Draw scene children on screen.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                },
+                {
+                    "name": "context",
+                    "description": "The canvas context.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 55,
+            "description": "Add an entity to the scene.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "The entity to add.",
+                    "type": "Atlantis.Entity"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 64,
+            "description": "remove an entity from the scene.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "entity",
+                    "description": "The entity to remove.",
+                    "type": "Atlantis.Entity"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 73,
+            "description": "Gets an entity from the scene.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "The index of the entity on the scene.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 99,
+            "description": "Load assets of entities that compose the scene.",
+            "itemtype": "method",
+            "name": "loadContent",
+            "params": [
+                {
+                    "name": "contentManager",
+                    "description": "An instance of ContentManager.",
+                    "type": "Atlantis.ContentManager"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 111,
+            "description": "Update all active state.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 124,
+            "description": "Draw all active states.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "An instance of GameTime.",
+                    "type": "Atlantis.GameTime"
+                },
+                {
+                    "name": "context",
+                    "description": "The canvas context.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 138,
+            "params": [
+                {
+                    "name": "stateParam",
+                    "description": "Index of the state.",
+                    "type": "Number"
+                },
+                {
+                    "name": "stateParam",
+                    "description": "Name of the state.",
+                    "type": "String"
+                },
+                {
+                    "name": "stateParam",
+                    "description": "Instance of thee state.",
+                    "type": "Altantis.State"
+                },
+                {
+                    "name": "disableOtherStates",
+                    "description": "Sets to true for desactive all other states.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 192,
+            "description": "Add a state to the state manager.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "stateParam",
+                    "description": "Instance of the state to add.",
+                    "type": "Altantis.State"
+                },
+                {
+                    "name": "isActive",
+                    "description": "Sets to true for active the state, default is true.",
+                    "type": "Boolean"
+                },
+                {
+                    "name": "disableOtherStates",
+                    "description": "Sets to true for desactive all other states.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 235,
+            "description": "Remove a state by its index, name or instance.",
+            "itemtype": "method",
+            "name": "remove",
+            "params": [
+                {
+                    "name": "stateParam",
+                    "description": "Index of the state to remove.",
+                    "type": "Number"
+                },
+                {
+                    "name": "stateParam",
+                    "description": "Name of the state to remove.",
+                    "type": "String"
+                },
+                {
+                    "name": "stateParam",
+                    "description": "Instance of the state to remove.",
+                    "type": "Altantis.State"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 278,
+            "description": "Gets a state by its index or its name.",
+            "itemtype": "method",
+            "name": "get",
+            "params": [
+                {
+                    "name": "stateParam",
+                    "description": "Index of the state.",
+                    "type": "Number"
+                },
+                {
+                    "name": "stateParam",
+                    "description": "Name of the state.",
+                    "type": "String"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StorageManager.js",
+            "line": 21,
+            "description": "Save data in the localStorage.",
+            "itemtype": "method",
+            "name": "save",
+            "params": [
+                {
+                    "name": "container",
+                    "description": "The localStorage key.",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "Desired name for the data who'll save.",
+                    "type": "String"
+                },
+                {
+                    "name": "or",
+                    "description": "{String} data An object to serialize or a serialized object.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.StorageManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StorageManager.js",
+            "line": 36,
+            "description": "Load data from the localStorage.",
+            "itemtype": "method",
+            "name": "load",
+            "params": [
+                {
+                    "name": "container",
+                    "description": "The localStorage key.",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "Desired name for the data who'll save.",
+                    "type": "String"
+                },
+                {
+                    "name": "or",
+                    "description": "{String} data An object to serialize or a serialized object.",
+                    "type": "Object"
+                },
+                {
+                    "name": "deserializedObject",
+                    "description": "Sets to true (default) for deserialize, false to gets the strings stored in localStorage.",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "The object",
+                "type": "Object"
+            },
+            "class": "Atlantis.StorageManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StorageManager.js",
+            "line": 56,
+            "description": "Gets the localStorage key with a container name and a data name.",
+            "itemtype": "method",
+            "name": "getLoadStorageKey",
+            "params": [
+                {
+                    "name": "container",
+                    "description": "The localStorage key.",
+                    "type": "String"
+                },
+                {
+                    "name": "name",
+                    "description": "Desired name for the data who'll save.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The localStorage final key.",
+                "type": "String"
+            },
+            "class": "Atlantis.StorageManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Input\\KeyboardState.js",
+            "line": 29,
+            "description": "Initialize keyboard event handlers.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.KeyboardState",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Input\\KeyboardState.js",
+            "line": 41,
+            "description": "Event handler - Function called on keyboard event.",
+            "itemtype": "method",
+            "name": "onKeyStateChange",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "The event object.",
+                    "type": "Object"
+                },
+                {
+                    "name": "instance",
+                    "description": "The current instance.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.KeyboardState",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\ContentManager.js",
+            "line": 23,
+            "description": "Load an asset from the root directory.\nSupported formats are :\n     - Images : png, jpg, bmp\n     - Audio : mp3, ogg, wav\n     - Video : mp4, ogv\n     - Data : xml, json, js\n\n The type is define with the file extension.",
+            "itemtype": "method",
+            "name": "load",
+            "params": [
+                {
+                    "name": "assetName",
+                    "description": "The asset name",
+                    "type": "String"
+                }
+            ],
+            "class": "Atlantis.ContentManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Game.js",
+            "line": 23,
+            "description": "Gets the elapsed time since last frame.",
+            "itemtype": "method",
+            "name": "getElapsedTime",
+            "return": {
+                "description": "The elapsed time since last frame.",
+                "type": "Number"
+            },
+            "class": "Atlantis.GameTime",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Game.js",
+            "line": 32,
+            "description": "Gets the total elapsed time since the begining.",
+            "itemtype": "method",
+            "name": "getTotalGameTime",
+            "return": {
+                "description": "The total elapsed time.",
+                "type": "Number"
+            },
+            "class": "Atlantis.GameTime",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Game.js",
+            "line": 81,
+            "description": "Initialize the game logic and components.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.Game",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 11,
+            "description": "An interface for game components",
+            "class": "Atlantis.GameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 25,
+            "description": "Initialize the logic of the component.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.GameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 31,
+            "description": "Update the logic of the component.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "",
+                    "type": "Atlantis.GameTime"
+                }
+            ],
+            "class": "Atlantis.GameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 41,
+            "description": "An interface for drawable game components.",
+            "class": "Atlantis.GameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 57,
+            "description": "Draw the component on screen.",
+            "itemtype": "method",
+            "name": "draw",
+            "params": [
+                {
+                    "name": "gameTime",
+                    "description": "",
+                    "type": "Atlantis.GameTime"
+                },
+                {
+                    "name": "context",
+                    "description": "The canvas context.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 68,
+            "description": "A collection who'll initialize, load, update and draw components.",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 72,
+            "description": "Create a collection of game components.",
+            "is_constructor": 1,
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 80,
+            "description": "Add a component to the collection",
+            "itemtype": "method",
+            "name": "add",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 90,
+            "description": "Get a component from the collection",
+            "itemtype": "method",
+            "name": "get",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 103,
+            "description": "Remove a component from the collection",
+            "itemtype": "method",
+            "name": "remove",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 114,
+            "description": "Load assets",
+            "itemtype": "method",
+            "name": "loadContent",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 124,
+            "description": "Update all components",
+            "itemtype": "method",
+            "name": "update",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 134,
+            "description": "Draw all components",
+            "itemtype": "method",
+            "name": "draw",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Helpers.js",
+            "line": 18,
+            "description": "Ajax method for POST and GET calls.",
+            "itemtype": "method",
+            "name": "ajax",
+            "class": "Atlantis.Helpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Helpers.js",
+            "line": 70,
+            "description": "An event notifier. If the event doesn't exists it created and stored.",
+            "itemtype": "method",
+            "name": "notify",
+            "params": [
+                {
+                    "name": "name",
+                    "description": "The name of the event to emit.",
+                    "type": "String"
+                },
+                {
+                    "name": "params",
+                    "description": "An object to emit with the event.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.Helpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Helpers.js",
+            "line": 97,
+            "description": "Gets the size of an image. This function add the image to the DOM an remove from it.\nAfter that we can gets the size of the image.",
+            "itemtype": "method",
+            "name": "getImageSize",
+            "params": [
+                {
+                    "name": "image",
+                    "description": "An instance of Image.",
+                    "type": "Image"
+                }
+            ],
+            "class": "Atlantis.Helpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 11,
+            "description": "A class that represent a point structure",
+            "class": "Atlantis.Point",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 30,
+            "description": "A class that represent a rectangle structure",
+            "class": "Atlantis.Point",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 51,
+            "description": "Gets the top value.",
+            "itemtype": "method",
+            "name": "getTop",
+            "return": {
+                "description": "Top coordinate (y)",
+                "type": "Number"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 60,
+            "description": "Gets the bottom value.",
+            "itemtype": "method",
+            "name": "getBottom",
+            "return": {
+                "description": "Bottom coordinate (y + height)",
+                "type": "Number"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 69,
+            "description": "Gets the left value.",
+            "itemtype": "method",
+            "name": "getLeft",
+            "return": {
+                "description": "Left coordinate (x)",
+                "type": "Number"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 78,
+            "description": "Gets the right value.",
+            "itemtype": "method",
+            "name": "getRight",
+            "return": {
+                "description": "Right value (x + width)",
+                "type": "Number"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 87,
+            "description": "Gets the center of the rectangle.",
+            "itemtype": "method",
+            "name": "getCenter",
+            "return": {
+                "description": "A point of the center of the rectangle.",
+                "type": "Atlantis.Point"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 97,
+            "itemtype": "method",
+            "name": "contains",
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 111,
+            "itemtype": "method",
+            "name": "contains",
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 11,
+            "description": "A Vector2 class.",
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 25,
+            "description": "Add this vector by another vector or value.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "A vector or a value to add to this vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 41,
+            "description": "Substract this vector by another vector or value.",
+            "itemtype": "method",
+            "name": "subtract",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "A vector or a value to subtract to this vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 57,
+            "description": "Divide this vector by another vector",
+            "itemtype": "method",
+            "name": "divide",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "A vector or a value to divide to this vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 73,
+            "description": "Multiply this vector by another vector or a value.",
+            "itemtype": "method",
+            "name": "multiply",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "A vector or a value to multiply to this vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 89,
+            "description": "Negate this vector",
+            "itemtype": "method",
+            "name": "negate",
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 104,
+            "description": "Normalize this vector.",
+            "itemtype": "method",
+            "name": "normalize",
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 114,
+            "description": "Gets distance between this vector and the vector passed in parameter.",
+            "itemtype": "method",
+            "name": "getDistance",
+            "params": [
+                {
+                    "name": "vector2",
+                    "description": "The vector2 to use to determine the distance.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "return": {
+                "description": "The distance between this vector and the vector passed in parameter.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type",
+            "line": " Engine\\StateManager.js:138"
+        },
+        {
+            "message": "Missing item type\nAn interface for game components",
+            "line": " Framework\\GameComponent.js:11"
+        },
+        {
+            "message": "Missing item type\nAn interface for drawable game components.",
+            "line": " Framework\\GameComponent.js:41"
+        },
+        {
+            "message": "Missing item type\nA collection who'll initialize, load, update and draw components.",
+            "line": " Framework\\GameComponent.js:68"
+        },
+        {
+            "message": "Missing item type\nCreate a collection of game components.",
+            "line": " Framework\\GameComponent.js:72"
+        },
+        {
+            "message": "Missing item type\nA class that represent a point structure",
+            "line": " Framework\\Rectangle.js:11"
+        },
+        {
+            "message": "Missing item type\nA class that represent a rectangle structure",
+            "line": " Framework\\Rectangle.js:30"
+        },
+        {
+            "message": "Missing item type\nA Vector2 class.",
+            "line": " Framework\\Vector2.js:11"
+        }
+    ]
+}
