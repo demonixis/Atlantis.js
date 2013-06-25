@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Atlantisengine.js : An Experimental game engine written in JavaScript with an API close to XNA/MonoGame" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Atlantisengine.js</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/demonixis/AtlantisEngine.js">View on GitHub</a>
+
+          <h1 id="project_title">Atlantisengine.js</h1>
+          <h2 id="project_tagline">An Experimental game engine written in JavaScript with an API close to XNA/MonoGame</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/demonixis/AtlantisEngine.js/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/demonixis/AtlantisEngine.js/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="atlantisenginejs" class="anchor" href="#atlantisenginejs"><span class="octicon octicon-link"></span></a>AtlantisEngine.js</h1>
+
+<h3>
+<a name="summary" class="anchor" href="#summary"><span class="octicon octicon-link"></span></a>Summary</h3>
+
+<p>AtlantisEngine.js is a work in progress JavaScript 2D Game Engine using HTML5 and canvas 2D. It is mainly inspired by XNA and Flixel.</p>
+
+<h3>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<ul>
+<li>Audio manager</li>
+<li>Content manager </li>
+<li>Game component system</li>
+<li>Input management (Keyboard, Mouse, Touch)</li>
+<li>Helpers for ajax and events</li>
+<li>Sprite with easy animations system and a bit of physics</li>
+<li>SpriteGroup</li>
+<li>State and state manager</li>
+</ul><h3>
+<a name="the-next" class="anchor" href="#the-next"><span class="octicon octicon-link"></span></a>The next</h3>
+
+<ul>
+<li>Basic and isometric tilemap</li>
+<li>Scene camera</li>
+<li>WebGL renderer for 2D and 3D</li>
+<li>More utilities (like Timer, Inerpolator, etc.)</li>
+</ul><h3>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h3>
+
+<div class="highlight"><pre><span class="c">&lt;!--</span> <span class="nx">Load</span> <span class="nx">the</span> <span class="nx">engine</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"AtlantisEngine.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="c">&lt;!--</span> <span class="nx">The</span> <span class="nx">shooter</span> <span class="nx">game</span> <span class="nx">files</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"js/Background.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"js/Enemy.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"js/Player.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"js/Game.js"</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+    <span class="kd">var</span> <span class="nx">game</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Game</span><span class="p">();</span>
+
+    <span class="p">(</span><span class="kd">function</span> <span class="nx">loop</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">requestAnimationFrame</span><span class="p">(</span><span class="nx">loop</span><span class="p">);</span>
+        <span class="nx">game</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+    <span class="p">})();</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Atlantisengine.js maintained by <a href="https://github.com/demonixis">demonixis</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
