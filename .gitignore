@@ -1,0 +1,13 @@
+[Tt]humbs.db
+*.DS_Store
+*.pidb
+*.userprefs
+*.pdb
+*.user
+*.bak
+*.[Cc]ache
+*.log
+*.directory
+[Bb]in
+~$*
+*~
