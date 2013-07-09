@@ -12,7 +12,7 @@ Atlantis.Vector4 = (function () {
     /**
      * A vector4 class.
      * @constructor
-     * @class
+     * @class Vector4
      * @param {Number|Atlantis.Vector4} Value for x coordinate or a Vector4 object.
      * @param {Number} Value for y coordinate
      * @param {Number} Value for z coordinate.

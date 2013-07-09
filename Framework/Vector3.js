@@ -13,7 +13,7 @@ Atlantis.Vector3 = (function () {
      * Create a vector with three coordinates. If you pass a Vector3 in first parameter,
      * its filed are copied to the new vector (work like a copy constructor).
      * @constructor
-     * @class
+     * @class Vector3
      * @param {Number|Atlantis.Vector3} The X value or a Vector3 object     * @param {Number} The Y value.
      * @param {Number} The Z value.
      */

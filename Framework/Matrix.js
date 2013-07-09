@@ -11,7 +11,7 @@ var Atlantis = window.Atlantis || {};
 Atlantis.Matrix = (function () {
     /**
     * Create a matrix. Parameter can be a matrix, an array of 16 floats or nothing (all fields case are sets to 0).
-    * @class
+    * @class Matrix
     * @constructor
     * @param {Atlantis.Matrix|Array} 
     */

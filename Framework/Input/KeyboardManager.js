@@ -20,7 +20,7 @@ Atlantis.Keys = {
 Atlantis.KeyboardState = (function () {
     /**
      * Define a keyboard state.
-     * @class
+     * @class KeyboardState
      * @constructor
      */
     var keyState = function (keys) {
