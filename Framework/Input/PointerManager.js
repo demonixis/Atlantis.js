@@ -22,7 +22,7 @@ Atlantis.Input.PointerManager = (function () {
     var pointerManager = function (domElement) {
         this.x = 0;
         this.y = 0;
-        this.lastState = { x: 0, y: 0 };
+        this.previousState = { x: 0, y: 0 };
         this.delta = { x: 0, y: 0 };
         this.click = false;
         this.release = true;
@@ -87,8 +87,8 @@ Atlantis.Input.PointerManager = (function () {
     */
     pointerManager.prototype.updatePosition = function (event) {
         var evt = getEvent(event);
-        that.lastState.x = that.x;
-        that.lastState.y = that.y;
+        that.previousState.x = that.x;
+        that.previousState.y = that.y;
         that.x = evt.pageX;
         that.y = evt.pageY;
     };
@@ -147,18 +147,18 @@ Atlantis.Input.PointerManager = (function () {
     * @method updateDelta
     */
     pointerManager.prototype.updateDelta = function () {
-        if (that.x == that.lastState.x) {
+        if (that.x == that.previousState.x) {
             that.delta.x = 0;
         }
         else {
-            that.delta.x = (that.x - that.lastState.x);
+            that.delta.x = (that.x - that.previousState.x);
         }
 
-        if (that.y == that.lastState.y) {
+        if (that.y == that.previousState.y) {
             that.delta.y = 0;
         }
         else {
-            that.delta.y = (that.y - that.lastState.y);
+            that.delta.y = (that.y - that.previousState.y);
         }
 
         if (that.delta.x > 100) {

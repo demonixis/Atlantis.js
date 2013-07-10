@@ -10,13 +10,13 @@ var Atlantis = window.Atlantis || {};
 
 Atlantis.Vector3 = (function () {
     /**
-     * Create a vector with three coordinates. If you pass a Vector3 in first parameter,
-     * its filed are copied to the new vector (work like a copy constructor).
-     * @constructor
-     * @class Vector3
-     * @param {Number|Atlantis.Vector3} The X value or a Vector3 object     * @param {Number} The Y value.
-     * @param {Number} The Z value.
-     */
+    * Create a vector with three coordinates. If you pass a Vector3 in first parameter,
+    * its filed are copied to the new vector (work like a copy constructor).
+    * @constructor
+    * @class Vector3
+    * @param {Number|Atlantis.Vector3} The X value or a Vector3 object     * @param {Number} The Y value.
+    * @param {Number} The Z value.
+    */
     var vector = function (x, y, z) {
         if (x instanceof Atlantis.Vector3) {
             this.x = x.x;
@@ -30,84 +30,142 @@ Atlantis.Vector3 = (function () {
         }
     };
 
+    /**
+     * Gets a Vector3 with all coordinates sets to zero.
+     * @method Zero
+     */
     vector.Zero = function () {
-		return new Atlantis.Vector3(0, 0, 0);
-	};
-	
-	vector.One = function () {
-		return new Atlantis.Vector3(1.0, 1.0, 1.0);
-	};
-	
-	vector.UnitX = function () {
-		return new Atlantis.Vector3(1.0, 0.0, 0.0);
-	};
-	
-	vector.UnitY = function () {
-		return new Atlantis.Vector3(0.0, 1.0, 0.0);
-	};
-	
-	vector.UnitZ = function () {
-		return new Atlantis.Vector3(0.0, 0.0, 1.0);
-	};
-	
-	vector.Up = function () {
-		return new Atlantis.Vector3(0.0, 1.0, 0.0);
-	};
-	
-	vector.Down = function () {
-		return new Atlantis.Vector3(0.0, -1.0, 0.0);
-	};
-	
-	vector.Right = function () {
-		return new Atlantis.Vector3(1.0, 0.0, 0.0);
-	};
-	
-	vector.Left = function () {
-		return new Atlantis.Vector3(-1.0, 0.0, 0.0);
-	};
-	
+        return new Atlantis.Vector3(0, 0, 0);
+    };
+
+    /**
+     * Gets a Vector3 with all coordinates sets to one.
+     * @method One
+     */
+    vector.One = function () {
+        return new Atlantis.Vector3(1.0, 1.0, 1.0);
+    };
+
+    /**
+     * Gets a Vector3 with X coordinate set to one.
+     * @method UnitX
+     */
+    vector.UnitX = function () {
+        return new Atlantis.Vector3(1.0, 0.0, 0.0);
+    };
+
+    /**
+     * Gets a Vector3 with Y coordinate set to one.
+     * @method UnitY
+     */
+    vector.UnitY = function () {
+        return new Atlantis.Vector3(0.0, 1.0, 0.0);
+    };
+
+    /**
+     * Gets a Vector3 with Z coordinate set to one.
+     * @method UnitZ
+     */
+    vector.UnitZ = function () {
+        return new Atlantis.Vector3(0.0, 0.0, 1.0);
+    };
+
+    /**
+     * Gets a Vector3 with Y coordinate set to one.
+     * @method Up
+     */
+    vector.Up = function () {
+        return new Atlantis.Vector3(0.0, 1.0, 0.0);
+    };
+
+    /**
+     * Gets a Vector3 with Y coordinate set to -1.
+     * @method Down
+     */
+    vector.Down = function () {
+        return new Atlantis.Vector3(0.0, -1.0, 0.0);
+    };
+
+    /**
+     * Gets a Vector3 with X coordinate set to one.
+     * @method Right
+     */
+    vector.Right = function () {
+        return new Atlantis.Vector3(1.0, 0.0, 0.0);
+    };
+
+    /**
+     * Gets a Vector3 with X coordinate set to -1.
+     * @method Left
+     */
+    vector.Left = function () {
+        return new Atlantis.Vector3(-1.0, 0.0, 0.0);
+    };
+
+    /**
+     * Gets a Vector3 with Z coordinate set to -1.
+     * @method Forward
+     */
     vector.Forward = function () {
-    	return new Atlantis.Vector3(0.0, 0.0, -1.0);
+        return new Atlantis.Vector3(0.0, 0.0, -1.0);
     };
-    
+
+    /**
+     * Gets a Vector3 with Z coordinate set to one.
+     * @method Backward
+     */
     vector.Backward = function () {
-    	return new Atlantis.Vector3(0.0, 0.0, 1.0);
+        return new Atlantis.Vector3(0.0, 0.0, 1.0);
     };
 
     /**
-	 * Add a Vector3 to the current vector.
-     * @method add
-	 * @param {Atlantis.Vector3} vector The Vector3 to add.
-	 */
+    * Add a Vector3 to the current vector.
+    * @method add
+    * @param {Number|Atlantis.Vector3} vector The Vector3 to add.
+    */
     vector.prototype.add = function (vector) {
-        this.x += vector.x;
-        this.y += vector.y;
-        this.z += vector.z;
+        if (vector instanceof Atlantis.Vector3) {
+            this.x += vector.x;
+            this.y += vector.y;
+            this.z += vector.z;
+        }
+        else {
+            this.x += vector;
+            this.y += vector;
+            this.z += vector;
+        }
     };
 
     /**
-	 * Add two vectors.
-     * @method add
-     * @static
-	 * @param {Atlantis.Vector3} vec1
-	 * @param {Atlantis.Vector3} vec2
-	 * @return {Atlantis.Vector3} Return a new Vector3
-	 */
+    * Add two vectors.
+    * @method add
+    * @static
+    * @param {Atlantis.Vector3} vec1
+    * @param {Atlantis.Vector3} vec2
+    * @return {Atlantis.Vector3} Return a new Vector3
+    */
     vector.add = function (vec1, vec2) {
         var result = new Vector3(vec1);
-		result.add(vec2);
-		return result;
+        result.add(vec2);
+        return result;
     };
 
     /**
     * Subtract a Vector3 to the current vector.
     * @method subtract
-    * @param {Atlantis.Vector3} vector The Vector3 to Subtract.
+    * @param {Number|Atlantis.Vector3} vector The Vector3 to Subtract.
     */
     vector.prototype.subtract = function (vector) {
-        this.x -= value;
-        this.y -= value;
-        this.z -= value;
+        if (vector instanceof Atlantis.Vector3) {
+            this.x -= vector.x;
+            this.y -= vector.y;
+            this.z -= vector.z;
+        }
+        else {
+            this.x -= vector;
+            this.y -= vector;
+            this.z -= vector;
+        }
     };
 
     /**
@@ -158,12 +216,19 @@ Atlantis.Vector3 = (function () {
     /**
     * multiply a Vector3 to the current vector.
     * @method multiply
-    * @param {Atlantis.Vector3} vector The Vector3 to multiply.
+    * @param {Number|Atlantis.Vector3} vector The Vector3 to multiply.
     */
     vector.prototype.multiply = function (vector) {
-        this.x *= vector.x;
-        this.y *= vector.y;
-        this.z *= vector.z;
+        if (vector instanceof Atlantis.Vector3) {
+            this.x *= vector.x;
+            this.y *= vector.y;
+            this.z *= vector.z;
+        }
+        else {
+            this.x *= vector;
+            this.y *= vector;
+            this.z *= vector;
+        }
     };
 
     /**
@@ -323,6 +388,89 @@ Atlantis.Vector3 = (function () {
         vec.negate();
         return vec;
     };
+
+    /**
+	 * Normalize vector.
+     * @static
+     * @method normalize
+	 */
+	vector.normalize = function () {
+		var factor = distance(this, new Atlantis.Vector3());
+		
+		if (factor != 0) {
+			factor = 1.0 / factor;
+			this.set(this.x * factor, this.y * factor, this.z * factor);
+		}
+	};
+	
+	/**
+	 * Normalize a vector.
+     * @method normalize
+	 * @param {Atlantis.Vector3} vector A vector to normalize.
+     * @return {Atlantis.Vector3} result A normalized vector.
+	 */
+	vector.normalize = function (vector) {
+		var result = new Vector3(vector);
+		result.normalize();
+		return result;
+	};
+	
+	/**
+	 * Gets a transformed Vector3 from a position and a matrix.
+     * @method tranform
+     * @static
+	 * @param {Atlantis.Vector3} position
+	 * @param {Atlantis.Matrix} matrix
+	 * @return {Atlantis.Vector3} A tranformed vector.
+	 */
+	vector.transform = function (position, matrix) {
+		var vector = new Vector3(
+			(position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41,
+	        (position.x * matrix.M12) + (position.y * matrix.M22) + (position.z * matrix.M32) + matrix.M42,
+	        (position.x * matrix.M13) + (position.y * matrix.M23) + (position.z * matrix.M33) + matrix.M43 
+		);
+		
+		return vector;
+	};
+	
+    /**
+	 * Gets an homogeneous transformed vector from a position and a matrix.
+     * @method transformCoordinate
+     * @static
+	 * @param {Atlantis.Vector3} position
+	 * @param {Atlantis.Matrix} matrix
+	 * @return {Atlantis.Vector4} A tranformed vector.
+	 */
+	vector.transformCoordinate = function (position, transform) {
+		 var vector = new Atlantis.Vector4();
+         vector.x = (position.x * transform.M11) + (position.y * transform.M21) + (position.z * transform.M31) + transform.M41;
+         vector.y = (position.x * transform.M12) + (position.y * transform.M22) + (position.z * transform.M32) + transform.M42;
+         vector.z = (position.x * transform.M13) + (position.y * transform.M23) + (position.z * transform.M33) + transform.M43;
+         vector.w = 1.0 / ((position.x * transform.M14) + (position.y * transform.M24) + (position.z * transform.M34) + transform.M44);
+         return new Atlantis.Vector3(vector.x * vector.w, vector.y * vector.w, vector.z * vector.w);
+	};
+	
+	/**
+	 * Changes the 3 coordinates.
+     * @method set
+	 * @param x The new X coordinate.
+	 * @param y The new Y coordinate.
+	 * @param z The new Z coordinate.
+	 */
+	vector.prototype.set = function (x, y, z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	};
+
+    /**
+     * Gets a string from this object.
+     * @method toString
+     * @return {String}
+     */
+	vector.prototype.toString = function () {
+		return ["x: ", this.x, " y: ", this.y, " z: ", this.z].join("");
+	};
 
     return vector;
 });

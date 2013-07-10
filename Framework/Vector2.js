@@ -26,7 +26,39 @@ Atlantis.Vector2 = (function () {
             this.x = x || 0;
             this.y = y || 0;
         }
-    }
+    };
+
+    /**
+     * Gets a Vector3 with all coordinates sets to zero.
+     * @method Zero
+     */
+    vector2.Zero = function () {
+		return new Vector2();
+	};
+	
+    /**
+     * Gets a Vector3 with all coordinates sets to one.
+     * @method One
+     */
+	vector2.One = function () {
+		return new Vector2(1.0, 1.0);
+	};
+	
+    /**
+     * Gets a Vector3 with X coordinate set to one.
+     * @method UnitX
+     */
+	vector2.UnitX = function () {
+		return new Vector2(1.0, 0.0);
+	};
+	
+    /**
+     * Gets a Vector3 with Y coordinate set to one.
+     * @method UnitY
+     */
+	vector2.UnitY = function () {
+		return new Vector2(0.0, 1.0);
+	};
 
     /**
     * Add this vector by another vector or value.
@@ -341,6 +373,11 @@ Atlantis.Vector2 = (function () {
         this.y = y;
     };
 
+    /**
+     * Gets a string from this object.
+     * @method toString
+     * @return {String}
+     */
     vector2.prototype.toString = function () {
         return ["x: ", this.x, " y: ", this.y].join("");
     };
