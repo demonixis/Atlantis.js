@@ -67,8 +67,8 @@ Atlantis.Game = (function () {
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
-        this.keyboard = new Atlantis.KeyboardManager();
-        this.pointer = new Atlantis.PointerManager(this.domElement);
+        this.keyboard = new Atlantis.Input.KeyboardManager();
+        this.pointer = new Atlantis.Input.PointerManager(this.domElement);
 
         // Fix for Windows 8/RT
         if (this.domElement != null) {

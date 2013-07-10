@@ -3,10 +3,11 @@
  *
  * @module Atlantis
  * @submodule Framework
- * @namespace Atlantis
+ * @namespace Atlantis.Input
  */
  
 var Atlantis = window.Atlantis || {};
+Atlantis.Input = Atlantis.Input || {};
 
 /** 
 * Keys alias
@@ -17,7 +18,7 @@ Atlantis.Keys = {
     space: 32, escape: 27
 };
 
-Atlantis.KeyboardState = (function () {
+Atlantis.Input.KeyboardState = (function () {
     /**
      * Define a keyboard state.
      * @class KeyboardState
@@ -48,7 +49,7 @@ Atlantis.KeyboardState = (function () {
     };
 })();
 
-Atlantis.KeyboardManager = (function () {
+Atlantis.Input.KeyboardManager = (function () {
     var _instance = null;
 
     /**

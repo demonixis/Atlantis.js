@@ -3,12 +3,13 @@
  *
  * @module Atlantis
  * @submodule Framework
- * @namespace Atlantis
+ * @namespace Atlantis.Input
  */
  
 var Atlantis = window.Atlantis || {};
+Atlantis.Input = Atlantis.Input || {};
 
-Atlantis.PointerManager = (function () {
+Atlantis.Input.PointerManager = (function () {
     var that;
 
     /**
