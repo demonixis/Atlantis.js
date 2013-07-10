@@ -1,7 +1,7 @@
 {
     "project": {
         "name": "AtlantisEngine.js",
-        "description": "A 2D game engine in JavaScript using Canvas 2D",
+        "description": "A lightweight 2D game engine in JavaScript using Canvas 2D",
         "version": "0.0.2",
         "url": "http://blog.demonixis.net"
     },
@@ -50,29 +50,6 @@
                 "Atlantis": 1
             }
         },
-        "Engine\\Tilemap\\Layer.js": {
-            "name": "Engine\\Tilemap\\Layer.js",
-            "modules": {},
-            "classes": {
-                "Atlantis.Tile": 1,
-                "Atlantis.Layer": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "Atlantis": 1
-            }
-        },
-        "Engine\\Tilemap\\Tilemap.js": {
-            "name": "Engine\\Tilemap\\Tilemap.js",
-            "modules": {},
-            "classes": {
-                "Atlantis.Tilemap": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "Atlantis": 1
-            }
-        },
         "Engine\\AudioManager.js": {
             "name": "Engine\\AudioManager.js",
             "modules": {},
@@ -84,8 +61,8 @@
                 "Atlantis": 1
             }
         },
-        "Engine\\Engine.js": {
-            "name": "Engine\\Engine.js",
+        "Engine\\GameApplication.js": {
+            "name": "Engine\\GameApplication.js",
             "modules": {},
             "classes": {
                 "Atlantis.Engine": 1
@@ -128,25 +105,35 @@
                 "Atlantis": 1
             }
         },
-        "Framework\\Input\\KeyboardState.js": {
-            "name": "Framework\\Input\\KeyboardState.js",
+        "Framework\\Input\\KeyboardManager.js": {
+            "name": "Framework\\Input\\KeyboardManager.js",
             "modules": {
                 "Framework": 1
             },
             "classes": {
-                "Atlantis.KeyboardState": 1
+                "Atlantis.Input.KeyboardState": 1,
+                "Atlantis.Input.KeyboardManager": 1
             },
             "fors": {},
             "namespaces": {
-                "Atlantis": 1
+                "Atlantis.Input": 1
             }
         },
-        "Framework\\Input\\MouseState.js": {
-            "name": "Framework\\Input\\MouseState.js",
+        "Framework\\Input\\PointerManager.js": {
+            "name": "Framework\\Input\\PointerManager.js",
             "modules": {},
             "classes": {
-                "Atlantis.MouseState": 1
+                "Atlantis.Input.PointerManager": 1
             },
+            "fors": {},
+            "namespaces": {
+                "Atlantis.Input": 1
+            }
+        },
+        "Framework\\Compatibility.js": {
+            "name": "Framework\\Compatibility.js",
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "Atlantis": 1
@@ -209,6 +196,37 @@
                 "Atlantis": 1
             }
         },
+        "Framework\\MathHelper.js": {
+            "name": "Framework\\MathHelper.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.MathHelpers": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Matrix.js": {
+            "name": "Framework\\Matrix.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Matrix": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Quaternion.js": {
+            "name": "Framework\\Quaternion.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
         "Framework\\Rectangle.js": {
             "name": "Framework\\Rectangle.js",
             "modules": {},
@@ -231,6 +249,28 @@
             "namespaces": {
                 "Atlantis": 1
             }
+        },
+        "Framework\\Vector3.js": {
+            "name": "Framework\\Vector3.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Vector3": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Framework\\Vector4.js": {
+            "name": "Framework\\Vector4.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Vector4": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
         }
     },
     "modules": {
@@ -244,16 +284,14 @@
                 "Atlantis.Entity": 1,
                 "Atlantis.Sprite": 1,
                 "Atlantis.SpriteGroup": 1,
-                "Atlantis.Tile": 1,
-                "Atlantis.Layer": 1,
-                "Atlantis.Tilemap": 1,
                 "Atlantis.AudioManager": 1,
                 "Atlantis.Engine": 1,
                 "Atlantis.Interpolator": 1,
                 "Atlantis.State": 1,
                 "Atlantis.StorageManager": 1,
-                "Atlantis.KeyboardState": 1,
-                "Atlantis.MouseState": 1,
+                "Atlantis.Input.KeyboardState": 1,
+                "Atlantis.Input.KeyboardManager": 1,
+                "Atlantis.Input.PointerManager": 1,
                 "Atlantis.ContentManager": 1,
                 "Atlantis.GameTime": 1,
                 "Atlantis.Game": 1,
@@ -261,16 +299,21 @@
                 "Atlantis.DrawableGameComponent": 1,
                 "Atlantis.Graphics": 1,
                 "Atlantis.Helpers": 1,
+                "Atlantis.MathHelpers": 1,
+                "Atlantis.Matrix": 1,
                 "Atlantis.Point": 1,
                 "Atlantis.Rectangle": 1,
-                "Atlantis.Vector2": 1
+                "Atlantis.Vector2": 1,
+                "Atlantis.Vector3": 1,
+                "Atlantis.Vector4": 1
             },
             "fors": {},
             "namespaces": {
-                "Atlantis": 1
+                "Atlantis": 1,
+                "Atlantis.Input": 1
             },
-            "file": "Framework\\Vector2.js",
-            "line": 15
+            "file": "Framework\\Vector4.js",
+            "line": 12
         },
         "Engine": {
             "name": "Engine",
@@ -279,9 +322,6 @@
                 "Atlantis.Entity": 1,
                 "Atlantis.Sprite": 1,
                 "Atlantis.SpriteGroup": 1,
-                "Atlantis.Tile": 1,
-                "Atlantis.Layer": 1,
-                "Atlantis.Tilemap": 1,
                 "Atlantis.AudioManager": 1,
                 "Atlantis.Engine": 1,
                 "Atlantis.Interpolator": 1,
@@ -297,14 +337,15 @@
             "namespace": "",
             "file": "Engine\\StorageManager.js",
             "line": 12,
-            "description": "Atlantis storage manager."
+            "description": "AtlantisEngine.js a lightweight JavaScript game engine."
         },
         "Framework": {
             "name": "Framework",
             "submodules": {},
             "classes": {
-                "Atlantis.KeyboardState": 1,
-                "Atlantis.MouseState": 1,
+                "Atlantis.Input.KeyboardState": 1,
+                "Atlantis.Input.KeyboardManager": 1,
+                "Atlantis.Input.PointerManager": 1,
                 "Atlantis.ContentManager": 1,
                 "Atlantis.GameTime": 1,
                 "Atlantis.Game": 1,
@@ -312,20 +353,25 @@
                 "Atlantis.DrawableGameComponent": 1,
                 "Atlantis.Graphics": 1,
                 "Atlantis.Helpers": 1,
+                "Atlantis.MathHelpers": 1,
+                "Atlantis.Matrix": 1,
                 "Atlantis.Point": 1,
                 "Atlantis.Rectangle": 1,
-                "Atlantis.Vector2": 1
+                "Atlantis.Vector2": 1,
+                "Atlantis.Vector3": 1,
+                "Atlantis.Vector4": 1
             },
             "fors": {},
             "is_submodule": 1,
             "namespaces": {
+                "Atlantis.Input": 1,
                 "Atlantis": 1
             },
             "module": "Atlantis",
             "namespace": "",
-            "file": "Framework\\Vector2.js",
-            "line": 15,
-            "description": "Atlantis storage manager."
+            "file": "Framework\\Vector4.js",
+            "line": 12,
+            "description": "AtlantisEngine.js a lightweight JavaScript game engine."
         }
     },
     "classes": {
@@ -377,90 +423,6 @@
             "description": "A collection that initialize, load, update and draw entities.",
             "is_constructor": 1
         },
-        "Atlantis.Tile": {
-            "name": "Atlantis.Tile",
-            "shortname": "Tile",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis",
-            "file": "Engine\\Tilemap\\Layer.js",
-            "line": 12,
-            "description": "Define a Tile object that compose a layer.",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "id",
-                    "description": "The index on the texture for this tile.",
-                    "type": "Number"
-                },
-                {
-                    "name": "width",
-                    "description": "The width of the tile.",
-                    "type": "Number"
-                },
-                {
-                    "name": "height",
-                    "description": "The height of the tile.",
-                    "type": "Number"
-                }
-            ]
-        },
-        "Atlantis.Layer": {
-            "name": "Atlantis.Layer",
-            "shortname": "Layer",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis",
-            "file": "Engine\\Tilemap\\Layer.js",
-            "line": 30,
-            "description": "Define a layer object that compose a tilemap.",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "textureName",
-                    "description": "The name of the texture to use.",
-                    "type": "String"
-                },
-                {
-                    "name": "An",
-                    "description": "array of Atlantis.Tile",
-                    "type": "Array"
-                }
-            ]
-        },
-        "Atlantis.Tilemap": {
-            "name": "Atlantis.Tilemap",
-            "shortname": "Tilemap",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis",
-            "file": "Engine\\Tilemap\\Tilemap.js",
-            "line": 12,
-            "description": "A tilemap.",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "layers",
-                    "description": "A collection of Atlantis.Layer or an instance of Altantis.Layer",
-                    "type": "Array"
-                }
-            ]
-        },
         "Atlantis.AudioManager": {
             "name": "Atlantis.AudioManager",
             "shortname": "AudioManager",
@@ -473,7 +435,7 @@
             "submodule": "Engine",
             "namespace": "Atlantis",
             "file": "Engine\\AudioManager.js",
-            "line": 19,
+            "line": 18,
             "description": "An audio manager to play sound and musics.",
             "is_constructor": 1
         },
@@ -488,8 +450,8 @@
             "module": "Atlantis",
             "submodule": "Engine",
             "namespace": "Atlantis",
-            "file": "Engine\\Engine.js",
-            "line": 24,
+            "file": "Engine\\GameApplication.js",
+            "line": 26,
             "description": "The engine class that initialize an Atlantis.Game object and setup managers and scene.",
             "is_constructor": 1,
             "params": [
@@ -558,8 +520,8 @@
             "description": "A storage manager that work with localStorage",
             "is_constructor": 1
         },
-        "Atlantis.KeyboardState": {
-            "name": "Atlantis.KeyboardState",
+        "Atlantis.Input.KeyboardState": {
+            "name": "Atlantis.Input.KeyboardState",
             "shortname": "KeyboardState",
             "classitems": [],
             "plugins": [],
@@ -568,15 +530,15 @@
             "extension_for": [],
             "module": "Atlantis",
             "submodule": "Framework",
-            "namespace": "Atlantis",
-            "file": "Framework\\Input\\KeyboardState.js",
-            "line": 16,
-            "description": "A keyboard input manager.",
+            "namespace": "Atlantis.Input",
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 22,
+            "description": "Define a keyboard state.",
             "is_constructor": 1
         },
-        "Atlantis.MouseState": {
-            "name": "Atlantis.MouseState",
-            "shortname": "MouseState",
+        "Atlantis.Input.KeyboardManager": {
+            "name": "Atlantis.Input.KeyboardManager",
+            "shortname": "KeyboardManager",
             "classitems": [],
             "plugins": [],
             "extensions": [],
@@ -584,16 +546,32 @@
             "extension_for": [],
             "module": "Atlantis",
             "submodule": "Framework",
-            "namespace": "Atlantis",
-            "file": "Framework\\Input\\MouseState.js",
-            "line": 12,
-            "description": "A mouse input manager.",
+            "namespace": "Atlantis.Input",
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 55,
+            "description": "A keyboard input manager.",
+            "is_constructor": 1
+        },
+        "Atlantis.Input.PointerManager": {
+            "name": "Atlantis.Input.PointerManager",
+            "shortname": "PointerManager",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input",
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 15,
+            "description": "PointerManager is an abstraction of click event and touch event.",
             "is_constructor": 1,
             "params": [
                 {
-                    "name": "domElement",
-                    "description": "The DOM node to listen mouse events",
-                    "type": "HTMLElement"
+                    "name": "The",
+                    "description": "DOM element to use for event detection.",
+                    "type": "DOMElement"
                 }
             ]
         },
@@ -709,7 +687,7 @@
             "submodule": "Framework",
             "namespace": "Atlantis",
             "file": "Framework\\GameComponent.js",
-            "line": 45,
+            "line": 66,
             "description": "Create a drawable game component.",
             "is_constructor": 1,
             "params": [
@@ -747,6 +725,43 @@
             "namespace": "Atlantis",
             "file": "Framework\\Helpers.js",
             "line": 11
+        },
+        "Atlantis.MathHelpers": {
+            "name": "Atlantis.MathHelpers",
+            "shortname": "MathHelpers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\MathHelper.js",
+            "line": 13
+        },
+        "Atlantis.Matrix": {
+            "name": "Atlantis.Matrix",
+            "shortname": "Matrix",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Matrix.js",
+            "line": 12,
+            "description": "Create a matrix. Parameter can be a matrix, an array of 16 floats or nothing (all fields case are sets to 0).",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "Atlantis.Matrix|Array"
+                }
+            ]
         },
         "Atlantis.Point": {
             "name": "Atlantis.Point",
@@ -788,7 +803,7 @@
             "submodule": "Framework",
             "namespace": "Atlantis",
             "file": "Framework\\Rectangle.js",
-            "line": 35,
+            "line": 41,
             "description": "Create a rectangle structure.",
             "is_constructor": 1,
             "params": [
@@ -829,9 +844,260 @@
             "line": 15,
             "description": "Create a new Vector2",
             "is_constructor": 1
+        },
+        "Atlantis.Vector3": {
+            "name": "Atlantis.Vector3",
+            "shortname": "Vector3",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Vector3.js",
+            "line": 12,
+            "description": "Create a vector with three coordinates. If you pass a Vector3 in first parameter,\nits filed are copied to the new vector (work like a copy constructor).",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "The",
+                    "description": "X value or a Vector3 object     * @param {Number} The Y value.",
+                    "type": "Number|Atlantis.Vector3"
+                },
+                {
+                    "name": "The",
+                    "description": "Z value.",
+                    "type": "Number"
+                }
+            ]
+        },
+        "Atlantis.Vector4": {
+            "name": "Atlantis.Vector4",
+            "shortname": "Vector4",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis",
+            "file": "Framework\\Vector4.js",
+            "line": 12,
+            "description": "A vector4 class.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "Value",
+                    "description": "for x coordinate or a Vector4 object.",
+                    "type": "Number|Atlantis.Vector4"
+                },
+                {
+                    "name": "Value",
+                    "description": "for y coordinate",
+                    "type": "Number"
+                },
+                {
+                    "name": "Value",
+                    "description": "for z coordinate.",
+                    "type": "Number"
+                },
+                {
+                    "name": "Value",
+                    "description": "for w coordinate.",
+                    "type": "Number"
+                }
+            ]
         }
     },
     "classitems": [
+        {
+            "file": "Engine\\Graphics\\Animation.js",
+            "line": 27,
+            "itemtype": "method",
+            "name": "next",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Animation.js",
+            "line": 67,
+            "itemtype": "method",
+            "name": "initialize",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Animation.js",
+            "line": 87,
+            "itemtype": "method",
+            "name": "add",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Animation.js",
+            "line": 133,
+            "itemtype": "method",
+            "name": "update",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 68,
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 74,
+            "itemtype": "method",
+            "name": "loadContent",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 100,
+            "itemtype": "method",
+            "name": "update",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 107,
+            "itemtype": "method",
+            "name": "draw",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 119,
+            "itemtype": "method",
+            "name": "updateSizes",
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 129,
+            "itemtype": "method",
+            "name": "setSize",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Entity.js",
+            "line": 153,
+            "itemtype": "method",
+            "name": "setPosition",
+            "params": [],
+            "class": "Atlantis.Entity",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 50,
+            "itemtype": "method",
+            "name": "prepareAnimation",
+            "params": [],
+            "class": "Atlantis.Sprite",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 65,
+            "itemtype": "method",
+            "name": "addAnimation",
+            "params": [],
+            "class": "Atlantis.Sprite",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 77,
+            "itemtype": "method",
+            "name": "play",
+            "params": [],
+            "class": "Atlantis.Sprite",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 86,
+            "itemtype": "method",
+            "name": "update",
+            "params": [],
+            "class": "Atlantis.Sprite",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 118,
+            "itemtype": "method",
+            "name": "postUpdate",
+            "params": [],
+            "class": "Atlantis.Sprite",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Sprite.js",
+            "line": 168,
+            "itemtype": "method",
+            "name": "draw",
+            "params": [],
+            "class": "Atlantis.Sprite",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
             "line": 24,
@@ -957,65 +1223,8 @@
             "namespace": "Atlantis"
         },
         {
-            "file": "Engine\\Tilemap\\Layer.js",
-            "line": 52,
-            "description": "Draw layer on screen.",
-            "itemtype": "method",
-            "name": "draw",
-            "params": [
-                {
-                    "name": "gameTime",
-                    "description": "An instance of GameTime.",
-                    "type": "Atlantis.GameTime"
-                },
-                {
-                    "name": "context",
-                    "description": "The canvas context.",
-                    "type": "Object"
-                }
-            ],
-            "class": "Atlantis.Layer",
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis"
-        },
-        {
-            "file": "Engine\\Tilemap\\Tilemap.js",
-            "line": 32,
-            "description": "Load assets from all layers.",
-            "itemtype": "method",
-            "name": "loadContent",
-            "class": "Atlantis.Tilemap",
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis"
-        },
-        {
-            "file": "Engine\\Tilemap\\Tilemap.js",
-            "line": 42,
-            "description": "Draw layers on screen.",
-            "itemtype": "method",
-            "name": "draw",
-            "params": [
-                {
-                    "name": "gameTime",
-                    "description": "An instance of GameTime.",
-                    "type": "Atlantis.GameTime"
-                },
-                {
-                    "name": "context",
-                    "description": "The canvas context.",
-                    "type": "Object"
-                }
-            ],
-            "class": "Atlantis.Tilemap",
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis"
-        },
-        {
             "file": "Engine\\AudioManager.js",
-            "line": 31,
+            "line": 30,
             "description": "Play a music.",
             "itemtype": "method",
             "name": "playMusic",
@@ -1038,7 +1247,7 @@
         },
         {
             "file": "Engine\\AudioManager.js",
-            "line": 45,
+            "line": 44,
             "description": "Stop the current played music.",
             "itemtype": "method",
             "name": "stopMusic",
@@ -1049,7 +1258,7 @@
         },
         {
             "file": "Engine\\AudioManager.js",
-            "line": 53,
+            "line": 52,
             "description": "Pause the current played music.",
             "itemtype": "method",
             "name": "pauseMusic",
@@ -1059,8 +1268,8 @@
             "namespace": "Atlantis"
         },
         {
-            "file": "Engine\\Engine.js",
-            "line": 48,
+            "file": "Engine\\GameApplication.js",
+            "line": 51,
             "description": "Launch the game engine.",
             "itemtype": "method",
             "name": "run",
@@ -1158,7 +1367,51 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 25,
+            "line": 28,
+            "description": "Determine the activity of the state.",
+            "itemtype": "method",
+            "name": "isActive",
+            "return": {
+                "description": "Return true if the state is visible and enabled.",
+                "type": "Boolean"
+            },
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 37,
+            "description": "Sets the activity of the state.",
+            "itemtype": "method",
+            "name": "setActive",
+            "params": [
+                {
+                    "name": "Sets",
+                    "description": "to true to active the state.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 47,
+            "description": "Initialize logic.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.State",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\StateManager.js",
+            "line": 56,
             "description": "Load assets of entities that compose the scene.",
             "itemtype": "method",
             "name": "loadContent",
@@ -1176,7 +1429,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 36,
+            "line": 66,
             "description": "Update logic of scene children.",
             "itemtype": "method",
             "name": "update",
@@ -1194,7 +1447,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 45,
+            "line": 75,
             "description": "Draw scene children on screen.",
             "itemtype": "method",
             "name": "draw",
@@ -1217,7 +1470,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 55,
+            "line": 85,
             "description": "Add an entity to the scene.",
             "itemtype": "method",
             "name": "add",
@@ -1235,7 +1488,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 64,
+            "line": 94,
             "description": "remove an entity from the scene.",
             "itemtype": "method",
             "name": "remove",
@@ -1253,7 +1506,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 73,
+            "line": 103,
             "description": "Gets an entity from the scene.",
             "itemtype": "method",
             "name": "get",
@@ -1271,7 +1524,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 99,
+            "line": 137,
             "description": "Load assets of entities that compose the scene.",
             "itemtype": "method",
             "name": "loadContent",
@@ -1289,7 +1542,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 111,
+            "line": 149,
             "description": "Update all active state.",
             "itemtype": "method",
             "name": "update",
@@ -1307,7 +1560,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 124,
+            "line": 162,
             "description": "Draw all active states.",
             "itemtype": "method",
             "name": "draw",
@@ -1330,7 +1583,10 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 138,
+            "line": 176,
+            "description": "Active a state by its name or index.",
+            "itemtype": "method",
+            "name": "setActive",
             "params": [
                 {
                     "name": "stateParam",
@@ -1360,7 +1616,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 192,
+            "line": 224,
             "description": "Add a state to the state manager.",
             "itemtype": "method",
             "name": "add",
@@ -1388,7 +1644,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 235,
+            "line": 266,
             "description": "Remove a state by its index, name or instance.",
             "itemtype": "method",
             "name": "remove",
@@ -1416,7 +1672,7 @@
         },
         {
             "file": "Engine\\StateManager.js",
-            "line": 278,
+            "line": 307,
             "description": "Gets a state by its index or its name.",
             "itemtype": "method",
             "name": "get",
@@ -1530,19 +1786,89 @@
             "namespace": "Atlantis"
         },
         {
-            "file": "Framework\\Input\\KeyboardState.js",
-            "line": 29,
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 12,
+            "description": "Keys alias",
+            "itemtype": "property",
+            "name": "Keys",
+            "class": "Atlantis.Input.KeyboardState",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 31,
+            "description": "Determine if the key is pressed.",
+            "itemtype": "method",
+            "name": "isKeyDown",
+            "params": [
+                {
+                    "name": "button",
+                    "description": "The button to test.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return true if the key is pressed.",
+                "type": "Boolean"
+            },
+            "class": "Atlantis.Input.KeyboardState",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 41,
+            "description": "Determine if the key is pressed.",
+            "itemtype": "method",
+            "name": "isKeyUp",
+            "params": [
+                {
+                    "name": "button",
+                    "description": "The button to test.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return true if the key is released.",
+                "type": "Boolean"
+            },
+            "class": "Atlantis.Input.KeyboardState",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 72,
             "description": "Initialize keyboard event handlers.",
             "itemtype": "method",
             "name": "initialize",
-            "class": "Atlantis.KeyboardState",
+            "class": "Atlantis.Input.KeyboardManager",
             "module": "Atlantis",
             "submodule": "Framework",
-            "namespace": "Atlantis"
+            "namespace": "Atlantis.Input"
         },
         {
-            "file": "Framework\\Input\\KeyboardState.js",
-            "line": 41,
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 81,
+            "description": "Gets the current state of the keyboard.",
+            "itemtype": "method",
+            "name": "getState",
+            "return": {
+                "description": "Return the state of the keyboard.",
+                "type": "Atlantis.KeyboardState"
+            },
+            "class": "Atlantis.Input.KeyboardManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\KeyboardManager.js",
+            "line": 90,
             "description": "Event handler - Function called on keyboard event.",
             "itemtype": "method",
             "name": "onKeyStateChange",
@@ -1558,10 +1884,112 @@
                     "type": "Object"
                 }
             ],
-            "class": "Atlantis.KeyboardState",
+            "class": "Atlantis.Input.KeyboardManager",
             "module": "Atlantis",
             "submodule": "Framework",
-            "namespace": "Atlantis"
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 38,
+            "description": "Start event listening on specified DOM element.",
+            "itemtype": "method",
+            "name": "startEventListeners",
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 60,
+            "description": "Stop event listening on specified DOM element.",
+            "itemtype": "method",
+            "name": "startEventListeners",
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 82,
+            "description": "Event handler responsible to update position and previous position of the pointer.",
+            "itemtype": "method",
+            "name": "updatePosition",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "touch or mouse event.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 96,
+            "description": "Event handler responsible to update clicks and touch states.",
+            "itemtype": "method",
+            "name": "updateClickStates",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "touch or mouse event.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 131,
+            "description": "Event handler responsive to update clicks/touch and position.",
+            "itemtype": "method",
+            "name": "updateHandler",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "touch or mouse event.",
+                    "type": "Object"
+                }
+            ],
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 144,
+            "description": "Update the delta.",
+            "itemtype": "method",
+            "name": "updateDelta",
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
+        },
+        {
+            "file": "Framework\\Input\\PointerManager.js",
+            "line": 172,
+            "description": "Gets the event that correspond of pointer type.",
+            "itemtype": "method",
+            "name": "getEvent",
+            "return": {
+                "description": "Return a touch event or a click event",
+                "type": "Object"
+            },
+            "class": "Atlantis.Input.PointerManager",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis.Input"
         },
         {
             "file": "Framework\\ContentManager.js",
@@ -1633,7 +2061,40 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 25,
+            "line": 27,
+            "description": "Determine the activity of the state.",
+            "itemtype": "method",
+            "name": "isActive",
+            "return": {
+                "description": "Return true if the state is visible and enabled.",
+                "type": "Boolean"
+            },
+            "class": "Atlantis.GameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 36,
+            "description": "Sets the activity of the state.",
+            "itemtype": "method",
+            "name": "setActive",
+            "params": [
+                {
+                    "name": "Sets",
+                    "description": "to true to active the state.",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Atlantis.GameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 46,
             "description": "Initialize the logic of the component.",
             "itemtype": "method",
             "name": "initialize",
@@ -1644,7 +2105,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 31,
+            "line": 52,
             "description": "Update the logic of the component.",
             "itemtype": "method",
             "name": "update",
@@ -1662,7 +2123,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 41,
+            "line": 62,
             "description": "An interface for drawable game components.",
             "class": "Atlantis.GameComponent",
             "module": "Atlantis",
@@ -1671,7 +2132,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 57,
+            "line": 78,
             "description": "Draw the component on screen.",
             "itemtype": "method",
             "name": "draw",
@@ -1694,7 +2155,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 68,
+            "line": 89,
             "description": "A collection who'll initialize, load, update and draw components.",
             "class": "Atlantis.DrawableGameComponent",
             "module": "Atlantis",
@@ -1703,7 +2164,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 72,
+            "line": 93,
             "description": "Create a collection of game components.",
             "is_constructor": 1,
             "class": "Atlantis.DrawableGameComponent",
@@ -1713,7 +2174,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 80,
+            "line": 102,
             "description": "Add a component to the collection",
             "itemtype": "method",
             "name": "add",
@@ -1724,7 +2185,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 90,
+            "line": 115,
             "description": "Get a component from the collection",
             "itemtype": "method",
             "name": "get",
@@ -1735,7 +2196,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 103,
+            "line": 129,
             "description": "Remove a component from the collection",
             "itemtype": "method",
             "name": "remove",
@@ -1746,7 +2207,18 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 114,
+            "line": 146,
+            "description": "Initialize logic.",
+            "itemtype": "method",
+            "name": "initialize",
+            "class": "Atlantis.DrawableGameComponent",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\GameComponent.js",
+            "line": 156,
             "description": "Load assets",
             "itemtype": "method",
             "name": "loadContent",
@@ -1757,7 +2229,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 124,
+            "line": 166,
             "description": "Update all components",
             "itemtype": "method",
             "name": "update",
@@ -1768,7 +2240,7 @@
         },
         {
             "file": "Framework\\GameComponent.js",
-            "line": 134,
+            "line": 178,
             "description": "Draw all components",
             "itemtype": "method",
             "name": "draw",
@@ -1790,7 +2262,7 @@
         },
         {
             "file": "Framework\\Helpers.js",
-            "line": 70,
+            "line": 74,
             "description": "An event notifier. If the event doesn't exists it created and stored.",
             "itemtype": "method",
             "name": "notify",
@@ -1813,7 +2285,7 @@
         },
         {
             "file": "Framework\\Helpers.js",
-            "line": 97,
+            "line": 101,
             "description": "Gets the size of an image. This function add the image to the DOM an remove from it.\nAfter that we can gets the size of the image.",
             "itemtype": "method",
             "name": "getImageSize",
@@ -1830,6 +2302,871 @@
             "namespace": "Atlantis"
         },
         {
+            "file": "Framework\\MathHelper.js",
+            "line": 17,
+            "description": "Gets PI value.",
+            "itemtype": "attribute",
+            "name": "Pi",
+            "readonly": "",
+            "type": "{Number}",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 25,
+            "description": "Gets PI over 2 value.",
+            "itemtype": "attribute",
+            "name": "PiOver2",
+            "readonly": "",
+            "type": "{Number}",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 33,
+            "description": "Gets PI over 4 value.",
+            "itemtype": "attribute",
+            "name": "PiOver4",
+            "readonly": "",
+            "type": "{Number}",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 41,
+            "description": "Gets PI * 2 value.",
+            "itemtype": "attribute",
+            "name": "TwoPi",
+            "readonly": "",
+            "type": "{Number}",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 49,
+            "itemtype": "method",
+            "name": "clamp",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 59,
+            "itemtype": "method",
+            "name": "distance",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 67,
+            "itemtype": "method",
+            "name": "lerp",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 75,
+            "itemtype": "method",
+            "name": "toDegrees",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 83,
+            "itemtype": "method",
+            "name": "toRadians",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\MathHelper.js",
+            "line": 91,
+            "itemtype": "method",
+            "name": "isPowerOfTwo",
+            "class": "Atlantis.MathHelpers",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 34,
+            "description": "Set all values of the matrix.",
+            "itemtype": "method",
+            "name": "set",
+            "params": [
+                {
+                    "name": "values",
+                    "description": "An array of 16 values who start at M11 and stop at M44",
+                    "type": "Array"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 48,
+            "description": "Gets identity value for push it into matrix.",
+            "itemtype": "method",
+            "name": "getIdentityValues",
+            "static": 1,
+            "return": {
+                "description": "Return an array that correspond of identity matrix.",
+                "type": "Array"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 64,
+            "description": "Sets the matrix to identity.",
+            "itemtype": "method",
+            "name": "setIdentity",
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 72,
+            "description": "Gets an identity matrix.",
+            "itemtype": "method",
+            "name": "getMatrixIdentity",
+            "static": 1,
+            "return": {
+                "description": "Return an identity matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 84,
+            "description": "Gets values of matrix in array. Start at M11 to M44.",
+            "itemtype": "method",
+            "name": "toArray",
+            "return": {
+                "description": "An array of values.",
+                "type": "Array"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 99,
+            "description": "Sets the left of the matrix.",
+            "itemtype": "method",
+            "name": "setLeft",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "A vector to use.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 110,
+            "description": "Gets the left of the matrix.",
+            "itemtype": "method",
+            "name": "getLeft",
+            "return": {
+                "description": "Return a the left vector of the matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 123,
+            "description": "Sets the right of the matrix.",
+            "itemtype": "method",
+            "name": "setRight",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 134,
+            "description": "Gets the right of the matrix.",
+            "itemtype": "method",
+            "name": "getRight",
+            "return": {
+                "description": "Return a the right vector of the matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 147,
+            "description": "Sets the up of the matrix.",
+            "itemtype": "method",
+            "name": "setUp",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 158,
+            "description": "Gets the up of the matrix.",
+            "itemtype": "method",
+            "name": "getUp",
+            "return": {
+                "description": "Return a the up vector of the matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 171,
+            "description": "Sets the down of the matrix.",
+            "itemtype": "method",
+            "name": "setDown",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 182,
+            "description": "Gets the down of the matrix.",
+            "itemtype": "method",
+            "name": "getDown",
+            "return": {
+                "description": "Return a the down vector of the matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 195,
+            "description": "Sets the backward of the matrix.",
+            "itemtype": "method",
+            "name": "setBackward",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 206,
+            "description": "Gets the backward of the matrix.",
+            "itemtype": "method",
+            "name": "getBackward",
+            "return": {
+                "description": "Return a the backward vector of the matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 219,
+            "description": "Sets the forward of the matrix.",
+            "itemtype": "method",
+            "name": "setForward",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 230,
+            "description": "Gets the forward of the matrix.",
+            "itemtype": "method",
+            "name": "getForward",
+            "return": {
+                "description": "Return a the forward vector of the matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 243,
+            "description": "Sets translation.",
+            "itemtype": "method",
+            "name": "setTranslation",
+            "params": [
+                {
+                    "name": "position",
+                    "description": "The position to set.",
+                    "type": "Atlantis.Vetor3"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 254,
+            "description": "Add a matrix to this matrix.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "matrix",
+                    "description": "A matrix to add.",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 269,
+            "description": "Add two matrix.",
+            "itemtype": "method",
+            "name": "add",
+            "static": 1,
+            "params": [
+                {
+                    "name": "matA",
+                    "description": "A matrix",
+                    "type": "Atlantis.Matrix"
+                },
+                {
+                    "name": "matB",
+                    "description": "Another matrix to add with the first",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "return": {
+                "description": "Return a new matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 283,
+            "description": "Create a rotation matrix on X axis.",
+            "itemtype": "method",
+            "name": "createRotationX",
+            "static": 1,
+            "params": [
+                {
+                    "name": "rotation",
+                    "description": "An angle in radians",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a rotation matrix on X axis.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 302,
+            "description": "Create a rotation matrix on Y axis.",
+            "itemtype": "method",
+            "name": "createRotationY",
+            "static": 1,
+            "params": [
+                {
+                    "name": "rotation",
+                    "description": "An angle in radians",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a rotation matrix on Y axis.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 321,
+            "description": "Create a rotation matrix on Z axis.",
+            "itemtype": "method",
+            "name": "createRotationX",
+            "static": 1,
+            "params": [
+                {
+                    "name": "rotation",
+                    "description": "An angle in radians",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a rotation matrix on Z axis.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 342,
+            "description": "Create a scale matrix.",
+            "itemtype": "method",
+            "name": "createScale",
+            "static": 1,
+            "params": [
+                {
+                    "name": "sx",
+                    "description": "Desired scale on X axis.",
+                    "type": "Number"
+                },
+                {
+                    "name": "sy",
+                    "description": "Desired scale on Y axis.",
+                    "type": "Number"
+                },
+                {
+                    "name": "sz",
+                    "description": "Desired scale on Z axis.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a scale matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 359,
+            "description": "Create a translation matrix.",
+            "itemtype": "method",
+            "name": "createTranslation",
+            "static": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "Position on X axis."
+                },
+                {
+                    "name": "y",
+                    "description": "Position on Y axis."
+                },
+                {
+                    "name": "z",
+                    "description": "Position on Z axis."
+                }
+            ],
+            "return": {
+                "description": "Return a matrix translation."
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 376,
+            "description": "Create a view matrix.",
+            "metod": "createLookAt",
+            "static": 1,
+            "params": [
+                {
+                    "name": "position",
+                    "description": "The position of the camera.",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "Atlantis.Vector3}",
+                    "description": "target The target of the camera."
+                },
+                {
+                    "name": "Atlantis.Vector3}",
+                    "description": "upVector Vector up"
+                }
+            ],
+            "return": {
+                "description": "Return a view camera.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 414,
+            "description": "Create a perspective field of view matrix with Left hand notation.",
+            "itemtype": "method",
+            "name": "createPerspectiveFieldOfView",
+            "static": 1,
+            "params": [
+                {
+                    "name": "fov",
+                    "description": "Desired field of view (Math.PI / 4 is a good value)",
+                    "type": "Number"
+                },
+                {
+                    "name": "aspect",
+                    "description": "Desired aspect ratio (Screen width / height)",
+                    "type": "Number"
+                },
+                {
+                    "name": "near",
+                    "description": "Near clip",
+                    "type": "Number"
+                },
+                {
+                    "name": "far",
+                    "description": "Far clip",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a matrix of this type of perspective.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 433,
+            "description": "Create a perspective field of view matrix with Right hand notation.",
+            "itemtype": "method",
+            "name": "createPerspectiveFieldOfViewRH",
+            "static": 1,
+            "params": [
+                {
+                    "name": "fov",
+                    "description": "Desired field of view (Math.PI / 4 is a good value)",
+                    "type": "Number"
+                },
+                {
+                    "name": "aspect",
+                    "description": "Desired aspect ratio (Screen width / height)",
+                    "type": "Number"
+                },
+                {
+                    "name": "near",
+                    "description": "Near clip",
+                    "type": "Number"
+                },
+                {
+                    "name": "far",
+                    "description": "Far clip",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a matrix of this type of perspective.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 452,
+            "description": "Create a custom perspective matrix.",
+            "itemtype": "method",
+            "name": "createPerspectiveOffCenter",
+            "static": 1,
+            "params": [
+                {
+                    "name": "left",
+                    "description": "Minimum X value of the viewing volume.",
+                    "type": "Number"
+                },
+                {
+                    "name": "right",
+                    "description": "Maximum X value of the viewing volume.",
+                    "type": "Number"
+                },
+                {
+                    "name": "bottom",
+                    "description": "Minimum Y value of the viewing volume.",
+                    "type": "Number"
+                },
+                {
+                    "name": "top",
+                    "description": "Maximum Y value of the viewing volume.",
+                    "type": "Number"
+                },
+                {
+                    "name": "zNear",
+                    "description": "Minimum Z value of the viewing volume.",
+                    "type": "Number"
+                },
+                {
+                    "name": "zFar",
+                    "description": "Maximum Z value of the viewing volume.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a new custom perspective matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 477,
+            "description": "Create a world matrix.",
+            "itemtype": "method",
+            "name": "createWorld",
+            "static": 1,
+            "params": [
+                {
+                    "name": "position",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "forward",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "upVector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a world matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 504,
+            "description": "Multiply this matrix by another matrix.",
+            "itemtype": "method",
+            "name": "multiply",
+            "params": [
+                {
+                    "name": "matrix",
+                    "description": "A matrix to multiply.",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 545,
+            "description": "Multiply a two matrix.",
+            "itemtype": "method",
+            "name": "multiply",
+            "static": 1,
+            "params": [
+                {
+                    "name": "matrixA",
+                    "description": "A matrix.",
+                    "type": "Atlantis.Matrix"
+                },
+                {
+                    "name": "matrixB",
+                    "description": "Another matrix.",
+                    "type": "Atlantis.Matrix"
+                },
+                {
+                    "name": "matrixC",
+                    "description": "Another matrix (optional).",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "return": {
+                "description": "Return a new matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 565,
+            "description": "Subtract a matrix to this matrix.",
+            "itemtype": "method",
+            "name": "subtract",
+            "params": [
+                {
+                    "name": "matrix",
+                    "description": "A matrix to add.",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Matrix.js",
+            "line": 580,
+            "description": "Subtract two matrix.",
+            "itemtype": "method",
+            "name": "subtract",
+            "static": 1,
+            "params": [
+                {
+                    "name": "matA",
+                    "description": "A matrix.",
+                    "type": "Atlantis.Matrix"
+                },
+                {
+                    "name": "matB",
+                    "description": "Another matrix to use to subtract with the first matrix.",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "return": {
+                "description": "Return a new matrix.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Matrix",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
             "file": "Framework\\Rectangle.js",
             "line": 11,
             "description": "A class that represent a point structure",
@@ -1840,7 +3177,7 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 30,
+            "line": 36,
             "description": "A class that represent a rectangle structure",
             "class": "Atlantis.Point",
             "module": "Atlantis",
@@ -1849,7 +3186,64 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 51,
+            "line": 65,
+            "description": "Determine if a Rectangle, Point or coordinates are contains in rectangle",
+            "itemtype": "method",
+            "name": "contains",
+            "params": [
+                {
+                    "name": "X",
+                    "description": "coordinate or an instance of Point or an instance of Rectangle.",
+                    "type": "Number|Point|Rectangle"
+                },
+                {
+                    "name": "Y",
+                    "description": "coordinate.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 84,
+            "itemtype": "method",
+            "name": "contains",
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 96,
+            "description": "gets the position.",
+            "return": {
+                "description": "The position."
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 104,
+            "description": "Gets the position.",
+            "return": {
+                "description": "The position."
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 116,
             "description": "Gets the top value.",
             "itemtype": "method",
             "name": "getTop",
@@ -1864,7 +3258,7 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 60,
+            "line": 125,
             "description": "Gets the bottom value.",
             "itemtype": "method",
             "name": "getBottom",
@@ -1879,7 +3273,7 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 69,
+            "line": 134,
             "description": "Gets the left value.",
             "itemtype": "method",
             "name": "getLeft",
@@ -1894,7 +3288,7 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 78,
+            "line": 143,
             "description": "Gets the right value.",
             "itemtype": "method",
             "name": "getRight",
@@ -1909,7 +3303,7 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 87,
+            "line": 152,
             "description": "Gets the center of the rectangle.",
             "itemtype": "method",
             "name": "getCenter",
@@ -1924,9 +3318,12 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 97,
-            "itemtype": "method",
-            "name": "contains",
+            "line": 162,
+            "description": "Gets width",
+            "return": {
+                "description": "Return the with.",
+                "type": "Number"
+            },
             "class": "Atlantis.Rectangle",
             "module": "Atlantis",
             "submodule": "Framework",
@@ -1934,9 +3331,137 @@
         },
         {
             "file": "Framework\\Rectangle.js",
-            "line": 111,
-            "itemtype": "method",
-            "name": "contains",
+            "line": 170,
+            "description": "Gets height",
+            "return": {
+                "description": "Return the height",
+                "type": "Number"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 178,
+            "description": "Gets the top center.",
+            "return": {
+                "description": "The top center of the rectangle",
+                "type": "Atlantis.Vector2"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 186,
+            "description": "Gets the bottom center.",
+            "return": {
+                "description": "The bottom center.",
+                "type": "Atlantis.Vector2"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 194,
+            "description": "Gets the left center.",
+            "return": {
+                "description": "The left center.",
+                "type": "Atlantis.Vector2"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 202,
+            "description": "Gets the right center.",
+            "return": {
+                "description": "The right center.",
+                "type": "Atlantis.Vector2"
+            },
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 210,
+            "description": "Sets values to rectangle.",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "width",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 236,
+            "description": "Sets the position of the rectangle",
+            "params": [
+                {
+                    "name": "x",
+                    "description": "",
+                    "type": "Number|Altantis.Vector2|Atlantis.Point"
+                },
+                {
+                    "name": "y",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Rectangle",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Rectangle.js",
+            "line": 252,
+            "description": "Sets the size of the rectangle.",
+            "params": [
+                {
+                    "name": "width",
+                    "description": "",
+                    "type": "Number"
+                },
+                {
+                    "name": "height",
+                    "description": "",
+                    "type": "Number"
+                }
+            ],
             "class": "Atlantis.Rectangle",
             "module": "Atlantis",
             "submodule": "Framework",
@@ -1953,7 +3478,7 @@
         },
         {
             "file": "Framework\\Vector2.js",
-            "line": 25,
+            "line": 31,
             "description": "Add this vector by another vector or value.",
             "itemtype": "method",
             "name": "add",
@@ -1971,7 +3496,31 @@
         },
         {
             "file": "Framework\\Vector2.js",
-            "line": 41,
+            "line": 47,
+            "description": "Add two vectors.",
+            "itemtype": "method",
+            "name": "add",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Another",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 60,
             "description": "Substract this vector by another vector or value.",
             "itemtype": "method",
             "name": "subtract",
@@ -1989,7 +3538,31 @@
         },
         {
             "file": "Framework\\Vector2.js",
-            "line": 57,
+            "line": 76,
+            "description": "Subtract two vectors.",
+            "itemtype": "method",
+            "name": "subtract",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Another",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 89,
             "description": "Divide this vector by another vector",
             "itemtype": "method",
             "name": "divide",
@@ -2007,7 +3580,31 @@
         },
         {
             "file": "Framework\\Vector2.js",
-            "line": 73,
+            "line": 105,
+            "description": "Divide two vectors.",
+            "itemtype": "method",
+            "name": "divide",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Another",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 118,
             "description": "Multiply this vector by another vector or a value.",
             "itemtype": "method",
             "name": "multiply",
@@ -2025,10 +3622,23 @@
         },
         {
             "file": "Framework\\Vector2.js",
-            "line": 89,
-            "description": "Negate this vector",
+            "line": 134,
+            "description": "Multiply two vectors.",
             "itemtype": "method",
-            "name": "negate",
+            "name": "multiply",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Another",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
             "class": "Atlantis.Vector2",
             "module": "Atlantis",
             "submodule": "Framework",
@@ -2036,18 +3646,7 @@
         },
         {
             "file": "Framework\\Vector2.js",
-            "line": 104,
-            "description": "Normalize this vector.",
-            "itemtype": "method",
-            "name": "normalize",
-            "class": "Atlantis.Vector2",
-            "module": "Atlantis",
-            "submodule": "Framework",
-            "namespace": "Atlantis"
-        },
-        {
-            "file": "Framework\\Vector2.js",
-            "line": 114,
+            "line": 147,
             "description": "Gets distance between this vector and the vector passed in parameter.",
             "itemtype": "method",
             "name": "getDistance",
@@ -2066,12 +3665,945 @@
             "module": "Atlantis",
             "submodule": "Framework",
             "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 159,
+            "description": "Gets the distance between two vectors.",
+            "itemtype": "method",
+            "name": "distance",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Another",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 171,
+            "description": "Gets distance between this vector and the vector passed in parameter.",
+            "itemtype": "method",
+            "name": "getDistance",
+            "params": [
+                {
+                    "name": "vector2",
+                    "description": "The vector2 to use to determine the distance.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "return": {
+                "description": "The distance between this vector and the vector passed in parameter.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 183,
+            "description": "Calculate the dot product of two vectors.",
+            "itemtype": "method",
+            "name": "dot",
+            "static": 1,
+            "params": [
+                {
+                    "name": "First",
+                    "description": "vector to use.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Second",
+                    "description": "vector to use.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "return": {
+                "description": "Return the dot product of the two vectors.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 195,
+            "description": "Gets the length of the vector.",
+            "return": {
+                "description": "Return the length of the vector.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 203,
+            "description": "Performs a linear interpolation between to vectors.",
+            "itemtype": "method",
+            "name": "lerp",
+            "static": 1,
+            "params": [
+                {
+                    "name": "First",
+                    "description": "vector to use.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "Second",
+                    "description": "vector to use.",
+                    "type": "Atlantis.Vector2"
+                },
+                {
+                    "name": "amount",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ""
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 216,
+            "description": "Gets a vector of the minimum of the two vectors.",
+            "itemtype": "method",
+            "name": "min",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": ""
+                },
+                {
+                    "name": "vec2",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "Return a vector that correspond of the minimum of the two vectors."
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 231,
+            "description": "Gets a vector of the maximum of the two vectors.",
+            "itemtype": "method",
+            "name": "max",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": ""
+                },
+                {
+                    "name": "vec2",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "Return a vector that correspond of the maximum of the two vectors."
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 246,
+            "description": "Negate this vector",
+            "itemtype": "method",
+            "name": "negate",
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 261,
+            "description": "Negate a vector.",
+            "itemtype": "method",
+            "name": "negate",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector to use.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "return": {
+                "description": "Return the negated vector.",
+                "type": "Atlantis.Vector2"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 275,
+            "description": "Normalize this vector.",
+            "itemtype": "method",
+            "name": "normalize",
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 288,
+            "itemtype": "method",
+            "name": "normalize",
+            "static": 1,
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector to normalize.",
+                    "type": "Atlantis.Vector2"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 300,
+            "description": "Gets a transformed Vector3 from a position and a matrix.",
+            "itemtype": "method",
+            "name": "transform",
+            "params": [
+                {
+                    "name": "position",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "matrix",
+                    "description": "",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "return": {
+                "description": "A tranformed vector.",
+                "type": "Atlantis.Matrix"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 317,
+            "description": "Gets a transformed Vector3 from a position and a matrix.",
+            "itemtype": "method",
+            "name": "transformCoordinate",
+            "params": [
+                {
+                    "name": "position",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "matrix",
+                    "description": "",
+                    "type": "Atlantis.Matrix"
+                }
+            ],
+            "return": {
+                "description": "A tranformed vector.",
+                "type": "Atlantis.Vector4"
+            },
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector2.js",
+            "line": 333,
+            "description": "Sets the coordinates.",
+            "itemtype": "method",
+            "name": "set",
+            "params": [
+                {
+                    "name": "X",
+                    "description": "value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "Y",
+                    "description": "value.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Vector2",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 77,
+            "description": "Add a Vector3 to the current vector.",
+            "itemtype": "method",
+            "name": "add",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "The Vector3 to add.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 88,
+            "description": "Add two vectors.",
+            "itemtype": "method",
+            "name": "add",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a new Vector3",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 102,
+            "description": "Subtract a Vector3 to the current vector.",
+            "itemtype": "method",
+            "name": "subtract",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "The Vector3 to Subtract.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 113,
+            "description": "Subtract two vectors.",
+            "itemtype": "method",
+            "name": "subtract",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a news Vector3.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 127,
+            "description": "divide a Vector3 to the current vector.",
+            "itemtype": "method",
+            "name": "divide",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "The Vector3 to divide.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 144,
+            "description": "Divide two vectors.",
+            "itemtype": "method",
+            "name": "divide",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a new Vector3.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 158,
+            "description": "multiply a Vector3 to the current vector.",
+            "itemtype": "method",
+            "name": "multiply",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "The Vector3 to multiply.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 169,
+            "description": "Multiply a two vectors.",
+            "itemtype": "method",
+            "name": "multiply",
+            "params": [
+                {
+                    "name": "A",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "Another",
+                    "description": "vector.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a new vector.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 182,
+            "description": "Calculates the cross products of two vectors.",
+            "itemtype": "method",
+            "name": "cross",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "Fist vector to use.",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "Second vector to use.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "the cross products of the two vectors.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 198,
+            "description": "Gets the distance between two vectors.",
+            "itemtype": "method",
+            "name": "distance",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return the distance between two vectors.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 209,
+            "description": "Gets the distance squared between to vectors.",
+            "itemtype": "method",
+            "name": "distanceSquared",
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 223,
+            "description": "Calculates the dot product of two vectors.",
+            "itemtype": "method",
+            "name": "dot",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "First vector to use.",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "Second vector to use.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return the dot product of two vectors.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 235,
+            "description": "Gets the length of the vector.",
+            "itemtype": "method",
+            "name": "length",
+            "return": {
+                "description": "Return the length of the vector.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 244,
+            "description": "Linear interpolation between this vector and the vector passed in parameter.",
+            "itemtype": "method",
+            "name": "lerp",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "A vector to use for interpolation",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "amount",
+                    "description": "Value between 0 and 1 indicating the weight of vector.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 256,
+            "description": "Linearly interpolates between two vectors.",
+            "itemtype": "method",
+            "name": "lerp",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "First vector",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "Second vector",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "amount",
+                    "description": "Value between 0 and 1 indicating the weight of vec2."
+                }
+            ],
+            "return": {
+                "description": "Return a interpolated Vector3.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 272,
+            "description": "Gets a vector of the minimum of the two vectors.",
+            "itemtype": "method",
+            "name": "min",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a vector that correspond of the minimum of the two vectors.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 288,
+            "description": "Gets a vector of the maximum of the two vectors.",
+            "itemtype": "method",
+            "name": "max",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                },
+                {
+                    "name": "vec2",
+                    "description": "",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a vector that correspond of the maximum of the two vectors.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 304,
+            "description": "Negate the vector.",
+            "itemtype": "method",
+            "name": "negate",
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector3.js",
+            "line": 314,
+            "description": "Negate a vector.",
+            "itemtype": "method",
+            "name": "negate",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "The vector to negate.",
+                    "type": "Atlantis.Vector3"
+                }
+            ],
+            "return": {
+                "description": "Return a negated vector.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Vector3",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector4.js",
+            "line": 36,
+            "description": "Linear interpolation.",
+            "itemtype": "method",
+            "name": "lerp",
+            "params": [
+                {
+                    "name": "vector",
+                    "description": "A vector to use for interpolation",
+                    "type": "Atlantis.Vector4"
+                },
+                {
+                    "name": "amount",
+                    "description": "Value between 0 and 1 indicating the weight of vector.",
+                    "type": "Number"
+                }
+            ],
+            "class": "Atlantis.Vector4",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Framework\\Vector4.js",
+            "line": 49,
+            "description": "Linearly interpolates between two vectors.",
+            "itemtype": "method",
+            "name": "lerp",
+            "static": 1,
+            "params": [
+                {
+                    "name": "vec1",
+                    "description": "First vector",
+                    "type": "Atlantis.Vector4"
+                },
+                {
+                    "name": "vec2",
+                    "description": "Second vector",
+                    "type": "Atlantis.Vector4"
+                },
+                {
+                    "name": "amount",
+                    "description": "Value between 0 and 1 indicating the weight of vec2.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a interpolated Vector3.",
+                "type": "Atlantis.Vector4"
+            },
+            "class": "Atlantis.Vector4",
+            "module": "Atlantis",
+            "submodule": "Framework",
+            "namespace": "Atlantis"
         }
     ],
     "warnings": [
         {
-            "message": "Missing item type",
-            "line": " Engine\\StateManager.js:138"
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:27"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:67"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:67"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:67"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:67"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:87"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:87"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:87"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:133"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Animation.js:133"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:74"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:100"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:107"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:107"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:129"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:129"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:153"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Entity.js:153"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:50"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:50"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:65"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:65"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:65"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:77"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:86"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:118"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:168"
+        },
+        {
+            "message": "param name/type/descript missing",
+            "line": " Engine\\Graphics\\Sprite.js:168"
+        },
+        {
+            "message": "replacing incorrect tag: function with method",
+            "line": " Framework\\Input\\PointerManager.js:172"
+        },
+        {
+            "message": "param name missing: {Atlantis.Matrix|Array}",
+            "line": " Framework\\Matrix.js:12"
+        },
+        {
+            "message": "unknown tag: metod",
+            "line": " Framework\\Matrix.js:376"
         },
         {
             "message": "Missing item type\nAn interface for game components",
@@ -2079,15 +4611,19 @@
         },
         {
             "message": "Missing item type\nAn interface for drawable game components.",
-            "line": " Framework\\GameComponent.js:41"
+            "line": " Framework\\GameComponent.js:62"
         },
         {
             "message": "Missing item type\nA collection who'll initialize, load, update and draw components.",
-            "line": " Framework\\GameComponent.js:68"
+            "line": " Framework\\GameComponent.js:89"
         },
         {
             "message": "Missing item type\nCreate a collection of game components.",
-            "line": " Framework\\GameComponent.js:72"
+            "line": " Framework\\GameComponent.js:93"
+        },
+        {
+            "message": "Missing item type\nCreate a view matrix.",
+            "line": " Framework\\Matrix.js:376"
         },
         {
             "message": "Missing item type\nA class that represent a point structure",
@@ -2095,11 +4631,59 @@
         },
         {
             "message": "Missing item type\nA class that represent a rectangle structure",
-            "line": " Framework\\Rectangle.js:30"
+            "line": " Framework\\Rectangle.js:36"
+        },
+        {
+            "message": "Missing item type\ngets the position.",
+            "line": " Framework\\Rectangle.js:96"
+        },
+        {
+            "message": "Missing item type\nGets the position.",
+            "line": " Framework\\Rectangle.js:104"
+        },
+        {
+            "message": "Missing item type\nGets width",
+            "line": " Framework\\Rectangle.js:162"
+        },
+        {
+            "message": "Missing item type\nGets height",
+            "line": " Framework\\Rectangle.js:170"
+        },
+        {
+            "message": "Missing item type\nGets the top center.",
+            "line": " Framework\\Rectangle.js:178"
+        },
+        {
+            "message": "Missing item type\nGets the bottom center.",
+            "line": " Framework\\Rectangle.js:186"
+        },
+        {
+            "message": "Missing item type\nGets the left center.",
+            "line": " Framework\\Rectangle.js:194"
+        },
+        {
+            "message": "Missing item type\nGets the right center.",
+            "line": " Framework\\Rectangle.js:202"
+        },
+        {
+            "message": "Missing item type\nSets values to rectangle.",
+            "line": " Framework\\Rectangle.js:210"
+        },
+        {
+            "message": "Missing item type\nSets the position of the rectangle",
+            "line": " Framework\\Rectangle.js:236"
+        },
+        {
+            "message": "Missing item type\nSets the size of the rectangle.",
+            "line": " Framework\\Rectangle.js:252"
         },
         {
             "message": "Missing item type\nA Vector2 class.",
             "line": " Framework\\Vector2.js:11"
+        },
+        {
+            "message": "Missing item type\nGets the length of the vector.",
+            "line": " Framework\\Vector2.js:195"
         }
     ]
 }

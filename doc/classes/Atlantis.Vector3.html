@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.Vector2 - AtlantisEngine.js</title>
+    <title>Atlantis.Vector3 - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -136,7 +136,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.Vector2 Class</h1>
+                        <h1>Atlantis.Vector3 Class</h1>
 <div class="box meta">
     
 
@@ -144,7 +144,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Framework_Vector2.js.html#l15"><code>Framework\Vector2.js:15</code></a>
+            Defined in: <a href="../files/Framework_Vector3.js.html#l12"><code>Framework\Vector3.js:12</code></a>
         </div>
     
 
@@ -161,17 +161,34 @@
 
 
 <div class="box intro">
-    <p>Create a new Vector2</p>
+    <p>Create a vector with three coordinates. If you pass a Vector3 in first parameter,
+its filed are copied to the new vector (work like a copy constructor).</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Atlantis.Vector2" class="method item">
-    <h3 class="name"><code>Atlantis.Vector2</code></h3>
+        <div id="method_Atlantis.Vector3" class="method item">
+    <h3 class="name"><code>Atlantis.Vector3</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>The</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>The</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -199,7 +216,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l15"><code>Framework\Vector2.js:15</code></a>
+        <a href="../files/Framework_Vector3.js.html#l12"><code>Framework\Vector3.js:12</code></a>
         
         </p>
 
@@ -213,6 +230,44 @@
         
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">The</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a> | <a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>X value or a Vector3 object     * @param {Number} The Y value.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">The</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Z value.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -262,10 +317,26 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_cross">cross</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_distance">distance</a>
 
                                 
                                     <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_distanceSquared">distanceSquared</a>
+
                                 
                                 
                             </li>
@@ -296,14 +367,14 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_getDistance">getDistance</a>
+                                <a href="#method_length">length</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_getDistance">getDistance</a>
+                                <a href="#method_lerp">lerp</a>
 
                                 
                                 
@@ -340,8 +411,6 @@
                                 <a href="#method_multiply">multiply</a>
 
                                 
-                                    <span class="flag static">static</span>
-                                
                                 
                             </li>
                         
@@ -369,29 +438,6 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_normalize">normalize</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_normalize">normalize</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_set">set</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
                                 <a href="#method_subtract">subtract</a>
 
                                 
@@ -403,20 +449,6 @@
 
                                 
                                     <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_transform">transform</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_transformCoordinate">transformCoordinate</a>
-
                                 
                                 
                             </li>
@@ -446,7 +478,7 @@
             
                 <li class="arg">
                     
-                        <code>value</code>
+                        <code>vector</code>
                     
                 </li>
             
@@ -479,7 +511,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l31"><code>Framework\Vector2.js:31</code></a>
+        <a href="../files/Framework_Vector3.js.html#l77"><code>Framework\Vector3.js:77</code></a>
         
         </p>
 
@@ -490,7 +522,7 @@
     </div>
 
     <div class="description">
-        <p>Add this vector by another vector or value.</p>
+        <p>Add a Vector3 to the current vector.</p>
     </div>
 
     
@@ -501,14 +533,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">value</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>A vector or a value to add to this vector.</p>
+                        <p>The Vector3 to add.</p>
                     </div>
 
                     
@@ -533,13 +565,13 @@
             
                 <li class="arg">
                     
-                        <code>A</code>
+                        <code>vec1</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>Another</code>
+                        <code>vec2</code>
                     
                 </li>
             
@@ -547,6 +579,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
     
 
     
@@ -574,7 +610,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l47"><code>Framework\Vector2.js:47</code></a>
+        <a href="../files/Framework_Vector3.js.html#l88"><code>Framework\Vector3.js:88</code></a>
         
         </p>
 
@@ -596,14 +632,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>vector.</p>
+                         
                     </div>
 
                     
@@ -611,785 +647,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">Another</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_distance" class="method item">
-    <h3 class="name"><code>distance</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>A</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>Another</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l159"><code>Framework\Vector2.js:159</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets the distance between two vectors.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">Another</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_divide" class="method item">
-    <h3 class="name"><code>divide</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>value</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l89"><code>Framework\Vector2.js:89</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Divide this vector by another vector</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">value</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A vector or a value to divide to this vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_divide" class="method item">
-    <h3 class="name"><code>divide</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>A</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>Another</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l105"><code>Framework\Vector2.js:105</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Divide two vectors.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">Another</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_dot" class="method item">
-    <h3 class="name"><code>dot</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>First</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>Second</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l183"><code>Framework\Vector2.js:183</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Calculate the dot product of two vectors.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">First</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector to use.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">Second</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector to use.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
-                    
-                    Return the dot product of the two vectors.
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_getDistance" class="method item">
-    <h3 class="name"><code>getDistance</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>vector2</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l147"><code>Framework\Vector2.js:147</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets distance between this vector and the vector passed in parameter.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">vector2</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The vector2 to use to determine the distance.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
-                    
-                    The distance between this vector and the vector passed in parameter.
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_getDistance" class="method item">
-    <h3 class="name"><code>getDistance</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>vector2</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l171"><code>Framework\Vector2.js:171</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets distance between this vector and the vector passed in parameter.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">vector2</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The vector2 to use to determine the distance.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
-                    
-                    The distance between this vector and the vector passed in parameter.
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_lerp" class="method item">
-    <h3 class="name"><code>lerp</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>First</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>Second</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>amount</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l203"><code>Framework\Vector2.js:203</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Performs a linear interpolation between to vectors.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">First</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector to use.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">Second</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector to use.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">amount</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1412,6 +671,1034 @@
             <div class="returns-description">
                 
                     
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
+                    
+                    Return a new Vector3
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_cross" class="method item">
+    <h3 class="name"><code>cross</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l182"><code>Framework\Vector3.js:182</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Calculates the cross products of two vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Fist vector to use.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Second vector to use.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
+                    
+                    the cross products of the two vectors.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_distance" class="method item">
+    <h3 class="name"><code>distance</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vector</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l198"><code>Framework\Vector3.js:198</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the distance between two vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                    Return the distance between two vectors.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_distanceSquared" class="method item">
+    <h3 class="name"><code>distanceSquared</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l209"><code>Framework\Vector3.js:209</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the distance squared between to vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_divide" class="method item">
+    <h3 class="name"><code>divide</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vector</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l127"><code>Framework\Vector3.js:127</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>divide a Vector3 to the current vector.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The Vector3 to divide.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_divide" class="method item">
+    <h3 class="name"><code>divide</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l144"><code>Framework\Vector3.js:144</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Divide two vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
+                    
+                    Return a new Vector3.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_dot" class="method item">
+    <h3 class="name"><code>dot</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l223"><code>Framework\Vector3.js:223</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Calculates the dot product of two vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>First vector to use.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Second vector to use.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                    Return the dot product of two vectors.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_length" class="method item">
+    <h3 class="name"><code>length</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l235"><code>Framework\Vector3.js:235</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the length of the vector.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                    Return the length of the vector.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_lerp" class="method item">
+    <h3 class="name"><code>lerp</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vector</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>amount</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l244"><code>Framework\Vector3.js:244</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Linear interpolation between this vector and the vector passed in parameter.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A vector to use for interpolation</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">amount</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Value between 0 and 1 indicating the weight of vector.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_lerp" class="method item">
+    <h3 class="name"><code>lerp</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>amount</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector3.js.html#l256"><code>Framework\Vector3.js:256</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Linearly interpolates between two vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>First vector</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Second vector</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">amount</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Value between 0 and 1 indicating the weight of vec2.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
+                    
+                    Return a interpolated Vector3.
                 
             </div>
         </div>
@@ -1446,7 +1733,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
         </span>
     
 
@@ -1475,7 +1762,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l231"><code>Framework\Vector2.js:231</code></a>
+        <a href="../files/Framework_Vector3.js.html#l288"><code>Framework\Vector3.js:288</code></a>
         
         </p>
 
@@ -1498,7 +1785,7 @@
                 <li class="param">
                     
                         <code class="param-name">vec1</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1513,7 +1800,7 @@
                 <li class="param">
                     
                         <code class="param-name">vec2</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1535,6 +1822,8 @@
 
             <div class="returns-description">
                 
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
                     
                     Return a vector that correspond of the maximum of the two vectors.
                 
@@ -1571,7 +1860,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
         </span>
     
 
@@ -1600,7 +1889,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l216"><code>Framework\Vector2.js:216</code></a>
+        <a href="../files/Framework_Vector3.js.html#l272"><code>Framework\Vector3.js:272</code></a>
         
         </p>
 
@@ -1623,7 +1912,7 @@
                 <li class="param">
                     
                         <code class="param-name">vec1</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1638,7 +1927,7 @@
                 <li class="param">
                     
                         <code class="param-name">vec2</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1660,6 +1949,8 @@
 
             <div class="returns-description">
                 
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
                     
                     Return a vector that correspond of the minimum of the two vectors.
                 
@@ -1695,7 +1986,9 @@
     
 
     
-
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
     
 
     
@@ -1703,7 +1996,7 @@
     
 
     
-        <span class="flag static">static</span>
+
     
 
     
@@ -1721,7 +2014,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l134"><code>Framework\Vector2.js:134</code></a>
+        <a href="../files/Framework_Vector3.js.html#l169"><code>Framework\Vector3.js:169</code></a>
         
         </p>
 
@@ -1732,7 +2025,7 @@
     </div>
 
     <div class="description">
-        <p>Multiply two vectors.</p>
+        <p>Multiply a two vectors.</p>
     </div>
 
     
@@ -1744,7 +2037,7 @@
                 <li class="param">
                     
                         <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1759,7 +2052,7 @@
                 <li class="param">
                     
                         <code class="param-name">Another</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -1776,6 +2069,19 @@
     
 
     
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
+                    
+                    Return a new vector.
+                
+            </div>
+        </div>
+    
 
     
 </div>
@@ -1790,7 +2096,7 @@
             
                 <li class="arg">
                     
-                        <code>value</code>
+                        <code>vector</code>
                     
                 </li>
             
@@ -1823,7 +2129,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l118"><code>Framework\Vector2.js:118</code></a>
+        <a href="../files/Framework_Vector3.js.html#l158"><code>Framework\Vector3.js:158</code></a>
         
         </p>
 
@@ -1834,7 +2140,7 @@
     </div>
 
     <div class="description">
-        <p>Multiply this vector by another vector or a value.</p>
+        <p>multiply a Vector3 to the current vector.</p>
     </div>
 
     
@@ -1845,14 +2151,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">value</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>A vector or a value to multiply to this vector.</p>
+                        <p>The Vector3 to multiply.</p>
                     </div>
 
                     
@@ -1900,7 +2206,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l246"><code>Framework\Vector2.js:246</code></a>
+        <a href="../files/Framework_Vector3.js.html#l304"><code>Framework\Vector3.js:304</code></a>
         
         </p>
 
@@ -1911,7 +2217,7 @@
     </div>
 
     <div class="description">
-        <p>Negate this vector</p>
+        <p>Negate the vector.</p>
     </div>
 
     
@@ -1931,7 +2237,7 @@
             
                 <li class="arg">
                     
-                        <code>A</code>
+                        <code>vector</code>
                     
                 </li>
             
@@ -1941,7 +2247,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
         </span>
     
 
@@ -1970,7 +2276,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l261"><code>Framework\Vector2.js:261</code></a>
+        <a href="../files/Framework_Vector3.js.html#l314"><code>Framework\Vector3.js:314</code></a>
         
         </p>
 
@@ -1992,14 +2298,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>vector to use.</p>
+                        <p>The vector to negate.</p>
                     </div>
 
                     
@@ -2016,9 +2322,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>:
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
                     
-                    Return the negated vector.
+                    Return a negated vector.
                 
             </div>
         </div>
@@ -2028,11 +2334,21 @@
 </div>
 
                 
-                    <div id="method_normalize" class="method item">
-    <h3 class="name"><code>normalize</code></h3>
+                    <div id="method_subtract" class="method item">
+    <h3 class="name"><code>subtract</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vector</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -2060,7 +2376,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l275"><code>Framework\Vector2.js:275</code></a>
+        <a href="../files/Framework_Vector3.js.html#l102"><code>Framework\Vector3.js:102</code></a>
         
         </p>
 
@@ -2071,9 +2387,32 @@
     </div>
 
     <div class="description">
-        <p>Normalize this vector.</p>
+        <p>Subtract a Vector3 to the current vector.</p>
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The Vector3 to Subtract.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -2082,8 +2421,8 @@
 </div>
 
                 
-                    <div id="method_normalize" class="method item">
-    <h3 class="name"><code>normalize</code></h3>
+                    <div id="method_subtract" class="method item">
+    <h3 class="name"><code>subtract</code></h3>
 
     
         <div class="args">
@@ -2091,7 +2430,13 @@
             
                 <li class="arg">
                     
-                        <code>A</code>
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
                     
                 </li>
             
@@ -2099,6 +2444,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
     
 
     
@@ -2126,297 +2475,7 @@
             
         
         
-        <a href="../files/Framework_Vector2.js.html#l288"><code>Framework\Vector2.js:288</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector to normalize.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_set" class="method item">
-    <h3 class="name"><code>set</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>X</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>Y</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l333"><code>Framework\Vector2.js:333</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Sets the coordinates.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">X</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>value.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">Y</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>value.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_subtract" class="method item">
-    <h3 class="name"><code>subtract</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>value</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l60"><code>Framework\Vector2.js:60</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Substract this vector by another vector or value.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">value</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>A vector or a value to subtract to this vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_subtract" class="method item">
-    <h3 class="name"><code>subtract</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>A</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>Another</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l76"><code>Framework\Vector2.js:76</code></a>
+        <a href="../files/Framework_Vector3.js.html#l113"><code>Framework\Vector3.js:113</code></a>
         
         </p>
 
@@ -2438,119 +2497,7 @@
             
                 <li class="param">
                     
-                        <code class="param-name">A</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">Another</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>vector.</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_transform" class="method item">
-    <h3 class="name"><code>transform</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>position</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>matrix</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="..\classes\Atlantis.Matrix.html" class="crosslink">Atlantis.Matrix</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l300"><code>Framework\Vector2.js:300</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets a transformed Vector3 from a position and a matrix.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">position</code>
+                        <code class="param-name">vec1</code>
                         <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
@@ -2565,8 +2512,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">matrix</code>
-                        <span class="type"><a href="..\classes\Atlantis.Matrix.html" class="crosslink">Atlantis.Matrix</a></span>
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
                     
 
                     
@@ -2589,134 +2536,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="..\classes\Atlantis.Matrix.html" class="crosslink">Atlantis.Matrix</a></span>:
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
                     
-                    A tranformed vector.
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_transformCoordinate" class="method item">
-    <h3 class="name"><code>transformCoordinate</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>position</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>matrix</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_Vector2.js.html#l317"><code>Framework\Vector2.js:317</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets a transformed Vector3 from a position and a matrix.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">position</code>
-                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">matrix</code>
-                        <span class="type"><a href="..\classes\Atlantis.Matrix.html" class="crosslink">Atlantis.Matrix</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>:
-                    
-                    A tranformed vector.
+                    Return a news Vector3.
                 
             </div>
         </div>

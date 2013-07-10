@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.ContentManager - AtlantisEngine.js</title>
+    <title>Atlantis.Input.KeyboardManager - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -136,7 +136,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.ContentManager Class</h1>
+                        <h1>Atlantis.Input.KeyboardManager Class</h1>
 <div class="box meta">
     
 
@@ -144,7 +144,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
+            Defined in: <a href="../files/Framework_Input_KeyboardManager.js.html#l55"><code>Framework\Input\KeyboardManager.js:55</code></a>
         </div>
     
 
@@ -161,27 +161,17 @@
 
 
 <div class="box intro">
-    <p>Create a content manager that manage assets.</p>
+    <p>A keyboard input manager.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Atlantis.ContentManager" class="method item">
-    <h3 class="name"><code>Atlantis.ContentManager</code></h3>
+        <div id="method_Atlantis.Input.KeyboardManager" class="method item">
+    <h3 class="name"><code>Atlantis.Input.KeyboardManager</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>rootDirectory</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
@@ -209,7 +199,7 @@
             
         
         
-        <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l55"><code>Framework\Input\KeyboardManager.js:55</code></a>
         
         </p>
 
@@ -223,29 +213,6 @@
         
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">rootDirectory</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The root folder to load assets (default is the current folder).</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -279,7 +246,21 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_load">load</a>
+                                <a href="#method_getState">getState</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_initialize">initialize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_onKeyStateChange">onKeyStateChange</a>
 
                                 
                                 
@@ -301,8 +282,133 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_load" class="method item">
-    <h3 class="name"><code>load</code></h3>
+                    <div id="method_getState" class="method item">
+    <h3 class="name"><code>getState</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Atlantis.KeyboardState</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l81"><code>Framework\Input\KeyboardManager.js:81</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the current state of the keyboard.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Atlantis.KeyboardState</span>:
+                    
+                    Return the state of the keyboard.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_initialize" class="method item">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l72"><code>Framework\Input\KeyboardManager.js:72</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Initialize keyboard event handlers.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_onKeyStateChange" class="method item">
+    <h3 class="name"><code>onKeyStateChange</code></h3>
 
     
         <div class="args">
@@ -310,7 +416,13 @@
             
                 <li class="arg">
                     
-                        <code>assetName</code>
+                        <code>event</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>instance</code>
                     
                 </li>
             
@@ -343,7 +455,7 @@
             
         
         
-        <a href="../files/Framework_ContentManager.js.html#l23"><code>Framework\ContentManager.js:23</code></a>
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l90"><code>Framework\Input\KeyboardManager.js:90</code></a>
         
         </p>
 
@@ -354,14 +466,7 @@
     </div>
 
     <div class="description">
-        <p>Load an asset from the root directory.
-Supported formats are :
-     - Images : png, jpg, bmp
-     - Audio : mp3, ogg, wav
-     - Video : mp4, ogv
-     - Data : xml, json, js</p>
-
-<p>The type is define with the file extension.</p>
+        <p>Event handler - Function called on keyboard event.</p>
     </div>
 
     
@@ -372,14 +477,29 @@ Supported formats are :
             
                 <li class="param">
                     
-                        <code class="param-name">assetName</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">event</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The asset name</p>
+                        <p>The event object.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">instance</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The current instance.</p>
                     </div>
 
                     

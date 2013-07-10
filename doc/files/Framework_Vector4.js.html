@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.ContentManager - AtlantisEngine.js</title>
+    <title>Framework\Vector4.js - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -136,274 +136,74 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.ContentManager Class</h1>
-<div class="box meta">
-    
-
-    
-
-    
-        <div class="foundat">
-            Defined in: <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
-        </div>
-    
-
-    
-        
-            Module: <a href="../modules/Framework.html">Framework</a><br>
-            Parent Module: <a href="../modules/Atlantis.html">Atlantis</a>
-        
-    
-
-    
-</div>
-
-
-
-<div class="box intro">
-    <p>Create a content manager that manage assets.</p>
-</div>
-
-
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Atlantis.ContentManager" class="method item">
-    <h3 class="name"><code>Atlantis.ContentManager</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>rootDirectory</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">rootDirectory</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The root folder to load assets (default is the current folder).</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-    </div>
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
-        
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-                <div class="index-section methods">
-                    <h3>Methods</h3>
-
-                    <ul class="index-list methods">
-                        
-                            <li class="index-item method">
-                                <a href="#method_load">load</a>
-
-                                
-                                
-                            </li>
-                        
-                    </ul>
-                </div>
-            
-
-            
-
-            
-
-            
-        </div>
-
-        
-            <div id="methods" class="api-class-tabpanel">
-                <h2 class="off-left">Methods</h2>
-
-                
-                    <div id="method_load" class="method item">
-    <h3 class="name"><code>load</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>assetName</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Framework_ContentManager.js.html#l23"><code>Framework\ContentManager.js:23</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Load an asset from the root directory.
-Supported formats are :
-     - Images : png, jpg, bmp
-     - Audio : mp3, ogg, wav
-     - Video : mp4, ogv
-     - Data : xml, json, js</p>
-
-<p>The type is define with the file extension.</p>
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">assetName</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The asset name</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-            </div>
-        
-
-        
-
-        
-
-        
-    </div>
+                        <h1 class="file-heading">File: Framework\Vector4.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * AtlantisEngine.js a lightweight JavaScript game engine.
+ *
+ * @module Atlantis
+ * @submodule Framework
+ * @namespace Atlantis
+ */
+
+var Atlantis = window.Atlantis || {};
+
+Atlantis.Vector4 = (function () {
+    /**
+     * A vector4 class.
+     * @constructor
+     * @class Vector4
+     * @param {Number|Atlantis.Vector4} Value for x coordinate or a Vector4 object.
+     * @param {Number} Value for y coordinate
+     * @param {Number} Value for z coordinate.
+     * @param {Number} Value for w coordinate.
+     */
+    var vector = function (x, y, z, w) {
+        if (x instanceof Atlantis.Vector4) {
+            this.x = x.x;
+            this.y = x.y;
+            this.z = x.z;
+            this.w = x.w;
+        }
+        else {
+            this.x = x || 0;
+            this.y = y || 0;
+            this.z = z || 0;
+            this.w = w || 0;
+        }
+    };
+	
+	/**
+	 * Linear interpolation.
+	 * @method lerp
+	 * @param {Atlantis.Vector4} vector A vector to use for interpolation
+	 * @param {Number} amount Value between 0 and 1 indicating the weight of vector.
+	 */
+	vector.lerp = function (vector, amount) {
+		this.x = Atlantis.MathHelper.lerp(this.x, vector.x, amount);
+		this.y = Atlantis.MathHelper.lerp(this.y, vector.y, amount);
+		this.z = Atlantis.MathHelper.lerp(this.z, vector.z, amount);
+		this.w = Atlantis.MathHelper.lerp(this.w, vector.w, amount);
+	};
+
+	/**
+	 * Linearly interpolates between two vectors.
+	 * @method lerp
+	 * @static
+	 * @param {Atlantis.Vector4} vec1 First vector
+	 * @param {Atlantis.Vector4} vec2 Second vector
+	 * @param {Number} amount Value between 0 and 1 indicating the weight of vec2.
+	 * @return {Atlantis.Vector4} Return a interpolated Vector3.
+	 */
+	vector.lerp = function (vec1, vec2, amount) {
+		var vector = new Vector4(vec1);
+		vector.lerp(vec2, amount);
+		return vector;
+	};
+})();
+    </pre>
 </div>
 
                     </div>

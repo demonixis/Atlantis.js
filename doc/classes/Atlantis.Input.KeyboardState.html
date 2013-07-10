@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.ContentManager - AtlantisEngine.js</title>
+    <title>Atlantis.Input.KeyboardState - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -136,7 +136,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.ContentManager Class</h1>
+                        <h1>Atlantis.Input.KeyboardState Class</h1>
 <div class="box meta">
     
 
@@ -144,7 +144,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
+            Defined in: <a href="../files/Framework_Input_KeyboardManager.js.html#l22"><code>Framework\Input\KeyboardManager.js:22</code></a>
         </div>
     
 
@@ -161,27 +161,17 @@
 
 
 <div class="box intro">
-    <p>Create a content manager that manage assets.</p>
+    <p>Define a keyboard state.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Atlantis.ContentManager" class="method item">
-    <h3 class="name"><code>Atlantis.ContentManager</code></h3>
+        <div id="method_Atlantis.Input.KeyboardState" class="method item">
+    <h3 class="name"><code>Atlantis.Input.KeyboardState</code></h3>
 
     
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>rootDirectory</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
+        <span class="paren">()</span>
     
 
     
@@ -209,7 +199,7 @@
             
         
         
-        <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l22"><code>Framework\Input\KeyboardManager.js:22</code></a>
         
         </p>
 
@@ -223,29 +213,6 @@
         
     </div>
 
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">rootDirectory</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The root folder to load assets (default is the current folder).</p>
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
     
 
     
@@ -264,6 +231,8 @@
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
         
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
         
         
     </ul>
@@ -279,7 +248,31 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_load">load</a>
+                                <a href="#method_isKeyDown">isKeyDown</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_isKeyUp">isKeyUp</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property">
+                                <a href="#property_Keys">Keys</a>
 
                                 
                                 
@@ -292,8 +285,6 @@
             
 
             
-
-            
         </div>
 
         
@@ -301,8 +292,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_load" class="method item">
-    <h3 class="name"><code>load</code></h3>
+                    <div id="method_isKeyDown" class="method item">
+    <h3 class="name"><code>isKeyDown</code></h3>
 
     
         <div class="args">
@@ -310,7 +301,7 @@
             
                 <li class="arg">
                     
-                        <code>assetName</code>
+                        <code>button</code>
                     
                 </li>
             
@@ -318,6 +309,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
     
 
     
@@ -343,7 +338,7 @@
             
         
         
-        <a href="../files/Framework_ContentManager.js.html#l23"><code>Framework\ContentManager.js:23</code></a>
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l31"><code>Framework\Input\KeyboardManager.js:31</code></a>
         
         </p>
 
@@ -354,14 +349,7 @@
     </div>
 
     <div class="description">
-        <p>Load an asset from the root directory.
-Supported formats are :
-     - Images : png, jpg, bmp
-     - Audio : mp3, ogg, wav
-     - Video : mp4, ogv
-     - Data : xml, json, js</p>
-
-<p>The type is define with the file extension.</p>
+        <p>Determine if the key is pressed.</p>
     </div>
 
     
@@ -372,14 +360,14 @@ Supported formats are :
             
                 <li class="param">
                     
-                        <code class="param-name">assetName</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">button</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The asset name</p>
+                        <p>The button to test.</p>
                     </div>
 
                     
@@ -390,6 +378,123 @@ Supported formats are :
     
 
     
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                    Return true if the key is pressed.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_isKeyUp" class="method item">
+    <h3 class="name"><code>isKeyUp</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>button</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l41"><code>Framework\Input\KeyboardManager.js:41</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Determine if the key is pressed.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">button</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The button to test.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                    Return true if the key is released.
+                
+            </div>
+        </div>
+    
 
     
 </div>
@@ -398,6 +503,56 @@ Supported formats are :
             </div>
         
 
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_Keys" class="property item">
+    <h3 class="name"><code>Keys</code></h3>
+    <span class="type">Unknown</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_KeyboardManager.js.html#l12"><code>Framework\Input\KeyboardManager.js:12</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Keys alias</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
         
 
         

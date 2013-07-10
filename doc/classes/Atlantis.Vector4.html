@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.ContentManager - AtlantisEngine.js</title>
+    <title>Atlantis.Vector4 - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -136,7 +136,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.ContentManager Class</h1>
+                        <h1>Atlantis.Vector4 Class</h1>
 <div class="box meta">
     
 
@@ -144,7 +144,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
+            Defined in: <a href="../files/Framework_Vector4.js.html#l12"><code>Framework\Vector4.js:12</code></a>
         </div>
     
 
@@ -161,14 +161,14 @@
 
 
 <div class="box intro">
-    <p>Create a content manager that manage assets.</p>
+    <p>A vector4 class.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Atlantis.ContentManager" class="method item">
-    <h3 class="name"><code>Atlantis.ContentManager</code></h3>
+        <div id="method_Atlantis.Vector4" class="method item">
+    <h3 class="name"><code>Atlantis.Vector4</code></h3>
 
     
         <div class="args">
@@ -176,7 +176,25 @@
             
                 <li class="arg">
                     
-                        <code>rootDirectory</code>
+                        <code>Value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>Value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>Value</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>Value</code>
                     
                 </li>
             
@@ -209,7 +227,7 @@
             
         
         
-        <a href="../files/Framework_ContentManager.js.html#l12"><code>Framework\ContentManager.js:12</code></a>
+        <a href="../files/Framework_Vector4.js.html#l12"><code>Framework\Vector4.js:12</code></a>
         
         </p>
 
@@ -231,14 +249,59 @@
             
                 <li class="param">
                     
-                        <code class="param-name">rootDirectory</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">Value</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a> | <a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The root folder to load assets (default is the current folder).</p>
+                        <p>for x coordinate or a Vector4 object.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">Value</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>for y coordinate</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">Value</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>for z coordinate.</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">Value</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>for w coordinate.</p>
                     </div>
 
                     
@@ -279,8 +342,17 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_load">load</a>
+                                <a href="#method_lerp">lerp</a>
 
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_lerp">lerp</a>
+
+                                
+                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -301,8 +373,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_load" class="method item">
-    <h3 class="name"><code>load</code></h3>
+                    <div id="method_lerp" class="method item">
+    <h3 class="name"><code>lerp</code></h3>
 
     
         <div class="args">
@@ -310,7 +382,13 @@
             
                 <li class="arg">
                     
-                        <code>assetName</code>
+                        <code>vector</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>amount</code>
                     
                 </li>
             
@@ -343,7 +421,7 @@
             
         
         
-        <a href="../files/Framework_ContentManager.js.html#l23"><code>Framework\ContentManager.js:23</code></a>
+        <a href="../files/Framework_Vector4.js.html#l36"><code>Framework\Vector4.js:36</code></a>
         
         </p>
 
@@ -354,14 +432,7 @@
     </div>
 
     <div class="description">
-        <p>Load an asset from the root directory.
-Supported formats are :
-     - Images : png, jpg, bmp
-     - Audio : mp3, ogg, wav
-     - Video : mp4, ogv
-     - Data : xml, json, js</p>
-
-<p>The type is define with the file extension.</p>
+        <p>Linear interpolation.</p>
     </div>
 
     
@@ -372,14 +443,29 @@ Supported formats are :
             
                 <li class="param">
                     
-                        <code class="param-name">assetName</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">vector</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The asset name</p>
+                        <p>A vector to use for interpolation</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">amount</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Value between 0 and 1 indicating the weight of vector.</p>
                     </div>
 
                     
@@ -389,6 +475,154 @@ Supported formats are :
         </div>
     
 
+    
+
+    
+</div>
+
+                
+                    <div id="method_lerp" class="method item">
+    <h3 class="name"><code>lerp</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>vec1</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>vec2</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>amount</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Vector4.js.html#l49"><code>Framework\Vector4.js:49</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Linearly interpolates between two vectors.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec1</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>First vector</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">vec2</code>
+                        <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Second vector</p>
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">amount</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Value between 0 and 1 indicating the weight of vec2.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>:
+                    
+                    Return a interpolated Vector3.
+                
+            </div>
+        </div>
     
 
     

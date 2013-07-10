@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.AudioManager - AtlantisEngine.js</title>
+    <title>Atlantis.Input.PointerManager - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -136,7 +136,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.AudioManager Class</h1>
+                        <h1>Atlantis.Input.PointerManager Class</h1>
 <div class="box meta">
     
 
@@ -144,13 +144,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Engine_AudioManager.js.html#l18"><code>Engine\AudioManager.js:18</code></a>
+            Defined in: <a href="../files/Framework_Input_PointerManager.js.html#l15"><code>Framework\Input\PointerManager.js:15</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/Engine.html">Engine</a><br>
+            Module: <a href="../modules/Framework.html">Framework</a><br>
             Parent Module: <a href="../modules/Atlantis.html">Atlantis</a>
         
     
@@ -161,17 +161,27 @@
 
 
 <div class="box intro">
-    <p>An audio manager to play sound and musics.</p>
+    <p>PointerManager is an abstraction of click event and touch event.</p>
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Atlantis.AudioManager" class="method item">
-    <h3 class="name"><code>Atlantis.AudioManager</code></h3>
+        <div id="method_Atlantis.Input.PointerManager" class="method item">
+    <h3 class="name"><code>Atlantis.Input.PointerManager</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>The</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -199,7 +209,7 @@
             
         
         
-        <a href="../files/Engine_AudioManager.js.html#l18"><code>Engine\AudioManager.js:18</code></a>
+        <a href="../files/Framework_Input_PointerManager.js.html#l15"><code>Framework\Input\PointerManager.js:15</code></a>
         
         </p>
 
@@ -213,6 +223,29 @@
         
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">The</code>
+                        <span class="type">DOMElement</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>DOM element to use for event detection.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -246,21 +279,49 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_pauseMusic">pauseMusic</a>
+                                <a href="#method_getEvent">getEvent</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_playMusic">playMusic</a>
+                                <a href="#method_startEventListeners">startEventListeners</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_stopMusic">stopMusic</a>
+                                <a href="#method_startEventListeners">startEventListeners</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_updateClickStates">updateClickStates</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_updateDelta">updateDelta</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_updateHandler">updateHandler</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_updatePosition">updatePosition</a>
 
                                 
                                 
@@ -282,8 +343,79 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_pauseMusic" class="method item">
-    <h3 class="name"><code>pauseMusic</code></h3>
+                    <div id="method_getEvent" class="method item">
+    <h3 class="name"><code>getEvent</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_PointerManager.js.html#l172"><code>Framework\Input\PointerManager.js:172</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the event that correspond of pointer type.</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    
+                    Return a touch event or a click event
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_startEventListeners" class="method item">
+    <h3 class="name"><code>startEventListeners</code></h3>
 
     
         <span class="paren">()</span>
@@ -314,7 +446,7 @@
             
         
         
-        <a href="../files/Engine_AudioManager.js.html#l52"><code>Engine\AudioManager.js:52</code></a>
+        <a href="../files/Framework_Input_PointerManager.js.html#l38"><code>Framework\Input\PointerManager.js:38</code></a>
         
         </p>
 
@@ -325,7 +457,7 @@
     </div>
 
     <div class="description">
-        <p>Pause the current played music.</p>
+        <p>Start event listening on specified DOM element.</p>
     </div>
 
     
@@ -336,8 +468,62 @@
 </div>
 
                 
-                    <div id="method_playMusic" class="method item">
-    <h3 class="name"><code>playMusic</code></h3>
+                    <div id="method_startEventListeners" class="method item">
+    <h3 class="name"><code>startEventListeners</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_PointerManager.js.html#l60"><code>Framework\Input\PointerManager.js:60</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Stop event listening on specified DOM element.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_updateClickStates" class="method item">
+    <h3 class="name"><code>updateClickStates</code></h3>
 
     
         <div class="args">
@@ -345,13 +531,7 @@
             
                 <li class="arg">
                     
-                        <code>music</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>repeat</code>
+                        <code>a</code>
                     
                 </li>
             
@@ -384,7 +564,7 @@
             
         
         
-        <a href="../files/Engine_AudioManager.js.html#l30"><code>Engine\AudioManager.js:30</code></a>
+        <a href="../files/Framework_Input_PointerManager.js.html#l96"><code>Framework\Input\PointerManager.js:96</code></a>
         
         </p>
 
@@ -395,7 +575,7 @@
     </div>
 
     <div class="description">
-        <p>Play a music.</p>
+        <p>Event handler responsible to update clicks and touch states.</p>
     </div>
 
     
@@ -406,29 +586,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">music</code>
-                        <span class="type">AudioElement</span>
+                        <code class="param-name">a</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An HTML Audio Element that contains the music.</p>
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">repeat</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Sets to true for enable repeat.</p>
+                        <p>touch or mouse event.</p>
                     </div>
 
                     
@@ -444,8 +609,8 @@
 </div>
 
                 
-                    <div id="method_stopMusic" class="method item">
-    <h3 class="name"><code>stopMusic</code></h3>
+                    <div id="method_updateDelta" class="method item">
+    <h3 class="name"><code>updateDelta</code></h3>
 
     
         <span class="paren">()</span>
@@ -476,7 +641,7 @@
             
         
         
-        <a href="../files/Engine_AudioManager.js.html#l44"><code>Engine\AudioManager.js:44</code></a>
+        <a href="../files/Framework_Input_PointerManager.js.html#l144"><code>Framework\Input\PointerManager.js:144</code></a>
         
         </p>
 
@@ -487,9 +652,183 @@
     </div>
 
     <div class="description">
-        <p>Stop the current played music.</p>
+        <p>Update the delta.</p>
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_updateHandler" class="method item">
+    <h3 class="name"><code>updateHandler</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>a</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_PointerManager.js.html#l131"><code>Framework\Input\PointerManager.js:131</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Event handler responsive to update clicks/touch and position.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">a</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>touch or mouse event.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_updatePosition" class="method item">
+    <h3 class="name"><code>updatePosition</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>a</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Input_PointerManager.js.html#l82"><code>Framework\Input\PointerManager.js:82</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Event handler responsible to update position and previous position of the pointer.</p>
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">a</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>touch or mouse event.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     

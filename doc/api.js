@@ -11,19 +11,21 @@ YUI.add("yuidoc-meta", function(Y) {
         "Atlantis.GameTime",
         "Atlantis.Graphics",
         "Atlantis.Helpers",
+        "Atlantis.Input.KeyboardManager",
+        "Atlantis.Input.KeyboardState",
+        "Atlantis.Input.PointerManager",
         "Atlantis.Interpolator",
-        "Atlantis.KeyboardState",
-        "Atlantis.Layer",
-        "Atlantis.MouseState",
+        "Atlantis.MathHelpers",
+        "Atlantis.Matrix",
         "Atlantis.Point",
         "Atlantis.Rectangle",
         "Atlantis.Sprite",
         "Atlantis.SpriteGroup",
         "Atlantis.State",
         "Atlantis.StorageManager",
-        "Atlantis.Tile",
-        "Atlantis.Tilemap",
-        "Atlantis.Vector2"
+        "Atlantis.Vector2",
+        "Atlantis.Vector3",
+        "Atlantis.Vector4"
     ],
     "modules": [
         "Atlantis",
@@ -38,12 +40,12 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "Engine",
             "name": "Engine",
-            "description": "Atlantis storage manager."
+            "description": "AtlantisEngine.js a lightweight JavaScript game engine."
         },
         {
             "displayName": "Framework",
             "name": "Framework",
-            "description": "Atlantis storage manager."
+            "description": "AtlantisEngine.js a lightweight JavaScript game engine."
         }
     ]
 } };
