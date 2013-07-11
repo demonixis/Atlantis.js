@@ -1,6 +1,5 @@
 /**
  * AtlantisEngine.js a lightweight JavaScript game engine.
- *
  * @module Atlantis
  * @submodule Framework
  * @namespace Atlantis
@@ -117,7 +116,7 @@ Atlantis.ContentManager = (function () {
             return assetCollection[resourceUrl];
         }
         else {
-            console.error("[Content] Impossible to load the resource becanse the Atlantis.Helper class isn't loaded");
+            console.error("[Content] Impossible to load the resource because the Atlantis.Helper class isn't loaded");
         }
     }
 

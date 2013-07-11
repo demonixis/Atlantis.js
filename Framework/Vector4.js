@@ -25,6 +25,12 @@ Atlantis.Vector4 = (function () {
             this.z = x.z;
             this.w = x.w;
         }
+        else if (typeof(y) === "undefined" && typeof(x) === "number") {
+            this.x = x;
+            this.y = x;
+            this.z = x;
+            this.w = x;
+        }
         else {
             this.x = x || 0;
             this.y = y || 0;
@@ -59,5 +65,14 @@ Atlantis.Vector4 = (function () {
 		var vector = new Vector4(vec1);
 		vector.lerp(vec2, amount);
 		return vector;
+	};
+
+    /**
+     * Gets a string from this object.
+     * @method toString
+     * @return {String}
+     */
+	vector.prototype.toString = function () {
+		return ["x: ", this.x, " y: ", this.y, " z: ", this.z, " w: ", this.w].join("");
 	};
 })();

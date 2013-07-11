@@ -411,6 +411,61 @@ Atlantis.Matrix = (function () {
         return matrix;
     };
 
+    /**
+	 * Create an orthogonal projection matrix.
+     * @method createOrthograhic
+     * @static
+	 * @param {Number} width
+	 * @param {Number} height
+	 * @param {Number} zNear
+	 * @param {Number} zFar
+	 * @return {Atlantis.Matrix}
+	 */
+	matrix.createOrthographic = function (width, height, zNear, zFar) {
+		var matrix = new Matrix();
+	    matrix.M11 = 2.0 / width;
+	    matrix.M12 = matrix.M13 = matrix.M14 = 0.0;
+	    matrix.M22 = 2.0 / height;
+	    matrix.M21 = matrix.M23 = matrix.M24 = 0.0;
+	    matrix.M33 = 1.0 / (zNear - zFar);
+	    matrix.M31 = matrix.M32 = matrix.M34 = 0.0;
+	    matrix.M41 = matrix.M42 = 0.0;
+	    matrix.M43 = zNear / (zNear - zFar);
+	    matrix.M44 = 1.0;
+	    return matrix;
+	}
+	
+	/**
+	 * Create a customized orthogonal projection matrix.
+     * @method createOrthographicOffCenter
+     * @static
+	 * @param {Number} width
+	 * @param {Number} height
+	 * @param {Number} zNear
+	 * @param {Number} zFar
+	 * @return {Atlantis.Matrix}
+	 */
+	matrix.createOrthographicOffCenter = function (left, right, bottom, top, zNear, zFar) {
+		var matrix = new Atlantis.Matrix();
+		matrix.M11 = (2.0 / (right - left));
+		matrix.M12 = 0.0;
+		matrix.M13 = 0.0;
+		matrix.M14 = 0.0;
+		matrix.M21 = 0.0;
+		matrix.M22 = (2.0 / (top - bottom));
+		matrix.M23 = 0.0;
+		matrix.M24 = 0.0;
+		matrix.M31 = 0.0;
+		matrix.M32 = 0.0;
+		matrix.M33 = (1.0 / (zNear - zFar));
+		matrix.M34 = 0.0;
+		matrix.M41 = ((left + right) / (left - right));
+		matrix.M42 = ((top + bottom) / (bottom - top));
+		matrix.M43 = (zNear / (zNear - zFar));
+		matrix.M44 = 1.0;
+		return matrix;
+	};
+
    /**
 	 * Create a perspective field of view matrix with Left hand notation.
      * @method createPerspectiveFieldOfView
@@ -422,7 +477,7 @@ Atlantis.Matrix = (function () {
 	 * @return {Atlantis.Matrix} Return a matrix of this type of perspective.
 	 */
 	matrix.createPerspectiveFieldOfView = function (fov, aspect, zNear, zFar) {
-		var yScale = (float)(1.0 / Math.tan(fov * 0.5));
+		var yScale = (1.0 / Math.tan(fov * 0.5));
 		var xScale = yScale / aspect;
 		var halfWidth = zNear / xScale;
 		var halfHeight = zNear / yScale;
@@ -591,6 +646,11 @@ Atlantis.Matrix = (function () {
         return mat;
     }
 
+    /**
+     * Gets a string from this object.
+     * @method toString
+     * @return {String}
+     */
     matrix.prototype.toString = function () {
         var values = this.toArray();
         var builder = [];
