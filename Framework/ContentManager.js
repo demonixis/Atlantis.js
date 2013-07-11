@@ -18,7 +18,7 @@ Atlantis.ContentManager = (function () {
     var contentManager = function (rootDirectory) {
         this.rootDirectory = rootDirectory || "";
         this.assets = [];
-    }
+    };
 
     /**
      * Load an asset from the root directory.
@@ -34,7 +34,7 @@ Atlantis.ContentManager = (function () {
      * @param {String} assetName The asset name
      */
     contentManager.prototype.load = function (assetName) {
-        if (typeof(this.assets[assetName]) != "undefined") {
+        if (typeof(this.assets[assetName]) !== "undefined") {
             return this.assets[assetName];
         }
         else {
