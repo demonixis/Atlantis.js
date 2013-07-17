@@ -47,5 +47,23 @@ Atlantis.DrawableGameComponent = (function () {
     */
     drawableGameComponent.prototype.draw = function (gameTime, context) { };
 
+    /**
+	 * Gets the visibility of the component.
+     * @method isVisible
+	 * @return {Boolean} Return true if visible otherwise return false
+	 */
+    drawableGameComponent.prototype.isVisible = function () {
+        return this.isVisible;
+    };
+
+    /**
+	 * Set the component visible or invisible
+     * @method setVisible
+	 * @param visible
+	 */
+    drawableGameComponent.prototype.setVisible = function (visible) {
+        this.isVisible = visible;
+    };
+
     return drawableGameComponent;
 })();

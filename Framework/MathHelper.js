@@ -20,7 +20,9 @@
 	 * @readOnly
 	 * @type {Number}
 	 */
-    Atlantis.MathHelper.Pi = Math.PI;
+    Atlantis.MathHelper.Pi = function () {
+        Math.PI;   
+    };
 	
 	/**
 	 * Gets PI over 2 value.
@@ -28,7 +30,9 @@
 	 * @readOnly
 	 * @type {Number}
 	 */
-	Atlantis.MathHelper.PiOver2 = Math.PI / 2;
+	Atlantis.MathHelper.PiOver2 = function () {
+	    Math.PI / 2;
+    };
 	
 	/**
 	 * Gets PI over 4 value.
@@ -36,7 +40,9 @@
 	 * @readOnly
 	 * @type {Number}
 	 */
-	Atlantis.MathHelper.PiOver4 = Math.PI / 4;
+	Atlantis.MathHelper.PiOver4 = function () {
+        Math.PI / 4;
+    };
 	
 	/**
 	 * Gets PI * 2 value.
@@ -44,7 +50,9 @@
 	 * @readOnly
 	 * @type {Number}
 	 */
-	Atlantis.MathHelper.TwoPi = Math.PI * 2;
+	Atlantis.MathHelper.TwoPi = function () {
+	    return Math.PI * 2;
+	}; 
 	
 	/**
 	 *
@@ -69,7 +77,9 @@
 	 * @method lerp
 	 */
 	Atlantis.MathHelper.lerp = function (value1, value2, amount) {
-		return value1 + (value2 - value1) * amount;
+		amount = amount < 0 ? 0 : amount;
+        amount = amount > 1 ? 1 : amount;
+        return value1 + (value2 - value1) * amount;
 	}
 	
 	/**

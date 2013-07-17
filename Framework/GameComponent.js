@@ -49,7 +49,7 @@ Atlantis.GameComponent = (function () {
 	 * @return {Boolean} The status of the component.
 	 */
 	gameComponent.prototype.isEnabled = function () {
-		return enabled;
+		return this.enabled;
 	};
 	
 	/**

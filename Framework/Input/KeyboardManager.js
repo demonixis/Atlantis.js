@@ -35,16 +35,11 @@ Atlantis.Input.KeyboardManager = (function () {
         }
 
         this.preventDefault = true;
-        _instance = this;
-    };
-
-    /**
-    * Initialize keyboard event handlers.
-    * @method initialize
-    */
-    keyboardManager.prototype.initialize = function () {
+        
         document.addEventListener("keydown", this.onKeyStateChange, false);
         document.addEventListener("keyup", this.onKeyStateChange, false);
+        
+        _instance = this;
     };
 
     /**
@@ -53,7 +48,7 @@ Atlantis.Input.KeyboardManager = (function () {
      * @return {Atlantis.KeyboardState} Return the state of the keyboard.
      */
     keyboardManager.prototype.getState = function () {
-        return new Atlantis.KeyboardState(this.keys);
+        return new Atlantis.Input.KeyboardState(this.keys);
     };
 
     /**
