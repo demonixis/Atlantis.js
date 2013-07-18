@@ -101,7 +101,6 @@
          else {
              return (this.x <= value1) && (value1 < this.getRight()) && (this.y <= value2) && (value2 < this.getBottom());
          }
-         return false;
      };
 
      /**

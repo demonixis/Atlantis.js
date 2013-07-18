@@ -99,12 +99,23 @@ Atlantis.Matrix = (function () {
     * @return {Array} An array of values.
     */
     matrix.prototype.toArray = function () {
-        var values = [
-			this.M11, this.M12, this.M13, this.M14,
-			this.M21, this.M22, this.M23, this.M24,
-			this.M31, this.M32, this.M33, this.M34,
-			this.M41, this.M42, this.M43, this.M44,
-		];
+        var values = [];
+        values.push(this.M11);
+        values.push(this.M12);
+        values.push(this.M13);
+        values.push(this.M14);
+        values.push(this.M21);
+        values.push(this.M22);
+        values.push(this.M23);
+        values.push(this.M24);
+        values.push(this.M31);
+        values.push(this.M32);
+        values.push(this.M33);
+        values.push(this.M34);
+        values.push(this.M41);
+        values.push(this.M42);
+        values.push(this.M43);
+        values.push(this.M44);
         return values;
     };
 

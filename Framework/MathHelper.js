@@ -21,7 +21,7 @@
 	 * @type {Number}
 	 */
     Atlantis.MathHelper.Pi = function () {
-        Math.PI;   
+        return Math.PI;   
     };
 	
 	/**
@@ -31,7 +31,7 @@
 	 * @type {Number}
 	 */
 	Atlantis.MathHelper.PiOver2 = function () {
-	    Math.PI / 2;
+	   return  Math.PI / 2;
     };
 	
 	/**
@@ -41,7 +41,7 @@
 	 * @type {Number}
 	 */
 	Atlantis.MathHelper.PiOver4 = function () {
-        Math.PI / 4;
+        return Math.PI / 4;
     };
 	
 	/**
