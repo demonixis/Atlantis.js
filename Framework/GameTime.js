@@ -19,23 +19,25 @@ Atlantis.GameTime = (function () {
     };
 
     /**
-	 * Reset the game timer.
-	 * @method reset
-     */
+    * Reset the game timer.
+    * @method reset
+    */
     gameTime.prototype.reset = function () {
         this.elapsedTime = 0;
         this.totalGameTime = 0;
         this.currentTime = +new Date();
+        this.fps = 0;
     };
 
     /**
-     * Update the game time.
-     * @method update
-     */
+    * Update the game time.
+    * @method update
+    */
     gameTime.prototype.update = function () {
         var now = +new Date();
         this.elapsedTime = now - this.currentTime;
         this.totalGameTime += this.elapsedTime;
+        this.fps = 1000 / (now - this.currentTime);
         this.currentTime = now;
     };
 
@@ -56,6 +58,15 @@ Atlantis.GameTime = (function () {
     gameTime.prototype.getTotalGameTime = function () {
         return this.totalGameTime;
     };
+
+    /**
+	 * Gets the current FPS indice.
+     * @method getFPS
+	 * @return {Number} Return the current FPS.
+	 */
+	gameTime.prototype.getFPS = function () {
+		return this.fps;
+	}
 
     return gameTime;
 })();

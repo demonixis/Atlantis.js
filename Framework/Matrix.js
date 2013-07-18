@@ -48,10 +48,9 @@ Atlantis.Matrix = (function () {
     /**
     * Gets identity value for push it into matrix.
     * @method getIdentityValues
-    * @static
     * @return {Array} Return an array that correspond of identity matrix.
     */
-    matrix.getIdentityValues = function () {
+    matrix.prototype.getIdentityValues = function () {
         var values = [
 			1, 0, 0, 0,
 			0, 1, 0, 0,
@@ -62,11 +61,24 @@ Atlantis.Matrix = (function () {
     };
 
     /**
+	 * Gets an array of values setted to 0.
+     * @method getZeroValues
+	 * @return {Array} Return an array with 0.
+	 */
+	matrix.prototype.getZeroValues = function () {
+		var values = [];
+		for (var i = 0; i < 16; i++) {
+			values.push(0.0);
+		}
+		return values;
+	};
+
+    /**
     * Sets the matrix to identity.
     * @method setIdentity
     */
     matrix.prototype.setIdentity = function () {
-        this.set(Atlantis.Matrix.getIdentityValues());
+        this.set(this.getIdentityValues());
     };
 
     /**
@@ -496,12 +508,12 @@ Atlantis.Matrix = (function () {
 	 * @return {Atlantis.Matrix} Return a matrix of this type of perspective.
 	 */
 	matrix.createPerspetiveFieldOfViewRH = function (fov, aspect, zNear, zFar) {
-		var matrix = Atlantis.Matrix.createPerspectiveFieldOfView(fov, aspect, zNear, zFar);
-		matrix.M31 *= -1.0;
-		matrix.M32 *= -1.0;
-		matrix.M33 *= -1.0;
-		matrix.M34 *= -1.0;
-		return matrix;
+		var yScale = (1.0 / Math.tan(fov * 0.5));
+		var xScale = yScale / aspect;
+		var halfWidth = zNear / xScale;
+		var halfHeight = zNear / yScale;
+		
+		return Matrix.createPerspectiveOffCenterRH(-halfWidth, halfWidth, -halfHeight, halfHeight, zNear, zFar);
 	};
 
     /**
@@ -528,6 +540,94 @@ Atlantis.Matrix = (function () {
         matrix.M43 = -zNear * zRange;
         return matrix;
     };
+
+    /**
+    * Create a custom perspective matrix (Right hand).
+    * @method createPerspectiveOffCenter
+    * @static
+    * @param {Number} left Minimum X value of the viewing volume.
+    * @param {Number} right Maximum X value of the viewing volume.
+    * @param {Number} bottom Minimum Y value of the viewing volume.
+    * @param {Number} top Maximum Y value of the viewing volume.
+    * @param {Number} zNear Minimum Z value of the viewing volume.
+    * @param {Number} zFar Maximum Z value of the viewing volume.
+    * @return {Atlantis.Matrix} Return a new custom perspective matrix.
+    */
+    matrix.createPerspectiveOffCenterRH = function (left, right, bottom, top, zNear, zFar) {
+		var matrix = createPerspectiveOffCenter(left, right, bottom, top, zNear, zFar);
+		matrix.M31 *= -1.0;
+		matrix.M32 *= -1.0;
+		matrix.M33 *= -1.0;
+		matrix.M34 *= -1.0;
+		return matrix;
+	}
+	
+	/**
+	 * Invert the current Matrix.
+     * @method invert
+	 */
+	matrix.prototype.invert = function () {
+		var b0 = (this.M31 * this.M42) - (this.M32 * this.M41);
+        var b1 = (this.M31 * this.M43) - (this.M33 * this.M41);
+        var b2 = (this.M34 * this.M41) - (this.M31 * this.M44);
+        var b3 = (this.M32 * this.M43) - (this.M33 * this.M42);
+        var b4 = (this.M34 * this.M42) - (this.M32 * this.M44);
+        var b5 = (this.M33 * this.M44) - (this.M34 * this.M43);
+
+        var d11 = this.M22 * b5 + this.M23 * b4 + this.M24 * b3;
+        var d12 = this.M21 * b5 + this.M23 * b2 + this.M24 * b1;
+        var d13 = this.M21 * -b4 + this.M22 * b2 + this.M24 * b0;
+        var d14 = this.M21 * b3 + this.M22 * -b1 + this.M23 * b0;
+
+        var det = this.M11 * d11 - this.M12 * d12 + this.M13 * d13 - this.M14 * d14;
+        
+        if (Math.abs(det) == 0.0) {
+            this.set(this.getZeroValues());
+            return;
+        }
+
+        det = 1.0 / det;
+
+        var a0 = (this.M11 * this.M22) - (this.M12 * this.M21);
+        var a1 = (this.M11 * this.M23) - (this.M13 * this.M21);
+        var a2 = (this.M14 * this.M21) - (this.M11 * this.M24);
+        var a3 = (this.M12 * this.M23) - (this.M13 * this.M22);
+        var a4 = (this.M14 * this.M22) - (this.M12 * this.M24);
+        var a5 = (this.M13 * this.M24) - (this.M14 * this.M23);
+
+        var d21 = this.M12 * b5 + this.M13 * b4 + this.M14 * b3;
+        var d22 = this.M11 * b5 + this.M13 * b2 + this.M14 * b1;
+        var d23 = this.M11 * -b4 + this.M12 * b2 + this.M14 * b0;
+        var d24 = this.M11 * b3 + this.M12 * -b1 + this.M13 * b0;
+
+        var d31 = this.M42 * a5 + this.M43 * a4 + this.M44 * a3;
+        var d32 = this.M41 * a5 + this.M43 * a2 + this.M44 * a1;
+        var d33 = this.M41 * -a4 + this.M42 * a2 + this.M44 * a0;
+        var d34 = this.M41 * a3 + this.M42 * -a1 + this.M43 * a0;
+
+        var d41 = this.M32 * a5 + this.M33 * a4 + this.M34 * a3;
+        var d42 = this.M31 * a5 + this.M33 * a2 + this.M34 * a1;
+        var d43 = this.M31 * -a4 + this.M32 * a2 + this.M34 * a0;
+        var d44 = this.M31 * a3 + this.M32 * -a1 + this.M33 * a0;
+
+        this.M11 = +d11 * det; this.M12 = -d21 * det; this.M13 = +d31 * det; this.M14 = -d41 * det;
+        this.M21 = -d12 * det; this.M22 = +d22 * det; this.M23 = -d32 * det; this.M24 = +d42 * det;
+        this.M31 = +d13 * det; this.M32 = -d23 * det; this.M33 = +d33 * det; this.M34 = -d43 * det;
+        this.M41 = -d14 * det; this.M42 = +d24 * det; this.M43 = -d34 * det; this.M44 = +d44 * det;
+	};
+	
+	/**
+	 * Calculate the inverse of the specified matrix.
+     * @method invert
+     * @static
+	 * @param matrix The matrix to use.
+	 * @return {Atlantis.Matrix} Return the inverse of the matrix.
+	 */
+	matrix.invert = function (matrix) {
+		var mat = new Matrix(matrix);
+		mat.invert();
+		return mat;
+	};
 
     /**
 	 * Create a world matrix.

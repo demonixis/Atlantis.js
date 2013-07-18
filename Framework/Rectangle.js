@@ -38,6 +38,54 @@
      };
 
      /**
+      * Add a rectangle to this rectangle.
+      * @method add
+      * @param {Atlantis.Rectangle} rectangle The rectangle to add.
+      */
+     rectangle.prototype.add = function (rectangle) {
+         this.x += rectangle.x;
+         this.y += rectangle.y;
+         this.width += rectangle.width;
+         this.height += rectangle.height;
+     };
+
+     /**
+      * Divide a rectangle to this rectangle.
+      * @method divide
+      * @param {Atlantis.Rectangle} rectangle The rectangle to divide.
+      */
+     rectangle.prototype.divide = function (rectangle) {
+         this.x /= rectangle.x;
+         this.y /= rectangle.y;
+         this.width /= rectangle.width;
+         this.height /= rectangle.height;
+     };
+
+     /**
+      * Multiply a rectangle to this rectangle.
+      * @method multiply
+      * @param {Atlantis.Rectangle} rectangle The rectangle to multiply.
+      */
+     rectangle.prototype.multiply = function (rectangle) {
+         this.x *= rectangle.x;
+         this.y *= rectangle.y;
+         this.width *= rectangle.width;
+         this.height *= rectangle.height;
+     };
+
+     /**
+      * Subtract a rectangle to this rectangle.
+      * @method subtract
+      * @param {Atlantis.Rectangle} rectangle The rectangle to subtract.
+      */
+     rectangle.prototype.subtract = function (rectangle) {
+         this.x -= rectangle.x;
+         this.y -= rectangle.y;
+         this.width -= rectangle.width;
+         this.height -= rectangle.height;
+     };
+
+     /**
      * Determine if a Rectangle, Point or coordinates are contains in rectangle
      * @method contains
      * @param {Number|Point|Rectangle} X coordinate or an instance of Point or an instance of Rectangle.
@@ -235,10 +283,10 @@
      };
 
      /**
-      * Gets a string from this object.
-      * @method toString
-      * @return {String}
-      */
+     * Gets a string from this object.
+     * @method toString
+     * @return {String}
+     */
      rectangle.prototype.toString = function () {
          return ["x: ", this.x, " y: ", this.y, " width: ", this.width, " height: ", this.height].join("");
      };

@@ -70,18 +70,7 @@ Atlantis.Interpolator = (function () {
      * @return {Number} An interpolated value.
      */
     interpolator.prototype.interpolateValue = function (step) {
-        this.interpolatedValue = lerp(this.startValue, this.endValue, step);
-    };
-
-    /**
-     * Math function lerp
-     * @method lerp
-     * @return {Number}
-     */
-    function lerp(value1, value2, amount) {
-        amount = amount < 0 ? 0 : amount;
-        amount = amount > 1 ? 1 : amount;
-        return value1 + (value2 - value1) * amount;
+        this.interpolatedValue = Atlantis.MathHelper.lerp(this.startValue, this.endValue, step);
     };
 
     return interpolator;

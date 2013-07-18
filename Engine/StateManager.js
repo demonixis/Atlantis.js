@@ -139,9 +139,9 @@ Atlantis.StateManager = (function () {
     * @method loadContent
     * @param {Atlantis.ContentManager} contentManager An instance of ContentManager.
     */
-    stateManager.prototype.loadContent = function (contentManager) {
+    stateManager.prototype.loadContent = function () {
         for (var i = 0, l = this.states.length; i < l; i++) {
-            this.states[i].loadContent(contentManager);
+            this.states[i].loadContent(this.game.contentManager);
         }
         this.assetLoaded = true;
     };
