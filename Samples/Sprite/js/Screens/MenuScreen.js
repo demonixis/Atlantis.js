@@ -12,7 +12,7 @@ MenuScreen.prototype = new Atlantis.State();
 MenuScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
- 	if (Atlantis.Engine.Keyboard.justPressed(Keys.Enter)) {
- 		console.log("ok")
- 	}
+    if (Atlantis.Engine.Keyboard.justPressed(Keys.Enter)) {
+        this.stateManager.setActive("game", true);
+    }
 };

@@ -22,6 +22,10 @@ Atlantis.Input.KeyboardState = (function () {
         }
     };
 
+    keyState.prototype.clone = function () {
+        return new Atlantis.Input.KeyboardState(this.keys);
+    };
+
     /**
     * Determine if the key is pressed.
     * @method isKeyDown

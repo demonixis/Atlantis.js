@@ -24,6 +24,7 @@ Atlantis.Input.Keys = {
 	Alt: 18,
 	Control: 17,
 	Escape: 27,
+    Enter: 13,
 	F1: 112,
 	F2: 113,
 	F3: 114, 

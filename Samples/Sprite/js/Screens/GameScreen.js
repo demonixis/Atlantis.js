@@ -1,20 +1,20 @@
 var GameScreen = function (name) {
     Atlantis.State.call(this, name);
     
-    this.background = new Atlantis.Entity({ textureName: "Content/forest.png", enableSyncLoading: true });
+    this.background = new Atlantis.Sprite({ textureName: "Content/forest.png", enableSyncLoading: true });
     this.scene.add(this.background);
 
     this.sprite = new Atlantis.Sprite({ textureName: "Content/player.png" });
     this.scene.add(this.sprite);
 
-    this.speed = 5; 
+    this.speed = 0.01; 
 };
 
 GameScreen.prototype = new Atlantis.State();
 
 GameScreen.prototype.loadContent = function (content) {
     Atlantis.State.prototype.loadContent.call(this, content);
-
+    
     this.sprite.texture.width = 576;
     this.sprite.texture.height = 256;
     this.sprite.viewport = new Atlantis.Rectangle(0, 0, 640, 480);
@@ -30,33 +30,29 @@ GameScreen.prototype.loadContent = function (content) {
     this.sprite.setSize(128);
     this.sprite.insideScreen = true;
     this.sprite.maxVelocity = 0.95;
-
-    this.background.setSize(Atlantis.Engine.width, Atlantis.Engine.height);
+    
+    this.background.setSize(Atlantis.Engine.Width, Atlantis.Engine.Height);
 };
 
 
 GameScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
-
-    if (Atlantis.Engine.keyboard.keys[Atlantis.Keys.up]) {
+    
+    if (Atlantis.Engine.Keyboard.pressed(Keys.Up)) {
         this.sprite.velocity.y -= this.speed * gameTime.getElapsedTime();
         this.sprite.play("up");
     }
-    else if (Atlantis.Engine.keyboard.keys[Atlantis.Keys.down]) {
+    else if (Atlantis.Engine.Keyboard.pressed(Keys.Down)) {
         this.sprite.velocity.y += this.speed * gameTime.getElapsedTime();
         this.sprite.play("down");
     }
 
-    if (Atlantis.Engine.keyboard.keys[Atlantis.Keys.left]) {
+    if (Atlantis.Engine.Keyboard.pressed(Keys.Left)) {
         this.sprite.velocity.x -= this.speed * gameTime.getElapsedTime();
         this.sprite.play("left");
     }
-    else if (Atlantis.Engine.keyboard.keys[Atlantis.Keys.right]) {
+    else if (Atlantis.Engine.Keyboard.pressed(Keys.Right)) {
         this.sprite.velocity.x += this.speed * gameTime.getElapsedTime();
         this.sprite.play("right");
     }
-};
-
-GameScreen.prototype.draw = function (gameTime, context) {
-    Atlantis.State.prototype.draw.call(this, gameTime, context);
 };

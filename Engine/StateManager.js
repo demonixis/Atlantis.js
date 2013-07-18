@@ -35,10 +35,28 @@ Atlantis.State = (function () {
     };
 
     /**
-     * Sets the activity of the state.
-     * @method setActive
-     * @param {Boolean} Sets to true to active the state.
-     */
+    * Determine the activity of the state.
+    * @method isEnabled
+    * @return {Boolean} Return true if the state is enabled.
+    */
+    state.prototype.isEnabled = function () {
+        return this.enabled;
+    };
+
+    /**
+    * Determine the activity of the state.
+    * @method isVisible
+    * @return {Boolean} Return true if the state is visible.
+    */
+    state.prototype.isVisible = function () {
+        return this.visible;
+    };
+
+    /**
+    * Sets the activity of the state.
+    * @method setActive
+    * @param {Boolean} Sets to true to active the state.
+    */
     state.prototype.setActive = function (isActive) {
         this.enabled = isActive;
         this.visible = isActive;
@@ -153,7 +171,7 @@ Atlantis.StateManager = (function () {
     */
     stateManager.prototype.update = function (gameTime) {
         for (var i = 0, l = this.states.length; i < l; i++) {
-            if (this.states[i].enabled) {
+            if (this.states[i].isEnabled()) {
                 this.states[i].update(gameTime);
             }
         }
@@ -167,7 +185,7 @@ Atlantis.StateManager = (function () {
     */
     stateManager.prototype.draw = function (gameTime, context) {
         for (var i = 0, l = this.states.length; i < l; i++) {
-            if (this.states[i].visible) {
+            if (this.states[i].isVisible()) {
                 this.states[i].draw(gameTime, context);
             }
         }
@@ -182,7 +200,6 @@ Atlantis.StateManager = (function () {
     * @param {Boolean} disableOtherStates Sets to true for desactive all other states.
     */
     stateManager.prototype.setActive = function (stateParam, disableOtherStates) {
-
         if (disableOtherStates) {
             this.disableStates();
         }
@@ -213,7 +230,7 @@ Atlantis.StateManager = (function () {
 
     stateManager.prototype.disableStates = function () {
         for (var i = 0, l = this.states.length; i < l; i++) {
-            this.states[i].active = false;
+            this.states[i].setActive(false);
         }
     };
 

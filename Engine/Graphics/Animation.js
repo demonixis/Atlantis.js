@@ -30,6 +30,9 @@ var Atlantis = window.Atlantis || {};
      * @param
      */
     Atlantis.SpriteAnimation.prototype.next = function () {
+        if (this.index >= this.rectangles.length) {
+            this.index = 0;
+        }
         return this.rectangles[this.index];
     };
 

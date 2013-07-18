@@ -23,42 +23,6 @@ Atlantis.Entity = (function () {
         this.rectangle = new Atlantis.Rectangle();
         this.sourceRectangle = new Atlantis.Rectangle();
 
-        Object.defineProperty(this, 'x', {
-            get: function () {
-                return this.rectangle.x;
-            },
-            set: function (value) {
-                this.rectangle.x = value;
-            }
-        });
-
-        Object.defineProperty(this, 'y', {
-            get: function () {
-                return this.rectangle.y;
-            },
-            set: function (value) {
-                this.rectangle.y = value;
-            }
-        });
-
-        Object.defineProperty(this, 'width', {
-            get: function () {
-                return this.rectangle.width;
-            },
-            set: function (value) {
-                this.rectangle.width = value;
-            }
-        });
-
-        Object.defineProperty(this, 'height', {
-            get: function () {
-                return this.rectangle.height;
-            },
-            set: function (value) {
-                this.rectangle.height = value;
-            }
-        });
-
         var params = params || {};
         for (var i in params) {
             this[i] = params[i];
@@ -157,14 +121,8 @@ Atlantis.Entity = (function () {
      * @param
      */
     entity.prototype.setPosition = function (value1, value2) {
-        if (value1 instanceof Atlantis.Point || value1 instanceof Atlantis.Rectangle) {
-            this.rectangle.x = value1.x;
-            this.rectangle.y = value1.y;
-        }
-        else {
-            this.rectangle.x = value1;
-            this.rectangle.y = value2 || value1;
-        }
+        this.rectangle.x = value1;
+        this.rectangle.y = value2 || value1;
     }
 
     return entity;
