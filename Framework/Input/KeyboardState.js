@@ -16,7 +16,10 @@ Atlantis.Input.KeyboardState = (function () {
     * @constructor
     */
     var keyState = function (keys) {
-        this.keys = keys;
+        this.keys = [];
+        for (var i = 0, l = keys.length; i < l; i++) {
+            this.keys.push(keys[i]);
+        }
     };
 
     /**

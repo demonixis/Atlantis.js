@@ -9,15 +9,6 @@
 var Atlantis = window.Atlantis || {};
 Atlantis.Input = Atlantis.Input || {};
 
-/** 
-* Keys alias
-* @property Keys
-*/
-Atlantis.Keys = {
-    up: 38, down: 40, left: 37, right: 39,
-    space: 32, escape: 27
-};
-
 Atlantis.Input.KeyboardManager = (function () {
     var _instance = null;
 
@@ -28,7 +19,7 @@ Atlantis.Input.KeyboardManager = (function () {
     */
     var keyboardManager = function (maxKeys) {
         this.keys = [];
-        this.maxKeys = maxKeys || 110;
+        this.maxKeys = maxKeys || 130;
 
         for (var i = 0; i < maxKeys; i++) {
             this.keys[i] = false;

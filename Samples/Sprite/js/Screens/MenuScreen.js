@@ -1,3 +1,5 @@
+var Keys = Atlantis.Input.Keys;
+
 var MenuScreen = function (name) {
     Atlantis.State.call(this, name);
     
@@ -9,9 +11,8 @@ MenuScreen.prototype = new Atlantis.State();
 
 MenuScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
-    var keyState = Atlantis.Engine.keyboardManager.getState();
 
-    if (keyState.isKeyDown(13)) {
-        console.log("ok");
-    }
+ 	if (Atlantis.Engine.Keyboard.justPressed(Keys.Enter)) {
+ 		console.log("ok")
+ 	}
 };

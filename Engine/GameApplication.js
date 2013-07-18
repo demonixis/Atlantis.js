@@ -13,7 +13,7 @@ Atlantis.Engine = Atlantis.Engine || {};
 Atlantis.Engine = (function () {
     return {
         game: null,
-        content: null,
+        contentManager: null,
         stateManager: null,
         keyboard: null,
         pointer: null,
@@ -36,16 +36,18 @@ Atlantis.GameApplication = (function () {
 
         this.stateManager = new Atlantis.StateManager(this);
         this.components.add(this.stateManager);
+        var keyboardComponent = new Atlantis.KeyboardComponent(this);
+        this.components.add(keyboardComponent);
 
         Atlantis.Engine = {
-            game: this,
-            contentManager: this.content,
-            components: this.components,
-            keyboardManager: this.keyboardManager,
-            pointerManager: this.pointerManager,
-            width: this.width,
-            height: this.height,
-            stateManager: this.stateManager
+            Game: this,
+            ContentManager: this.contentManager,
+            Components: this.components,
+            Keyboard: keyboardComponent,
+            PointerManager: this.pointerManager,
+            Width: this.width,
+            Height: this.height,
+            StateManager: this.stateManager
         };
     };
 
