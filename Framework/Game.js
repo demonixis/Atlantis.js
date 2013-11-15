@@ -21,8 +21,8 @@ Atlantis.Game = (function () {
     */
     var game = function (width, height, domElement, params) {
         var params = params || {};
-        this.width = width || 640;
-        this.height = height || 480;
+        this.width = width || document.body.innerWidth || 640;
+        this.height = height || document.body.innerHeight || 480;
         this.domElement = domElement || document.body;
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
@@ -37,9 +37,9 @@ Atlantis.Game = (function () {
             this.canvas = this.canvas || createCanvas2D(this.width, this.height, domElement);
             this.canvas.style.msTouchAction = "none";
             this.canvasContext = this.canvas.getContext("2d");
+            this.pointerManager = new Atlantis.Input.PointerManager(this.domElement);
         }
 
-        this.pointerManager = new Atlantis.Input.PointerManager(this.domElement);
         this.graphicsDevice = new Atlantis.Graphics.GraphicsDevice(this.canvas);
         this.domElement.addEventListener("resize", onResize, false);
         _instance = this;

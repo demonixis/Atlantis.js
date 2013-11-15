@@ -10,12 +10,12 @@ Atlantis.Graphics = Atlantis.Graphics || {};
 
 Atlantis.Graphics.Texture2D = (function () {
     /**
-    * Define a drawable text.
+    * Define a drawable texture.
     * @class Texture2D
     * @constructor
     */
-    var texture = function () {
- 
+    var texture = function (width, height, format) {
+        this.textureData = [];
     };
 
 
