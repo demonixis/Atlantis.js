@@ -1,8 +1,8 @@
 var PlatformerGame = function () {
-    Atlantis.GameApplication.call(this, 800, 520);
-
+    Atlantis.GameApplication.call(this, 800, 480);
+    Atlantis.Engine.ContentManager.rootDirectory = "Content/";
     var gameState = new GameState("game", 3);
     this.stateManager.add(gameState, true);
 };
 
-SpriteGame.prototype = new Atlantis.GameApplication();
+PlatformerGame.prototype = new Atlantis.GameApplication();

@@ -40,6 +40,7 @@ Atlantis.ContentManager = (function () {
             var temp = assetName.split(".");
             var ext = temp[(temp.length - 1)];
 
+            assetName = this.rootDirectory + assetName;
             switch (ext) {
                 case "png":
                 case "jpg":

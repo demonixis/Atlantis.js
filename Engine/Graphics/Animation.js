@@ -123,6 +123,7 @@ var Atlantis = window.Atlantis || {};
 
     Atlantis.SpriteAnimator.prototype.play = function (animationName) {
         this.currentAnimationName = animationName;
+
         return this.animations[animationName].next();  
     };
 

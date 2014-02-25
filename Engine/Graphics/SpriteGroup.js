@@ -50,7 +50,9 @@ Atlantis.SpriteGroup = (function () {
     spriteGroup.prototype.update = function (gameTime) {
     	if (this.enabled) {
     		for (var i = 0, l = this.entities.length; i < l; i++) {
-	    		this.entities[i].update(gameTime);
+                if (this.entities[i].enabled) {
+	    		     this.entities[i].update(gameTime);
+                }
 	    	}
     	}
     };
@@ -64,7 +66,9 @@ Atlantis.SpriteGroup = (function () {
     spriteGroup.prototype.draw = function (gameTime, context) {
     	if (this.visible) {
     		for (var i = 0, l = this.entities.length; i < l; i++) {
-	    		this.entities[i].draw(gameTime, context);
+                if (this.entities[i].visible) {
+	    		     this.entities[i].draw(gameTime, context);
+                }
 	    	}
     	}
     };

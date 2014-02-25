@@ -15,6 +15,7 @@ Atlantis.Entity = (function () {
 	 * @class Entity
 	 */
     var entity = function (params) {
+        this.name = "GameObject";
         this.enabled = true;
         this.visible = true;
         this.texture = null;
@@ -114,16 +115,68 @@ Atlantis.Entity = (function () {
         }
     };
 
-    /**
-     *
-     * @method setPosition
-     * @param
-     * @param
-     */
+    entity.prototype.isActive = function () {
+        return this.enabled && this.visible;
+    };
+
+    entity.prototype.setActive = function (active) {
+        this.enabled = active;
+        this.visible = active;
+    };
+
+    entity.prototype.move = function (x, y) {
+        this.rectangle.x = x;
+        this.rectangle.y = y;
+    };
+    
+    entity.prototype.translate = function (x, y) {
+        this.rectangle.x += x;
+        this.rectangle.y += y;
+    };
+    
     entity.prototype.setPosition = function (value1, value2) {
         this.rectangle.x = value1;
         this.rectangle.y = value2 || value1;
     }
+
+    entity.prototype.getX = function () { 
+        return this.rectangle.x;
+    };
+
+    entity.prototype.getY = function () {
+        return this.rectangle.y;
+    };
+    
+    entity.prototype.setX = function (x) {
+        this.rectangle.x = x;  
+    };
+    
+    entity.prototype.setY = function (y) {
+        this.rectangle.y = y;  
+    };
+
+    entity.prototype.getWidth = function () {
+        return this.rectangle.width;
+    };
+
+    entity.prototype.getHeight = function () {
+        return this.rectangle.height;
+    };
+
+    entity.prototype.getName = function () {
+        return this.name;
+    };
+
+    entity.prototype.setName = function (name) { this.name = name; };
+
+    entity.prototype.getBounds = function () {
+        return this.rectangle;
+    };
+    
+    // @deprecated
+    entity.prototype.getBoundingRectangle = function () {
+        return this.rectangle;    
+    };
 
     return entity;
 })();

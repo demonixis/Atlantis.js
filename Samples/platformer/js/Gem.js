@@ -3,7 +3,7 @@ var GemGold = 6;
 var GemCounter = 0;
 
 var Gem = function (assetId) {
-	Atlantis.Sprite.call(this, name);
+	Atlantis.Sprite.call(this);
 
 	this.textureName = "img/Tiles/";
 
@@ -23,6 +23,7 @@ var Gem = function (assetId) {
 	this.minY = 0;
 	this.sign = (GemCounter % 2 == 0) ? -1 : 1;
 	this.speed = 0.01;
+    this.rectangle.setSize(32, 32);
 	GemCounter++;
 };
 

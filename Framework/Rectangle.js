@@ -91,11 +91,8 @@
      * @param {Number|Point|Rectangle} X coordinate or an instance of Point or an instance of Rectangle.
      * @param {Number} Y coordinate.
      */
-     rectangle.prototype.contains = function (value1, value2) {
-         if (value1 instanceof Atlantis.Point) {
-             return (this.x <= value.x) && (value.x < this.getRight()) && (this.y <= value.y) && (value.y < this.getBottom());
-         }
-         else if (value1 instanceof Atlantis.Rectangle) {
+     rectangle.prototype.contains = function (value1, value2) { 
+         if (value1 instanceof Atlantis.Rectangle) {
              return (this.x <= value1.x) && (value1.getRight() <= this.getRight()) && (this.y <= value1.y) && (value1.getBottom() <= this.getBottom());
          }
          else {

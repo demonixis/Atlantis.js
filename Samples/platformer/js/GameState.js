@@ -1,14 +1,29 @@
 var LevelCount = 4;
-var GameMode = { Playing: 0, Died: 1, Lose: 2, Win: 3 }; 
+var GameMode = { 
+	Playing: 0, 
+	Died: 1, 
+	Lose: 2, 
+	Win: 3,
+	getName: function (mode) {
+		if (mode == 0) { return "Playing"; }
+		else if (mode == 1) { return "Died"; }
+		else if (mode == 2) { return "Lose"; }
+		return "Win";
+	} 
+}; 
 
 var GameState = function (name, levelStart) {
 	Atlantis.State.call(this, name);
 	this.levelId = levelStart;
-	this.overlays = [];
+	this.overlays = [
+		new Atlantis.Sprite({ textureName: "overlays/you_died.png", width: 358, height: 180 }),
+		new Atlantis.Sprite({ textureName: "overlays/you_lose.png", width: 358, height: 180 }),
+		new Atlantis.Sprite({ textureName: "overlays/you_win.png", width: 358, height: 180 })
+	];
 	this.level = new Level(this.levelId);
 	this.player = new Player();
-	this.scoreCounter = new Atlantis.SpriteFont();
-	this.timeCounter = new Atlantis.SpriteFont();
+	this.scoreCounter = new Atlantis.Graphics.SpriteFont();
+	this.timeCounter = new Atlantis.Graphics.SpriteFont();
 };
 
 GameState.prototype = new Atlantis.State();
@@ -20,8 +35,8 @@ GameState.prototype.initialize = function () {
 	this.elapsedTime = 0;
 	this.timeRemaining = 250;
 
-	for (var overlay in this.overlays) {
-		overlay.enabled = false;
+	for (var i in this.overlays) {
+        this.overlays[i].setActive(false);
 	}
 
 	this.player.reset();
@@ -31,26 +46,75 @@ GameState.prototype.initialize = function () {
 GameState.prototype.loadContent = function (content) {
     Atlantis.State.prototype.loadContent.call(this, content);
     
-    this.level.loadContent(content, this.scene);
-    this.player.setStartPosition(this.level.getStartPosition());
-    this.scene.add(this.player);
-
-    for (var overlay in this.overlays) {
-    	overlay.loadContent(content);
-    	overlay.setPosition(Atlantis.Engine.Width / 2 - overlay.width / 2, Atlantis.Engine.Height / 2 - overlay.height / 2);
-    	overlay.enabled = false;
-    	this.scene.add(overlay);
-    }
+    var that = this;
+    this.level.loadLevel(content, this.scene, function () {
+    	that.player.setStartPosition(that.level.startPosition);
+        that.player.loadContent(content);
+	    that.scene.add(that.player);
+ 
+	    for (var i in that.overlays) {
+	    	that.overlays[i].loadContent(content);
+	    	that.overlays[i].setPosition(Atlantis.Engine.Width / 2 - that.overlays[i].getWidth() / 2, Atlantis.Engine.Height / 2 - that.overlays[i].getHeight() / 2);
+	    	that.overlays[i].enabled = false;
+	    	that.scene.add(that.overlays[i]);
+	    }
+    });
 };
 
 
 GameState.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
+    var tempSearchSprite = null;
     
+    if (this.gameMode == GameMode.Playing) { return;
+		this.elapsedTime += gameTime.getElapsedTime();
+		if (this.elapsedTime >= 1000) {
+			this.timeRemaining--;
+			this.elapsedTime = 0;
+		}
+		
+		for (var i = 0; i < this.level.items.length; i++) {
+			tempSearchSprite = this.level.items[i];
+			
+			if (tempSearchSprite.isActive() && this.player.getBoundingRectangle().contains(tempSearchSprite.getBoundingRectangle())) {
+				if (tempSearchSprite.getName() == "exit") {
+					if (!this.overlays[2].isActive()) {
+						this.overlays[2].setActive(true);
+						this.gameMode = GameMode.Win;
+					}
+				}
+				else {
+					tempSearchSprite.setActive(false);
+					this.playerScore += tempSearchSprite.getPoints();
+				}
+			}
+		}
+		
+		this.player.updatePhysics(this.level.blocksSize, this.level.blocks);
+		
+		if (this.player.getY() > Atlantis.Engine.Height) {
+			if (!this.overlays[1].isActive()) {
+				this.overlays[1].setActive(true);	
+			}
+			this.gameMode = GameMode.Lose;
+			this.player.die(GameMode.getName(this.gameMode));
+		}
+	} 
+	else {
+		if (this.gameMode == GameMode.Win) {
+			this.player.win();
+		}
+		
+		if (Atlantis.Engine.Keyboard.pressed(Keys.Space)) {
+			this.restartGameState();
+		}
+	}
 };
 
-GameState.prototype.draw = function (gameTime) {
-	Atlantis.State.prototype.draw.call(this, gameTime);
+GameState.prototype.draw = function (gameTime, context) {
+	Atlantis.State.prototype.draw.call(this, gameTime, context);
+
+	// Draw score
 };
 
 GameState.prototype.restartGameState = function () {

@@ -57,7 +57,7 @@ Atlantis.Sprite = (function () {
         this.hasAnimation = true;
         var animationWidth = width;
         var animationHeight = height || animationWidth;
-        this.spriteAnimator.initialize(animationWidth, animationHeight, this.texture.width, this.texture.height);
+        this.spriteAnimator.initialize(animationWidth, animationHeight, this.texture.width || this.rectangle.width, this.texture.height || this.rectangle.height);
         this.rectangle.width = animationWidth;
         this.rectangle.height = animationHeight;
     };
@@ -106,7 +106,7 @@ Atlantis.Sprite = (function () {
             this.velocity.multiply(this.maxVelocity);
 
             // Update animation
-            if (this.hasAnimation) {
+            if (this.hasAnimation) { return
                 this.spriteAnimator.update(gameTime);
                 if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
                     this.sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
@@ -182,6 +182,15 @@ Atlantis.Sprite = (function () {
                 context.drawImage(this.texture, this.rectangle.x, this.rectangle.y, this.rectangle.width, this.rectangle.height);
             }
         }
+    };
+    
+    sprite.prototype.setDirection = function (direction) {
+        this.direction.x = x;
+        this.direction.y = y;
+    };
+    
+    sprite.prototype.getDirection = function () {
+        return this.direction;    
     };
 
     return sprite;
