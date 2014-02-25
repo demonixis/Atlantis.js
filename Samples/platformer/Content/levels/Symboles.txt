@@ -1,0 +1,14 @@
+| Origin  | JSON | What's it |
+------------------------------
+|    .    |   0  |   Empty   |
+|    1    |   1  |   Start   |
+|    X    |   2  |    End    |
+|    #    |   3  |   Block   |
+|    -    |   4  | Platform  |
+|    G    |   5  | White Gem |
+|    G    |   6  | Gold Gem  |
+|    A    |   7  | Monster A |
+|    B    |   8  | Monster B |
+|    C    |   9  | Monster C |
+|    D    |  10  | Monster D |
+------------------------------
