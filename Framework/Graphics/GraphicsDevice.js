@@ -17,8 +17,8 @@ Atlantis.Graphics.GraphicsDevice = (function () {
     */
     var device = function (frontBuffer, backBufferWidth, backBufferHeight) {
         this._frontBuffer = frontBuffer;
+        this._frontBufferContext = frontBuffer.getContext();
         this._backBuffer = new Atlantis.RenderTarget(backBufferWidth || frontBuffer.getWidth(), backBufferHeight || frontBuffer.getHeight(), frontBuffer.isWebGLEnabled());
-        this._context = this._backBuffer.getContext();
         this._width = backBufferWidth;
         this._height = backBufferHeight;
     };
@@ -31,18 +31,27 @@ Atlantis.Graphics.GraphicsDevice = (function () {
         return this._height;
     };
 
-    device.prototype.setPreferredBackbufferSize = function (width, height) {
+    device.prototype.setPreferredBackBufferSize = function (width, height) {
         this._backBuffer.setSize(width, height);
         this._width = width;
         this._height = height;
     };
 
-    device.prototype.getContext = function () {
-        return this._context;
+    device.prototype.getBackBuffer = function () {
+        return this._backBuffer;
+    };
+
+    device.prototype.clear = function (color) {
+        this._backBuffer.clear(color);
+        this._frontBuffer.clear(color);
+    };
+
+    device.prototype.present = function () {
+        this._frontBufferContext.drawImage(this._backBuffer.getCanvas(), 0, 0, this._frontBuffer.getWidth(), this._frontBuffer.getHeight());
     };
 
     device.prototype.toggleFullscreen = function (element) {
-        var element = element instanceof HTMLElement ? element : document.body;
+        var element = element instanceof HTMLElement ? element : this._frontBuffer.getCanvas();
         var fs = this.isFullscreen();
 
         element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullscreen || element.mozRequestFullScreen || element.msRequestFullscreen || function () { return false; };
