@@ -57,6 +57,25 @@ Atlantis.Graphics.GraphicsDevice = (function () {
 	device.prototype.getHeight = function () {
 		return this.height;
 	}
+    
+    function toggleFullscreen(element) {
+        var element = element instanceof HTMLElement ? element : document.body;
+        var fs = this.isFullscreen();
+
+        element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullscreen || element.mozRequestFullScreen || element.msRequestFullscreen || function () { return false; };
+        document.cancelFullScreen = document.cancelFullScreen || document.webkitCancelFullScreen || document.mozCancelFullScreen || document.msExitFullscreen || function () { return false; };
+
+        if (fs) {
+            document.cancelFullScreen();
+        }
+        else { 
+            element.requestFullScreen();
+        }
+    }
+
+    device.prototype.isFullscreen = function () {
+        return document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || false;
+    };
 
     return device;
 })();

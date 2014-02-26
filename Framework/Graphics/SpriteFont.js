@@ -14,8 +14,26 @@ Atlantis.Graphics.SpriteFont = (function () {
     * @class SpriteFont
     * @constructor
     */
-    var font = function () {
-  
+    var font = function (fontName, size, style) {
+        this.fontName = fontName || "Arial";
+        this.size = size || 14;
+        this.style = style || "normal";
+    };
+    
+    font.prototype.getFont = function () {
+        return [this.style, " ", this.size, " ", this.fontName].join("");
+    };
+    
+    font.prototype.getFontName = function () {
+        return this.fontName;  
+    };
+    
+    font.prototype.getSize = function () {
+        return this.size;  
+    };
+    
+    font.prototype.getStyle = function () {
+        return this.style;  
     };
 
     return font;
