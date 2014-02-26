@@ -31,9 +31,13 @@ Atlantis.ContentManager = (function () {
      *
      * @method load
      * @param {String} assetName The asset name
+     * @param {Function} callback A callback function called when the asset is loaded.
      */
-    contentManager.prototype.load = function (assetName) {
+    contentManager.prototype.load = function (assetName, callback) {
+        var callback = (typeof(callback) === "function") ? callback : function() {};
+        
         if (typeof(this.assets[assetName]) !== "undefined") {
+            callback(this.assets[assetName]);
             return this.assets[assetName];
         }
         else {
@@ -45,31 +49,39 @@ Atlantis.ContentManager = (function () {
                 case "png":
                 case "jpg":
                 case "bmp":
-                    loadImage(this.assets, assetName);
+                    loadImage(this.assets, assetName, callback);
                     break;
                 case "mp3":
                 case "ogg":
                 case "wav":
-                    loadAudio(this.assets, assetName);
+                    loadAudio(this.assets, assetName, callback);
                     break;
                 case "mp4":
                 case "ogv":
-                    loadVideo(this.assets, assetName);
+                    loadVideo(this.assets, assetName, callback);
                 case "xml":
                 case "json":
                 case "js":
-                    loadResource(this.assets, assetName, ext);
+                    loadResource(this.assets, assetName, ext, callback);
                     break;
             }
 
             return this.assets[assetName];
         }
     };
+    
+    contentManager.prototype.setRootDirectory = function (rootDirectory) {
+        this.rootDirectory = rootDirectory;  
+    };
+    
+    contentManager.prototype.getRootDirectory = function () {
+        return this.rootDirectory;  
+    };
 
     /*
      * Load an image from an url
      */
-    function loadImage(assetCollection, imageName) {
+    function loadImage(assetCollection, imageName, callback) {
         var image = new Image();
         image.src = imageName;
         assetCollection[imageName] = image;
@@ -79,7 +91,7 @@ Atlantis.ContentManager = (function () {
     /*
      * Load a music from an url
      */
-    function loadAudio(assetCollection, audioName) {
+    function loadAudio(assetCollection, audioName, callback) {
         var audio = document.createElement("audio");
         audio.src = audioName;
         audio.controls = false;
@@ -90,7 +102,7 @@ Atlantis.ContentManager = (function () {
     /*
      * Load a video from an url
      */
-    function loadVideo(assetCollection, videoName) {
+    function loadVideo(assetCollection, videoName, callback) {
         var video = document.createElement("video");
         video.src = videoName;
         assetCollection[videoName] = video;
@@ -100,25 +112,21 @@ Atlantis.ContentManager = (function () {
     /*
      * Load a resource from an url
      */
-    function loadResource(assetCollection, resourceUrl, ext) {
-        if (typeof(Atlantis.ajax) != "undefined") {
-            Atlantis.ajax({
-                method: "GET",
-                url: resourceUrl,
-                success: function (response) {
-                    var result = response;
-                    if (ext == "json") {
-                        result = JSON.parse(response);
-                    }
-                    assetCollection[resourceUrl] = result;
+    function loadResource(assetCollection, resourceUrl, ext, callback) {
+        Atlantis.ajax({
+            method: "GET",
+            url: resourceUrl,
+            success: function (response) {
+                var result = response;
+                if (ext == "json") {
+                    result = JSON.parse(response);
                 }
-            });
+                assetCollection[resourceUrl] = result;
+                callback(assetCollection[resourceUrl]);   
+            }
+        });
 
-            return assetCollection[resourceUrl];
-        }
-        else {
-            console.error("[Content] Impossible to load the resource because the Atlantis.Helper class isn't loaded");
-        }
+        return undefined;
     }
 
     /*

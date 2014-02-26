@@ -15,50 +15,33 @@ Atlantis.Graphics.GraphicsDevice = (function () {
     * @constructor
     * @param {Canvas} The canvas used to render the game.
     */
-    var device = function (canvas) {
-        this.mainRenderTarget = new Atlantis.Graphics.RenderTarget2D(canvas.width, canvas.height);
-        this.width = canvas.width;
-        this.height = canvas.height;
+    var device = function (frontBuffer, backBufferWidth, backBufferHeight) {
+        this._frontBuffer = frontBuffer;
+        this._backBuffer = new Atlantis.RenderTarget(backBufferWidth || frontBuffer.getWidth(), backBufferHeight || frontBuffer.getHeight(), frontBuffer.isWebGLEnabled());
+        this._context = this._backBuffer.getContext();
+        this._width = backBufferWidth;
+        this._height = backBufferHeight;
     };
 
-    /**
-	 * Gets the graphics context used to draw back buffer to front buffer.
-     * @method getGraphics
-	 * @return {Object} The graphics context.
-	 */
-    device.prototype.getGraphics = function (context) {
-        var context = context || "2d";
-        return this.canvas.getContent(context);
+    device.prototype.getBackBufferWidth = function () {
+        return this._width;
     };
 
-    /**
-	 * Gets the main render target
-     * @method getRenderTarget
-	 * @return {Atlantis.Graphics.RenderTarget2D} Return the render target used as front buffer.
-	 */
-    device.prototype.getRenderTarget = function () {
-        return this.mainRenderTarget;
+    device.prototype.getBackBufferHeight = function () {
+        return this._height;
     };
 
-    /**
-	 * Gets the back buffer width.
-     * @method getWidth
-	 * @return Return the width of the back buffer.
-	 */
-	device.prototype.getWidth = function () {
-		return this.width;
-	}
-	
-	/**
-	 * Gets the back buffer height.
-     * @method getHeight
-	 * @return Return the height of the back buffer.
-	 */
-	device.prototype.getHeight = function () {
-		return this.height;
-	}
-    
-    function toggleFullscreen(element) {
+    device.prototype.setPreferredBackbufferSize = function (width, height) {
+        this._backBuffer.setSize(width, height);
+        this._width = width;
+        this._height = height;
+    };
+
+    device.prototype.getContext = function () {
+        return this._context;
+    };
+
+    device.prototype.toggleFullscreen = function (element) {
         var element = element instanceof HTMLElement ? element : document.body;
         var fs = this.isFullscreen();
 
@@ -71,7 +54,7 @@ Atlantis.Graphics.GraphicsDevice = (function () {
         else { 
             element.requestFullScreen();
         }
-    }
+    };
 
     device.prototype.isFullscreen = function () {
         return document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement || false;

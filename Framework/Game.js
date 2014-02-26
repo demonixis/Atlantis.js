@@ -40,7 +40,7 @@ Atlantis.Game = (function () {
             this.pointerManager = new Atlantis.Input.PointerManager(this.domElement);
         }
 
-        this.graphicsDevice = new Atlantis.Graphics.GraphicsDevice(this.canvas);
+        //this.graphicsDevice = new Atlantis.Graphics.GraphicsDevice(this.canvas);
         this.domElement.addEventListener("resize", onResize, false);
         _instance = this;
     };
