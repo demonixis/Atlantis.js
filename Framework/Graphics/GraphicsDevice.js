@@ -15,26 +15,24 @@ Atlantis.Graphics.GraphicsDevice = (function () {
     * @constructor
     * @param {Canvas} The canvas used to render the game.
     */
-    var device = function (frontBuffer, backBufferWidth, backBufferHeight) {
-        this._frontBuffer = frontBuffer;
-        this._frontBufferContext = frontBuffer.getContext();
-        this._backBuffer = new Atlantis.RenderTarget(backBufferWidth || frontBuffer.getWidth(), backBufferHeight || frontBuffer.getHeight(), frontBuffer.isWebGLEnabled());
-        this._width = backBufferWidth;
-        this._height = backBufferHeight;
-    };
-
-    device.prototype.getBackBufferWidth = function () {
-        return this._width;
-    };
-
-    device.prototype.getBackBufferHeight = function () {
-        return this._height;
+    var device = function (frontBufferWidth, frontBufferHeight, backBufferWidth, backBufferHeight, is3D) {
+        var fbWidth = frontBufferWidth || 800,
+            fbHeight = frontBufferHeight || 480,
+            bbWidth = backBufferWidth || frontBufferWidth,
+            bbHeight = backBufferHeight || frontBufferHeight,
+            useWebGL = is3D ? is3D : false;
+        
+        this._frontBuffer = new Atlantis.RenderTarget(fbWidth, fbHeight, useWebGL);
+        this._fbContext = frontBuffer.getContext();
+        this._backBuffer = new Atlantis.RenderTarget(bbWidth, bbHeight, useWebGL);
+        this.preferredBackBufferWidth = bbWidth;
+        this.preferredBackBufferHeight = bbHeight;
     };
 
     device.prototype.setPreferredBackBufferSize = function (width, height) {
         this._backBuffer.setSize(width, height);
-        this._width = width;
-        this._height = height;
+        this.preferredBackBufferWidth = width;
+        this.preferredBackBufferHeight = height;
     };
 
     device.prototype.getBackBuffer = function () {
@@ -47,7 +45,7 @@ Atlantis.Graphics.GraphicsDevice = (function () {
     };
 
     device.prototype.present = function () {
-        this._frontBufferContext.drawImage(this._backBuffer.getCanvas(), 0, 0, this._frontBuffer.getWidth(), this._frontBuffer.getHeight());
+        this._fbContext.drawImage(this._backBuffer.getCanvas(), this._frontBuffer.viewport.x, this._frontBuffer.viewport.y, this._frontBuffer.viewport.width, this._frontBuffer.viewport.height);
     };
 
     device.prototype.toggleFullscreen = function (element) {
