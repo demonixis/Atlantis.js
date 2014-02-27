@@ -15,11 +15,11 @@ Atlantis.SpriteGroup = (function () {
 	 * @class SpriteGroup
 	 */
     var spriteGroup = function () {
-    	Atlantis.Entity.call(this);
+        Atlantis.Sprite.call(this);
     	this.entities = [];	
     };
 
-    spriteGroup.prototype = new Atlantis.Entity();
+    spriteGroup.prototype = new Atlantis.Sprite();
 
     /**
      * Initialize of all members.

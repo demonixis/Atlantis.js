@@ -8,20 +8,7 @@
 
 var Atlantis = window.Atlantis || {};
 
-Atlantis.Engine = Atlantis.Engine || {};
-
-Atlantis.Engine = (function () {
-    return {
-        game: null,
-        contentManager: null,
-        stateManager: null,
-        keyboard: null,
-        pointer: null,
-        width: 0,
-        height: 0
-    };
-})()
-
+Atlantis.Engine = {};
 Atlantis.GameApplication = (function () {
     /**
     * The engine class that initialize an Atlantis.Game object and setup managers and scene.
@@ -45,8 +32,8 @@ Atlantis.GameApplication = (function () {
             Components: this.components,
             Keyboard: keyboardComponent,
             PointerManager: this.pointerManager,
-            Width: this.width,
-            Height: this.height,
+            Width: width,
+            Height: width,
             StateManager: this.stateManager
         };
     };

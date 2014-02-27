@@ -36,7 +36,7 @@ Atlantis.ContentManager = (function () {
     contentManager.prototype.load = function (assetName, callback) {
         var callback = (typeof(callback) === "function") ? callback : function() {};
         
-        if (typeof(this.assets[assetName]) !== "undefined") {
+        if (this.assets[assetName]) {
             callback(this.assets[assetName]);
             return this.assets[assetName];
         }
@@ -83,6 +83,7 @@ Atlantis.ContentManager = (function () {
      */
     function loadImage(assetCollection, imageName, callback) {
         var image = new Image();
+        image.onload = callback;
         image.src = imageName;
         assetCollection[imageName] = image;
         return image;
@@ -93,6 +94,7 @@ Atlantis.ContentManager = (function () {
      */
     function loadAudio(assetCollection, audioName, callback) {
         var audio = document.createElement("audio");
+        audio.addEventListener("load", callback);
         audio.src = audioName;
         audio.controls = false;
         assetCollection[audioName] = audio;
@@ -104,6 +106,7 @@ Atlantis.ContentManager = (function () {
      */
     function loadVideo(assetCollection, videoName, callback) {
         var video = document.createElement("video");
+        video.addEventListener("load", callback);
         video.src = videoName;
         assetCollection[videoName] = video;
         return video;

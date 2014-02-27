@@ -245,39 +245,22 @@ Atlantis.StateManager = (function () {
     * @param {Boolean} isActive Sets to true for active the state, default is true.
     * @param {Boolean} disableOtherStates Sets to true for desactive all other states.
     */
-    stateManager.prototype.add = function (stateParam, isActive, disableOtherStates) {
+    stateManager.prototype.add = function (state, isActive, disableOtherStates) {
         if (disableOtherStates) {
             this.disableStates();
         }
 
         var isActive = (typeof (isActive) != "undefined") ? isActive : true;
+        state.stateManager = this;
+        state.setActive(isActive);
 
-        if (stateParam instanceof Array) {
-            for (var i = 0, l = stateParam.length; i < l; i++) {
-                stateParam[i].stateManager = this;
-                stateParam[i].setActive(isActive);
-
-                // If the state manager is already initialized we must load an initialize the state
-                if (this.initialized) {
-                    stateParam[i].loadContent(this.game.content);
-                    stateParam[i].initialize();
-                }
-
-                this.states.push(stateParam[i]);
-            }
+        // If the state manager is already initialized we must load an initialize the state
+        if (this.initialized) {
+            state[i].initialize();
+            state[i].loadContent(this.game.content);
         }
-        else {
-            stateParam.stateManager = this;
-            stateParam.setActive(isActive);
-
-            // If the state manager is already initialized we must load an initialize the state
-            if (this.initialized) {
-                stateParam[i].loadContent(this.game.content);
-                stateParam[i].initialize();
-            }
-
-            this.states.push(stateParam);
-        }
+        
+        this.states.push(state);
     };
 
     /**
@@ -290,14 +273,7 @@ Atlantis.StateManager = (function () {
     stateManager.prototype.remove = function (stateParam) {
         var state = null;
 
-        if (stateParam instanceof Atlantis.state) {
-            var index = this.states.indexOf(stateParam);
-            if (index > -1) {
-                state = this.states[index];
-                this.states.splice(index, 1);
-            }
-        }
-        else if (typeof (stateParam) == "string") {
+       if (typeof (stateParam) == "string") {
             var i = 0;
             var index = -1;
 

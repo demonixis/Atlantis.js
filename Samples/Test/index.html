@@ -2,15 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>AtlantisEngine.js - 3D Software Rendering</title>
-    <style>
-        html, body { width: 100%, height: 100%, overflow: hidden; margin: 0; padding: 0; }
-        container { margin: auto; }
-        canvas { width: 100%; height: 100%; background: black; }
-    </style>
+    <title>AtlantisEngine.js - Samples</title>
 </head>
 <body>
-    <div id="container"></div>
     <!-- Framework -->
     <script src="../../Framework/Compatibility.js"></script>
     <script src="../../Framework/ContentManager.js"></script>
@@ -45,10 +39,34 @@
     <script src="../../Engine/Graphics/Sprite.js"></script>
     <script src="../../Engine/Input/KeyboardComponent.js"></script>
     <script src="../../Engine/GameApplication.js"></script>
-    <script src="engine.js"></script>
-    <script>
-        var game = new SoftEngineGame();
-        game.run();
-    </script>
 </body>
+<script>
+var TestGame = function () {
+	Atlantis.GameApplication.call(this, 800, 480);
+    Atlantis.Engine.ContentManager.rootDirectory = "";
+};
+
+TestGame.prototype = new Atlantis.GameApplication();
+
+TestGame.prototype.initialize = function () {
+	Atlantis.GameApplication.prototype.initialize.call(this);
+
+};
+
+TestGame.prototype.loadContent = function (content) {
+	Atlantis.GameApplication.prototype.loadContent.call(this, content);
+
+};
+
+TestGame.prototype.update = function (gameTime) {
+	Atlantis.GameApplication.prototype.update.call(this, gameTime);
+};
+
+TestGame.prototype.draw = function (gameTime, context) {
+	Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+};
+
+var game = new TestGame();
+game.run();
+</script>
 </html>

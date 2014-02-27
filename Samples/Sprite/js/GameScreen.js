@@ -15,8 +15,6 @@ GameScreen.prototype = new Atlantis.State();
 GameScreen.prototype.loadContent = function (content) {
     Atlantis.State.prototype.loadContent.call(this, content);
     
-    this.sprite.texture.width = 576;
-    this.sprite.texture.height = 256;
     this.sprite.viewport = new Atlantis.Rectangle(0, 0, 640, 480);
 
     this.sprite.prepareAnimation(64, 64);
@@ -25,12 +23,11 @@ GameScreen.prototype.loadContent = function (content) {
     this.sprite.addAnimation("down", [18, 19, 20, 21, 22, 23, 24, 25, 26], 50);
     this.sprite.addAnimation("right", [27, 28, 29, 30, 31, 32, 33, 34, 35], 50);
 
-
-    this.sprite.setPosition(260, 320);
-    this.sprite.setSize(128);
+    this.sprite.move(260, 320);
+    //this.sprite.setSize(128);
     this.sprite.insideScreen = true;
     this.sprite.maxVelocity = 0.95;
-    
+
     this.background.setSize(Atlantis.Engine.Width, Atlantis.Engine.Height);
 };
 
