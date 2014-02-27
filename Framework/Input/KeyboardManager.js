@@ -7,54 +7,86 @@
  */
  
 var Atlantis = window.Atlantis || {};
-Atlantis.Input = Atlantis.Input || {};
 
-Atlantis.Input.KeyboardManager = (function () {
-    var _instance = null;
+// --------------------------------------- //
+// ---  Keyboard State implementation  --- //
+// --------------------------------------- //
 
-    /**
-    * A keyboard input manager.
-    * @constructor
-    * @class KeyboardManager
-    */
-    var keyboardManager = function (maxKeys) {
-        this.keys = [];
-        this.maxKeys = maxKeys || 130;
+/**
+ * Define a keyboard state.
+ * @class KeyboardState
+ * @constructor
+ */
+Atlantis.KeyboardState = function (keys) {
+    this.keys = [];
+    // Cloning the array
+    for (var i = 0, l = keys.length; i < l; i++) {
+        this.keys.push(keys[i]);
+    }
+};
 
-        for (var i = 0; i < maxKeys; i++) {
-            this.keys[i] = false;
-        }
+Atlantis.KeyboardState.prototype.clone = function () {
+    return new Atlantis.Input.KeyboardState(this.keys);
+};
 
-        this.preventDefault = true;
-        
-        document.addEventListener("keydown", this.onKeyStateChange, false);
-        document.addEventListener("keyup", this.onKeyStateChange, false);
-        
-        _instance = this;
-    };
+/**
+* Determine if the key is pressed.
+* @method isKeyDown
+* @param {Number} button The button to test.
+* @return {Boolean} Return true if the key is pressed.
+*/
+Atlantis.KeyboardState.prototype.isKeyDown = function (key) {
+    return this.keys[key] === true;
+};
 
-    /**
-     * Gets the current state of the keyboard.
-     * @method getState
-     * @return {Atlantis.KeyboardState} Return the state of the keyboard.
-     */
-    keyboardManager.prototype.getState = function () {
-        return new Atlantis.Input.KeyboardState(this.keys);
-    };
+/**
+* Determine if the key is pressed.
+* @method isKeyUp
+* @param {Number} button The button to test.
+* @return {Boolean} Return true if the key is released.
+*/
+Atlantis.KeyboardState.prototype.isKeyUp = function (key) {
+    return this.keys[key] === false;
+};
 
-    /**
-    * Event handler - Function called on keyboard event.
-    * @method onKeyStateChange
-    * @param {Object} event The event object.
-    * @param {Object} instance The current instance.
-    */
-    keyboardManager.prototype.onKeyStateChange = function (event) {
-        if (_instance.preventDefault) {
+// --------------------------------------- //
+// --- Keyboard Manager implementation --- //
+// --------------------------------------- //
+
+/**
+ * A keyboard input manager.
+ * @constructor
+ * @class KeyboardManager
+ */
+Atlantis.KeyboardManager = function (maxKeys) {
+    this.keys = [];
+    this.maxKeys = maxKeys || 130;
+
+    for (var i = 0; i < maxKeys; i++) {
+        this.keys[i] = false;
+    }
+
+    this.preventDefault = false;
+
+    var that = this;
+    
+    var onKeyStateChange = function (event) {
+        if (that.preventDefault) {
             event.preventDefault();
         }
 
-        _instance.keys[event.keyCode] = (event.type == "keydown") ? true : false;
+        that.keys[event.keyCode] = (event.type === "keydown") ? true : false;
     };
+    
+    document.addEventListener("keydown", onKeyStateChange, false);
+    document.addEventListener("keyup", onKeyStateChange, false);
+};
 
-    return keyboardManager;
-})();
+/**
+ * Gets the current state of the keyboard.
+ * @method getState
+ * @return {Atlantis.KeyboardState} Return the state of the keyboard.
+ */
+Atlantis.KeyboardManager.prototype.getState = function () {
+    return new Atlantis.KeyboardState(this.keys);
+};

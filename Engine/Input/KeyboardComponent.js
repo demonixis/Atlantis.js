@@ -8,7 +8,7 @@
 var Atlantis = window.Atlantis || {};
 
 Atlantis.KeyboardComponent = (function () {
-    var Keys = Atlantis.Input.Keys;
+    var Keys = Atlantis.Keys;
 
     /**
     * A keyboard component that be used with KeyboardHelper to provide some

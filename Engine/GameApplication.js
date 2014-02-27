@@ -33,7 +33,7 @@ Atlantis.GameApplication = (function () {
             Keyboard: keyboardComponent,
             PointerManager: this.pointerManager,
             Width: width,
-            Height: width,
+            Height: height,
             StateManager: this.stateManager
         };
     };

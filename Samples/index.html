@@ -3,12 +3,60 @@
 <head>
     <meta charset="utf-8" />
     <title>AtlantisEngine.js - Samples</title>
+    <style>
+        html, body { border: 0; margin: 0; padding: 0; }
+        
+        body { background-color: #444; }
+        
+        #header {
+            background: #222;
+            color: white;
+            margin: 0 0 15px 0;
+            padding: 10px 0;
+            text-align: left;
+            text-indent: 25px;
+        }
+        
+        .sample-item {
+            float: left;
+            padding: 15px;
+            margin: 0 25px;
+            display: block;
+            background-color: #4c46ea;
+            width: 150px;
+            height: 150px;
+            text-decoration: none;
+            color: #fff;
+        }
+        
+        .sample-item .preview {
+            width: 90%;
+            height: 90%;
+            margin: auto;
+            background: #999;
+        }
+        
+        .sample-item .title {
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            width: 100%;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
-    <h1>Samples</h1>
-    <ul>
-        <li><a href="sprite/index.html">Animated Sprite</a></li>
-    </ul>
+    <h1 id="header">Atlantis Samples</h1>
+    <section id="samples">
+        <a class="sample-item" href="sprite/index.html">
+            <div class="preview"></div>
+            <span class="title">Animated Sprite</span>
+        </a>
+        <a class="sample-item" href="Platformer/index.html">
+            <div class="preview"></div>
+            <span class="title">Platformer 2D</span>
+        </a>
+    </section>
     <!-- Framework -->
     <script src="../Framework/Compatibility.js"></script>
     <script src="../Framework/ContentManager.js"></script>
@@ -24,23 +72,20 @@
     <script src="../Framework/Vector2.js"></script>
     <script src="../Framework/Vector3.js"></script>
     <script src="../Framework/Vector4.js"></script>
-    <script src="../Framework/Input/KeyboardState.js"></script>
     <script src="../Framework/Input/KeyboardManager.js"></script>
     <script src="../Framework/Input/PointerManager.js"></script>
     <script src="../Framework/Input/Keys.js"></script>
     <script src="../Framework/Graphics/GraphicsDevice.js"></script>
     <script src="../Framework/Graphics/Texture2D.js"></script>
     <script src="../Framework/Graphics/RenderTarget.js"></script>
-    <script src="../Framework/Graphics/SpriteFont.js"></script>
     <script src="../Framework/Graphics/SpriteBatch.js"></script>
     <script src="../Framework/Game.js"></script>
     <!-- Engine -->
     <script src="../Engine/AudioManager.js"></script>
     <script src="../Engine/StateManager.js"></script>
     <script src="../Engine/Graphics/Animation.js"></script>
-    <script src="../Engine/Graphics/Entity.js"></script>
-    <script src="../Engine/Graphics/SpriteGroup.js"></script>
     <script src="../Engine/Graphics/Sprite.js"></script>
+    <script src="../Engine/Graphics/SpriteGroup.js"></script>
     <script src="../Engine/Input/KeyboardComponent.js"></script>
     <script src="../Engine/GameApplication.js"></script>
 </body>

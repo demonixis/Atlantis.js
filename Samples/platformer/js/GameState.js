@@ -16,14 +16,14 @@ var GameState = function (name, levelStart) {
 	Atlantis.State.call(this, name);
 	this.levelId = levelStart;
 	this.overlays = [
-		new Atlantis.Sprite({ textureName: "overlays/you_died.png", width: 358, height: 180 }),
-		new Atlantis.Sprite({ textureName: "overlays/you_lose.png", width: 358, height: 180 }),
-		new Atlantis.Sprite({ textureName: "overlays/you_win.png", width: 358, height: 180 })
+		new Atlantis.Sprite("overlays/you_died.png"),
+		new Atlantis.Sprite("overlays/you_lose.png"),
+		new Atlantis.Sprite("overlays/you_win.png")
 	];
 	this.level = new Level(this.levelId);
 	this.player = new Player();
-	this.scoreCounter = new Atlantis.Graphics.SpriteFont();
-	this.timeCounter = new Atlantis.Graphics.SpriteFont();
+	this.scoreCounter = new Atlantis.SpriteFont();
+	this.timeCounter = new Atlantis.SpriteFont();
 };
 
 GameState.prototype = new Atlantis.State();
@@ -54,7 +54,7 @@ GameState.prototype.loadContent = function (content) {
  
 	    for (var i in that.overlays) {
 	    	that.overlays[i].loadContent(content);
-	    	that.overlays[i].setPosition(Atlantis.Engine.Width / 2 - that.overlays[i].getWidth() / 2, Atlantis.Engine.Height / 2 - that.overlays[i].getHeight() / 2);
+	    	that.overlays[i].move(Atlantis.Engine.Width / 2 - that.overlays[i].getWidth() / 2, Atlantis.Engine.Height / 2 - that.overlays[i].getHeight() / 2);
 	    	that.overlays[i].enabled = false;
 	    	that.scene.add(that.overlays[i]);
 	    }

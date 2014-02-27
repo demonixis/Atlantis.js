@@ -27,7 +27,8 @@ Atlantis.Game = (function () {
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.contentManager = new Atlantis.ContentManager();
-        this.keyboardManager = new Atlantis.Input.KeyboardManager();
+        this.keyboardManager = new Atlantis.KeyboardManager();
+
         this.canvas = params.canvas;
         this.isRunning = false;
         this.initialized = false;
@@ -36,10 +37,12 @@ Atlantis.Game = (function () {
         if (this.domElement != null) {
             this.canvas = this.canvas || createCanvas2D(this.width, this.height, domElement);
             this.canvas.style.msTouchAction = "none";
-            this.canvasContext = this.canvas.getContext("2d");
-            this.pointerManager = new Atlantis.Input.PointerManager(this.domElement);
         }
-
+        
+        // TODO : GraphicsDevice will create the correct context
+        this.canvasContext = this.canvas.getContext("2d");
+        this.pointerManager = new Atlantis.PointerManager(this.canvas);
+        
         //this.graphicsDevice = new Atlantis.Graphics.GraphicsDevice(this.canvas);
         this.domElement.addEventListener("resize", onResize, false);
         _instance = this;

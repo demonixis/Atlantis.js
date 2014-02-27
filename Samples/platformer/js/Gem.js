@@ -23,14 +23,13 @@ var Gem = function (assetId) {
 	this.minY = 0;
 	this.sign = (GemCounter % 2 == 0) ? -1 : 1;
 	this.speed = 0.01;
-    this.rectangle.setSize(32, 32);
 	GemCounter++;
 };
 
 Gem.prototype = new Atlantis.Sprite();
 
-Gem.prototype.setPosition = function (x, y) {
-	Atlantis.Sprite.prototype.setPosition.call(this, x, y);
+Gem.prototype.move = function (x, y) {
+	Atlantis.Sprite.prototype.move.call(this, x, y);
 	this.initialY = y;
 	this.maxY = this.initialY + 5;
 	this.minY = this.initialY - 10;
@@ -39,15 +38,15 @@ Gem.prototype.setPosition = function (x, y) {
 Gem.prototype.update = function (gameTime) {
     Atlantis.Sprite.prototype.update.call(this, gameTime);
     
-    this.setY(this.getY() + this.speed * this.sign * gameTime.getElapsedTime()); 
+    this.move(this.getX(), this.getY() + this.speed * this.sign * gameTime.getElapsedTime()); 
 			
 	if (this.getY() <= this.minY) {
 		this.sign = 1;
-		this.setY(this.minY);
+		this.move(this.getX(), this.minY);
 	}
 	else if (this.getY() >= this.maxY) {
 		this.sign = -1;
-		this.setY(this.maxY);
+		this.move(this.getX(), this.maxY);
 	}
 };
 

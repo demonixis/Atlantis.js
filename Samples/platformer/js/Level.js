@@ -28,9 +28,9 @@ Level.prototype.loadLevel = function (content, scene, callback) {
         
 				// 1 - Create and add background and layers
 				var layerId = json.layerId;
-				that.layers[0] = new Atlantis.Sprite({ textureName: "img/Backgrounds/Layer0_" + layerId + ".png", width: 800, height: 480 });
-				that.layers[1] = new Atlantis.Sprite({ textureName: "img/Backgrounds/Layer1_" + layerId + ".png", width: 800, height: 480 });
-				that.layers[2] = new Atlantis.Sprite({ textureName: "img/Backgrounds/Layer2_" + layerId + ".png", width: 800, height: 480 });
+				that.layers[0] = new Atlantis.Sprite(["img/Backgrounds/Layer0_", layerId, ".png"].join(""));
+				that.layers[1] = new Atlantis.Sprite(["img/Backgrounds/Layer1_", layerId, ".png"].join(""));
+				that.layers[2] = new Atlantis.Sprite(["img/Backgrounds/Layer2_", layerId, ".png"].join(""));
 			
 				for (var i in that.layers) {
 					that.layers[i].loadContent(content);
@@ -57,9 +57,9 @@ Level.prototype.loadLevel = function (content, scene, callback) {
 						// Blocks and items case
 						else if (id >= 2 && id <= 4) {
 							assetName = getAssetName(id);
-							sprite = new Atlantis.Sprite({ textureName: "img/Tiles/" + assetName + ".png", width: 40, height: 32 });
+							sprite = new Atlantis.Sprite(["img/Tiles/", assetName, ".png"].join(""));
 							sprite.loadContent(content);
-							sprite.setPosition(x * 40, y * 32);
+							sprite.move(x * 40, y * 32);
 							scene.add(sprite);
 						
 							if (id == 2) {
@@ -74,7 +74,7 @@ Level.prototype.loadLevel = function (content, scene, callback) {
 						else if (id == 5 || id == 6) { 
 							sprite = new Gem(id);
 							sprite.loadContent(content);
-							sprite.setPosition(x * 40, y * 32);
+							sprite.move(x * 40, y * 32);
 							scene.add(sprite);
 							that.items.push(sprite);
 						}

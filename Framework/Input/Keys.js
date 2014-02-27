@@ -7,13 +7,12 @@
  */
  
 var Atlantis = window.Atlantis || {};
-Atlantis.Input = Atlantis.Input || {};
 
 /**
  * An enumeration of keys who can be pressed/released
  * @class Keys
  */
-Atlantis.Input.Keys = {
+Atlantis.Keys = {
 	Up: 38,
 	Down: 40,
 	Left: 37,

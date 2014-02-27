@@ -8,7 +8,7 @@ var Collider2 = {
 	}
 };
 
-var Keys = Keys || Atlantis.Input.Keys;
+var Keys = Keys || Atlantis.Keys;
 
 var Player = function () {
 	Atlantis.Sprite.call(this);
@@ -30,8 +30,6 @@ Player.prototype.initialize = function () {
 
 Player.prototype.loadContent = function (content) {
     Atlantis.Sprite.prototype.loadContent.call(this, content);
-    this.texture.width = 704;
-    this.texture.height = 512;
 
     this.prepareAnimation(64, 64);
 	this.addAnimation("idle", [0], 0);
@@ -51,11 +49,11 @@ Player.prototype.update = function (gameTime) {
     if (this.canMove) {
 		if (Atlantis.Engine.Keyboard.pressed(Keys.Left)) {
 			this.play("left");
-			this.setPosition(this.getX() - this.speed, this.getY());
+			this.move(this.getX() - this.speed, this.getY());
 		}
 		else if (Atlantis.Engine.Keyboard.pressed(Keys.Right)) {
 			this.play("right");
-			this.setPosition(this.getX() + this.speed, this.getY());
+			this.move(this.getX() + this.speed, this.getY());
 		}
 		else {
 			this.play("idle");
@@ -75,14 +73,14 @@ Player.prototype.update = function (gameTime) {
 	// Manage the jump
 	if (this.movementState != MovementState.Walking) {
 		if (this.movementState == MovementState.JumpingUp) {
-			this.setPosition(this.getX(), this.getY() - this.jumpSpeed);
+			this.move(this.getX(), this.getY() - this.jumpSpeed);
 			if (this.getY() < (this.initialJumpPosition.y - this.jumpHeight)) {
 				this.movementState = MovementState.JumpingDown;
 			}
 		}
 		
 		if (this.movementState == MovementState.JumpingDown) {
-			this.setPosition(this.getX(), this.getY() + this.jumpSpeed);
+			this.move(this.getX(), this.getY() + this.jumpSpeed);
 		}
 		
 		if (this.getY() >= this.initialJumpPosition.y) {
@@ -152,5 +150,5 @@ Player.prototype.die = function (type) {
 };
 
 Player.prototype.setStartPosition = function(start) {
-	this.setPosition(start.x * 24, start.y * 32 - this.getHeight());
+	this.move(start.x * 24, start.y * 32 - this.getHeight());
 };

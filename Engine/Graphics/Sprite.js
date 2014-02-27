@@ -14,12 +14,12 @@ Atlantis.Sprite = (function () {
     * @constructor
     * @class Sprite
     */
-    var sprite = function (params) {
+    var sprite = function (textureName, params) {
         this.name = "GameObject";
         this.enabled = true;
         this.visible = true;
         this.texture = null;
-        this.textureName = "";
+        this.textureName = (typeof(textureName) === "string") ? textureName : "";
         this.assetLoaded = false;
         this.rectangle = new Atlantis.Rectangle();
         this.sourceRectangle = new Atlantis.Rectangle();
@@ -74,16 +74,7 @@ Atlantis.Sprite = (function () {
             var that = this;
 
             this.texture = contentManager.load(this.textureName, function () {
-                this.style.position = "absolute";
-                this.style.top = "-9999px";
-                this.style.left = "-9999px";
-                
-                document.body.appendChild(this);
-                document.body.removeChild(this);
-
-                this.style.position = "";
-                this.style.top = "";
-                this.style.left = "";
+                Atlantis.Sprite.computeImageSize(this);
 
                 that.rectangle.width = this.width;
                 that.rectangle.height = this.height;
@@ -137,7 +128,7 @@ Atlantis.Sprite = (function () {
     sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
         if (this.assetLoaded) {
             this.spriteAnimator.add(name, framesIndex, frameRate);
-            this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0]; console.log("ok")
+            this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
         }
         else {
             this._reqAddAnims.push({ name: name, framesIndex: framesIndex, frameRate: frameRate });
@@ -298,14 +289,6 @@ Atlantis.Sprite = (function () {
         return this.rectangle.y;
     };
     
-    sprite.prototype.setX = function (x) {
-        this.rectangle.x = x;  
-    };
-    
-    sprite.prototype.setY = function (y) {
-        this.rectangle.y = y;  
-    };
-
     sprite.prototype.getWidth = function () {
         return this.rectangle.width;
     };
@@ -334,6 +317,23 @@ Atlantis.Sprite = (function () {
     sprite.prototype.getBoundingRect = function () {
         return this.rectangle;
     };
+    
+    /**
+     * Gets the size of an image. This function add the image to the DOM an remove from it.
+     * After that we can gets the size of the image.
+     * @method getImageSize
+     * @param {Image} image An instance of Image.
+     */
+    sprite.computeImageSize = function (image) {
+        image.style.position = "absolute";
+        image.style.left = "-9999px";
+
+        document.body.appendChild(image);
+        document.body.removeChild(image);
+
+        image.style.position = "";
+        image.style.left = "";
+    }
 
     return sprite;
 })();

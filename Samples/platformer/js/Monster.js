@@ -49,15 +49,15 @@ Monster.prototype.update = function (gameTime) {
 	
 	if (this.direction.x < 0) {
 		this.play("left");
-		this.move(-1, 0);
+		this.translate(-1, 0);
 	}
 	else if (this.direction.x > 0) {
 		this.play("right");
-		this.move(1, 0);
+		this.translate(1, 0);
 	}
 	else {
 		this.play("idle");
-		this.move(0, 0);
+		this.translate(0, 0);
 	}
 	this.updatePhysics();
 };
@@ -85,5 +85,5 @@ Monster.prototype.getNextAction = function () {
 };
 
 Monster.prototype.setStartPosition = function (x, y) {
-	this.setPosition(x * 24, y * 32 - this.height / 2);
+	this.move(x * 24, y * 32 - this.height / 2);
 };

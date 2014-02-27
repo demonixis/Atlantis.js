@@ -6,18 +6,28 @@
  */
 
 var Atlantis = window.Atlantis || {};
-Atlantis.Graphics = Atlantis.Graphics || {};
 
-Atlantis.Graphics.Texture2D = (function () {
-    /**
-    * Define a drawable texture.
-    * @class Texture2D
-    * @constructor
-    */
-    var texture = function (width, height, format) {
-        this.textureData = [];
-    };
+/**
+* Define a drawable text.
+* @class SpriteFont
+* @constructor
+*/
+Atlantis.SpriteFont = function (fontName, size, style) {
+    this.fontName = fontName || "Arial";
+    this.size = size || 14;
+    this.style = style || "normal";
+};
 
+Atlantis.SpriteFont.prototype.getFont = function () {
+    return [this.style, " ", this.size, "px ", this.fontName].join("");
+};
 
-    return texture;
-})();
+/**
+* Define a drawable texture.
+* @class Texture2D
+* @constructor
+*/
+Atlantis.Texture2D = function (width, height) {
+    // TODO : RenderTarget will inherit from that
+    this.textureData = [];
+}
