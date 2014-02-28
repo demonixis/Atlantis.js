@@ -54,7 +54,7 @@ GameState.prototype.loadContent = function (content) {
  
 	    for (var i in that.overlays) {
 	    	that.overlays[i].loadContent(content);
-	    	that.overlays[i].move(Atlantis.Engine.Width / 2 - that.overlays[i].getWidth() / 2, Atlantis.Engine.Height / 2 - that.overlays[i].getHeight() / 2);
+	    	that.overlays[i].move(Atlantis.Application.Width / 2 - that.overlays[i].getWidth() / 2, Atlantis.Application.Height / 2 - that.overlays[i].getHeight() / 2);
 	    	that.overlays[i].enabled = false;
 	    	that.scene.add(that.overlays[i]);
 	    }
@@ -92,7 +92,7 @@ GameState.prototype.update = function (gameTime) {
 		
 		this.player.updatePhysics(this.level.blocksSize, this.level.blocks);
 		
-		if (this.player.getY() > Atlantis.Engine.Height) {
+		if (this.player.getY() > Atlantis.Application.Height) {
 			if (!this.overlays[1].isActive()) {
 				this.overlays[1].setActive(true);	
 			}
@@ -105,7 +105,7 @@ GameState.prototype.update = function (gameTime) {
 			this.player.win();
 		}
 		
-		if (Atlantis.Engine.Keyboard.pressed(Keys.Space)) {
+		if (Atlantis.Application.Keyboard.pressed(Keys.Space)) {
 			this.restartGameState();
 		}
 	}
@@ -123,7 +123,7 @@ GameState.prototype.restartGameState = function () {
 		this.levelId = (this.levelId >= LevelCount) ? 0 : this.levelId;
 	}
 
-	this.level.reload(Atlantis.Engine.Content, this.scene, this.levelId);
+	this.level.reload(Atlantis.Application.Content, this.scene, this.levelId);
 	this.player.setStartPosition(this.level.getStartPosition());
 	this.scene.add(this.player);
 	this.initialize();

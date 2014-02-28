@@ -7,8 +7,9 @@
  */
 
 var Atlantis = window.Atlantis || {};
+Atlantis.Application = {};
 
-Atlantis.Engine = {};
+
 Atlantis.GameApplication = (function () {
     /**
     * The engine class that initialize an Atlantis.Game object and setup managers and scene.
@@ -22,11 +23,17 @@ Atlantis.GameApplication = (function () {
         Atlantis.Game.call(this, width, height, domElement);
 
         this.stateManager = new Atlantis.StateManager(this);
-        this.components.add(this.stateManager);
         var keyboardComponent = new Atlantis.KeyboardComponent(this);
+        
         this.components.add(keyboardComponent);
+        this.components.add(this.stateManager);
+        
+        var that = this;
 
-        Atlantis.Engine = {
+        Atlantis.Application = {
+            loadLevel: function (nameOrIndex) {
+                return that.stateManager.loadLevel(levelName);
+            },
             Game: this,
             ContentManager: this.contentManager,
             Components: this.components,

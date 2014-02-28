@@ -61,7 +61,7 @@ Atlantis.Sprite = (function () {
      * @method initialize
      */
     sprite.prototype.initialize = function () {
-        this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.Engine.Width, Atlantis.Engine.Height);
+        this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.Application.Width, Atlantis.Application.Height);
     };
 
     /**

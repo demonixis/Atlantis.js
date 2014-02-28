@@ -228,6 +228,29 @@ Atlantis.StateManager = (function () {
         }
     };
 
+    stateManager.prototype.loadLevel = function (nameOrIndex) {
+        var size = this.states.length;
+        var index = size - 1;
+        
+        this.disableStates();
+
+        if (typeof (nameOrIndex) == "string") {
+            for (var i = 0; i < size; i++) {
+                if (this.states[i].name == nameOrIndex) {
+                    index = i;
+                    break;
+                }
+            }
+        }
+        else if (typeof(nameOrIndex) === "number") {
+            index = nameOrIndex < size ? nameOrIndex : index;
+        }
+        
+        if (index > -1) {
+            this.states[index].active = true;
+        }
+    };
+
     stateManager.prototype.disableStates = function () {
         for (var i = 0, l = this.states.length; i < l; i++) {
             this.states[i].setActive(false);

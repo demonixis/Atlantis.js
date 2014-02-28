@@ -11,7 +11,7 @@ MenuScreen.prototype = new Atlantis.State();
 MenuScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
-    if (Atlantis.Engine.Keyboard.justPressed(Atlantis.Keys.Enter)) {
+    if (Atlantis.Application.Keyboard.justPressed(Atlantis.Keys.Enter)) {
         this.stateManager.setActive("game", true);
     }
 };
@@ -24,6 +24,6 @@ MenuScreen.prototype.draw = function (gameTime, context) {
     context.fillStyle = "#fff";
     context.font = this.spriteFont.getFont();
     var size = context.measureText(text);
-    context.fillText("Press Enter to start", Atlantis.Engine.Width / 2 - size.width / 2, Atlantis.Engine.Height / 2);
+    context.fillText("Press Enter to start", Atlantis.Application.Width / 2 - size.width / 2, Atlantis.Application.Height / 2);
     context.restore();
 };
