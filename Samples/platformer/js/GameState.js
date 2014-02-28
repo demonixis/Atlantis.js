@@ -66,7 +66,7 @@ GameState.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
     var tempSearchSprite = null;
     
-    if (this.gameMode == GameMode.Playing) { return;
+    if (this.gameMode == GameMode.Playing) { 
 		this.elapsedTime += gameTime.getElapsedTime();
 		if (this.elapsedTime >= 1000) {
 			this.timeRemaining--;
@@ -76,7 +76,7 @@ GameState.prototype.update = function (gameTime) {
 		for (var i = 0; i < this.level.items.length; i++) {
 			tempSearchSprite = this.level.items[i];
 			
-			if (tempSearchSprite.isActive() && this.player.getBoundingRectangle().contains(tempSearchSprite.getBoundingRectangle())) {
+			if (tempSearchSprite.isActive() && this.player.getBoundingRect().contains(tempSearchSprite.getBoundingRect())) {
 				if (tempSearchSprite.getName() == "exit") {
 					if (!this.overlays[2].isActive()) {
 						this.overlays[2].setActive(true);

@@ -69,7 +69,8 @@ Atlantis.Sprite = (function () {
      * @method loadContent
      * @param
      */
-    sprite.prototype.loadContent = function (contentManager) {
+    sprite.prototype.loadContent = function (contentManager, callback) {
+        var callback = (typeof(callback) === "function") ? callback : function () { };
         if (this.textureName != "" && this.assetLoaded == false) {
             var that = this;
 
@@ -94,7 +95,12 @@ Atlantis.Sprite = (function () {
                 if (that._reqSize) {
                     that.setSize(that._reqSize.width, that._reqSize.height);
                 }
+                
+                callback(that);
             });
+        }
+        else {
+            callback(this);
         }
     };
 
@@ -221,7 +227,7 @@ Atlantis.Sprite = (function () {
                 if (this.rectangle.getBottom() < this.viewport.y) {
                     this.rectangle.y = this.viewport.height;
                 }
-                else if (this.position.y > this.viewport.height) {
+                else if (this.rectangle.y > this.viewport.height) {
                     this.rectangle.y = this.viewport.y;
                 }
             }

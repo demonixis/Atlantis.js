@@ -103,10 +103,12 @@ Level.prototype.loadLevel = function (content, scene, callback) {
 };
 
 Level.prototype.reload = function (content, scene, levelId, callback) {
-	this.scene.clear();
-	this.levelId = levelId;
-	this.loaded = false;
-	this.loadLevel(content, scene, callback);
+    if (this.loaded) {
+        this.loaded = false;
+        scene.clear();
+        this.levelId = levelId;
+        this.loadLevel(content, scene, callback);
+    }
 };
 
 function getAssetName (id) {

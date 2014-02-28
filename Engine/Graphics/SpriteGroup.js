@@ -128,6 +128,10 @@ Atlantis.SpriteGroup = (function () {
 
     	return entity;
     };
+    
+    spriteGroup.prototype.clear = function () {
+        this.entities.length = 0;  
+    };
 
     return spriteGroup;
 })();

@@ -37,7 +37,7 @@ Gem.prototype.move = function (x, y) {
 
 Gem.prototype.update = function (gameTime) {
     Atlantis.Sprite.prototype.update.call(this, gameTime);
-    
+    return;
     this.move(this.getX(), this.getY() + this.speed * this.sign * gameTime.getElapsedTime()); 
 			
 	if (this.getY() <= this.minY) {

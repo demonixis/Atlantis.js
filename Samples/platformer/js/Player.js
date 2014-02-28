@@ -4,7 +4,7 @@ var MovementState = {
 
 var Collider2 = {
 	rectangleCollide: function (a, b) {
-		return a.rectangle.contains(b.rectangle);
+		return a.rectangle.intersects(b.rectangle);
 	}
 };
 
@@ -20,6 +20,7 @@ var Player = function () {
 	this.jumpHeight = 125;
 	this.jumpSpeed = 2.5;
 	this.initialJumpPosition = new Atlantis.Vector2();
+    //this.acrossScreen = true;
 };
 
 Player.prototype = new Atlantis.Sprite();
@@ -91,7 +92,7 @@ Player.prototype.update = function (gameTime) {
 
 Player.prototype.updatePhysics = function (blocksSize, blocks) {
 	if (this.movementState != MovementState.JumpingUp) {
-		this.setY(this.getY() + this.gravity);
+		this.move(this.getX(), this.getY() + this.gravity);
 	}
 	
 	var i = 0;
@@ -99,14 +100,14 @@ Player.prototype.updatePhysics = function (blocksSize, blocks) {
 
 	while(i < blocksSize && collide == false) {
 		if (Collider2.rectangleCollide(this, blocks[i])) {
-			if (this.position.y < blocks[i].getY() && this.movementState == MovementState.JumpingUp) {
+			if (this.getY() < blocks[i].getY() && this.movementState == MovementState.JumpingUp) {
 					this.movementState = MovementState.JumpingDown;
-					this.setY(blocks[i].getBoundingRectangle().getBottom());
+					this.move(this.getX(), blocks[i].getBoundingRect().getBottom());
 					collide = true;
 			} 
 			else {
 				collide = true;
-				this.setY(blocks[i].getY() - this.getHeight());
+				this.move(this.getX(), blocks[i].getY() - this.getHeight());
 				this.movementState = MovementState.Walking;
 			}
 		}
