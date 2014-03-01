@@ -75,6 +75,7 @@ Atlantis.SpriteBatch.prototype.end = function () {
         // TODO : Implement matrix rotation/translation/scaling
         var fX, fY, fWidth, fHeight;
         var oX, oY;
+        var sx, sy;
 
         for (var i = 0, l = this._batchItems.length; i < l; i++) {
             item = this._batchItems[i];
@@ -85,6 +86,9 @@ Atlantis.SpriteBatch.prototype.end = function () {
             
             oX = item.origin ? item.origin.x : 0;
             oY = item.origin ? item.origin.y : 0;
+            
+            sx = item.scale ? item.scale.x : 1;
+            sy = item.scale ? item.scale.y : 1;
             
             this._context.save();
 
@@ -113,6 +117,7 @@ Atlantis.SpriteBatch.prototype.end = function () {
             }
 
             if (item.type === Atlantis.BatchItemType.Texture) {
+                // This part is bugged and I don't know why. The item is well recolorized but all other items go away Oo'
                 if (window.debug && item.color && item.texture2D.width && item.texture2D.height) {
                     this._colorTarget.setSize(item.texture2D.width, item.texture2D.height);
                     this._colorTarget.clear();

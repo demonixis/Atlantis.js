@@ -23,8 +23,8 @@ Atlantis.Game = (function () {
         this.settings = params || {};
         this.settings.webGL = false; // FIXME
         
-        this.width = width || document.body.innerWidth || 640;
-        this.height = height || document.body.innerHeight || 480;
+        var width = width || window.innerWidth || 640;
+        var height = height || window.innerHeight || 480;
         this.domElement = domElement || document.body;
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
@@ -32,7 +32,7 @@ Atlantis.Game = (function () {
         this.keyboard = null;
         this.pointer = null;
         
-        this.graphicsDevice = new Atlantis.GraphicsDevice(this.width, this.height, this.settings);
+        this.graphicsDevice = new Atlantis.GraphicsDevice(width, height, this.settings);
         this.frontBuffer = null;
         this.context = null;
         

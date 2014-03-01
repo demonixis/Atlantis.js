@@ -41,7 +41,7 @@
     <script>
         // The Game class
         var TestGame = function () {
-            Atlantis.Game.call(this, 640, 480);
+            Atlantis.Game.call(this, 1024, 768, null, { backBufferWidth: 640, backBufferHeight: 480 });
             this.content.setRootDirectory("Content/");
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
             this.spriteA = null;
@@ -60,7 +60,11 @@
         TestGame.prototype.loadContent = function () {
             Atlantis.GameApplication.prototype.loadContent.call(this);
             
-            this.spriteA = this.content.load("atlantis_logo.jpg");
+            var that = this;
+            this.spriteA = this.content.load("atlantis_logo.jpg", function () {
+                that.spriteA.width = 32;
+                that.spriteA.height = 32;
+            });
             this.textA = new Atlantis.SpriteFont();
         };
 
@@ -95,23 +99,24 @@
             
             // Draw simple texts.
             this.spriteBatch.drawString(this.textA, "SpriteBatch test", { x: 10, y: 15 }, "#459999");
-            this.spriteBatch.drawString(this.textA, Math.round(gameTime.getFPS()) + " FPS", { x: 570, y: 15 }, "#459999");
             
-            // texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth
-            this.spriteBatch.draw(this.spriteA, this.position, null, { red: 0, green: 200, blue: 100, alpha: 200 }, this.rotation, { x: this.spriteA.width / 2, y: this.spriteA.height / 2 }, null, null, null, -45);
+            this.spriteBatch.drawString(this.textA, Math.round(gameTime.getFPS()) + " FPS", { x: this.graphicsDevice.preferredBackBufferWidth - 50, y: 15 }, "#459999");
             
-            // A texture with a position, a rotation and a draw order of 1.
-            this.spriteBatch.draw(this.spriteA, { x: 100, y: 100 }, null, null, this.rotation, { x: 0, y: 0 }, null, null, null, 1);
-            this.spriteBatch.draw(this.spriteA, { x: 130, y: 130 }, null, null, this.rotation, { x: 0, y: 0 }, null, null, null, 1);
+            this.spriteBatch.drawString(this.textA, "Scaled text", { x: 10, y: this.graphicsDevice.preferredBackBufferHeight - 50 }, "#4599FF", 0, { x: 0, y: 0 }, { x: 7, y: 2 }, Atlantis.SpriteEffect.None);
             
-            // A texture with a position, a rotation, an origin set to the bottom right corner, a scale, no effect and a draw order of 3.
-            this.spriteBatch.draw(this.spriteA, { x: 250, y: 200 }, null, null, this.rotation, { x: this.spriteA.width, y: this.spriteA.height }, { x: 2, y: 1.5}, Atlantis.SpriteEffect.None, 3);
+            this.spriteBatch.draw(this.spriteA, this.position, null, null, this.rotation, { x: this.spriteA.width >> 1, y: this.spriteA.height >> 1 }, null, null, null, -45);
             
-            // Horizontal flip and draw order of 3.
-            this.spriteBatch.draw(this.spriteA, { x: 250, y: 300 }, null, null, null, null, null, Atlantis.SpriteEffect.FlipHorizontaly, 3); 
+            this.spriteBatch.draw(this.spriteA, { x: 150, y: 100 }, null, null, this.rotation, { x: 0, y: 0 }, { x: 1, y: 1 }, Atlantis.SpriteEffect.None, 2);
             
-            // Vertical flip and draw order of 4.
-            this.spriteBatch.draw(this.spriteA, { x: 250, y: 400 }, null, null, null, null, null, Atlantis.SpriteEffect.FlipVerticaly, 4);  
+            this.spriteBatch.draw(this.spriteA, { x: 150, y: 150 }, null, null, this.rotation, { x: 0, y: 0 }, { x: 1, y: 1 }, Atlantis.SpriteEffect.None, 3);
+            
+            this.spriteBatch.draw(this.spriteA, { x: 150, y: 200 }, null, null, this.rotation, { x: 0, y: 0 }, { x: 2, y: 3 }, Atlantis.SpriteEffect.FlipHorizontaly, 3);
+            
+            this.spriteBatch.draw(this.spriteA, { x: 150, y: 250 }, null, null, this.rotation, { x: 0, y: 0 }, { x: 2, y: 1.5}, Atlantis.SpriteEffect.None, 4);
+            
+            this.spriteBatch.draw(this.spriteA, { x: 150, y: 300 }, null, null, this.rotation, { x: this.spriteA.width >> 1, y: this.spriteA.height >> 1 }, { x: 3, y: 1 }, Atlantis.SpriteEffect.FlipHorizontaly, 3); 
+            
+            this.spriteBatch.draw(this.spriteA, { x: 150, y: 350 }, null, null, this.rotation, { x: this.spriteA.width >> 1, y: this.spriteA.height >> 1 }, { x: 4, y: 0.5 }, Atlantis.SpriteEffect.FlipVerticaly, 1);  
             
             // Draw all of this in the screen
             this.spriteBatch.end();
