@@ -13,28 +13,37 @@ var Atlantis = window.Atlantis || {};
 * @constructor
 * @param {Canvas} The canvas used to render the game.
 */
-Atlantis.GraphicsDevice = function (frontBufferWidth, frontBufferHeight, backBufferWidth, backBufferHeight, is3D) {
-    var fbWidth = frontBufferWidth || 800,
-        fbHeight = frontBufferHeight || 480,
-        bbWidth = backBufferWidth || frontBufferWidth,
-        bbHeight = backBufferHeight || frontBufferHeight,
-        useWebGL = is3D ? is3D : false;
+Atlantis.GraphicsDevice = function (width, height, settings) {
+    var settings = settings || {};
+    settings.webGL ? true : false;
+    settings.width = width;
+    settings.height = height;
+    
+    this.preferredBackBufferWidth = settings.backBufferWidth || width;
+    this.preferredBackBufferHeight = settings.backBufferWidth || height;
+    
+    if (width && height) {
+        this._frontBuffer = new Atlantis.RenderTarget(width, height, settings.webGL, settings.canvas);
+        this._fbContext = this._frontBuffer.getContext();
+        this._backBuffer = new Atlantis.RenderTarget(this.preferredBackBufferWidth, this.preferredBackBufferHeight, settings.webGL);
 
-    this._frontBuffer = new Atlantis.RenderTarget(fbWidth, fbHeight, useWebGL);
-    this._fbContext = frontBuffer.getContext();
-    this._backBuffer = new Atlantis.RenderTarget(bbWidth, bbHeight, useWebGL);
-    this.preferredBackBufferWidth = bbWidth;
-    this.preferredBackBufferHeight = bbHeight;
+        var canvas = this._frontBuffer.getCanvas();
+        canvas.style.msTouchAction = "none";
+        canvas.style.backgroundColor = "#000";
+        canvas.id = canvas.id ? canvas.id : "AtlantisCanvas";
+    }
 };
 
-Atlantis.GraphicsDevice.prototype.setPreferredBackBufferSize = function (width, height) {
-    this._backBuffer.setSize(width, height);
-    this.preferredBackBufferWidth = width;
-    this.preferredBackBufferHeight = height;
+Atlantis.GraphicsDevice.prototype.applyChanges = function () {
+    this._backBuffer.setSize(this.preferredBackBufferWidth, this.preferredBackBufferHeight);
 };
 
 Atlantis.GraphicsDevice.prototype.getBackBuffer = function () {
     return this._backBuffer;
+};
+
+Atlantis.GraphicsDevice.prototype.getFrontBuffer = function () {
+    return this._frontBuffer;
 };
 
 Atlantis.GraphicsDevice.prototype.clear = function (color) {

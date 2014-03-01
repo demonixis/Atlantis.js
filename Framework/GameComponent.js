@@ -171,7 +171,7 @@ Atlantis.GameComponentCollection.prototype.loadContent = function () {
 * Unload assets
 * @method unloadContent
 */
-Atlantis.GameComponentCollection.prototype.unloadContent = function (content) {
+Atlantis.GameComponentCollection.prototype.unloadContent = function () {
     for (var i = 0, l = this.drawables.length; i < l; i++) {
         this.drawables[i].unloadContent();
     }
@@ -213,7 +213,7 @@ Atlantis.GameComponentCollection.prototype.add = function (gameComponent) {
         this.components.push(gameComponent);
 
         if (this.initialized) {
-            component.initialize();
+            gameComponent.initialize();
         }
 
         if (gameComponent instanceof Atlantis.DrawableGameComponent) {

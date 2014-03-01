@@ -19,7 +19,7 @@ Atlantis.KeyboardComponent = (function () {
     */
     var keyComponent = function (game) {
         Atlantis.GameComponent.call(this, game);
-        this.keysState = game.keyboardManager.getState();
+        this.keysState = game.keyboard.getState();
         this.previousKeysState = null;
     };
 
@@ -32,7 +32,7 @@ Atlantis.KeyboardComponent = (function () {
     */
     keyComponent.prototype.update = function (gameTime) {
         this.previousKeysState = this.keysState;
-        this.keysState = this.game.keyboardManager.getState();
+        this.keysState = this.game.keyboard.getState();
     };
 
     /**

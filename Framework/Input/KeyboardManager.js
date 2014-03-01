@@ -66,7 +66,7 @@ Atlantis.KeyboardManager = function (maxKeys) {
         this.keys[i] = false;
     }
 
-    this.preventDefault = false;
+    this.preventDefault = true;
 
     var that = this;
 

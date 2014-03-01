@@ -74,11 +74,9 @@ Atlantis.Sprite = (function () {
         if (this.textureName != "" && this.assetLoaded == false) {
             var that = this;
 
-            this.texture = contentManager.load(this.textureName, function () {
-                Atlantis.Sprite.computeImageSize(this);
-
-                that.rectangle.width = this.width;
-                that.rectangle.height = this.height;
+            this.texture = contentManager.load(this.textureName, function (image) {
+                that.rectangle.width = image.width;
+                that.rectangle.height = image.height;
 
                 that.assetLoaded = true;
  
@@ -323,23 +321,6 @@ Atlantis.Sprite = (function () {
     sprite.prototype.getBoundingRect = function () {
         return this.rectangle;
     };
-    
-    /**
-     * Gets the size of an image. This function add the image to the DOM an remove from it.
-     * After that we can gets the size of the image.
-     * @method getImageSize
-     * @param {Image} image An instance of Image.
-     */
-    sprite.computeImageSize = function (image) {
-        image.style.position = "absolute";
-        image.style.left = "-9999px";
-
-        document.body.appendChild(image);
-        document.body.removeChild(image);
-
-        image.style.position = "";
-        image.style.left = "";
-    }
 
     return sprite;
 })();

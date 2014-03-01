@@ -83,7 +83,17 @@ Atlantis.ContentManager = (function () {
      */
     function loadImage(assetCollection, imageName, callback) {
         var image = new Image();
-        image.onload = callback;
+        image.onload = function () {
+            this.style.position = "absolute";
+            this.style.left = "-9999px";
+
+            document.body.appendChild(image);
+            document.body.removeChild(image);
+
+            this.style.position = "";
+            this.style.left = "";
+            callback(this);
+        };
         image.src = imageName;
         assetCollection[imageName] = image;
         return image;
@@ -94,7 +104,7 @@ Atlantis.ContentManager = (function () {
      */
     function loadAudio(assetCollection, audioName, callback) {
         var audio = document.createElement("audio");
-        audio.addEventListener("load", callback);
+        audio.onload = callback;
         audio.src = audioName;
         audio.controls = false;
         assetCollection[audioName] = audio;
@@ -106,7 +116,7 @@ Atlantis.ContentManager = (function () {
      */
     function loadVideo(assetCollection, videoName, callback) {
         var video = document.createElement("video");
-        video.addEventListener("load", callback);
+        video.onload = callback;
         video.src = videoName;
         assetCollection[videoName] = video;
         return video;

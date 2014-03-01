@@ -159,7 +159,7 @@ Atlantis.StateManager = (function () {
     */
     stateManager.prototype.loadContent = function () {
         for (var i = 0, l = this.states.length; i < l; i++) {
-            this.states[i].loadContent(this.game.contentManager);
+            this.states[i].loadContent(this.game.content);
         }
         this.assetLoaded = true;
     };

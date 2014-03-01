@@ -7,8 +7,8 @@
  */
 
 var Atlantis = window.Atlantis || {};
-Atlantis.Application = {};
 
+Atlantis.Application = {};
 
 Atlantis.GameApplication = (function () {
     /**
@@ -23,9 +23,6 @@ Atlantis.GameApplication = (function () {
         Atlantis.Game.call(this, width, height, domElement);
 
         this.stateManager = new Atlantis.StateManager(this);
-        var keyboardComponent = new Atlantis.KeyboardComponent(this);
-
-        this.components.add(keyboardComponent);
         this.components.add(this.stateManager);
 
         var that = this;
@@ -35,17 +32,26 @@ Atlantis.GameApplication = (function () {
                 return that.stateManager.loadLevel(levelName);
             },
             Game: this,
-            ContentManager: this.contentManager,
+            ContentManager: this.content,
             Components: this.components,
-            Keyboard: keyboardComponent,
-            PointerManager: this.pointerManager,
+            Keyboard: null,
             Width: width,
             Height: height,
             StateManager: this.stateManager
         };
     };
-
+    
     engine.prototype = new Atlantis.Game();
+    
+    engine.prototype.initialize = function () {
+        Atlantis.Game.prototype.initialize.call(this);
+        
+        var keyboardComponent = new Atlantis.KeyboardComponent(this);
+        this.components.add(keyboardComponent);
+    
+        Atlantis.Application.Keyboard = keyboardComponent;
+        Atlantis.Application.Pointer = this.pointer;
+    };
 
     return engine;
 })();

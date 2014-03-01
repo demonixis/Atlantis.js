@@ -7,19 +7,25 @@
 
 var Atlantis = window.Atlantis || {};
 
-Atlantis.RenderTarget = function (width, height, is3D) {
-    this._canvas = document.createElement("canvas");
-    this.setSize(width, height);
+Atlantis.RenderTarget = function (width, height, is3D, canvas) {
+    this._canvas = canvas || document.createElement("canvas");
     this._context = null;
-    this._is3DCanvas = is3D;
     this.viewport = new Atlantis.Rectangle(0, 0, width, height); 
-
-    if (is3D) {
+    
+    var is3DCanvas = is3D;
+    
+    if (is3DCanvas) {
         this._context = this._canvas.getContext("webgl") || this._canvas.getContext("experimental-webgl");
     }
     else {
-        this._context = this._canvas.getContext("2D");
+        this._context = this._canvas.getContext("2d");
     }
+
+    this.isWebGLCanvas = function () {
+        return is3DCanvas;
+    };
+   
+    this.setSize(width, height);
 };
 
 Atlantis.RenderTarget.prototype.getContext = function () {
@@ -41,15 +47,11 @@ Atlantis.RenderTarget.prototype.getHeight = function () {
 Atlantis.RenderTarget.prototype.setSize = function (width, height) {
     this._canvas.width = width;
     this._canvas.height = height;
-    this._viewport.setSize(width, height);
+    this.viewport.setSize(width, height);
 };
 
 Atlantis.RenderTarget.prototype.getViewport = function () {
     return this.viewport;
-};
-
-Atlantis.RenderTarget.prototype.is3DCanvas = function () {
-    return this._is3DCanvas;
 };
 
 Atlantis.RenderTarget.prototype.clear = function (color) {
