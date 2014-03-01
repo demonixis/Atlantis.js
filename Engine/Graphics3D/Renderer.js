@@ -23,8 +23,8 @@ Atlantis.Graphics3D.ScanLineData = function () {
 
 Atlantis.Graphics3D.Renderer = (function () {
     var renderer = function (backBufferWidth, backBufferHeight, ) {
-        
+
     };
-    
+
     return renderer;
 })();

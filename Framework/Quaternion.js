@@ -8,7 +8,7 @@
 
 var Atlantis = Atlantis || {};
 
- /**
+/**
   * Define a quaternion.
   * @class Quaternion
   * @constructor
@@ -18,18 +18,18 @@ var Atlantis = Atlantis || {};
   * @param {Quaternion} w Value for W coordinate.
   */
 Atlantis.Quaternion = function (x, y, z, w) {
-  if (x instanceof Atlantis.Quaternion) {
-    this.x = x.x;
-    this.y = y.x;
-    this.z = z.x;
-    this.w = w.x;
-  }
-  else {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.w = w;
-  }
+    if (x instanceof Atlantis.Quaternion) {
+        this.x = x.x;
+        this.y = y.x;
+        this.z = z.x;
+        this.w = w.x;
+    }
+    else {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+    }
 };
 
 /**
@@ -38,7 +38,7 @@ Atlantis.Quaternion = function (x, y, z, w) {
 * @return {Atlantis.Quaternion} Return a new Quaternion sets to identity.
 */
 Atlantis.Quaternion.Identity = function () {
-  return new Atlantis.Quaternion(0, 0, 0, 1);
+    return new Atlantis.Quaternion(0, 0, 0, 1);
 };
 
 /**
@@ -46,10 +46,10 @@ Atlantis.Quaternion.Identity = function () {
 * @method add
 */
 Atlantis.Quaternion.prototype.add = function (quaternion) {
-  this.x += quaternion.x;
-  this.y += quaternion.y;
-  this.z += quaternion.z;
-  this.w += quaternion.w;
+    this.x += quaternion.x;
+    this.y += quaternion.y;
+    this.z += quaternion.z;
+    this.w += quaternion.w;
 };
 
 /**
@@ -61,9 +61,9 @@ Atlantis.Quaternion.prototype.add = function (quaternion) {
  * @return {Atlantis.Quaternion} Return a new quaternion.
  */
 Atlantis.Quaternion.add = function (quaternion1, quaternion2) {
-  var result = new Quaternion(quaternion1);
-  result.add(quaternion2);
-  return result;
+    var result = new Quaternion(quaternion1);
+    result.add(quaternion2);
+    return result;
 };
 
 /**
@@ -71,9 +71,9 @@ Atlantis.Quaternion.add = function (quaternion1, quaternion2) {
  * @method conjugate
  */
 Atlantis.Quaternion.prototype.conjugate = function () {
-  this.x *= -1;
-  this.y *= -1;
-  this.z *= -1;
+    this.x *= -1;
+    this.y *= -1;
+    this.z *= -1;
 };
 
 /**
@@ -84,9 +84,9 @@ Atlantis.Quaternion.prototype.conjugate = function () {
  * @return {Atlantis.Quaternion} Return a new conjugate Quaternion.
  */
 Atlantis.Quaternion.conjugate = function (quaternion) {
-  var result = new Quaternion(quaternion);
-  result.conjugate();
-  return result;
+    var result = new Quaternion(quaternion);
+    result.conjugate();
+    return result;
 };
 
 /**
@@ -97,25 +97,25 @@ Atlantis.Quaternion.conjugate = function (quaternion) {
  * @return Return a quaternion with three rotations.
  */
 Atlantis.Quaternion.createFromYawPitchRoll = function (yaw, pitch, roll) {
-  var result = new Quaternion();
+    var result = new Quaternion();
 
-  var halfYaw = yaw * 0.5;
-  var halfPitch = pitch * 0.5;
-  var halfRoll = roll * 0.5;
+    var halfYaw = yaw * 0.5;
+    var halfPitch = pitch * 0.5;
+    var halfRoll = roll * 0.5;
 
-  var sinYaw = Math.sin(halfYaw);
-  var cosYaw = Math.cos(halfYaw);	
-  var sinPitch = Math.sin(halfPitch);
-  var cosPitch = Math.cos(halfPitch);	
-  var sinRoll = Math.sin(halfRoll);
-  var cosRoll = Math.cos(halfRoll);
+    var sinYaw = Math.sin(halfYaw);
+    var cosYaw = Math.cos(halfYaw);	
+    var sinPitch = Math.sin(halfPitch);
+    var cosPitch = Math.cos(halfPitch);	
+    var sinRoll = Math.sin(halfRoll);
+    var cosRoll = Math.cos(halfRoll);
 
-  result.x = (cosYaw * sinPitch * cosRoll) + (sinYaw * cosPitch * sinRoll);
-  result.y = (sinYaw * cosPitch * cosRoll) - (cosYaw * sinPitch * sinRoll);
-  result.z = (cosYaw * cosPitch * sinRoll) - (sinYaw * sinPitch * cosRoll);
-  result.w = (cosYaw * cosPitch * cosRoll) - (sinYaw * sinPitch * sinRoll);
+    result.x = (cosYaw * sinPitch * cosRoll) + (sinYaw * cosPitch * sinRoll);
+    result.y = (sinYaw * cosPitch * cosRoll) - (cosYaw * sinPitch * sinRoll);
+    result.z = (cosYaw * cosPitch * sinRoll) - (sinYaw * sinPitch * cosRoll);
+    result.w = (cosYaw * cosPitch * cosRoll) - (sinYaw * sinPitch * sinRoll);
 
-  return result;
+    return result;
 };
 
 /**
@@ -124,5 +124,5 @@ Atlantis.Quaternion.createFromYawPitchRoll = function (yaw, pitch, roll) {
   * @return {String}
   */
 Atlantis.Quaternion.prototype.toString = function () {
-  return ["x: ", this.x, " y: ", this.y, " z: ", this.z, " w: ", this.w].join("");
+    return ["x: ", this.x, " y: ", this.y, " z: ", this.z, " w: ", this.w].join("");
 };

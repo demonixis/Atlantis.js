@@ -63,28 +63,28 @@ Atlantis.SpriteBatch.prototype.end = function () {
                 }
             });
         }
-        
+
         // TODO : Implement matrix rotation/translation/scaling
         for (var i = 0, l = this._batchItems.length; i < l; i++) {
             item = this._batchItems[i];
-            
+
             this._context.save();
             if (item.origin) {
                 this._context.translate(item.origin.x, item.origin.y);   
             }
-            
+
             if (item.rotation) {
                 this._context.rotate(item.rotation);   
             }
-            
+
             if (item.scale) {
                 this._context.scale(item.scale.x, item.scale.y);   
             }
-            
+
             if (item.origin) {
                 this._context.translate(-item.origin.x, -item.origin.y);
             }
-            
+
             if (item.effect != Atlantis.SpriteEffect.None) {
                 if (item.effect == Atlantis.SpriteEffect.FlipHorizontaly) {
                     this._context.scale(-1, 1);   
@@ -93,7 +93,7 @@ Atlantis.SpriteBatch.prototype.end = function () {
                     this._context.scale(1, -1);   
                 }
             }
-            
+
             if (item.type === Atlantis.BatchItemType.Texture) {
                 // TODO : Implement color
                 if (item.sourceRectangle) {
@@ -108,10 +108,10 @@ Atlantis.SpriteBatch.prototype.end = function () {
                 this._context.font = item.spriteFont.getFont();
                 this._context.fillText(item.text, item.position.x, item.position.y);
             }
-            
+
             this._context.restore();
         }
-        
+
         // Flush renderTarget into backbuffer
         this._bbContext.drawImage(this._canvas, this._renderTarget.viewport.x, this._renderTarget.viewport.y, this._renderTarget.viewport.width, this._renderTarget.viewport.height);
         this._batchItems.length = 0;
@@ -125,7 +125,7 @@ Atlantis.SpriteBatch.prototype.draw = function (texture2D, destinationRectangle,
             destinationRectangle.width = texture2D.width;
             destinationRectangle.height = texture2D.height;
         }
-       
+
         this._batchItems.push({ 
             type: Atlantis.BatchItemType.Texture, 
             texture2D: texture2D, 

@@ -49,7 +49,7 @@ Atlantis.GameComponent.prototype.update = function (gameTime) { };
  * @return {Boolean} The status of the component.
  */
 Atlantis.GameComponent.prototype.isEnabled = function () {
-	return this.enabled;
+    return this.enabled;
 };
 
 /**
@@ -58,7 +58,7 @@ Atlantis.GameComponent.prototype.isEnabled = function () {
  * @return {Boolean}
  */
 Atlantis.GameComponent.prototype.isInitialized = function () {
-	return this.initialized;
+    return this.initialized;
 };
 
 /**
@@ -67,7 +67,7 @@ Atlantis.GameComponent.prototype.isInitialized = function () {
  * @param {Boolean} enabled Sets to true to enable
  */
 Atlantis.GameComponent.prototype.setEnabled = function (enabled) {
-	this.enabled = enabled;
+    this.enabled = enabled;
 };
 
 // ------------------------------------------------ //

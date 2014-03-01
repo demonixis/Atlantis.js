@@ -1,4 +1,4 @@
- /**
+/**
  * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
@@ -24,10 +24,10 @@ Atlantis.GameApplication = (function () {
 
         this.stateManager = new Atlantis.StateManager(this);
         var keyboardComponent = new Atlantis.KeyboardComponent(this);
-        
+
         this.components.add(keyboardComponent);
         this.components.add(this.stateManager);
-        
+
         var that = this;
 
         Atlantis.Application = {

@@ -38,11 +38,11 @@ Atlantis.Game = (function () {
             this.canvas = this.canvas || createCanvas2D(this.width, this.height, domElement);
             this.canvas.style.msTouchAction = "none";
         }
-        
+
         // TODO : GraphicsDevice will create the correct context
         this.canvasContext = this.canvas.getContext("2d");
         this.pointerManager = new Atlantis.PointerManager(this.canvas);
-        
+
         //this.graphicsDevice = new Atlantis.Graphics.GraphicsDevice(this.canvas);
         this.domElement.addEventListener("resize", onResize, false);
         _instance = this;

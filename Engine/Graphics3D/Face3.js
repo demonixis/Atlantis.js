@@ -19,6 +19,6 @@ Atlantis.Graphics3D.Face3 = (function () {
         }
         this.color = color || 0xfafafa;
     };
-    
+
     return face;
 })();

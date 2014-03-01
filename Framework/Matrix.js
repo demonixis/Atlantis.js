@@ -51,11 +51,11 @@ Atlantis.Matrix.prototype.set = function (values) {
 */
 Atlantis.Matrix.prototype.getIdentityValues = function () {
     var values = [
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		0, 0, 0, 1
-	];
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    ];
     return values;
 };
 
@@ -65,11 +65,11 @@ Atlantis.Matrix.prototype.getIdentityValues = function () {
  * @return {Array} Return an array with 0.
  */
 Atlantis.Matrix.prototype.getZeroValues = function () {
-	var values = [];
-	for (var i = 0; i < 16; i++) {
-		values.push(0.0);
-	}
-	return values;
+    var values = [];
+    for (var i = 0; i < 16; i++) {
+        values.push(0.0);
+    }
+    return values;
 };
 
 /**
@@ -124,9 +124,9 @@ Atlantis.Matrix.prototype.toArray = function () {
  * @param {Atlantis.Vector3} vector A vector to use.
  */
 Atlantis.Matrix.prototype.setLeft = function (vector) {
-	this.M11 = -vector.x;
-	this.M12 = -vector.y;
-	this.M13 = -vector.z;
+    this.M11 = -vector.x;
+    this.M12 = -vector.y;
+    this.M13 = -vector.z;
 };
 
 /**
@@ -135,11 +135,11 @@ Atlantis.Matrix.prototype.setLeft = function (vector) {
  * @return {Atlantis.Matrix} Return a the left vector of the matrix.
  */
 Atlantis.Matrix.prototype.getLeft = function () {
-	var vector = new Atlantis.Vector3();
-	vector.x = -this.M11;
-	vector.y = -this.M12;
-	vector.z = -this.M13;
-	return vector;
+    var vector = new Atlantis.Vector3();
+    vector.x = -this.M11;
+    vector.y = -this.M12;
+    vector.z = -this.M13;
+    return vector;
 };
 
 /**
@@ -148,9 +148,9 @@ Atlantis.Matrix.prototype.getLeft = function () {
  * @param {Atlantis.Vector3} vector
  */
 Atlantis.Matrix.prototype.setRight = function (vector) {
-	this.M11 = vector.x;
-	this.M12 = vector.y;
-	this.M13 = vector.z;
+    this.M11 = vector.x;
+    this.M12 = vector.y;
+    this.M13 = vector.z;
 };
 
 /**
@@ -159,11 +159,11 @@ Atlantis.Matrix.prototype.setRight = function (vector) {
  * @return {Atlantis.Matrix} Return a the right vector of the matrix.
  */
 Atlantis.Matrix.prototype.getRight = function () {
-	var vector = new Atlantis.Vector3();
-	vector.x = this.M11;
-	vector.y = this.M12;
-	vector.z = this.M13;
-	return vector;
+    var vector = new Atlantis.Vector3();
+    vector.x = this.M11;
+    vector.y = this.M12;
+    vector.z = this.M13;
+    return vector;
 };
 
 /**
@@ -172,9 +172,9 @@ Atlantis.Matrix.prototype.getRight = function () {
  * @param {Atlantis.Vector3} vector
  */
 Atlantis.Matrix.prototype.setUp = function (vector) {
-	this.M21 = vector.x;
-	this.M22 = vector.y;
-	this.M23 = vector.z;
+    this.M21 = vector.x;
+    this.M22 = vector.y;
+    this.M23 = vector.z;
 };
 
 /**
@@ -183,11 +183,11 @@ Atlantis.Matrix.prototype.setUp = function (vector) {
  * @return {Atlantis.Matrix} Return a the up vector of the matrix.
  */
 Atlantis.Matrix.prototype.getUp = function () {
-	var vector = new Atlantis.Vector3();
-	vector.x = this.M21;
-	vector.y = this.M22;
-	vector.z = this.M23;
-	return vector;
+    var vector = new Atlantis.Vector3();
+    vector.x = this.M21;
+    vector.y = this.M22;
+    vector.z = this.M23;
+    return vector;
 };
 
 /**
@@ -196,9 +196,9 @@ Atlantis.Matrix.prototype.getUp = function () {
  * @param {Atlantis.Vector3} vector
  */
 Atlantis.Matrix.prototype.setDown = function (vector) {
-	this.M21 = -vector.x;
-	this.M22 = -vector.y;
-	this.M23 = -vector.z;
+    this.M21 = -vector.x;
+    this.M22 = -vector.y;
+    this.M23 = -vector.z;
 };
 
 /**
@@ -207,11 +207,11 @@ Atlantis.Matrix.prototype.setDown = function (vector) {
  * @return {Atlantis.Matrix} Return a the down vector of the matrix.
  */
 Atlantis.Matrix.prototype.getDown = function () {
-	var vector = new Atlantis.Vector3();
-	vector.x = -this.M21;
-	vector.y = -this.M22;
-	vector.z = -this.M23;
-	return vector;
+    var vector = new Atlantis.Vector3();
+    vector.x = -this.M21;
+    vector.y = -this.M22;
+    vector.z = -this.M23;
+    return vector;
 };
 
 /**
@@ -220,9 +220,9 @@ Atlantis.Matrix.prototype.getDown = function () {
  * @param {Atlantis.Vector3} vector
  */
 Atlantis.Matrix.prototype.setBackward = function (vector) {
-	this.M31 = vector.x;
-	this.M32 = vector.y;
-	this.M33 = vector.z;
+    this.M31 = vector.x;
+    this.M32 = vector.y;
+    this.M33 = vector.z;
 };
 
 /**
@@ -231,11 +231,11 @@ Atlantis.Matrix.prototype.setBackward = function (vector) {
  * @return {Atlantis.Matrix} Return a the backward vector of the matrix.
  */
 Atlantis.Matrix.prototype.getBackward = function () {
-	var vector = new Atlantis.Vector3();
-	vector.x = this.M31;
-	vector.y = this.M32;
-	vector.z = this.M33;
-	return vector;
+    var vector = new Atlantis.Vector3();
+    vector.x = this.M31;
+    vector.y = this.M32;
+    vector.z = this.M33;
+    return vector;
 };
 
 /**
@@ -244,7 +244,7 @@ Atlantis.Matrix.prototype.getBackward = function () {
  * @param {Atlantis.Vector3} vector
  */
 Atlantis.Matrix.prototype.setForward = function (vector) {
-	this.M31 = -vector.x;
+    this.M31 = -vector.x;
     this.M32 = -vector.y;
     this.M33 = -vector.z;
 };
@@ -255,11 +255,11 @@ Atlantis.Matrix.prototype.setForward = function (vector) {
  * @return {Atlantis.Matrix} Return a the forward vector of the matrix.
  */
 Atlantis.Matrix.prototype.getForward = function () {
-	var vector = new Atlantis.Vector3();
-	vector.x = -this.M31;
-	vector.y = -this.M32;
-	vector.z = -this.M33;
-	return vector;
+    var vector = new Atlantis.Vector3();
+    vector.x = -this.M31;
+    vector.y = -this.M32;
+    vector.z = -this.M33;
+    return vector;
 };
 
 /**
@@ -444,7 +444,7 @@ Atlantis.Matrix.createLookAt = function (position, target, upVector) {
  * @return {Atlantis.Matrix}
  */
 Atlantis.Matrix.createOrthographic = function (width, height, zNear, zFar) {
-	var matrix = new Matrix();
+    var matrix = new Matrix();
     matrix.M11 = 2.0 / width;
     matrix.M12 = matrix.M13 = matrix.M14 = 0.0;
     matrix.M22 = 2.0 / height;
@@ -468,24 +468,24 @@ Atlantis.Matrix.createOrthographic = function (width, height, zNear, zFar) {
  * @return {Atlantis.Matrix}
  */
 Atlantis.Matrix.createOrthographicOffCenter = function (left, right, bottom, top, zNear, zFar) {
-	var matrix = new Atlantis.Matrix();
-	matrix.M11 = (2.0 / (right - left));
-	matrix.M12 = 0.0;
-	matrix.M13 = 0.0;
-	matrix.M14 = 0.0;
-	matrix.M21 = 0.0;
-	matrix.M22 = (2.0 / (top - bottom));
-	matrix.M23 = 0.0;
-	matrix.M24 = 0.0;
-	matrix.M31 = 0.0;
-	matrix.M32 = 0.0;
-	matrix.M33 = (1.0 / (zNear - zFar));
-	matrix.M34 = 0.0;
-	matrix.M41 = ((left + right) / (left - right));
-	matrix.M42 = ((top + bottom) / (bottom - top));
-	matrix.M43 = (zNear / (zNear - zFar));
-	matrix.M44 = 1.0;
-	return matrix;
+    var matrix = new Atlantis.Matrix();
+    matrix.M11 = (2.0 / (right - left));
+    matrix.M12 = 0.0;
+    matrix.M13 = 0.0;
+    matrix.M14 = 0.0;
+    matrix.M21 = 0.0;
+    matrix.M22 = (2.0 / (top - bottom));
+    matrix.M23 = 0.0;
+    matrix.M24 = 0.0;
+    matrix.M31 = 0.0;
+    matrix.M32 = 0.0;
+    matrix.M33 = (1.0 / (zNear - zFar));
+    matrix.M34 = 0.0;
+    matrix.M41 = ((left + right) / (left - right));
+    matrix.M42 = ((top + bottom) / (bottom - top));
+    matrix.M43 = (zNear / (zNear - zFar));
+    matrix.M44 = 1.0;
+    return matrix;
 };
 
 /**
@@ -499,12 +499,12 @@ Atlantis.Matrix.createOrthographicOffCenter = function (left, right, bottom, top
  * @return {Atlantis.Matrix} Return a matrix of this type of perspective.
  */
 Atlantis.Matrix.createPerspectiveFieldOfView = function (fov, aspect, zNear, zFar) {
-	var yScale = (1.0 / Math.tan(fov * 0.5));
-	var xScale = yScale / aspect;
-	var halfWidth = zNear / xScale;
-	var halfHeight = zNear / yScale;
-	
-	return Atlantis.Matrix.createPerspectiveOffCenter(-halfWidth, halfWidth, -halfHeight, halfHeight, zNear, zFar);
+    var yScale = (1.0 / Math.tan(fov * 0.5));
+    var xScale = yScale / aspect;
+    var halfWidth = zNear / xScale;
+    var halfHeight = zNear / yScale;
+
+    return Atlantis.Matrix.createPerspectiveOffCenter(-halfWidth, halfWidth, -halfHeight, halfHeight, zNear, zFar);
 };
 
 /**
@@ -518,12 +518,12 @@ Atlantis.Matrix.createPerspectiveFieldOfView = function (fov, aspect, zNear, zFa
  * @return {Atlantis.Matrix} Return a matrix of this type of perspective.
  */
 Atlantis.Matrix.createPerspetiveFieldOfViewRH = function (fov, aspect, zNear, zFar) {
-	var yScale = (1.0 / Math.tan(fov * 0.5));
-	var xScale = yScale / aspect;
-	var halfWidth = zNear / xScale;
-	var halfHeight = zNear / yScale;
-	
-	return Matrix.createPerspectiveOffCenterRH(-halfWidth, halfWidth, -halfHeight, halfHeight, zNear, zFar);
+    var yScale = (1.0 / Math.tan(fov * 0.5));
+    var xScale = yScale / aspect;
+    var halfWidth = zNear / xScale;
+    var halfHeight = zNear / yScale;
+
+    return Matrix.createPerspectiveOffCenterRH(-halfWidth, halfWidth, -halfHeight, halfHeight, zNear, zFar);
 };
 
 /**
@@ -564,12 +564,12 @@ Atlantis.Matrix.createPerspectiveOffCenter = function (left, right, bottom, top,
 * @return {Atlantis.Matrix} Return a new custom perspective matrix.
 */
 Atlantis.Matrix.createPerspectiveOffCenterRH = function (left, right, bottom, top, zNear, zFar) {
-	var matrix = createPerspectiveOffCenter(left, right, bottom, top, zNear, zFar);
-	matrix.M31 *= -1.0;
-	matrix.M32 *= -1.0;
-	matrix.M33 *= -1.0;
-	matrix.M34 *= -1.0;
-	return matrix;
+    var matrix = createPerspectiveOffCenter(left, right, bottom, top, zNear, zFar);
+    matrix.M31 *= -1.0;
+    matrix.M32 *= -1.0;
+    matrix.M33 *= -1.0;
+    matrix.M34 *= -1.0;
+    return matrix;
 }
 
 /**
@@ -577,7 +577,7 @@ Atlantis.Matrix.createPerspectiveOffCenterRH = function (left, right, bottom, to
  * @method invert
  */
 Atlantis.Matrix.prototype.invert = function () {
-	var b0 = (this.M31 * this.M42) - (this.M32 * this.M41);
+    var b0 = (this.M31 * this.M42) - (this.M32 * this.M41);
     var b1 = (this.M31 * this.M43) - (this.M33 * this.M41);
     var b2 = (this.M34 * this.M41) - (this.M31 * this.M44);
     var b3 = (this.M32 * this.M43) - (this.M33 * this.M42);
@@ -590,7 +590,7 @@ Atlantis.Matrix.prototype.invert = function () {
     var d14 = this.M21 * b3 + this.M22 * -b1 + this.M23 * b0;
 
     var det = this.M11 * d11 - this.M12 * d12 + this.M13 * d13 - this.M14 * d14;
-    
+
     if (Math.abs(det) == 0.0) {
         this.set(this.getZeroValues());
         return;
@@ -634,9 +634,9 @@ Atlantis.Matrix.prototype.invert = function () {
  * @return {Atlantis.Matrix} Return the inverse of the matrix.
  */
 Atlantis.Matrix.invert = function (matrix) {
-	var mat = new Matrix(matrix);
-	mat.invert();
-	return mat;
+    var mat = new Matrix(matrix);
+    mat.invert();
+    return mat;
 };
 
 /**
@@ -649,21 +649,21 @@ Atlantis.Matrix.invert = function (matrix) {
  * @return {Atlantis.Matrix} Return a world matrix.
  */
 Atlantis.Matrix.createWorld = function (position, forward, upVector) {
-	var matrix = new Atlantis.Matrix();
-	
-	var x = Atlantis.Vector3.cross(forward, upVector);
-	var y = Atlantis.Vector3.cross(x, forward);
-	var z = Atlantis.Vector3.normalize(forward);
-	x.normalize();
-	y.normalize();
-	
-	//matrix.setRight(x);
-	//matrix.setUp(y);
-	//matrix.setForward(z);
-	matrix.setTranslation(position);
-	matrix.M44 = 1.0;
-	
-	return matrix;
+    var matrix = new Atlantis.Matrix();
+
+    var x = Atlantis.Vector3.cross(forward, upVector);
+    var y = Atlantis.Vector3.cross(x, forward);
+    var z = Atlantis.Vector3.normalize(forward);
+    x.normalize();
+    y.normalize();
+
+    //matrix.setRight(x);
+    //matrix.setUp(y);
+    //matrix.setForward(z);
+    matrix.setTranslation(position);
+    matrix.M44 = 1.0;
+
+    return matrix;
 }
 
 /**

@@ -394,12 +394,12 @@ Atlantis.Vector3.negate = function (vector) {
  * @method normalize
  */
 Atlantis.Vector3.prototype.normalize = function () {
-	var factor = distance(this, new Atlantis.Vector3());
-	
-	if (factor != 0) {
-		factor = 1.0 / factor;
-		this.set(this.x * factor, this.y * factor, this.z * factor);
-	}
+    var factor = distance(this, new Atlantis.Vector3());
+
+    if (factor != 0) {
+        factor = 1.0 / factor;
+        this.set(this.x * factor, this.y * factor, this.z * factor);
+    }
 };
 
 /**
@@ -409,9 +409,9 @@ Atlantis.Vector3.prototype.normalize = function () {
  * @return {Atlantis.Vector3} result A normalized vector.
  */
 Atlantis.Vector3.normalize = function (vector) {
-	var result = new Vector3(vector);
-	result.normalize();
-	return result;
+    var result = new Vector3(vector);
+    result.normalize();
+    return result;
 };
 
 /**
@@ -423,13 +423,13 @@ Atlantis.Vector3.normalize = function (vector) {
  * @return {Atlantis.Vector3} A tranformed vector.
  */
 Atlantis.Vector3.transform = function (position, matrix) {
-	var vector = new Vector3(
-		(position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41,
+    var vector = new Vector3(
+        (position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41,
         (position.x * matrix.M12) + (position.y * matrix.M22) + (position.z * matrix.M32) + matrix.M42,
         (position.x * matrix.M13) + (position.y * matrix.M23) + (position.z * matrix.M33) + matrix.M43 
-	);
-	
-	return vector;
+    );
+
+    return vector;
 };
 
 /**
@@ -441,12 +441,12 @@ Atlantis.Vector3.transform = function (position, matrix) {
  * @return {Atlantis.Vector4} A tranformed vector.
  */
 Atlantis.Vector3.transformCoordinate = function (position, transform) {
-	 var vector = new Atlantis.Vector4();
-     vector.x = (position.x * transform.M11) + (position.y * transform.M21) + (position.z * transform.M31) + transform.M41;
-     vector.y = (position.x * transform.M12) + (position.y * transform.M22) + (position.z * transform.M32) + transform.M42;
-     vector.z = (position.x * transform.M13) + (position.y * transform.M23) + (position.z * transform.M33) + transform.M43;
-     vector.w = 1.0 / ((position.x * transform.M14) + (position.y * transform.M24) + (position.z * transform.M34) + transform.M44);
-     return new Atlantis.Vector3(vector.x * vector.w, vector.y * vector.w, vector.z * vector.w);
+    var vector = new Atlantis.Vector4();
+    vector.x = (position.x * transform.M11) + (position.y * transform.M21) + (position.z * transform.M31) + transform.M41;
+    vector.y = (position.x * transform.M12) + (position.y * transform.M22) + (position.z * transform.M32) + transform.M42;
+    vector.z = (position.x * transform.M13) + (position.y * transform.M23) + (position.z * transform.M33) + transform.M43;
+    vector.w = 1.0 / ((position.x * transform.M14) + (position.y * transform.M24) + (position.z * transform.M34) + transform.M44);
+    return new Atlantis.Vector3(vector.x * vector.w, vector.y * vector.w, vector.z * vector.w);
 };
 
 /**
@@ -457,9 +457,9 @@ Atlantis.Vector3.transformCoordinate = function (position, transform) {
  * @param z The new Z coordinate.
  */
 Atlantis.Vector3.prototype.set = function (x, y, z) {
-	this.x = x;
-	this.y = y;
-	this.z = z;
+    this.x = x;
+    this.y = y;
+    this.z = z;
 };
 
 /**
@@ -468,5 +468,5 @@ Atlantis.Vector3.prototype.set = function (x, y, z) {
  * @return {String}
  */
 Atlantis.Vector3.prototype.toString = function () {
-	return ["x: ", this.x, " y: ", this.y, " z: ", this.z].join("");
+    return ["x: ", this.x, " y: ", this.y, " z: ", this.z].join("");
 };

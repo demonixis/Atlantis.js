@@ -1,4 +1,4 @@
- /**
+/**
  * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
@@ -9,13 +9,13 @@
 var Atlantis = window.Atlantis || {};
 
 Atlantis.StorageManager = (function () {
-	/**
+    /**
 	 * A storage manager that work with localStorage
 	 * @constructor
 	 * @class StorageManager
 	 */
     var storageManager = function () {
-        
+
     };
 
     /**

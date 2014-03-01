@@ -35,7 +35,7 @@ Atlantis.ContentManager = (function () {
      */
     contentManager.prototype.load = function (assetName, callback) {
         var callback = (typeof(callback) === "function") ? callback : function() {};
-        
+
         if (this.assets[assetName]) {
             callback(this.assets[assetName]);
             return this.assets[assetName];
@@ -69,11 +69,11 @@ Atlantis.ContentManager = (function () {
             return this.assets[assetName];
         }
     };
-    
+
     contentManager.prototype.setRootDirectory = function (rootDirectory) {
         this.rootDirectory = rootDirectory;  
     };
-    
+
     contentManager.prototype.getRootDirectory = function () {
         return this.rootDirectory;  
     };

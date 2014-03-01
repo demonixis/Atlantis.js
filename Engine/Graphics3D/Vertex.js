@@ -20,6 +20,6 @@ Atlantis.Graphics3D.Vertex = (function () {
             this.textureCoordinate = textureCoordinate;
         }
     };
-    
+
     return vertex;
 })();

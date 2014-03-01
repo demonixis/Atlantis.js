@@ -5,7 +5,7 @@
  * @submodule Framework
  * @namespace Atlantis.Input
  */
- 
+
 var Atlantis = window.Atlantis || {};
 
 Atlantis.PointerManager = function (domElement) {
@@ -22,12 +22,12 @@ Atlantis.PointerManager = function (domElement) {
     var domElement = domElement || document.body;
     var initialized = false;
     var that = this;
-    
+
     /**
     * Start event listening on specified DOM element.
     * @method startEventListeners
     */
-   this.initialize = function () {
+    this.initialize = function () {
         if (!initialized) {
             // Mouse
             domElement.addEventListener("mousedown", this.updateHandler, false);
@@ -65,7 +65,7 @@ Atlantis.PointerManager = function (domElement) {
             initialized = false;
         }
     };
-    
+
     var getEvent = function (event) {
         var evt = event;
 
@@ -141,6 +141,6 @@ Atlantis.PointerManager = function (domElement) {
         that.delta.x = (that.delta.x > 50) ? 0 : that.delta.x;
         that.delta.y = (that.delta.y > 50) ? 0 : that.delta.y;
     };
-    
+
     this.initialize();
 };

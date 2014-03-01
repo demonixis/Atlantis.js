@@ -64,5 +64,5 @@ Atlantis.GameTime.prototype.getTotalGameTime = function () {
  * @return {Number} Return the current FPS.
  */
 Atlantis.GameTime.prototype.getFPS = function () {
-	return this.fps;
+    return this.fps;
 };

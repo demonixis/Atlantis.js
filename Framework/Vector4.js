@@ -45,10 +45,10 @@ Atlantis.Vector4  = function (x, y, z, w) {
  * @param {Number} amount Value between 0 and 1 indicating the weight of vector.
  */
 Atlantis.Vector4.prototype.lerp = function (vector, amount) {
-	this.x = Atlantis.MathHelper.lerp(this.x, vector.x, amount);
-	this.y = Atlantis.MathHelper.lerp(this.y, vector.y, amount);
-	this.z = Atlantis.MathHelper.lerp(this.z, vector.z, amount);
-	this.w = Atlantis.MathHelper.lerp(this.w, vector.w, amount);
+    this.x = Atlantis.MathHelper.lerp(this.x, vector.x, amount);
+    this.y = Atlantis.MathHelper.lerp(this.y, vector.y, amount);
+    this.z = Atlantis.MathHelper.lerp(this.z, vector.z, amount);
+    this.w = Atlantis.MathHelper.lerp(this.w, vector.w, amount);
 };
 
 /**
@@ -61,9 +61,9 @@ Atlantis.Vector4.prototype.lerp = function (vector, amount) {
  * @return {Atlantis.Vector4} Return a interpolated Vector3.
  */
 Atlantis.Vector4.lerp = function (vec1, vec2, amount) {
-	var vector = new Vector4(vec1);
-	vector.lerp(vec2, amount);
-	return vector;
+    var vector = new Vector4(vec1);
+    vector.lerp(vec2, amount);
+    return vector;
 };
 
 /**
@@ -72,5 +72,5 @@ Atlantis.Vector4.lerp = function (vec1, vec2, amount) {
  * @return {String}
  */
 Atlantis.Vector4.prototype.toString = function () {
-	return ["x: ", this.x, " y: ", this.y, " z: ", this.z, " w: ", this.w].join("");
+    return ["x: ", this.x, " y: ", this.y, " z: ", this.z, " w: ", this.w].join("");
 };

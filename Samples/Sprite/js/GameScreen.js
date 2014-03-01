@@ -1,6 +1,6 @@
 var GameScreen = function (name) {
     Atlantis.State.call(this, name);
-    
+
     this.background = new Atlantis.Sprite("forest.png");
     this.scene.add(this.background);
 
@@ -30,7 +30,7 @@ GameScreen.prototype.loadContent = function (content) {
 
 GameScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
-    
+
     if (Atlantis.Application.Keyboard.pressed(Atlantis.Keys.Up)) {
         this.sprite.velocity.y -= this.speed * gameTime.getElapsedTime();
         this.sprite.play("up");

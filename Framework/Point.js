@@ -8,7 +8,7 @@
 
 var Atlantis = Atlantis || {};
 
- /**
+/**
  * Create a point structure.
  * @constructor
  * @class Point

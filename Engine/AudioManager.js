@@ -1,4 +1,4 @@
- /**
+/**
  * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis

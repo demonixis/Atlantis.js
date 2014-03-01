@@ -12,12 +12,12 @@ Atlantis.Graphics3D.Light = (function () {
         this.enableFlatShading = true;
         this.enable = true;
     };
-    
+
     light.prototype = new Atlantis.Graphics3D.Object3D();
-    
+
     light.prototype.normalize() {
         return Atlantis.Vector3.normalize(this.position);   
     };
-    
+
     return light;
 })();

@@ -5,7 +5,7 @@
  * @submodule Framework
  * @namespace Atlantis.Input
  */
- 
+
 var Atlantis = window.Atlantis || {};
 
 // --------------------------------------- //
@@ -69,7 +69,7 @@ Atlantis.KeyboardManager = function (maxKeys) {
     this.preventDefault = false;
 
     var that = this;
-    
+
     var onKeyStateChange = function (event) {
         if (that.preventDefault) {
             event.preventDefault();
@@ -77,7 +77,7 @@ Atlantis.KeyboardManager = function (maxKeys) {
 
         that.keys[event.keyCode] = (event.type === "keydown") ? true : false;
     };
-    
+
     document.addEventListener("keydown", onKeyStateChange, false);
     document.addEventListener("keyup", onKeyStateChange, false);
 };

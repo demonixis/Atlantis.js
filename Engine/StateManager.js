@@ -1,11 +1,11 @@
- /**
+/**
  * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
  * @submodule Engine
  * @namespace Atlantis
  */
- 
+
 var Atlantis = window.Atlantis || {};
 
 Atlantis.State = (function () {
@@ -231,7 +231,7 @@ Atlantis.StateManager = (function () {
     stateManager.prototype.loadLevel = function (nameOrIndex) {
         var size = this.states.length;
         var index = size - 1;
-        
+
         this.disableStates();
 
         if (typeof (nameOrIndex) == "string") {
@@ -245,7 +245,7 @@ Atlantis.StateManager = (function () {
         else if (typeof(nameOrIndex) === "number") {
             index = nameOrIndex < size ? nameOrIndex : index;
         }
-        
+
         if (index > -1) {
             this.states[index].active = true;
         }
@@ -282,7 +282,7 @@ Atlantis.StateManager = (function () {
             state[i].initialize();
             state[i].loadContent(this.game.content);
         }
-        
+
         this.states.push(state);
     };
 
@@ -296,7 +296,7 @@ Atlantis.StateManager = (function () {
     stateManager.prototype.remove = function (stateParam) {
         var state = null;
 
-       if (typeof (stateParam) == "string") {
+        if (typeof (stateParam) == "string") {
             var i = 0;
             var index = -1;
 

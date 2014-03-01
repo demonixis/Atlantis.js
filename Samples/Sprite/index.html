@@ -1,55 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <title>Atlantis Game Engine</title>
-    <style>
-    	body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
-    	canvas { display: block; margin: auto; }
-    </style>
-</head>
-<body>
-<script>
-    requestAnimationFrame = window.requestAnimationFrame || mozRequestAnimationFrame;
-</script>
-<!-- Framework -->
-<script src="../../Framework/Compatibility.js"></script>
-<script src="../../Framework/ContentManager.js"></script>
-<script src="../../Framework/GameComponent.js"></script>
-<script src="../../Framework/GameTime.js"></script>
-<script src="../../Framework/Helpers.js"></script>
-<script src="../../Framework/MathHelper.js"></script>
-<script src="../../Framework/Rectangle.js"></script>
-<script src="../../Framework/Matrix.js"></script>
-<script src="../../Framework/Quaternion.js"></script>
-<script src="../../Framework/Vector2.js"></script>
-<script src="../../Framework/Vector3.js"></script>
-<script src="../../Framework/Vector4.js"></script>
-<script src="../../Framework/Input/KeyboardManager.js"></script>
-<script src="../../Framework/Input/PointerManager.js"></script>
-<script src="../../Framework/Input/Keys.js"></script>
-<script src="../../Framework/Graphics/GraphicsDevice.js"></script>
-<script src="../../Framework/Graphics/Texture2D.js"></script>
-<script src="../../Framework/Graphics/RenderTarget.js"></script>
-<script src="../../Framework/Graphics/SpriteBatch.js"></script>
-<script src="../../Framework/Game.js"></script>
-<!-- Engine -->
-<script src="../../Engine/AudioManager.js"></script>
-<script src="../../Engine/StateManager.js"></script>
-<script src="../../Engine/Graphics/Animation.js"></script>
-<script src="../../Engine/Graphics/Sprite.js"></script>
-<script src="../../Engine/Graphics/SpriteGroup.js"></script>
-<script src="../../Engine/Input/KeyboardComponent.js"></script>
-<script src="../../Engine/GameApplication.js"></script>
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis Game Engine</title>
+        <style>
+            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
+            canvas { display: block; margin: auto; }
+        </style>
+    </head>
+    <body>
+        <!-- Framework -->
+        <script src="../../Framework/Compatibility.js"></script>
+        <script src="../../Framework/ContentManager.js"></script>
+        <script src="../../Framework/GameComponent.js"></script>
+        <script src="../../Framework/GameTime.js"></script>
+        <script src="../../Framework/Helpers.js"></script>
+        <script src="../../Framework/MathHelper.js"></script>
+        <script src="../../Framework/Rectangle.js"></script>
+        <script src="../../Framework/Matrix.js"></script>
+        <script src="../../Framework/Quaternion.js"></script>
+        <script src="../../Framework/Vector2.js"></script>
+        <script src="../../Framework/Vector3.js"></script>
+        <script src="../../Framework/Vector4.js"></script>
+        <script src="../../Framework/Input/KeyboardManager.js"></script>
+        <script src="../../Framework/Input/PointerManager.js"></script>
+        <script src="../../Framework/Input/Keys.js"></script>
+        <script src="../../Framework/Graphics/GraphicsDevice.js"></script>
+        <script src="../../Framework/Graphics/Texture2D.js"></script>
+        <script src="../../Framework/Graphics/RenderTarget.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Game.js"></script>
+        <!-- Engine -->
+        <script src="../../Engine/AudioManager.js"></script>
+        <script src="../../Engine/StateManager.js"></script>
+        <script src="../../Engine/Graphics/Animation.js"></script>
+        <script src="../../Engine/Graphics/Sprite.js"></script>
+        <script src="../../Engine/Graphics/SpriteGroup.js"></script>
+        <script src="../../Engine/Input/KeyboardComponent.js"></script>
+        <script src="../../Engine/GameApplication.js"></script>
 
-<!-- The sprite game -->
-<script src="js/MenuScreen.js"></script>
-<script src="js/GameScreen.js"></script>
-<script src="js/SpriteGame.js"></script>
+        <!-- The sprite game -->
+        <script src="js/MenuScreen.js"></script>
+        <script src="js/GameScreen.js"></script>
+        <script src="js/SpriteGame.js"></script>
 
-<script>
-    var game = new SpriteGame();
-    game.run();
-</script>
-</body>
+        <script>
+            var game = new SpriteGame();
+            game.run();
+        </script>
+    </body>
 </html>

@@ -37,7 +37,7 @@ Atlantis.Graphics3D.Object3D = (function () {
             this.rotation.z += rz;
         }
     };
-    
+
     object3D.prototype.scaling = function (sx, sy, sz) {
         if (sx instanceof Atlantis.Vector3) {
             this.scale.x += sx;
@@ -45,6 +45,6 @@ Atlantis.Graphics3D.Object3D = (function () {
             this.scale.z += sz;
         }
     };
-    
+
     return object3D;
 })();

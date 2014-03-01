@@ -18,7 +18,7 @@ MenuScreen.prototype.update = function (gameTime) {
 
 MenuScreen.prototype.draw = function (gameTime, context) {
     Atlantis.State.prototype.draw.call(this, gameTime, context);
-    
+
     var text = "Press Enter to start";
     context.save();
     context.fillStyle = "#fff";

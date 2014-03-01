@@ -18,9 +18,9 @@ Atlantis.KeyboardComponent = (function () {
     * @param {Atlantis.Game} game A game instance.
     */
     var keyComponent = function (game) {
-       Atlantis.GameComponent.call(this, game);
-       this.keysState = game.keyboardManager.getState();
-       this.previousKeysState = null;
+        Atlantis.GameComponent.call(this, game);
+        this.keysState = game.keyboardManager.getState();
+        this.previousKeysState = null;
     };
 
     keyComponent.prototype = new Atlantis.GameComponent();
@@ -31,8 +31,8 @@ Atlantis.KeyboardComponent = (function () {
     * @param {Atlantis.GameTime} gameTime
     */
     keyComponent.prototype.update = function (gameTime) {
-           this.previousKeysState = this.keysState;
-           this.keysState = this.game.keyboardManager.getState();
+        this.previousKeysState = this.keysState;
+        this.keysState = this.game.keyboardManager.getState();
     };
 
     /**

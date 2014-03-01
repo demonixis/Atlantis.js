@@ -19,7 +19,7 @@ Atlantis.GraphicsDevice = function (frontBufferWidth, frontBufferHeight, backBuf
         bbWidth = backBufferWidth || frontBufferWidth,
         bbHeight = backBufferHeight || frontBufferHeight,
         useWebGL = is3D ? is3D : false;
-    
+
     this._frontBuffer = new Atlantis.RenderTarget(fbWidth, fbHeight, useWebGL);
     this._fbContext = frontBuffer.getContext();
     this._backBuffer = new Atlantis.RenderTarget(bbWidth, bbHeight, useWebGL);

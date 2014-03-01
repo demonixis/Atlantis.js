@@ -29,7 +29,7 @@ Atlantis.Vector2 = function (x, y) {
  * @method Zero
  */
 Atlantis.Vector2.Zero = function () {
-	return new Vector2();
+    return new Vector2();
 };
 
 /**
@@ -37,7 +37,7 @@ Atlantis.Vector2.Zero = function () {
  * @method One
  */
 Atlantis.Vector2.One = function () {
-	return new Vector2(1.0, 1.0);
+    return new Vector2(1.0, 1.0);
 };
 
 /**
@@ -45,7 +45,7 @@ Atlantis.Vector2.One = function () {
  * @method UnitX
  */
 Atlantis.Vector2.UnitX = function () {
-	return new Vector2(1.0, 0.0);
+    return new Vector2(1.0, 0.0);
 };
 
 /**
@@ -53,7 +53,7 @@ Atlantis.Vector2.UnitX = function () {
  * @method UnitY
  */
 Atlantis.Vector2.UnitY = function () {
-	return new Vector2(0.0, 1.0);
+    return new Vector2(0.0, 1.0);
 };
 
 /**
@@ -334,10 +334,10 @@ Atlantis.Vector2.normalize = function (vector) {
 */
 Atlantis.Vector2.transform = function (position, matrix) {
     var vector = new Atlantis.Vector3(
-		(position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41,
+        (position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41,
         (position.x * matrix.M12) + (position.y * matrix.M22) + (position.z * matrix.M32) + matrix.M42,
         (position.x * matrix.M13) + (position.y * matrix.M23) + (position.z * matrix.M33) + matrix.M43
-	);
+    );
 
     return vector;
 };
