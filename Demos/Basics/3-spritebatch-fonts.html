@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis.Framework.js - Demo</title>
+        <style>
+            html, body { margin: 0; padding: 0; border: 0; text-align: center; }
+        </style>
+    </head>
+    <body>
+		<script src="../../Build/Atlantis.Framework.min.js"></script>
+    </body>
+    <script>
+		// 1. The first step is to create a class for you game
+		
+        // This is the constructor of the game class.
+		// The canvas is created with a size of 640x480 and it's added to the DOM.
+		// We specify the path of the assets.
+        var SimpleTestGame = function () {
+            Atlantis.Game.call(this, 640, 480);
+            this.content.setRootDirectory("Content/");
+            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+            this.spriteFontA = new Atlantis.SpriteFont("Verdana", 14, "italic");
+            this.spriteFontB = new Atlantis.SpriteFont("Impact", 26);
+            this.spriteFontC = new Atlantis.SpriteFont();
+            this.screenWidth = this.graphicsDevice.preferredBackBufferWidth;
+            this.screenHeight = this.graphicsDevice.preferredBackBufferHeight;
+        };
+        SimpleTestGame.prototype = new Atlantis.Game();
+
+        // Draw sprites and text here.
+		// First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).
+        SimpleTestGame.prototype.draw = function (gameTime, context) {
+            Atlantis.Game.prototype.draw.call(this, gameTime, context);
+            this.graphicsDevice.clear(); 
+            
+            this.spriteBatch.begin();
+            
+            this.spriteBatch.drawString(this.spriteFontB, "Atlantis.js text demo", { x: 15, y: 35 }, "#0055aa");
+            
+            this.spriteBatch.drawString(this.spriteFontA, "HTML5 Rocks \\m/", { x: this.screenWidth - 150, y: this.screenHeight - 20 }, "#fff");
+            
+            this.spriteBatch.drawString(this.spriteFontC, "A red text with a rotation", { x: this.screenWidth >> 1, y: this.screenHeight >> 1 }, "#ff1111", Math.PI / 2);
+            
+            this.spriteBatch.drawString(this.spriteFontC, "A green text with a scale", { x: 15, y: 200 }, "#11ff11", 0, null, { x: 4, y: 5 });
+            
+            this.spriteBatch.end();
+        };
+    
+        // Finally you can start the game and have fun !
+        var game = new SimpleTestGame();
+        game.run();
+    </script>
+</html>

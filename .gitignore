@@ -3,3 +3,4 @@ robots.txt
 *.directory
 *.DS_Store
 Build/Docs/*
+compiler.jar

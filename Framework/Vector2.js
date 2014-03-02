@@ -9,6 +9,33 @@
 var Atlantis = window.Atlantis || {};
 
 /**
+ * Create a point structure.
+ * @constructor
+ * @class Point
+ * @param {Number} x A value for X coordinate.
+ * @param {Number} y A value for Y coordinate.
+ */
+Atlantis.Point = function (x, y) {
+    if (x.x && x.y) {
+        this.x = x.x;
+        this.y = x.y;
+    }
+    else {
+        this.x = x ? x : 0;
+        this.y = y ? y : 0;
+    }
+};
+
+/**
+* Gets a string from this object.
+* @method toString
+* @return {String}
+*/
+Atlantis.Point.prototype.toString = function () {
+    return ["x: ", this.x, " y: ", this.y].join("");
+};
+
+/**
 * Create a new Vector2
 * @constructor
 * @class Vector2
@@ -19,8 +46,8 @@ Atlantis.Vector2 = function (x, y) {
         this.y = x.y;
     }
     else {
-        this.x = x || 0;
-        this.y = y || 0;
+        this.x = x ? x : 0;
+        this.y = y ? y : 0;
     }
 };
 
