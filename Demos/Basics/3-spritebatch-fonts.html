@@ -5,6 +5,13 @@
         <title>Atlantis.Framework.js - Demo</title>
         <style>
             html, body { margin: 0; padding: 0; border: 0; text-align: center; }
+
+            @font-face {
+                font-family: 'Pacifico';
+                font-style: normal;
+                font-weight: 400;
+                src: local('Pacifico Regular'), local('Pacifico-Regular'), url(http://themes.googleusercontent.com/static/fonts/pacifico/v5/yunJt0R8tCvMyj_V4xSjafesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+            }
         </style>
     </head>
     <body>
@@ -20,9 +27,16 @@
             Atlantis.Game.call(this, 640, 480);
             this.content.setRootDirectory("Content/");
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+            
+            // Using a system font
             this.spriteFontA = new Atlantis.SpriteFont("Verdana", 14, "italic");
-            this.spriteFontB = new Atlantis.SpriteFont("Impact", 26);
+
+            // Using a webfont loaded in CSS (check the head tag)
+            this.spriteFontB = new Atlantis.SpriteFont("Pacifico", 32);
+
+            // Using the default font (Arial)
             this.spriteFontC = new Atlantis.SpriteFont();
+            
             this.screenWidth = this.graphicsDevice.preferredBackBufferWidth;
             this.screenHeight = this.graphicsDevice.preferredBackBufferHeight;
         };

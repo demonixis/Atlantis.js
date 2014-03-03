@@ -23,12 +23,9 @@
             this.spriteBatch = null;
             this.backgroundTexture = null;
             this.playerTexture = null;
+            this.playerPosition = { x: 400, y: 250 };
             this.blockTexture = null;
-            this.hudTexture = null;
-            this.itemTexture = null;
             this.blocks = [];
-            this.hudHearts = [];
-            this.items = [];
             this.screenRect = { 
                 x: 0, 
                 y: 0, 
@@ -37,16 +34,13 @@
             };
         };
         SimpleTestGame.prototype = new Atlantis.Game();
-
-        // First method called : Initialize your objects here. 
-        SimpleTestGame.prototype.initialize = function () {
-            Atlantis.Game.prototype.initialize.call(this);
-            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
-        };
     
-        // Second method called : Load your assets here.
+        // Second method called : Load you assets here.
         SimpleTestGame.prototype.loadContent = function () {
             Atlantis.Game.prototype.loadContent.call(this);
+
+            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+
             var that = this;
             
             this.backgroundTexture = this.content.load("bg_castle.png");
@@ -58,30 +52,38 @@
                     that.blocks.push({ x: i * image.width, y: 350 }); 
                 }
             });
-            
-            // Load hud hearts
-            this.hudTexture = this.content.load("hud_heartFull.png", function (image) {
-                for (var i = 0; i < 3; i++) {
-                    that.hudHearts.push({ x: 10 + (image.width + 5) * i, y: 20 });   
-                }
-            });
-            
-            // Load some items
-            this.itemTexture = this.content.load("boxItem.png", function (image) {
-                for (var i = 0; i < 3; i++) {
-                    that.items.push({ x: 100 + (105 + image.width) * i, y: 150 });   
-                }
-            });
         };
 
 		// Main loop
         // Update the game logic here as Input, Physics, etc.
         SimpleTestGame.prototype.update = function (gameTime) {
             Atlantis.Game.prototype.update.call(this, gameTime);
+
+            var state = this.keyboard.getState();
+
+            // Move the player left or right
+            if (state.isKeyDown(Atlantis.Keys.Left)) {
+                this.playerPosition.x -= 0.5 * gameTime.getElapsedTime();
+            }
+            else if (state.isKeyDown(Atlantis.Keys.Right)) {
+                this.playerPosition.x += 0.5 * gameTime.getElapsedTime();
+            }
+
+            // If space is pressed then we place the player on the middle of the screen.
+            if (state.isKeyDown(Atlantis.Keys.Space)) {
+                this.playerPosition.x = (this.graphicsDevice.preferredBackBufferWidth >> 1) - (this.playerTexture.width >> 1);
+            }
+
+            // Allow to pass through the screen
+            if (this.playerPosition.x > this.graphicsDevice.preferredBackBufferWidth) {
+                this.playerPosition.x = 0;
+            }
+            else if (this.playerPosition.x + this.playerTexture.width < 0) {
+                this.playerPosition.x = this.graphicsDevice.preferredBackBufferWidth;
+            }
         };
 
         // Draw sprites and text here.
-		// First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).
         SimpleTestGame.prototype.draw = function (gameTime, context) {
             Atlantis.Game.prototype.draw.call(this, gameTime, context);
             this.graphicsDevice.clear(); 
@@ -96,18 +98,8 @@
                 this.spriteBatch.draw(this.blockTexture, this.blocks[i]);   
             }
             
-            // Draw items
-            for (var i = 0, l = this.items.length; i < l; i++) {
-                this.spriteBatch.draw(this.itemTexture, this.items[i]);   
-            }
-            
-            // Draw HUD with a small rotation and a color, for that we change the origin of the image to its center.
-            for (var i = 0, l = this.hudHearts.length; i < l; i++) {
-                this.spriteBatch.draw(this.hudTexture, this.hudHearts[i], null, "#002599", Math.PI / 8, { x: this.hudTexture.width >> 1, y: this.hudTexture.height >> 1 });   
-            }
-
-            // Finally draw the player
-            this.spriteBatch.draw(this.playerTexture, { x: 400, y: 250 });
+            // Finally draw the player with its updated position.
+            this.spriteBatch.draw(this.playerTexture, this.playerPosition);
             
             this.spriteBatch.end();
         };

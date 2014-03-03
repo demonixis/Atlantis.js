@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis.Framework.js - Demo</title>
+        <style>
+            html, body { margin: 0; padding: 0; border: 0; text-align: center; }
+        </style>
+    </head>
+    <body>
+        <!-- Framework -->
+        <script src="../../Build/Atlantis.Framework.min.js"></script>
+    </body>
+    <script>
+        // 1. The first step is to create a class for you game
+        
+        // This is the constructor of the game class.
+        var SimpleTestGame = function () {
+            Atlantis.Game.call(this, 640, 480);
+            this.content.setRootDirectory("Content/");
+            this.spriteBatch = null;
+            this.backgroundTexture = null;
+            this.playerTexture = null;
+            
+
+            // The canvas has a resolution of 640x480
+            // The internal resolution is changed to 320x240
+            // The backbuffer will be automatically scalled to the canvas resolution.
+            this.graphicsDevice.preferredBackBufferWidth = 320;
+            this.graphicsDevice.preferredBackBufferHeight = 240;
+            this.graphicsDevice.applyChanges();
+
+            this.screenRect = { 
+                x: 0, 
+                y: 0, 
+                width: this.graphicsDevice.preferredBackBufferWidth, 
+                height: this.graphicsDevice.preferredBackBufferHeight
+            };
+        };
+        SimpleTestGame.prototype = new Atlantis.Game();
+    
+        // Second method called : Load your assets here.
+        SimpleTestGame.prototype.loadContent = function () {
+            Atlantis.Game.prototype.loadContent.call(this);
+
+            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+
+            var that = this;
+            
+            // Load and scale image size to backbuffer.
+            this.backgroundTexture = this.content.load("bg_castle.png", function (image) {
+                image.width = that.preferredBackBufferWidth;
+                image.height = that.preferredBackBufferHeight;
+            });
+
+            // Load and reduce the size of the player.
+            this.playerTexture = this.content.load("p1_stand.png", function (image) {
+                image.width /= 2;
+                image.height /= 2;
+            });
+        };
+
+        // Draw sprites and text here.
+        SimpleTestGame.prototype.draw = function (gameTime, context) {
+            Atlantis.Game.prototype.draw.call(this, gameTime, context);
+            this.graphicsDevice.clear(); 
+            this.spriteBatch.begin();
+            this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
+            this.spriteBatch.draw(this.playerTexture, { x: 100, y: 150 });
+            this.spriteBatch.end();
+        };
+    
+        // Finally you can start the game and have fun !
+        var game = new SimpleTestGame();
+        game.run();
+    </script>
+</html>
