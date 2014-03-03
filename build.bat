@@ -11,7 +11,8 @@ SET js_framework=%js_framework% --js=Framework/Vector2.js
 SET js_framework=%js_framework% --js=Framework/Vector3.js
 SET js_framework=%js_framework% --js=Framework/Vector4.js
 SET js_framework=%js_framework% --js=Framework/Input/Keys.js
-SET js_framework=%js_framework% --js=Framework/Input/KeyboardManager.js
+SET js_framework=%js_framework% --js=Framework/Input/Keyboard.js
+SET js_framework=%js_framework% --js=Framework/Input/Mouse.js
 SET js_framework=%js_framework% --js=Framework/Input/PointerManager.js
 SET js_framework=%js_framework% --js=Framework/Graphics/RenderTarget.js
 SET js_framework=%js_framework% --js=Framework/Graphics/GraphicsDevice.js

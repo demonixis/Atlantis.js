@@ -28,6 +28,15 @@ Atlantis.RenderTarget = function (width, height, is3D, canvas) {
     this.setSize(width, height);
 };
 
+Atlantis.RenderTarget.prototype.setData = function (imageData) {
+    this._context.putImageData(imageData, 0, 0);
+};
+
+Atlantis.RenderTarget.prototype.getData = function () {
+    var imageData = this._context.getImageData(0, 0, this.viewport.width, this.viewport.height);
+    return imageData;
+};
+
 Atlantis.RenderTarget.prototype.getContext = function () {
     return this._context;
 };
@@ -64,5 +73,13 @@ Atlantis.RenderTarget.prototype.clear = function (color) {
     else {
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
     }
+};
+
+Atlantis.RenderTarget.prototype.saveAsPng = function () {
+    return this._canvas.toDataURL("image/png");
+};
+
+Atlantis.RenderTarget.prototype.saveAsJpg = function () {
+    return this._canvas.toDataURL("image/jpg");
 };
 
