@@ -9,7 +9,7 @@
     </head>
     <body>
         <!-- Framework -->
-        <script src="Atlantis.Framework.min.js"></script>
+        <script src="../../Build/Atlantis.Framework.min.js"></script>
     </body>
     <script>
         // The Game class
@@ -22,16 +22,16 @@
             this.position = { x: 50, y: 50 };
             this.rotation = 0;
         };
-        TestGame.prototype = new Atlantis.GameApplication();
+        TestGame.prototype = new Atlantis.Game();
 
         // Initialize your objects here. 
         TestGame.prototype.initialize = function () {
-            Atlantis.GameApplication.prototype.initialize.call(this);
+            Atlantis.Game.prototype.initialize.call(this);
         };
     
         // Load you assets here.
         TestGame.prototype.loadContent = function () {
-            Atlantis.GameApplication.prototype.loadContent.call(this);
+            Atlantis.Game.prototype.loadContent.call(this);
             
             var that = this;
             this.spriteA = this.content.load("atlantis_logo.jpg");
@@ -40,7 +40,7 @@
 
         // Update the game logic here as Input, Physics, etc.
         TestGame.prototype.update = function (gameTime) {
-            Atlantis.GameApplication.prototype.update.call(this, gameTime);
+            Atlantis.Game.prototype.update.call(this, gameTime);
         
             var state = this.keyboard.getState();
           
@@ -62,7 +62,7 @@
 
         // Draw sprites and text here.
         TestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+            Atlantis.Game.prototype.draw.call(this, gameTime, context);
             this.graphicsDevice.clear(); 
          
             this.spriteBatch.begin();

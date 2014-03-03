@@ -58,7 +58,7 @@ Atlantis.KeyboardState.prototype.isKeyUp = function (key) {
  * @constructor
  * @class KeyboardManager
  */
-Atlantis.KeyboardManager = function (maxKeys) {
+Atlantis.Keyboard = function (maxKeys) {
     this.keys = [];
     this.maxKeys = maxKeys || 130;
 
@@ -87,6 +87,6 @@ Atlantis.KeyboardManager = function (maxKeys) {
  * @method getState
  * @return {Atlantis.KeyboardState} Return the state of the keyboard.
  */
-Atlantis.KeyboardManager.prototype.getState = function () {
+Atlantis.Keyboard.prototype.getState = function () {
     return new Atlantis.KeyboardState(this.keys);
 };

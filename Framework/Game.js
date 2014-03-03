@@ -50,7 +50,8 @@ Atlantis.Game = (function () {
         this.frontBuffer = this.graphicsDevice.getFrontBuffer();
         this.context = this.frontBuffer.getContext();
         
-        this.keyboard = new Atlantis.KeyboardManager();
+        this.keyboard = new Atlantis.Keyboard();
+        this.mouse = new Atlantis.Mouse(this.canvas);
         this.pointer = new Atlantis.PointerManager(this.canvas);
         this.domElement.addEventListener("resize", onResize, false);
         
