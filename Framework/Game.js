@@ -30,6 +30,7 @@ Atlantis.Game = (function () {
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
         this.keyboard = null;
+        this.mouse = null;
         this.pointer = null;
         
         this.graphicsDevice = new Atlantis.GraphicsDevice(width, height, this.settings);
@@ -51,8 +52,8 @@ Atlantis.Game = (function () {
         this.context = this.frontBuffer.getContext();
         
         this.keyboard = new Atlantis.Keyboard();
-        this.mouse = new Atlantis.Mouse(this.canvas);
-        this.pointer = new Atlantis.PointerManager(this.canvas);
+        this.mouse = new Atlantis.Mouse(this.frontBuffer.getCanvas());
+        this.pointer = new Atlantis.PointerManager(this.frontBuffer.getCanvas());
         this.domElement.addEventListener("resize", onResize, false);
         
         if (this.domElement && !this.settings.canvas) {
