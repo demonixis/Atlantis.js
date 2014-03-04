@@ -53,9 +53,15 @@ Atlantis.Game = (function () {
         
         this.keyboard = new Atlantis.Keyboard();
         this.mouse = new Atlantis.Mouse(this.frontBuffer.getCanvas());
+        this.touchPanel = new Atlantis.TouchPanel(this.frontBuffer.getCanvas());
         this.pointer = new Atlantis.PointerManager(this.frontBuffer.getCanvas());
+        
         this.domElement.addEventListener("resize", onResize, false);
         
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("orientationchange", onResize, false);
+        }
+
         if (this.domElement && !this.settings.canvas) {
             this.domElement.appendChild(this.frontBuffer.getCanvas());
         }
@@ -128,6 +134,10 @@ Atlantis.Game = (function () {
     * @method onResize
     */
     function onResize(event) {
+        if (event.type == "orientationchange") {
+            // Todo : Re setup the graphics device with correct size.
+        }
+
         _instance.width = event.target.innerWidth;
         _instance.height = event.target.innerHeight;
         _instance.canvas.width = _instance.width;
