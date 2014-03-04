@@ -25,7 +25,7 @@ More to come later !
 
 ### Docs and demos
 
-Take a look at the demos folders to see how it works. I'll update the documentation page as soon as possible.
+Take a look at the demos folder to see how it works. I'll update the documentation page as soon as possible.
 
 ### Example
 
@@ -50,8 +50,6 @@ TestGame.prototype.initialize = function () {
 // Load you assets here.
 TestGame.prototype.loadContent = function () {
 	Atlantis.GameApplication.prototype.loadContent.call(this);
-	
-	var that = this;
 	this.spriteA = this.content.load("atlantis_logo.jpg");
 	this.textA = new Atlantis.SpriteFont();
 };
