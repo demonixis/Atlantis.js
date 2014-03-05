@@ -23,18 +23,27 @@
             this.spriteBatch = null;
             this.backgroundTexture = null;
             this.playerTexture = null;
+            this.playerPosition = new Atlantis.Vector2(100, 10);
             this.blockTexture = null;
-            this.hudTexture = null;
-            this.itemTexture = null;
             this.blocks = [];
-            this.hudHearts = [];
-            this.items = [];
             this.screenRect = { 
                 x: 0, 
                 y: 0, 
                 width: this.graphicsDevice.preferredBackBufferWidth, 
                 height: this.graphicsDevice.preferredBackBufferHeight
             };
+
+            // ScaleX, SkewX, SkewY
+            // ScaleY, PositionX, PositionY
+            this.matrixA = [
+                1, 0.5, -0.5,
+                1,  30,  10
+            ];
+
+            this.matrixB = [
+                1, 0.5, -0.5,
+                1, 30,  10
+            ];
         };
         SimpleTestGame.prototype = new Atlantis.Game();
 
@@ -55,21 +64,7 @@
             // We can use a callback to know when the asset is loaded
             this.blockTexture = this.content.load("grass.png", function (image) {
                 for (var i = 0; i < 10; i++) {
-                    that.blocks.push({ x: i * image.width, y: 350 }); 
-                }
-            });
-
-            // Load hud hearts
-            this.hudTexture = this.content.load("hud_heartFull.png", function (image) {
-                for (var i = 0; i < 3; i++) {
-                    that.hudHearts.push({ x: 10 + (image.width + 5) * i, y: 20 });   
-                }
-            });
-
-            // Load some items
-            this.itemTexture = this.content.load("boxItem.png", function (image) {
-                for (var i = 0; i < 3; i++) {
-                    that.items.push({ x: 100 + (105 + image.width) * i, y: 150 });   
+                    that.blocks.push({ x: i * image.width, y: 100 }); 
                 }
             });
         };
@@ -78,6 +73,16 @@
         // Update the game logic here as Input, Physics, etc.
         SimpleTestGame.prototype.update = function (gameTime) {
             Atlantis.Game.prototype.update.call(this, gameTime);
+
+            var state = this.keyboard.getState();
+
+            // Move the player left or right
+            if (state.isKeyDown(Atlantis.Keys.Left)) {
+                this.playerPosition.x -= 0.5 * gameTime.getElapsedTime();
+            }
+            else if (state.isKeyDown(Atlantis.Keys.Right)) {
+                this.playerPosition.x += 0.5 * gameTime.getElapsedTime();
+            }
         };
 
         // Draw sprites and text here.
@@ -87,28 +92,20 @@
             this.graphicsDevice.clear(); 
 
             this.spriteBatch.begin();
-
-            // Draw the background at 0, 0
             this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
+            this.spriteBatch.end();
 
-            // Draw some blocks
+            this.spriteBatch.begin(Atlantis.SpriteSortMode.Immediate, this.matrixA);
+
             for (var i = 0, l = this.blocks.length; i < l; i++) {
                 this.spriteBatch.draw(this.blockTexture, this.blocks[i]);   
             }
 
-            // Draw items
-            for (var i = 0, l = this.items.length; i < l; i++) {
-                this.spriteBatch.draw(this.itemTexture, this.items[i]);   
-            }
+            this.spriteBatch.end();
 
-            // Draw HUD with a small rotation and a color, for that we change the origin of the image to its center.
-            for (var i = 0, l = this.hudHearts.length; i < l; i++) {
-                this.spriteBatch.draw(this.hudTexture, this.hudHearts[i], null, "#002599", Math.PI / 8, { x: this.hudTexture.width >> 1, y: this.hudTexture.height >> 1 });   
-            }
 
-            // Finally draw the player
-            this.spriteBatch.draw(this.playerTexture, { x: 400, y: 250 });
-
+            this.spriteBatch.begin(Atlantis.SpriteSortMode.Immediate, this.matrixB);
+            this.spriteBatch.draw(this.playerTexture, this.playerPosition);
             this.spriteBatch.end();
         };
 

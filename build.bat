@@ -13,6 +13,7 @@ SET js_framework=%js_framework% --js=Framework/Vector4.js
 SET js_framework=%js_framework% --js=Framework/Input/Keys.js
 SET js_framework=%js_framework% --js=Framework/Input/Keyboard.js
 SET js_framework=%js_framework% --js=Framework/Input/Mouse.js
+SET js_framework=%js_framework% --js=Framework/Input/TouchPanel.js
 SET js_framework=%js_framework% --js=Framework/Input/PointerManager.js
 SET js_framework=%js_framework% --js=Framework/Graphics/RenderTarget.js
 SET js_framework=%js_framework% --js=Framework/Graphics/GraphicsDevice.js
@@ -32,7 +33,6 @@ SET js_engine=%js_engine% --js=Engine/Graphics/SpriteGroup.js
 
 
 java -jar compiler.jar %js_framework% --js_output_file=Build\Atlantis.Framework.min.js
-java -jar compiler.jar %js_engine% --js_output_file=Build\Atlantis.Engine.min.js
-java -jar compiler.jar %js_framework% %js_engine% --js_output_file=Build\AtlantisEngine.Complete.min.js
+java -jar compiler.jar %js_framework% %js_engine% --js_output_file=Build\AtlantisEngine.min.js
 
 yuidoc .

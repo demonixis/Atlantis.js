@@ -13,7 +13,7 @@
     </body>
     <script>
         // 1. The first step is to create a class for you game
-        
+
         // This is the constructor of the game class.
         var SimpleTestGame = function () {
             Atlantis.Game.call(this, 640, 480);
@@ -21,7 +21,7 @@
             this.spriteBatch = null;
             this.backgroundTexture = null;
             this.playerTexture = null;
-            
+
 
             // The canvas has a resolution of 640x480
             // The internal resolution is changed to 320x240
@@ -38,7 +38,7 @@
             };
         };
         SimpleTestGame.prototype = new Atlantis.Game();
-    
+
         // Second method called : Load your assets here.
         SimpleTestGame.prototype.loadContent = function () {
             Atlantis.Game.prototype.loadContent.call(this);
@@ -46,7 +46,7 @@
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
 
             var that = this;
-            
+
             // Load and scale image size to backbuffer.
             this.backgroundTexture = this.content.load("bg_castle.png", function (image) {
                 image.width = that.preferredBackBufferWidth;
@@ -69,7 +69,7 @@
             this.spriteBatch.draw(this.playerTexture, { x: 100, y: 150 });
             this.spriteBatch.end();
         };
-    
+
         // Finally you can start the game and have fun !
         var game = new SimpleTestGame();
         game.run();
