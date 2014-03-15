@@ -13,6 +13,7 @@
                 src: local('Pacifico Regular'), local('Pacifico-Regular'), url(http://themes.googleusercontent.com/static/fonts/pacifico/v5/yunJt0R8tCvMyj_V4xSjafesZW2xOQ-xsNqO47m55DA.woff) format('woff');
             }
         </style>
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
         <script src="../../Build/Atlantis.Framework.min.js"></script>
@@ -25,7 +26,7 @@
         // We specify the path of the assets.
         var SimpleTestGame = function () {
             Atlantis.Game.call(this, 640, 480);
-            this.content.setRootDirectory("Content/");
+            this.content.rootDirectory = "Content/";
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
 
             // Using a system font
@@ -40,7 +41,7 @@
             this.screenWidth = this.graphicsDevice.preferredBackBufferWidth;
             this.screenHeight = this.graphicsDevice.preferredBackBufferHeight;
         };
-        SimpleTestGame.prototype = new Atlantis.Game();
+        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
         // Draw sprites and text here.
         // First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).

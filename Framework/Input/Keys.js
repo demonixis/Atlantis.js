@@ -3,7 +3,7 @@
  *
  * @module Atlantis
  * @submodule Framework
- * @namespace Atlantis.Input
+ * @namespace Atlantis
  */
 
 var Atlantis = window.Atlantis || {};

@@ -18,9 +18,7 @@ Atlantis.MathHelper = {
 	 * @readOnly
 	 * @type {Number}
 	 */
-    Pi: function () {
-        return Math.PI;   
-    },
+    Pi: Math.PI,
 
     /**
 	 * Gets PI over 2 value.
@@ -28,9 +26,7 @@ Atlantis.MathHelper = {
 	 * @readOnly
 	 * @type {Number}
 	 */
-    PiOver2: function () {
-        return Math.PI / 2;
-    },
+    PiOver2: Math.PI / 2,
 
     /**
 	 * Gets PI over 4 value.
@@ -38,9 +34,7 @@ Atlantis.MathHelper = {
 	 * @readOnly
 	 * @type {Number}
 	 */
-    PiOver4: function () {
-        return Math.PI / 4;
-    },
+    PiOver4: Math.PI / 4,
 
     /**
 	 * Gets PI * 2 value.
@@ -48,9 +42,7 @@ Atlantis.MathHelper = {
 	 * @readOnly
 	 * @type {Number}
 	 */
-    TwoPi: function () {
-        return Math.PI * 2;
-    }, 
+    TwoPi: Math.PI * 2,
 
     /**
 	 *

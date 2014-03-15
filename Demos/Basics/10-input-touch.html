@@ -12,6 +12,7 @@
             }
         </style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
         <script src="../../Build/Atlantis.Framework.min.js"></script>
@@ -23,7 +24,7 @@
             // We specify the path of the assets.
             var SimpleTestGame = function () {
                 Atlantis.Game.call(this, window.innerWidth, window.innerHeight);
-                this.content.setRootDirectory("Content/");
+                this.content.rootDirectory = "Content/";
                 this.spriteBatch = null;
                 this.spriteFont = new Atlantis.SpriteFont();
                 this.backgroundTexture = null;
@@ -38,14 +39,13 @@
                 };
 
                 this.lastTouchState = null;
-                this.touchState = null;
             };
-            SimpleTestGame.prototype = new Atlantis.Game();
+            SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
             SimpleTestGame.prototype.initialize = function () {
                 Atlantis.Game.prototype.initialize.call(this);
-                this.lastTouchState = this.touchPanel.getState(true);
-                this.touchState = this.touchPanel.getState(true); 
+                this.lastTouchState = this.touchPanel.getState(0);
+                this.touchState = this.touchPanel.getState(0); 
             };
 
             // Second method called : Load you assets here.
@@ -62,7 +62,7 @@
                 Atlantis.Game.prototype.update.call(this, gameTime);
 
                 this.lastMouseState = this.touchState.clone();
-                this.touchState = this.touchPanel.getState(true);
+                this.touchState = this.touchPanel.getState(0);
 
                 // Add a block on mouse position when we click on canvas.
                 if (this.touchState.state == Atlantis.TouchLocationState.Pressed) { 

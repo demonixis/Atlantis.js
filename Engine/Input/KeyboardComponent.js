@@ -15,6 +15,7 @@ Atlantis.KeyboardComponent = (function () {
     * interesting keyboars states as pressed, justPressed, etc.
     * @class KeyboardComponent
     * @constructor
+    * @extends Atlantis.GameComponent
     * @param {Atlantis.Game} game A game instance.
     */
     var keyComponent = function (game) {
@@ -22,8 +23,7 @@ Atlantis.KeyboardComponent = (function () {
         this.keysState = game.keyboard.getState();
         this.previousKeysState = null;
     };
-
-    keyComponent.prototype = new Atlantis.GameComponent();
+    keyComponent.prototype = Object.create(Atlantis.GameComponent.prototype);
 
     /**
     * Update key states.

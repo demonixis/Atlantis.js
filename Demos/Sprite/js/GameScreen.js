@@ -25,26 +25,26 @@ GameScreen.prototype.loadContent = function (content) {
     this.sprite.insideScreen = true;
     this.sprite.maxVelocity = 0.95;
 
-    this.background.setSize(Atlantis.Application.Width, Atlantis.Application.Height);
+    this.background.setSize(Atlantis.screen.width, Atlantis.screen.height);
 };
 
 GameScreen.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
-    if (Atlantis.Application.Keyboard.pressed(Atlantis.Keys.Up)) {
+    if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
         this.sprite.velocity.y -= this.speed * gameTime.getElapsedTime();
         this.sprite.play("up");
     }
-    else if (Atlantis.Application.Keyboard.pressed(Atlantis.Keys.Down)) {
+    else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
         this.sprite.velocity.y += this.speed * gameTime.getElapsedTime();
         this.sprite.play("down");
     }
 
-    if (Atlantis.Application.Keyboard.pressed(Atlantis.Keys.Left)) {
+    if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
         this.sprite.velocity.x -= this.speed * gameTime.getElapsedTime();
         this.sprite.play("left");
     }
-    else if (Atlantis.Application.Keyboard.pressed(Atlantis.Keys.Right)) {
+    else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
         this.sprite.velocity.x += this.speed * gameTime.getElapsedTime();
         this.sprite.play("right");
     }

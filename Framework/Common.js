@@ -6,7 +6,12 @@
  * @namespace Atlantis
  */
 
- var Atlantis = window.Atlantis || {};
+var Atlantis = window.Atlantis || {};
+
+Atlantis.events = {
+    ContentPreloading: "atlantis.preloading",
+    ResolutionChanged: "atlantis.graphics.resize"
+};
 
 /**
  * Ajax method for POST and GET calls.
@@ -70,4 +75,16 @@ Atlantis.notify = function (name, params) {
     }
 
     document.dispatchEvent(event);
+};
+
+Atlantis.isMobileDevice = function () {
+     if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+     ) { return true; }
+
+    return false;
 };

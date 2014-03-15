@@ -48,11 +48,11 @@ Player.prototype.update = function (gameTime) {
     Atlantis.Sprite.prototype.update.call(this, gameTime);
 
     if (this.canMove) {
-        if (Atlantis.Application.Keyboard.pressed(Keys.Left)) {
+        if (Atlantis.input.keys.pressed(Keys.Left)) {
             this.play("left");
             this.move(this.getX() - this.speed, this.getY());
         }
-        else if (Atlantis.Application.Keyboard.pressed(Keys.Right)) {
+        else if (Atlantis.input.keys.pressed(Keys.Right)) {
             this.play("right");
             this.move(this.getX() + this.speed, this.getY());
         }
@@ -60,7 +60,7 @@ Player.prototype.update = function (gameTime) {
             this.play("idle");
         }
 
-        if (Atlantis.Application.Keyboard.pressed(Keys.Space)) {
+        if (Atlantis.input.keys.pressed(Keys.Space)) {
             if (this.getDirection().x < 0) {
                 this.play("jumpLeft");
             }

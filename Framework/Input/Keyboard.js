@@ -3,7 +3,7 @@
  *
  * @module Atlantis
  * @submodule Framework
- * @namespace Atlantis.Input
+ * @namespace Atlantis
  */
 
 var Atlantis = window.Atlantis || {};
@@ -66,12 +66,10 @@ Atlantis.Keyboard = function (maxKeys) {
         this.keys[i] = false;
     }
 
-    this.preventDefault = true;
-
     var that = this;
 
     var onKeyStateChange = function (event) {
-        if (that.preventDefault) {
+        if (Atlantis.Keyboard.preventDefault) {
             event.preventDefault();
         }
 
@@ -81,6 +79,8 @@ Atlantis.Keyboard = function (maxKeys) {
     document.addEventListener("keydown", onKeyStateChange, false);
     document.addEventListener("keyup", onKeyStateChange, false);
 };
+
+Atlantis.Keyboard.preventDefault = true;
 
 /**
  * Gets the current state of the keyboard.

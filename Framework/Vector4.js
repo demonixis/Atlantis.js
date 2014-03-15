@@ -24,12 +24,6 @@ Atlantis.Vector4  = function (x, y, z, w) {
         this.z = x.z;
         this.w = x.w;
     }
-    else if (typeof(y) === "undefined" && typeof(x) === "number") {
-        this.x = x;
-        this.y = x;
-        this.z = x;
-        this.w = x;
-    }
     else {
         this.x = x || 0;
         this.y = y || 0;

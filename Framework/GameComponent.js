@@ -78,6 +78,7 @@ Atlantis.GameComponent.prototype.setEnabled = function (enabled) {
 * Create a drawable game component.
 * @constructor
 * @class DrawableGameComponent
+* @extends Atlantis.GameComponent
 * @param {Atlantis.Game} game A game instance.
 */
 Atlantis.DrawableGameComponent = function (game) {

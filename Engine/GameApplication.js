@@ -8,51 +8,90 @@
 
 var Atlantis = window.Atlantis || {};
 
-Atlantis.Application = {};
+/**
+ * This is a static class that contains some managers such as
+ * Storage, Audio, Level, etc.
+ * @class app
+ * @static
+ */
+Atlantis.app = {};
 
-Atlantis.GameApplication = (function () {
-    /**
-    * The engine class that initialize an Atlantis.Game object and setup managers and scene.
-    * @constructor 
-    * @class Engine
-    * @param {Number} width Desired screen width.
-    * @param {Number} height Desired screen height
-    * @param {Number} domElement The DOM element to use for canvas (optional).
-    */
-    var engine = function (width, height, domElement) {
-        Atlantis.Game.call(this, width, height, domElement);
+/**
+ * This is a static class that contains input managers
+ * @class input
+ * @static
+ */
+Atlantis.input = {};
 
-        this.stateManager = new Atlantis.StateManager(this);
-        this.components.add(this.stateManager);
+/**
+ * This is a static class that contains screen management
+ * @class screen
+ * @static
+ */
+Atlantis.screen = {};
 
-        var that = this;
+/**
+* The engine class that initialize an Atlantis.Game object and setup managers and scene.
+* @constructor 
+* @class Engine
+* @extends Atlantis.Game
+* @param {Number} width Desired screen width.
+* @param {Number} height Desired screen height
+* @param {Number} domElement The DOM element to use for canvas (optional).
+*/
+Atlantis.GameApplication = function (width, height, domElement, params) {
+    Atlantis.Game.call(this, width, height, domElement, params);
 
-        Atlantis.Application = {
-            loadLevel: function (nameOrIndex) {
-                return that.stateManager.loadLevel(levelName);
-            },
-            Game: this,
-            ContentManager: this.content,
-            Components: this.components,
-            Keyboard: null,
-            Width: width,
-            Height: height,
-            StateManager: this.stateManager
-        };
+    this.audioManager = new Atlantis.AudioManager();
+    this.storageManager = new Atlantis.StorageManager();
+    this.stateManager = new Atlantis.StateManager(this);
+    this.components.add(this.stateManager);
+
+    var that = this;
+
+    Atlantis.app = {
+        game: that,
+        content: that.content,
+        components: that.components,
+        storage: that.storageManager,
+        level: that.stateManager
     };
     
-    engine.prototype = new Atlantis.Game();
-    
-    engine.prototype.initialize = function () {
-        Atlantis.Game.prototype.initialize.call(this);
-        
-        var keyboardComponent = new Atlantis.KeyboardComponent(this);
-        this.components.add(keyboardComponent);
-    
-        Atlantis.Application.Keyboard = keyboardComponent;
-        Atlantis.Application.Pointer = this.pointer;
+    Atlantis.input = {
+        keys: null,
+        mouse: null,
+        touch: null,
+        gamepad: null  
     };
 
-    return engine;
-})();
+    Atlantis.screen = {
+        width: width,  
+        height: height,
+        getCanvasWidth: function () {
+            return that.graphicsDevice.getFrontBuffer().getWidth();   
+        },
+        getCanvasHeight: function () {
+            return that.graphicsDevice.getFrontBuffer().getHeight(); 
+        }
+    };
+    
+     document.addEventListener(Atlantis.events.ResolutionChanged, function (event) {
+        Atlantis.screen.width = event.width;
+        Atlantis.screen.height = event.height;
+    }, false);
+};
+
+Atlantis.GameApplication.prototype = new Atlantis.Game();
+
+Atlantis.GameApplication.prototype.initialize = function () {
+    Atlantis.Game.prototype.initialize.call(this);
+
+    Atlantis.screen.width = this.graphicsDevice.preferredBackBufferWidth;
+    Atlantis.screen.height = this.graphicsDevice.preferredBackBufferHeight;
+    
+    var keyboardComponent = new Atlantis.KeyboardComponent(this);
+    this.components.add(keyboardComponent);
+
+    Atlantis.input.keys = keyboardComponent;
+};
 

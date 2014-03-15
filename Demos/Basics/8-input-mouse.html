@@ -9,13 +9,9 @@
                 padding: 0; 
                 border: 0; 
                 text-align: center; 
-
-                /* Add this to prevent open context menu when right click */
-                -webkit-user-select: none;
-                -moz-user-select: -moz-none;
-                user-select: none; 
             }
         </style>
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
         <script src="../../Build/Atlantis.Framework.min.js"></script>
@@ -28,7 +24,7 @@
         // We specify the path of the assets.
         var SimpleTestGame = function () {
             Atlantis.Game.call(this, 640, 480);
-            this.content.setRootDirectory("Content/");
+            this.content.rootDirectory = "Content/";
             this.spriteBatch = null;
             this.spriteFont = new Atlantis.SpriteFont();
             this.backgroundTexture = null;
@@ -45,7 +41,7 @@
             this.lastMouseState = null;
             this.mouseState = null;
         };
-        SimpleTestGame.prototype = new Atlantis.Game();
+        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
         SimpleTestGame.prototype.initialize = function () {
             Atlantis.Game.prototype.initialize.call(this);

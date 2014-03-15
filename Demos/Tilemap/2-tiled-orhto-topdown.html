@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>AtlantisEngine.js - Samples</title>
+        <style>
+            html, body { margin: 0; padding: 0; border: 0; text-align: center; }
+            
+            #gameContainer {
+                position: relative;
+            }
+
+            #mobile-controller {
+            }
+
+            #mobile-controller .arrow {
+                z-index: 999;
+                position: absolute;
+                border: 1px solid #aaa;
+                background: rgba(0, 65, 65, 0.5);
+                width: 100px;
+                height: 100px;
+                border-radius: 15px;
+            }
+
+            #mobile-controller .arrow:hover {
+                border: 1px solid #fafafa;
+            }
+
+            #up {
+                bottom: 110px;
+                left: 115px;
+            }
+
+            #down {
+                bottom: 0;
+                left: 115px;
+            }
+
+            #left {
+                left: 5px;
+                bottom: 0;
+            }
+
+            #right {
+                left: 225px;
+                bottom: 0;
+            }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <div id="gameContainer">
+            <div id="mobile-controller">
+                <div class="arrow" id="up"></div>
+                <div class="arrow" id="down"></div>
+                <div class="arrow" id="left"></div>
+                <div class="arrow" id="right"></div>
+            </div>
+        </div>
+        <!-- Engine -->
+        <script src="../../Build/AtlantisEngine.min.js"></script>
+    </body>
+    <script>
+        var TouchController = function () {
+            var $ = function (d) { return document.getElementById(d); };
+
+            var elements = [ $("up"), $("down"), $("left"), $("right") ];
+
+            this.up = false;
+            this.down = false;
+            this.left = false;
+            this.right = false;
+
+            that = this;
+
+            var applyValue = function (id, value) {
+                if (id === "up") that.up = value;
+                else if (id === "down") that.down = value;
+                else if (id === "left") that.left = value;
+                else if (id === "right") that.right = value;
+            }
+
+            var onTouchStart = function (e) {
+                applyValue(this.id, true);
+            }
+
+            var onTouchEnd = function (e) {
+                applyValue(this.id, false);
+            };
+
+            for (var i = 0, l = elements.length; i < l; i++) {
+                elements[i].addEventListener("touchstart", onTouchStart, false);
+                elements[i].addEventListener("touchmove", onTouchStart, false);
+                elements[i].addEventListener("touchend", onTouchEnd, false);
+                elements[i].addEventListener("touchcancel", onTouchEnd, false);
+            }
+
+            this.hide = function () {
+                $("mobile-controller").style.display = "none";
+            }
+        };
+
+        // The Game class
+        var TestGame = function () {
+            Atlantis.GameApplication.call(this, 640, 480, "gameContainer");
+            this.content.rootDirectory = "Content/";
+            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+            this.tilemap = null;
+            this.camera = new Atlantis.Camera2D();
+            this.player = new Atlantis.Sprite("PlayerSprite.png");
+            this.player.move(280, 220);
+            this.player.speed = 2;
+            this.camera.follow(this.player);
+            this.touchController = new TouchController();
+
+            if (!Atlantis.isMobileDevice()) {
+                this.touchController.hide();
+            }
+        };
+        TestGame.prototype = new Atlantis.GameApplication();
+    
+        // Load you assets here.
+        TestGame.prototype.loadContent = function () {
+            Atlantis.GameApplication.prototype.loadContent.call(this);
+            this.player.loadContent(this.content);
+            
+            this.player.prepareAnimation(64, 64);
+            this.player.addAnimation("up", [0, 1, 2], 50);
+            this.player.addAnimation("left", [3, 4, 5], 50);
+            this.player.addAnimation("down", [6, 7, 8], 50);
+            this.player.addAnimation("right", [9, 10, 11], 50);
+            
+            var that = this;
+
+            this.tilemap = Atlantis.TmxLoader.load(this.content, "RPGTilemap.json", function (tilemap) {
+                that.camera.viewport.set(0, 0, tilemap.mapWidth, tilemap.mapHeight);
+            });
+        };
+
+        // Update the game logic here as Input, Physics, etc.
+        TestGame.prototype.update = function (gameTime) {
+            Atlantis.GameApplication.prototype.update.call(this, gameTime);
+            
+            this.player.update(gameTime);
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Shift)) {
+                this.player.speed = 5;   
+            }
+            else {
+                this.player.speed = 2;
+            }
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Up) || this.touchController.up) {
+                this.player.play("up");
+                this.player.translate(0, -this.player.speed);    
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down) || this.touchController.down) {
+                this.player.play("down");
+                this.player.translate(0, this.player.speed);
+            }
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Left) || this.touchController.left) {
+                this.player.play("left");
+                this.player.translate(-this.player.speed, 0); 
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right) || this.touchController.right) {
+                this.player.play("right");
+                this.player.translate(this.player.speed, 0);
+            }
+
+            var aPosition = this.camera.getSpritePosition();
+            var tileCollide = this.tilemap.getTileIdAt(2, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
+            var tileCollide2 = this.tilemap.getTileIdAt(3, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
+            
+            if (tileCollide || tileCollide2) { 
+                this.player.move(this.player.lastPosition.x, this.player.lastPosition.y);
+            }
+            
+            this.camera.update();
+        };
+
+        // Draw sprites and text here.
+        TestGame.prototype.draw = function (gameTime, context) {
+            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+            this.graphicsDevice.clear(); 
+            this.spriteBatch.begin();
+            this.tilemap.draw(this.spriteBatch, this.camera);
+            this.player.draw(this.spriteBatch);
+            this.spriteBatch.end();
+        };
+    
+        // Start the game !
+        var game = new TestGame();
+        game.run();
+    </script>
+</html>

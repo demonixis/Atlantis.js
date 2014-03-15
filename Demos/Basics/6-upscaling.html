@@ -5,9 +5,32 @@
         <title>Atlantis.Framework.js - Demo</title>
         <style>
             html, body { margin: 0; padding: 0; border: 0; text-align: center; }
+            
+            #hud {
+                position: absolute;    
+                background: #bbb;
+                border: 1px solid #333;
+                padding: 10px;
+            }
+            
+            #hud h4 { text-align: left; margin: 0 0 5px 0; padding: 0; }
+            #hud .item { text-align: left; }
         </style>
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
+        <div id="hud">
+            <h4>Preferred Back Buffer Sizes</h4>
+            <div class="item"><span class="label">Width</span> <input id="width" type="text" value="320" /></div>
+            <div class="item"><span class="label">Height</span> <input id="height" type="text" value="240" /></div>
+            <h4>Scale Mode</h4>
+            <select id="scaleMode">
+                <option selected="selected" value="0">Scale To Fit</option>
+                <option value="1">Conserve Aspect Ratio</option>
+                <option value="2">No Scale</option>
+            </select>
+            <button id="validate">Apply changes</button>
+        </div>
         <!-- Framework -->
         <script src="../../Build/Atlantis.Framework.min.js"></script>
     </body>
@@ -17,18 +40,10 @@
         // This is the constructor of the game class.
         var SimpleTestGame = function () {
             Atlantis.Game.call(this, 640, 480);
-            this.content.setRootDirectory("Content/");
+            this.content.rootDirectory = "Content/";
             this.spriteBatch = null;
             this.backgroundTexture = null;
             this.playerTexture = null;
-
-
-            // The canvas has a resolution of 640x480
-            // The internal resolution is changed to 320x240
-            // The backbuffer will be automatically scalled to the canvas resolution.
-            this.graphicsDevice.preferredBackBufferWidth = 320;
-            this.graphicsDevice.preferredBackBufferHeight = 240;
-            this.graphicsDevice.applyChanges();
 
             this.screenRect = { 
                 x: 0, 
@@ -36,8 +51,29 @@
                 width: this.graphicsDevice.preferredBackBufferWidth, 
                 height: this.graphicsDevice.preferredBackBufferHeight
             };
+            
+            Atlantis.Keyboard.preventDefault = false;
+            
+            var $ = function (d) { return document.getElementById(d); };
+            var width = $("width"),
+                height = $("height"),
+                scaleMode = $("scaleMode");
+            
+            var that = this;
+            $("validate").addEventListener("click", function (event) {
+                // The canvas has a resolution of 640x480
+                // The internal resolution is changed to 320x240
+                // The backbuffer will be automatically scalled to the canvas resolution.
+                that.graphicsDevice.scaleMode = +scaleMode.value;
+                that.graphicsDevice.preferredBackBufferWidth = +width.value;
+                that.graphicsDevice.preferredBackBufferHeight = +height.value;
+                that.graphicsDevice.applyChanges();
+                
+                that.screenRect.width = +width.value;
+                that.screenRect.height = +height.value;
+            }, false);
         };
-        SimpleTestGame.prototype = new Atlantis.Game();
+        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
         // Second method called : Load your assets here.
         SimpleTestGame.prototype.loadContent = function () {

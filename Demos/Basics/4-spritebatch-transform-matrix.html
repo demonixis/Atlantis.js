@@ -6,6 +6,7 @@
         <style>
             html, body { margin: 0; padding: 0; border: 0; text-align: center; }
         </style>
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
         <!-- Framework -->
@@ -19,7 +20,7 @@
         // We specify the path of the assets.
         var SimpleTestGame = function () {
             Atlantis.Game.call(this, 640, 480);
-            this.content.setRootDirectory("Content/");
+            this.content.rootDirectory = "Content/";
             this.spriteBatch = null;
             this.backgroundTexture = null;
             this.playerTexture = null;
@@ -45,7 +46,7 @@
                 1, 30,  10
             ];
         };
-        SimpleTestGame.prototype = new Atlantis.Game();
+        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
         // First method called : Initialize your objects here. 
         SimpleTestGame.prototype.initialize = function () {

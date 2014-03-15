@@ -4,76 +4,112 @@
         <meta charset="utf-8" />
         <title>AtlantisEngine.js - Samples</title>
         <style>
-            html, body { margin: 0; padding: 0; border: 0; }
+            html, body { margin: 0; padding: 0; border: 0; text-align: center; }
         </style>
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
+        <div class="container"></div>
         <!-- Framework -->
-        <script src="../../Build/Atlantis.Framework.min.js"></script>
+        <script src="../../Framework/Compatibility.js"></script>
+        <script src="../../Framework/Common.js"></script>
+        <script src="../../Framework/ContentManager.js"></script>
+        <script src="../../Framework/GameComponent.js"></script>
+        <script src="../../Framework/GameTime.js"></script>
+        <script src="../../Framework/MathHelper.js"></script>
+        <script src="../../Framework/Rectangle.js"></script>
+        <script src="../../Framework/Matrix.js"></script>
+        <script src="../../Framework/Quaternion.js"></script>
+        <script src="../../Framework/Vector2.js"></script>
+        <script src="../../Framework/Vector3.js"></script>
+        <script src="../../Framework/Vector4.js"></script>
+        <script src="../../Framework/Input/Keyboard.js"></script>
+        <script src="../../Framework/Input/Mouse.js"></script>
+        <script src="../../Framework/Input/TouchPanel.js"></script>
+        <script src="../../Framework/Input/Gamepad.js"></script>
+        <script src="../../Framework/Input/Keys.js"></script>
+        <script src="../../Framework/Graphics/GraphicsDevice.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Graphics/RenderTarget.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Game.js"></script>
+        <!-- Engine -->
+        <script src="../../Engine/AudioManager.js"></script>
+        <script src="../../Engine/StorageManager.js"></script>
+        <script src="../../Engine/StateManager.js"></script>
+        <script src="../../Engine/Graphics/Animation.js"></script>
+        <script src="../../Engine/Graphics/Camera2D.js"></script>
+        <script src="../../Engine/Graphics/Sprite.js"></script>
+        <script src="../../Engine/Graphics/SpriteGroup.js"></script>
+        <script src="../../Engine/Graphics/TmxMap.js"></script>
+        <script src="../../Engine/Graphics/Tilemap.js"></script>
+        <script src="../../Engine/Graphics/TmxLoader.js"></script>
+        <script src="../../Engine/Input/KeyboardComponent.js"></script>
+        <script src="../../Engine/GameApplication.js"></script>
+
     </body>
     <script>
         // The Game class
         var TestGame = function () {
-            Atlantis.Game.call(this, 1024, 768);
-            this.content.setRootDirectory("Content/");
+            Atlantis.GameApplication.call(this, 640, 480, ".container");
+            this.content.rootDirectory = "Content/";
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
-            this.spriteA = null;
-            this.textA = null;
-            this.position = { x: 50, y: 50 };
-            this.rotation = 0;
+            this.tilemap = null;
+            this.camera = new Atlantis.Camera2D();
+            this.player = new Atlantis.Sprite("p1_stand.png");
+            this.player.move(15, 25);
+            this.camera.follow(this.player);
+          
         };
-        TestGame.prototype = new Atlantis.Game();
-
-        // Initialize your objects here. 
-        TestGame.prototype.initialize = function () {
-            Atlantis.Game.prototype.initialize.call(this);
-        };
+        TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
     
         // Load you assets here.
         TestGame.prototype.loadContent = function () {
-            Atlantis.Game.prototype.loadContent.call(this);
-            
+            Atlantis.GameApplication.prototype.loadContent.call(this);
+            this.player.loadContent(this.content);
+
             var that = this;
-            this.spriteA = this.content.load("atlantis_logo.jpg");
-            this.textA = new Atlantis.SpriteFont();
+            
+            this.tilemap = Atlantis.TmxLoader.load(this.content, "platform.json", function (tilemap) {
+                that.camera.viewport.set(0, 0, tilemap.mapWidth, tilemap.mapHeight);
+            });
         };
 
         // Update the game logic here as Input, Physics, etc.
         TestGame.prototype.update = function (gameTime) {
-            Atlantis.Game.prototype.update.call(this, gameTime);
-        
-            var state = this.keyboard.getState();
+            Atlantis.GameApplication.prototype.update.call(this, gameTime);
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
+                this.player.translate(0, -10);    
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
+                this.player.translate(0, 10);    
+            }
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
+                this.player.translate(-5, 0); 
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
+                this.player.translate(5, 0);
+            }
+            
+            var aPosition = this.camera.getSpritePosition();
+            var tileId = this.tilemap.getTileIdAt(2, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
+       
+            if (!tileId) { 
+                this.player.translate(0, 5); 
+            }
           
-            if (state.isKeyDown(Atlantis.Keys.Up))
-                this.position.y -= 5;
-            else if (state.isKeyDown(Atlantis.Keys.Down))
-                this.position.y += 5;
-            
-            if (state.isKeyDown(Atlantis.Keys.Left))
-                this.position.x -= 5;
-            else if (state.isKeyDown(Atlantis.Keys.Right))
-                this.position.x += 5;
-            
-            if (state.isKeyDown(Atlantis.Keys.Space))
-                this.rotation += 0.1;
-            else if (state.isKeyDown(Atlantis.Keys.Tab))
-                this.rotation -= 0.1;
+            this.camera.update();
         };
 
         // Draw sprites and text here.
         TestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.Game.prototype.draw.call(this, gameTime, context);
+            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
             this.graphicsDevice.clear(); 
-         
             this.spriteBatch.begin();
-            
-            // Draw simple texts.
-            this.spriteBatch.drawString(this.textA, "SpriteBatch test", { x: 10, y: 15 }, "#459999");
-
-			// Draw the sprite.
-            this.spriteBatch.draw(this.spriteA, this.position, null, null, this.rotation, { x: this.spriteA.width >> 1, y: this.spriteA.height >> 1 });
-            
-            // Draw all of this in the screen
+            this.tilemap.draw(this.spriteBatch, this.camera);
+            this.spriteBatch.draw(this.player.texture, this.player.rectangle);
             this.spriteBatch.end();
         };
     

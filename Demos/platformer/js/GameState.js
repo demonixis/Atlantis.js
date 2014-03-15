@@ -54,7 +54,7 @@ GameState.prototype.loadContent = function (content) {
 
         for (var i in that.overlays) {
             that.overlays[i].loadContent(content);
-            that.overlays[i].move(Atlantis.Application.Width / 2 - that.overlays[i].getWidth() / 2, Atlantis.Application.Height / 2 - that.overlays[i].getHeight() / 2);
+            that.overlays[i].move(Atlantis.screen.width / 2 - that.overlays[i].getWidth() / 2, Atlantis.screen.height / 2 - that.overlays[i].getHeight() / 2);
             that.overlays[i].enabled = false;
             that.scene.add(that.overlays[i]);
         }
@@ -66,7 +66,7 @@ GameState.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
     var tempSearchSprite = null;
 
-    if (this.gameMode == GameMode.Playing) { 
+    if (this.gameMode == GameMode.Playing) { return;
         this.elapsedTime += gameTime.getElapsedTime();
         if (this.elapsedTime >= 1000) {
             this.timeRemaining--;
@@ -92,7 +92,7 @@ GameState.prototype.update = function (gameTime) {
 
         this.player.updatePhysics(this.level.blocksSize, this.level.blocks);
 
-        if (this.player.getY() > Atlantis.Application.Height) {
+        if (this.player.getY() > Atlantis.screen.height) {
             if (!this.overlays[1].isActive()) {
                 this.overlays[1].setActive(true);	
             }
@@ -105,14 +105,14 @@ GameState.prototype.update = function (gameTime) {
             this.player.win();
         }
 
-        if (Atlantis.Application.Keyboard.pressed(Keys.Space)) {
+        if (Atlantis.input.keys.pressed(Keys.Space)) {
             this.restartGameState();
         }
     }
 };
 
-GameState.prototype.draw = function (gameTime, context) {
-    Atlantis.State.prototype.draw.call(this, gameTime, context);
+GameState.prototype.draw = function (gameTime) {
+    Atlantis.State.prototype.draw.call(this, gameTime);
 
     // Draw score
 };

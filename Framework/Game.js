@@ -10,6 +10,7 @@ var Atlantis = window.Atlantis || {};
 
 Atlantis.Game = (function () {
     var _instance = null;
+    
     /**
     * Create a game instance who is the starting point of the Framework.
     * @constructor
@@ -25,23 +26,41 @@ Atlantis.Game = (function () {
         
         var width = width || window.innerWidth || 640;
         var height = height || window.innerHeight || 480;
-        this.domElement = domElement || document.body;
+        this.domElement = document.body;
+        
+        if (typeof(domElement) instanceof HTMLElement) {
+            this.domElement = domElement;    
+        }
+        else if (typeof(domElement) === "string") {
+            if (domElement[0] === ".") {
+                domElement = domElement.replace(".", "");
+                this.domElement = document.getElementsByClassName(domElement)[0];
+            }
+            else {
+                domElement = (domElement[0] === "#") ? domElement.replace("#", "") : domElement;
+                this.domElement = document.getElementById(domElement);
+            }
+        }
+        
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
         this.keyboard = null;
         this.mouse = null;
-        this.pointer = null;
+        this.touchPanel = null;
+        this.gamepad = null;
         
         this.graphicsDevice = new Atlantis.GraphicsDevice(width, height, this.settings);
+        this.canvas = this.settings.canvas;
         this.frontBuffer = null;
         this.context = null;
-        
-        this.isRunning = false;
         this.initialized = false;
+        this._paused = false;
 
         _instance = this;
     };
+    
+    game.version = "0.2a";
 
     /**
     * Initialize the game logic and components.
@@ -50,16 +69,20 @@ Atlantis.Game = (function () {
     game.prototype.initialize = function () {
         this.frontBuffer = this.graphicsDevice.getFrontBuffer();
         this.context = this.frontBuffer.getContext();
+
+        if (!this.canvas) {
+            this.canvas = this.frontBuffer.getCanvas();
+        }
         
         this.keyboard = new Atlantis.Keyboard();
         this.mouse = new Atlantis.Mouse(this.frontBuffer.getCanvas());
         this.touchPanel = new Atlantis.TouchPanel(this.frontBuffer.getCanvas());
-        this.pointer = new Atlantis.PointerManager(this.frontBuffer.getCanvas());
+        this.gamepad = new Atlantis.Gamepad();
         
-        this.domElement.addEventListener("resize", onResize, false);
+        this.components.add(this.gamepad);
         
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener("orientationchange", onResize, false);
+        if (this.settings.resizeEnabled) {
+            window.addEventListener("resize", onResize, false);
         }
 
         if (this.domElement && !this.settings.canvas) {
@@ -85,7 +108,7 @@ Atlantis.Game = (function () {
         this.components.unloadContent();
     };
 
-    /*
+    /**
     * Update
     * @method update
     */
@@ -93,8 +116,8 @@ Atlantis.Game = (function () {
         this.components.update(gameTime);
     };
 
-    /*
-    * Draw on screen
+    /**
+    * In this method the screen must be cleared and components are drawn. All draw code come here.
     * @method draw
     */
     game.prototype.draw = function (gameTime, context) {
@@ -104,8 +127,16 @@ Atlantis.Game = (function () {
         
         this.components.draw(gameTime, context);
     };
+    
+    /**
+     *
+     *
+     */
+    game.prototype.beforeDraw = function (gameTime) {
+        this.graphicsDevice.present();  
+    };
 
-    /* 
+    /** 
     * Methods called by the main loop on each frame who call update and draw methods.
     * @method run
     */
@@ -117,27 +148,41 @@ Atlantis.Game = (function () {
             mainLoop();
         }
     };
-
+    
     /**
-    * Main loop of the game.
-    * @method mainLoop
-    */
+     * Set the game in pause mode. The canvas is no more updated and drawn.
+     * @method pause
+     */
+    game.prototype.pause = function () {
+        cancelAnimationFrame(mainLoop);
+        this._paused = true;
+    };
+    
+    /**
+     * Resume a paused game.
+     * @method resume
+     */
+    game.prototype.resume = function () {
+        if (this._paused) {
+            this._paused = false;
+            mainLoop();
+        }
+    };
+
+    // The mainLoop
     function mainLoop() {
         _instance.gameTime.update();
         _instance.update(_instance.gameTime);
-        _instance.draw(_instance.gameTime, _instance.context);
-        requestAnimationFrame(mainLoop);
+        _instance.draw(_instance.gameTime);
+        _instance.beforeDraw(_instance.gamepad);
+        
+        if (!_instance._paused) {
+            requestAnimationFrame(mainLoop);
+        }
     }
 
-    /*
-    * Callback for window resize
-    * @method onResize
-    */
+    // Callback for window resize
     function onResize(event) {
-        if (event.type == "orientationchange") {
-            // Todo : Re setup the graphics device with correct size.
-        }
-
         _instance.width = event.target.innerWidth;
         _instance.height = event.target.innerHeight;
         _instance.canvas.width = _instance.width;

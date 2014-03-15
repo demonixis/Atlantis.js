@@ -1,7 +1,7 @@
 var SpriteGame = function () {
     Atlantis.GameApplication.call(this, 640, 480);
 
-    this.content.setRootDirectory("Content/");
+    this.content.rootDirectory = "Content/";
 
     var menuScreen = new MenuScreen("menu")
     var gameScreen = new GameScreen("game");
@@ -10,4 +10,4 @@ var SpriteGame = function () {
     this.stateManager.add(gameScreen, false);
 };
 
-SpriteGame.prototype = new Atlantis.GameApplication();
+SpriteGame.prototype = Object.create(Atlantis.GameApplication.prototype);
