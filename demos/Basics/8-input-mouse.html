@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis.Framework.js - Demo</title>
+        <style>
+            html, body {
+                margin: 0; 
+                padding: 0; 
+                border: 0; 
+                text-align: center; 
+            }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <script src="../../Build/Atlantis.Framework.min.js"></script>
+    </body>
+    <script>
+        // 1. The first step is to create a class for you game
+
+        // This is the constructor of the game class.
+        // The canvas is created with a size of 640x480 and it's added to the DOM.
+        // We specify the path of the assets.
+        var SimpleTestGame = function () {
+            Atlantis.Game.call(this, 640, 480);
+            this.content.rootDirectory = "Content/";
+            this.spriteBatch = null;
+            this.spriteFont = new Atlantis.SpriteFont();
+            this.backgroundTexture = null;
+            this.blockTexture = null;
+            this.blocks = [];
+            this.rotation = 0;
+            this.screenRect = { 
+                x: 0, 
+                y: 0, 
+                width: this.graphicsDevice.preferredBackBufferWidth, 
+                height: this.graphicsDevice.preferredBackBufferHeight
+            };
+
+            this.lastMouseState = null;
+            this.mouseState = null;
+        };
+        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
+
+        SimpleTestGame.prototype.initialize = function () {
+            Atlantis.Game.prototype.initialize.call(this);
+            this.lastMouseState = this.mouse.getState();
+            this.mouseState = this.mouse.getState();
+        };
+
+        // Second method called : Load you assets here.
+        SimpleTestGame.prototype.loadContent = function () {
+            Atlantis.Game.prototype.loadContent.call(this);
+            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+            this.backgroundTexture = this.content.load("bg_castle.png");
+            this.blockTexture = this.content.load("grass.png");
+        };
+
+        // Main loop
+        // Update the game logic here as Input, Physics, etc.
+        SimpleTestGame.prototype.update = function (gameTime) {
+            Atlantis.Game.prototype.update.call(this, gameTime);
+
+            this.lastMouseState = this.mouseState.clone();
+            this.mouseState = this.mouse.getState();
+
+            // Add a block on mouse position when we click on canvas.
+            if (!this.mouseState.leftButton && this.lastMouseState.leftButton) { 
+                this.blocks.push({ 
+                    x: this.mouseState.x - (this.blockTexture.width >> 1), 
+                    y: this.mouseState.y - (this.blockTexture.height >> 1)
+                });
+            }  
+
+            // Rotate blocks with middle button
+            if (this.mouseState.middleButton) { 
+                this.rotation += 0.1;  
+            }
+
+            // Clear all blocks on right click.
+            if (!this.mouseState.rightButton && this.lastMouseState.rightButton) {
+                this.blocks.length = 0;   
+                this.rotation = 0;
+            }
+        };
+
+        // Draw sprites and text here.
+        SimpleTestGame.prototype.draw = function (gameTime, context) {
+            Atlantis.Game.prototype.draw.call(this, gameTime, context);
+            this.graphicsDevice.clear(); 
+
+            this.spriteBatch.begin();
+
+            // Draw the background at 0, 0
+            this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
+
+            // Draw some blocks
+            for (var i = 0, l = this.blocks.length; i < l; i++) {
+                this.spriteBatch.draw(this.blockTexture, this.blocks[i], null, null, this.rotation, { x: this.blockTexture.width >> 1, y: this.blockTexture.height >> 1 });   
+            }
+
+            // Draw messages
+            this.spriteBatch.drawString(this.spriteFont, "Left click to add a box", { x: 15, y: 20 }, "#eee");
+            this.spriteBatch.drawString(this.spriteFont, "Middle click to rotate boxes", { x: 15, y: 40 }, "#eee");
+            this.spriteBatch.drawString(this.spriteFont, "Right click to clear the scene", { x: 15, y: 60 }, "#eee");
+
+            this.spriteBatch.end();
+        };
+
+        // Finally you can start the game and have fun !
+        var game = new SimpleTestGame();
+        game.run();
+    </script>
+</html>
