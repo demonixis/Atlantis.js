@@ -30,10 +30,11 @@ SET js_engine=%js_engine% --js=Engine/Graphics/Animation.js
 SET js_engine=%js_engine% --js=Engine/Graphics/Camera2D.js
 SET js_engine=%js_engine% --js=Engine/Graphics/Sprite.js
 SET js_engine=%js_engine% --js=Engine/Graphics/SpriteGroup.js
+SET js_engine=%js_engine% --js=Engine/Graphics/Scene2D.js
 SET js_engine=%js_engine% --js=Engine/Graphics/Tilemap.js
 SET js_engine=%js_engine% --js=Engine/Graphics/TmxLoader.js
 
 java -jar compiler.jar %js_framework% --js_output_file=Build\Atlantis.Framework.min.js
 java -jar compiler.jar %js_framework% %js_engine% --js_output_file=Build\AtlantisEngine.min.js
 
-yuidoc .
+#yuidoc .

@@ -9,25 +9,28 @@
 var Atlantis = window.Atlantis || {};
 
 /** 
- * A collection that initialize, load, update and draw entities.
+ * A collection that initialize, load, update and draw _sprites.
  * @class SpriteGroup
  * @constructor
- * @extends Atlantis.Sprite
  */
 Atlantis.SpriteGroup = function () {
-    Atlantis.Sprite.call(this);
-	this.entities = [];	
+    this.enabled = true;
+    this.visible = true;
+    this._initialized = false;
+    this._loaded = false;
+	this._sprites = [];	
 };
-
-Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 
 /**
  * Initialize of all members.
  * @method initialize
  */
 Atlantis.SpriteGroup.prototype.initialize = function () {
-	for (var i = 0, l = this.entities.length; i < l; i++) {
-		this.entities[i].initialize();
+	if (!this._initialized) {
+		for (var i = 0, l = this._sprites.length; i < l; i++) {
+			this._sprites[i].initialize();
+		}
+		this._initialized = true;
 	}
 };
 
@@ -37,8 +40,11 @@ Atlantis.SpriteGroup.prototype.initialize = function () {
  * @param {Atlantis.ContentManager} contentManager An instance of ContentManager.
  */
 Atlantis.SpriteGroup.prototype.loadContent = function (contentManager) {
-	for (var i = 0, l = this.entities.length; i < l; i++) {
-		this.entities[i].loadContent(contentManager);
+	if (!this._loaded) {
+		for (var i = 0, l = this._sprites.length; i < l; i++) {
+			this._sprites[i].loadContent(contentManager);
+		}
+		this._loaded = true;
 	}
 };
 
@@ -49,9 +55,9 @@ Atlantis.SpriteGroup.prototype.loadContent = function (contentManager) {
  */
 Atlantis.SpriteGroup.prototype.update = function (gameTime) {
 	if (this.enabled) {
-		for (var i = 0, l = this.entities.length; i < l; i++) {
-            if (this.entities[i].enabled) {
-    		     this.entities[i].update(gameTime);
+		for (var i = 0, l = this._sprites.length; i < l; i++) {
+            if (this._sprites[i].enabled) {
+    		     this._sprites[i].update(gameTime);
             }
     	}
 	}
@@ -64,70 +70,65 @@ Atlantis.SpriteGroup.prototype.update = function (gameTime) {
  */
 Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
 	if (this.visible) {
-		for (var i = 0, l = this.entities.length; i < l; i++) {
-            if (this.entities[i].visible) {
-    		     this.entities[i].draw(spriteBatch);
+		for (var i = 0, l = this._sprites.length; i < l; i++) {
+            if (this._sprites[i].visible) {
+    		     this._sprites[i].draw(spriteBatch);
             }
     	}
 	}
 };
 
 /**
- * Add an entity to the group.
+ * Add an sprite to the group.
  * @method add
- * @param {Atlantis.Entity} entity The entity to add.
+ * @param {Atlantis.Sprite} sprite The sprite to add.
  */
-Atlantis.SpriteGroup.prototype.add = function (entity) {
-	if (entity instanceof Array) {
-		for (var i = 0, l = entity.length; i < l; i++) {
-			this.entities.push(entity[i]);
-		}
-	}
-	else {
-		this.entities.push(entity);
+Atlantis.SpriteGroup.prototype.add = function (sprite) {
+	if (sprite instanceof Atlantis.Sprite) {
+		this._sprites.push(sprite);
 	}
 };
 
 /**
- * remove an entity from the group.
+ * remove an sprite from the group.
  * @method remove
- * @param {Atlantis.Entity} entity The entity to remove.
+ * @param {Atlantis.Sprite} sprite The sprite to remove.
  */
-Atlantis.SpriteGroup.prototype.remove = function (entityOrIndex) {
-	var entity = null;
+Atlantis.SpriteGroup.prototype.remove = function (spriteOrIndex) {
+	var sprite = null;
 
-	if (entityOrIndex instanceof Atlantis.Entity) {
-		var index = this.entities.indexOf(entityOrIndex);
+	if (spriteOrIndex instanceof Atlantis.Sprite) {
+		var index = this._sprites.indexOf(spriteOrIndex);
 		if (index > -1) {
-			entity = this.entities[index];
-			this.entities.splice(index, 1);
+			sprite = this._sprites[index];
+			this._sprites.splice(index, 1);
 		}
 	}
 	else {
-		if (entityOrIndex > -1) {
-			entity = this.entities[index];
-			this.entities.splice(index, 1);
+		if (spriteOrIndex > -1) {
+			sprite = this._sprites[index];
+			this._sprites.splice(index, 1);
 		}
 	}
 
-	return entity;
+	return sprite;
 };
 
 /**
- * Gets an entity from the group.
+ * Gets an sprite from the group.
  * @method get
- * @param {Number} index The index of the entity on the group.
+ * @param {Number} index The index of the sprite on the group.
  */
 Atlantis.SpriteGroup.prototype.get = function (index) {
-	var entity = null;
+	var sprite = null;
 
 	if (index > -1) {
-		entity = this.entities[index];
+		sprite = this._sprites[index];
 	}
 
-	return entity;
+	return sprite;
 };
 
 Atlantis.SpriteGroup.prototype.clear = function () {
-    this.entities.length = 0;  
+    this._sprites.length = 0;  
 };

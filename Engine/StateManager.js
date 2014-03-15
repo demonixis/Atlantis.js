@@ -21,7 +21,7 @@ Atlantis.State = function (name) {
     this.assetLoaded = false;
     this.enabled = true;
     this.visible = true;
-    this.scene = new Atlantis.SpriteGroup();
+    this.scene = new Atlantis.Scene2D();
 };
 
 /**
