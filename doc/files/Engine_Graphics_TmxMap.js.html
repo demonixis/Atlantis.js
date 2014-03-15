@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Engine\Graphics\TmxMap.js - AtlantisEngine.js</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="../assets/favicon.png">
+    <script src="http://yui.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="../assets/css/logo.png" title="AtlantisEngine.js"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.2</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="../classes/Atlantis.app.html">Atlantis.app</a></li>
+            
+                <li><a href="../classes/Atlantis.AudioManager.html">Atlantis.AudioManager</a></li>
+            
+                <li><a href="../classes/Atlantis.ButtonState.html">Atlantis.ButtonState</a></li>
+            
+                <li><a href="../classes/Atlantis.Camera2D.html">Atlantis.Camera2D</a></li>
+            
+                <li><a href="../classes/Atlantis.ContentManager.html">Atlantis.ContentManager</a></li>
+            
+                <li><a href="../classes/Atlantis.DrawableGameComponent.html">Atlantis.DrawableGameComponent</a></li>
+            
+                <li><a href="../classes/Atlantis.Engine.html">Atlantis.Engine</a></li>
+            
+                <li><a href="../classes/Atlantis.Game.html">Atlantis.Game</a></li>
+            
+                <li><a href="../classes/Atlantis.GameComponent.html">Atlantis.GameComponent</a></li>
+            
+                <li><a href="../classes/Atlantis.Gamepad.html">Atlantis.Gamepad</a></li>
+            
+                <li><a href="../classes/Atlantis.GamepadAxis.html">Atlantis.GamepadAxis</a></li>
+            
+                <li><a href="../classes/Atlantis.GamepadButton.html">Atlantis.GamepadButton</a></li>
+            
+                <li><a href="../classes/Atlantis.GamepadState.html">Atlantis.GamepadState</a></li>
+            
+                <li><a href="../classes/Atlantis.GameTime.html">Atlantis.GameTime</a></li>
+            
+                <li><a href="../classes/Atlantis.GraphicsDevice.html">Atlantis.GraphicsDevice</a></li>
+            
+                <li><a href="../classes/Atlantis.input.html">Atlantis.input</a></li>
+            
+                <li><a href="../classes/Atlantis.KeyboardComponent.html">Atlantis.KeyboardComponent</a></li>
+            
+                <li><a href="../classes/Atlantis.KeyboardManager.html">Atlantis.KeyboardManager</a></li>
+            
+                <li><a href="../classes/Atlantis.KeyboardState.html">Atlantis.KeyboardState</a></li>
+            
+                <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
+            
+                <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
+            
+                <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
+            
+                <li><a href="../classes/Atlantis.Mouse.html">Atlantis.Mouse</a></li>
+            
+                <li><a href="../classes/Atlantis.MouseState.html">Atlantis.MouseState</a></li>
+            
+                <li><a href="../classes/Atlantis.MusicState.html">Atlantis.MusicState</a></li>
+            
+                <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
+            
+                <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
+            
+                <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
+            
+                <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
+            
+                <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteAnimation.html">Atlantis.SpriteAnimation</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteAnimator.html">Atlantis.SpriteAnimator</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteBatch.html">Atlantis.SpriteBatch</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteEffect.html">Atlantis.SpriteEffect</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteFont.html">Atlantis.SpriteFont</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteGroup.html">Atlantis.SpriteGroup</a></li>
+            
+                <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
+            
+                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
+            
+                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
+            
+                <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
+            
+                <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
+            
+                <li><a href="../classes/Atlantis.TilemapLayer.html">Atlantis.TilemapLayer</a></li>
+            
+                <li><a href="../classes/Atlantis.TilemapLayerType.html">Atlantis.TilemapLayerType</a></li>
+            
+                <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
+            
+                <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxMap.html">Atlantis.TmxMap</a></li>
+            
+                <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
+            
+                <li><a href="../classes/Atlantis.TouchPanel.html">Atlantis.TouchPanel</a></li>
+            
+                <li><a href="../classes/Atlantis.TouchPanelState.html">Atlantis.TouchPanelState</a></li>
+            
+                <li><a href="../classes/Atlantis.Vector2.html">Atlantis.Vector2</a></li>
+            
+                <li><a href="../classes/Atlantis.Vector3.html">Atlantis.Vector3</a></li>
+            
+                <li><a href="../classes/Atlantis.Vector4.html">Atlantis.Vector4</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="../modules/Atlantis.html">Atlantis</a></li>
+            
+                <li><a href="../modules/Engine.html">Engine</a></li>
+            
+                <li><a href="../modules/Framework.html">Framework</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: Engine\Graphics\TmxMap.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * AtlantisEngine.js a lightweight JavaScript game engine.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
+
+var Atlantis = window.Atlantis || {};
+
+/**
+ * A loader of tilemap created with Tiled and exported in JSON
+ * @class TmxMap
+ * @constructor
+ * @param {String} mapPath The path of the map to load.
+ */
+Atlantis.TmxMap = function (mapPath) {
+    this.mapPath = mapPath;
+    this.height = 0;
+    this.height = 0;
+    this.tileWidth = 0;
+    this.tileHeight = 0;
+    this.layers = [];
+    this.tilesets = [];
+    this.tilesetTextures = [];
+    this.backgroundTextures = [];
+    this.orientation = &quot;orthogonal&quot;;
+    this.properties = {};
+    this.version = 0;
+    this._loaded = false;
+};
+
+Atlantis.TmxMap.prototype.loadContent = function (content, callback) {
+    var that = this;
+
+    content.load(this.mapPath, function (map) {
+        var i = 0,
+            l = 0;
+
+        for (i = 0, l = map.layers.length; i &lt; l; i++) {
+            that.layers.push(map.layers[i]);
+            
+            if (map.layers[i].image) {
+                that.backgroundTextures.push(content.load(map.layers[i].image));
+            }
+        }
+
+        for (i = 0, l = map.tilesets.length; i &lt; l; i++) {
+            that.tilesets.push(map.tilesets[i]);
+            that.tilesetTextures.push(content.load(map.tilesets[i].image));
+            that.tilesetTextures[i].width = map.tilesets[i].imagewidth;
+            that.tilesetTextures[i].height = map.tilesets[i].imageheight;
+        }
+
+        that.height = map.height;
+        that.width = map.width;
+        that.tileWidth = map.tilewidth;
+        that.tileHeight = map.tileheight;
+        that.mapWidth = that.width * that.tileWidth;
+        that.mapHeight = that.height * that.tileHeight;
+        that.version = map.version
+        that.properties = map.properties;
+        that._loaded = true;
+        
+        if (callback) {
+            callback(that);
+        }
+    });
+};
+
+Atlantis.TmxMap.prototype.getTileId = function (layerIndex, camera, x, y) {
+    var layer = this.layers[layerIndex];
+    var x = Math.floor((x + camera.x) / this.tileWidth);
+    var y = Math.floor((y + camera.y) / this.tileHeight);
+    return layer.data[x + y * layer.width];
+};
+
+/**
+ * Draw the map relative to a camera position.
+ * @method draw
+ * @param {Atlantis.SpriteBatch} spriteBatch The SpriteBatch to use to draw the map.
+ * @param {Atlantis.Camera2D} camera The camera used in the scene.
+ */
+Atlantis.TmxMap.prototype.draw = function (spriteBatch, camera) {
+    if (this._loaded) {
+        for (var i = 0, l = this.layers.length; i &lt; l; i++) {
+            if (this.layers[i].visible) {
+                if (this.layers[i].type === &quot;imagelayer&quot;) {
+                    spriteBatch.draw(this.backgroundTextures[i], { x: 0, y: 0 });
+                }
+                else if (this.layers[i].type === &quot;tilelayer&quot;) {
+                    this._drawLayer(spriteBatch, camera, this.layers[i], this.tilesets[0]);
+                }
+            }
+        }
+    }
+};
+
+Atlantis.TmxMap.prototype._drawLayer = function (spriteBatch, camera, layer, tileset) {
+    var nbTileX = tileset.imagewidth / tileset.tilewidth,
+        nbTileY = tileset.imageheight / tileset.tileheight;
+    
+    var posX = camera.x / this.tileWidth,
+        posY = camera.y / this.tileHeight,
+        startX = Math.floor(posX),
+        startY = Math.floor(posY),
+        stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tilewidth) + 1, layer.width),
+        stopY = Math.min(Math.round((camera.y + Atlantis.screen.height) / tileset.tileheight) + 1, layer.height);
+    
+    var srcX = 0,
+        srcY = 0,
+        tileId = 0;
+    
+    for (var x = startX; x &lt; stopX; x++) {
+        for (var y = startY; y &lt; stopY; y++) {
+            tileId = layer.data[x + y * layer.width] - tileset.firstgid;
+
+            if (tileId &gt;= 0) {
+                srcX = tileId % nbTileX;
+                srcY = Math.floor(tileId / nbTileX);
+                srcX = (srcY &gt; 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
+                
+                spriteBatch.draw(this.tilesetTextures[0], { 
+                    x: (x - posX) * this.tileWidth, 
+                    y: (y - posY) * this.tileHeight, 
+                    width: this.tileWidth, 
+                    height: this.tileHeight
+                }, 
+                { 
+                    x: srcX * tileset.tilewidth, 
+                    y: srcY * tileset.tileheight, 
+                    width: tileset.tilewidth, 
+                    height: tileset.tileheight 
+                });
+            }
+        }
+    }
+};
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
