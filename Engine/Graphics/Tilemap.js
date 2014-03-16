@@ -162,9 +162,9 @@ Atlantis.Tilemap.prototype.drawBackground = function (spriteBatch, layer, backgr
  * @param {Atlantis.Tileset} The tileset to use for drawing the layer.
  */
 Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, tileset) { 
-     var nbTileX = tileset.width / tileset.tileWidth,
-         nbTileY = tileset.height / tileset.tileHeight;
-    
+     var nbTileX = Math.floor((tileset.width - tileset.margin * 4) / tileset.tileWidth),
+         nbTileY = Math.floor((tileset.height - tileset.margin * 4) / tileset.tileHeight);
+   
     // posX/Y   : Relative position to the camera
     // start/End/X/Y : Start/End position for the render loop  
     var posX = camera.x / this.tileWidth,
@@ -173,12 +173,14 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
         startY = Math.floor(posY),
         stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tileWidth) + 1, layer.width),
         stopY = Math.min(Math.round((camera.y + Atlantis.screen.height) / tileset.tileHeight) + 1, layer.height);
-    
+
     // Source rectangle values for drawing a tile.
     var srcX = 0,
         srcY = 0,
         destX = 0,
         destY = 0,
+        isoX = 0,
+        isoY = 0,
         tileId = 0;
     
     for (var x = startX; x < stopX; x++) {
@@ -195,9 +197,9 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
                 destY = ((y + layer.offset.y) - posY) * this.tileHeight;
 
                 if (this.projection === Atlantis.TilemapProjection.Isometric) {
-                    var isoX = (destX - destY);
-                    var isoY = (destX + destY) / 2;
-                    destX = isoX;
+                    isoX = (destX / 2 - destY);
+                    isoY = (destX / 2 + destY) / 2;
+                    destX = isoX + Atlantis.screen.width / 2;
                     destY = isoY;
                 }
 
@@ -208,14 +210,38 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
                     height: this.tileHeight
                 }, 
                 { 
-                    x: srcX * tileset.tileWidth, 
-                    y: srcY * tileset.tileHeight, 
-                    width: tileset.tileWidth, 
-                    height: tileset.tileHeight 
+                    x: tileset.margin + srcX * (tileset.tileWidth + tileset.padding), 
+                    y: tileset.margin + srcY * (tileset.tileHeight + tileset.padding), 
+                    width: tileset.tileWidth - tileset.padding, 
+                    height: tileset.tileHeight - tileset.padding 
                 });
             }
         }
     }
+};
+
+/**
+ * Get a transformed position from isometric world coordinates to screen coordinates.
+ * @method isoToScreen
+ * @static
+ * @param {Number} x The x coordinate on isometric world.
+ * @param {Number} y The y coordinate on isometric world.
+ * @return {Object} Return an object with transformed coordinates.
+ */
+Atlantis.Tilemap.isoToScreen = function (x, y) {
+    return { x: (2 * y + x) / 2, y: (2 * y - x) / 2 };
+};
+
+/**
+ * Get a transformed position from screen coordinates to iso coordinates.
+ * @method screenToIso
+ * @static
+ * @param {Number} x The x coordinate on screen.
+ * @param {Number} y The y coordinate on screen.
+ * @return {Object} Return an object with transformed coordinates.
+ */
+Atlantis.Tilemap.screenToIso = function (x, y) {
+    return { x: (x - y), y: (x + y) / 2 };
 };
 
 /**

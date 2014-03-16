@@ -66,7 +66,7 @@
 
             var that = this;
             
-            this.tilemap = Atlantis.TmxLoader.load(this.content, "isometric.json", function (tilemap) {
+            this.tilemap = Atlantis.TmxLoader.load(this.content, "isometric_map.json", function (tilemap) {
                 that.camera.viewport.set(0, 0, tilemap.mapWidth, tilemap.mapHeight);
             });
         };

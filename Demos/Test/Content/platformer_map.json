@@ -64,11 +64,11 @@
  "tilesets":[
         {
          "firstgid":1,
-         "image":"Tiles_32x32.png",
+         "image":"platformer_tiles.png",
          "imageheight":256,
          "imagewidth":256,
          "margin":0,
-         "name":"Tiles_32x32",
+         "name":"platformer_tiles",
          "properties":
             {
 

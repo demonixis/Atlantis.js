@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>AtlantisEngine.js - Samples</title>
+        <style>
+            html, body { margin: 0; padding: 0; border: 0; text-align: center; }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <div class="container"></div>
+        <!-- Engine -->
+        <script src="../../Build/AtlantisEngine.min.js"></script>
+
+    </body>
+    <script>
+        // The Game class
+        var IsoGame = function () {
+            Atlantis.GameApplication.call(this, 640, 480, ".container");
+            this.content.rootDirectory = "Content/";
+            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+            this.tilemap = null;
+            this.camera = new Atlantis.Camera2D();
+        };
+        IsoGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+    
+        // Load you assets here.
+        IsoGame.prototype.loadContent = function () {
+            Atlantis.GameApplication.prototype.loadContent.call(this);
+
+            var that = this;
+            
+            this.tilemap = Atlantis.TmxLoader.load(this.content, "isometric_map.json", function (tilemap) {
+                that.camera.viewport.set(0, 0, tilemap.mapWidth, tilemap.mapHeight);
+            });
+        };
+
+        // Update the game logic here as Input, Physics, etc.
+        IsoGame.prototype.update = function (gameTime) {
+            Atlantis.GameApplication.prototype.update.call(this, gameTime);
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
+                this.camera.y -= 5;    
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
+                this.camera.y += 5;    
+            }
+            
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
+                this.camera.x -= 5;   
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
+                this.camera.x += 5;  
+            }
+            
+            this.camera.update();
+        };
+
+        // Draw sprites and text here.
+        IsoGame.prototype.draw = function (gameTime, context) {
+            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+            this.graphicsDevice.clear(); 
+            this.spriteBatch.begin();
+            this.tilemap.draw(this.spriteBatch, this.camera);
+            this.spriteBatch.end();
+        };
+    
+        // Start the game !
+        var game = new IsoGame();
+        game.run();
+    </script>
+</html>
