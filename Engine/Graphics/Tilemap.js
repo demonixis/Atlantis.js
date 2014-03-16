@@ -77,9 +77,8 @@ Atlantis.TilemapLayer = function (layer) {
         y: +layer.y|0 
     };
     this.properties = layer.properties || {};
-    this.backgroundId = +layer.backgroundId || this.properties.backgroundId || 0;
-    this.tilesetId = +layer.tilesetId || this.properties.tilesetId || 0;
-    this.isCollider = this.properties.Collider || layer.isCollider;
+    this.backgroundId = +layer.backgroundId || +this.properties.backgroundId || 0;
+    this.tilesetId = +layer.tilesetId || +this.properties.tilesetId || 0;
 };
 
 Atlantis.TilemapLayer.Counter = 0;
@@ -94,64 +93,32 @@ Atlantis.TilemapLayer.Counter = 0;
 Atlantis.Tilemap = function (tilemap) {
     var tilemap = tilemap || {};
     this.id = Atlantis.Tilemap.Counter++;
+    this.name = tilemap.name || ["Tilemap_", this.id].join("");
     this.version = +tilemap.version|0;
+    this.projection = tilemap.orientation || tilemap.projection || Atlantis.TilemapProjection.Orthogonal;
+
     this.layers = tilemap.layers || [];
     this.tilesets = tilemap.tilesets || [];
     this.backgrounds = tilemap.backgrounds || [];
+    
     this.width = +tilemap.width|0;
     this.height = +tilemap.height|0;
-    this.name = tilemap.name || ["Tilemap_", this.id].join("");
-    this.projection = tilemap.orientation || tilemap.projection || Atlantis.TilemapProjection.Orthogonal;
+    this.tileWidth = +tilemap.tilewidth|0, 
+    this.tileHeight = +tilemap.tileheight|0 
+    this.mapWidth = this.width * this.tileWidth;
+    this.mapHeight = this.height * this.tileHeight;
+    
     this.properties = tilemap.properties || {};
-    this.tileSize = { 
-        width: +tilemap.tilewidth|0, 
-        height: +tilemap.tileheight|0 
-    };
-    this.mapWidth = this.width * this.tileSize.width;
-    this.mapHeight = this.height * this.tileSize.height;
     this.loaded = (typeof(tilemap.loaded) !== "undefined") ? tilemap.loaded : false;
     this.visible = (typeof(tilemap.visible) !== "undefined") ? tilemap.visible : true;
 
-    this._colliders = [];
     this._cacheTilesCanvas = [];
 };
 
 Atlantis.Tilemap.Counter = 0;
 
-Atlantis.Tilemap.prototype.collides = function (layerIndex, sprite) {
-    if (!this._colliders[layerIndex]) {
-        this._colliders[layerIndex] = [];
-    }
-
-    if (this._colliders[layerIndex].indexOf(sprite) === -1) {
-        this._colliders[layerIndex].push(sprite);
-    }
-};
-
-Atlantis.Tilemap.prototype.removeCollider = function (layerIndex, sprite) {
-    if (this._colliders[layerIndex]) {
-        var index = this._colliders[layerIndex].indexOf(sprite);
-
-        if (index > -1) {
-            this._colliders[layerIndex].splice(index, 1);
-        }
-    }
-};
-
 Atlantis.Tilemap.prototype.update = function (camera) {
-    if (this.enabled) {
-        var sprite = null;
-        var position = { x: 0, y: 0 };
-
-        for (var i = 0, l = this._colliders.length; i < l; i++) {
-            for (var j = 0, k = this._colliders[i].length; j < k; j++) {
-                sprite = this._colliders[i][j];
-                position = camera.getRelativePosition(sprite);
-
-                // TODO: Collision detection
-            }
-        }
-    }
+    // TODO : Add collision detection 
 };
 
 /**
@@ -200,8 +167,8 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
     
     // posX/Y   : Relative position to the camera
     // start/End/X/Y : Start/End position for the render loop  
-    var posX = camera.x / this.tileSize.width,
-        posY = camera.y / this.tileSize.height
+    var posX = camera.x / this.tileWidth,
+        posY = camera.y / this.tileHeight
         startX = Math.floor(posX),
         startY = Math.floor(posY),
         stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tileWidth) + 1, layer.width),
@@ -224,8 +191,8 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
                 srcY = Math.floor(tileId / nbTileX);
                 srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
                 
-                destX = ((x + layer.offset.x) - posX) * this.tileSize.width;
-                destY = ((y + layer.offset.y) - posY) * this.tileSize.height;
+                destX = ((x + layer.offset.x) - posX) * this.tileWidth;
+                destY = ((y + layer.offset.y) - posY) * this.tileHeight;
 
                 if (this.projection === Atlantis.TilemapProjection.Isometric) {
                     var isoX = (destX - destY);
@@ -237,8 +204,8 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
                 spriteBatch.draw(tileset.texture, { 
                     x: destX, 
                     y: destY, 
-                    width: this.tileSize.width, 
-                    height: this.tileSize.height
+                    width: this.tileWidth, 
+                    height: this.tileHeight
                 }, 
                 { 
                     x: srcX * tileset.tileWidth, 
@@ -262,8 +229,8 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
 Atlantis.Tilemap.prototype.getTileIdAt = function (layerIndex, x, y) {
     if (this.layers[layerIndex]) {
         var layer = this.layers[layerIndex];
-        var x = Math.floor(x / this.tileSize.width);
-        var y = Math.floor(y / this.tileSize.height);
+        var x = Math.floor(x / this.tileWidth);
+        var y = Math.floor(y / this.tileHeight);
         return layer.data[x + y * layer.width];
     }
     
@@ -313,8 +280,8 @@ Atlantis.Tilemap.prototype.getTileAt = function (tileset, layerIndex, x, y) {
                     { 
                         x: 0, 
                         y: 0, 
-                        width: this.tileSize.width, 
-                        height: this.tileSize.height
+                        width: this.tileWidth, 
+                        height: this.tileHeight
                     }
                 );
 
