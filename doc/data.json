@@ -31,6 +31,17 @@
                 "Atlantis": 1
             }
         },
+        "Engine\\Graphics\\Scene2D.js": {
+            "name": "Engine\\Graphics\\Scene2D.js",
+            "modules": {},
+            "classes": {
+                "Atlantis.Scene2D": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
         "Engine\\Graphics\\Sprite.js": {
             "name": "Engine\\Graphics\\Sprite.js",
             "modules": {},
@@ -75,17 +86,6 @@
                 "Atlantis": 1
             }
         },
-        "Engine\\Graphics\\TmxMap.js": {
-            "name": "Engine\\Graphics\\TmxMap.js",
-            "modules": {},
-            "classes": {
-                "Atlantis.TmxMap": 1
-            },
-            "fors": {},
-            "namespaces": {
-                "Atlantis": 1
-            }
-        },
         "Engine\\Input\\KeyboardComponent.js": {
             "name": "Engine\\Input\\KeyboardComponent.js",
             "modules": {},
@@ -118,6 +118,15 @@
                 "Atlantis.screen": 1,
                 "Atlantis.Engine": 1
             },
+            "fors": {},
+            "namespaces": {
+                "Atlantis": 1
+            }
+        },
+        "Engine\\Random.js": {
+            "name": "Engine\\Random.js",
+            "modules": {},
+            "classes": {},
             "fors": {},
             "namespaces": {
                 "Atlantis": 1
@@ -410,13 +419,13 @@
                 "Atlantis.SpriteAnimation": 1,
                 "Atlantis.SpriteAnimator": 1,
                 "Atlantis.Camera2D": 1,
+                "Atlantis.Scene2D": 1,
                 "Atlantis.SpriteGroup": 1,
                 "Atlantis.TilemapLayerType": 1,
                 "Atlantis.TilemapProjection": 1,
                 "Atlantis.Tileset": 1,
                 "Atlantis.TilemapLayer": 1,
                 "Atlantis.Tilemap": 1,
-                "Atlantis.TmxMap": 1,
                 "Atlantis.KeyboardComponent": 1,
                 "Atlantis.MusicState": 1,
                 "Atlantis.AudioManager": 1,
@@ -474,13 +483,13 @@
                 "Atlantis.SpriteAnimation": 1,
                 "Atlantis.SpriteAnimator": 1,
                 "Atlantis.Camera2D": 1,
+                "Atlantis.Scene2D": 1,
                 "Atlantis.SpriteGroup": 1,
                 "Atlantis.TilemapLayerType": 1,
                 "Atlantis.TilemapProjection": 1,
                 "Atlantis.Tileset": 1,
                 "Atlantis.TilemapLayer": 1,
                 "Atlantis.Tilemap": 1,
-                "Atlantis.TmxMap": 1,
                 "Atlantis.KeyboardComponent": 1,
                 "Atlantis.MusicState": 1,
                 "Atlantis.AudioManager": 1,
@@ -633,6 +642,23 @@
                 }
             ]
         },
+        "Atlantis.Scene2D": {
+            "name": "Atlantis.Scene2D",
+            "shortname": "Scene2D",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Graphics\\Scene2D.js",
+            "line": 11,
+            "description": "The main 2D scene that contains sprites, camera, tilemap",
+            "is_constructor": 1,
+            "extends": "Atlantis.SpriteGroup"
+        },
         "Atlantis.SpriteGroup": {
             "name": "Atlantis.SpriteGroup",
             "shortname": "SpriteGroup",
@@ -646,9 +672,8 @@
             "namespace": "Atlantis",
             "file": "Engine\\Graphics\\SpriteGroup.js",
             "line": 11,
-            "description": "A collection that initialize, load, update and draw entities.",
-            "is_constructor": 1,
-            "extends": "Atlantis.Sprite"
+            "description": "A collection that initialize, load, update and draw _sprites.",
+            "is_constructor": 1
         },
         "Atlantis.TilemapLayerType": {
             "name": "Atlantis.TilemapLayerType",
@@ -740,7 +765,7 @@
             "submodule": "Engine",
             "namespace": "Atlantis",
             "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 149,
+            "line": 86,
             "description": "This class is responsible to store all data for drawing a tilemap.\nA tilemap is composed of layers, tilesets and backgrounds.",
             "is_constructor": 1,
             "params": [
@@ -748,29 +773,6 @@
                     "name": "tilemap",
                     "description": "(optional) An object that contains tilemap data.",
                     "type": "Atlantis.Tilemap|Object"
-                }
-            ]
-        },
-        "Atlantis.TmxMap": {
-            "name": "Atlantis.TmxMap",
-            "shortname": "TmxMap",
-            "classitems": [],
-            "plugins": [],
-            "extensions": [],
-            "plugin_for": [],
-            "extension_for": [],
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis",
-            "file": "Engine\\Graphics\\TmxMap.js",
-            "line": 11,
-            "description": "A loader of tilemap created with Tiled and exported in JSON",
-            "is_constructor": 1,
-            "params": [
-                {
-                    "name": "mapPath",
-                    "description": "The path of the map to load.",
-                    "type": "String"
                 }
             ]
         },
@@ -1912,6 +1914,28 @@
         {
             "file": "Engine\\Graphics\\Camera2D.js",
             "line": 54,
+            "description": "Gets the relative position of a sprite relative to the camera position.",
+            "itemtype": "method",
+            "name": "getRelativePosition",
+            "params": [
+                {
+                    "name": "sprite",
+                    "description": "The sprite to use.",
+                    "type": "Atlantis.Sprite"
+                }
+            ],
+            "return": {
+                "description": "Return a structure with x and y coordinates.",
+                "type": "Object"
+            },
+            "class": "Atlantis.Camera2D",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Camera2D.js",
+            "line": 64,
             "description": "Update the camera position. If a sprite is attached to it, its position is managed by the camera.",
             "itemtype": "method",
             "name": "update",
@@ -2031,7 +2055,7 @@
         },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
-            "line": 34,
+            "line": 37,
             "description": "Load assets of all members.",
             "itemtype": "method",
             "name": "loadContent",
@@ -2049,7 +2073,7 @@
         },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
-            "line": 45,
+            "line": 51,
             "description": "Update logic of all members.",
             "itemtype": "method",
             "name": "update",
@@ -2067,7 +2091,7 @@
         },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
-            "line": 60,
+            "line": 66,
             "description": "Draw all members on screen.",
             "itemtype": "method",
             "name": "draw",
@@ -2085,15 +2109,15 @@
         },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
-            "line": 75,
-            "description": "Add an entity to the group.",
+            "line": 81,
+            "description": "Add an sprite to the group.",
             "itemtype": "method",
             "name": "add",
             "params": [
                 {
-                    "name": "entity",
-                    "description": "The entity to add.",
-                    "type": "Atlantis.Entity"
+                    "name": "sprite",
+                    "description": "The sprite to add.",
+                    "type": "Atlantis.Sprite"
                 }
             ],
             "class": "Atlantis.SpriteGroup",
@@ -2103,15 +2127,15 @@
         },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
-            "line": 91,
-            "description": "remove an entity from the group.",
+            "line": 92,
+            "description": "remove an sprite from the group.",
             "itemtype": "method",
             "name": "remove",
             "params": [
                 {
-                    "name": "entity",
-                    "description": "The entity to remove.",
-                    "type": "Atlantis.Entity"
+                    "name": "sprite",
+                    "description": "The sprite to remove.",
+                    "type": "Atlantis.Sprite"
                 }
             ],
             "class": "Atlantis.SpriteGroup",
@@ -2121,14 +2145,14 @@
         },
         {
             "file": "Engine\\Graphics\\SpriteGroup.js",
-            "line": 116,
-            "description": "Gets an entity from the group.",
+            "line": 117,
+            "description": "Gets an sprite from the group.",
             "itemtype": "method",
             "name": "get",
             "params": [
                 {
                     "name": "index",
-                    "description": "The index of the entity on the group.",
+                    "description": "The index of the sprite on the group.",
                     "type": "Number"
                 }
             ],
@@ -2139,58 +2163,7 @@
         },
         {
             "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 87,
-            "description": "Draw the background with this defined offset",
-            "itemtype": "method",
-            "name": "drawBackground",
-            "params": [
-                {
-                    "name": "spriteBatch",
-                    "description": "An instance of SpriteBatch for drawing the background.",
-                    "type": "Atlantis.SpriteBatch"
-                },
-                {
-                    "name": "background",
-                    "description": "An image or canvas to draw as background.",
-                    "type": "Image|Canvas"
-                }
-            ],
-            "class": "Atlantis.TilemapLayer",
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis"
-        },
-        {
-            "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 97,
-            "description": "Draw tiles with the defined offset, spacing and margin",
-            "itemtype": "method",
-            "name": "drawTiles",
-            "params": [
-                {
-                    "name": "spriteBatch",
-                    "description": "An instance of SpriteBatch for drawing the tileset.",
-                    "type": "Atlantis.SpriteBatch"
-                },
-                {
-                    "name": "camera",
-                    "description": "The camera to use to defined what must be drawn.",
-                    "type": "Atlantis.Camera2D"
-                },
-                {
-                    "name": "The",
-                    "description": "tileset to use for drawing the layer.",
-                    "type": "Atlantis.Tileset"
-                }
-            ],
-            "class": "Atlantis.TilemapLayer",
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis"
-        },
-        {
-            "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 182,
+            "line": 124,
             "description": "Draw the tilemap if it's visible and loaded.",
             "itemtype": "method",
             "name": "draw",
@@ -2213,7 +2186,68 @@
         },
         {
             "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 203,
+            "line": 145,
+            "description": "Draw the background with this defined offset",
+            "itemtype": "method",
+            "name": "drawBackground",
+            "params": [
+                {
+                    "name": "spriteBatch",
+                    "description": "An instance of SpriteBatch for drawing the background.",
+                    "type": "Atlantis.SpriteBatch"
+                },
+                {
+                    "name": "layer",
+                    "description": "The layer to draw.",
+                    "type": "Atlantis.TilemapLayer"
+                },
+                {
+                    "name": "background",
+                    "description": "An image or canvas to draw as background.",
+                    "type": "Image|Canvas"
+                }
+            ],
+            "class": "Atlantis.Tilemap",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Tilemap.js",
+            "line": 156,
+            "description": "Draw tiles with the defined offset, spacing and margin",
+            "itemtype": "method",
+            "name": "drawLayer",
+            "params": [
+                {
+                    "name": "spriteBatch",
+                    "description": "An instance of SpriteBatch for drawing the tileset.",
+                    "type": "Atlantis.SpriteBatch"
+                },
+                {
+                    "name": "camera",
+                    "description": "The camera to use to defined what must be drawn.",
+                    "type": "Atlantis.Camera2D"
+                },
+                {
+                    "name": "layer",
+                    "description": "The layer to draw.",
+                    "type": "Atlantis.TilemapLayer"
+                },
+                {
+                    "name": "The",
+                    "description": "tileset to use for drawing the layer.",
+                    "type": "Atlantis.Tileset"
+                }
+            ],
+            "class": "Atlantis.Tilemap",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Tilemap.js",
+            "line": 221,
             "description": "Gets the tile index at the specified position.",
             "itemtype": "method",
             "name": "getTileIdAt",
@@ -2245,7 +2279,7 @@
         },
         {
             "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 222,
+            "line": 240,
             "description": "Extract a tile from tileset and return a canvas element with the tile drawn in it.\nIt's usefull to do some tests, such as pixel perfect. \nNote 1: that it's work with a scale different to 1.\nNote 2: The extraction is done once, the result is stored in a cache, so you can safely call this method.",
             "itemtype": "method",
             "name": "getTileAt",
@@ -2276,29 +2310,6 @@
                 "type": "HTMLCanvas"
             },
             "class": "Atlantis.Tilemap",
-            "module": "Atlantis",
-            "submodule": "Engine",
-            "namespace": "Atlantis"
-        },
-        {
-            "file": "Engine\\Graphics\\TmxMap.js",
-            "line": 78,
-            "description": "Draw the map relative to a camera position.",
-            "itemtype": "method",
-            "name": "draw",
-            "params": [
-                {
-                    "name": "spriteBatch",
-                    "description": "The SpriteBatch to use to draw the map.",
-                    "type": "Atlantis.SpriteBatch"
-                },
-                {
-                    "name": "camera",
-                    "description": "The camera used in the scene.",
-                    "type": "Atlantis.Camera2D"
-                }
-            ],
-            "class": "Atlantis.TmxMap",
             "module": "Atlantis",
             "submodule": "Engine",
             "namespace": "Atlantis"
@@ -7319,7 +7330,7 @@
         },
         {
             "message": "param name missing: {Atlantis.SpriteBatch}",
-            "line": " Engine\\Graphics\\SpriteGroup.js:60"
+            "line": " Engine\\Graphics\\SpriteGroup.js:66"
         },
         {
             "message": "unknown tag: exemple",

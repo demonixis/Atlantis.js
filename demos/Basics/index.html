@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>AtlantisEngine.js - demos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link href="../web/styles.css" rel="stylesheet" media="all" />
+        <link rel="icon" href="../web/favicon.png">
+    </head>
+    <body>
+        <h1 id="header">
+			<a class="back" href="../index.html"><img src="../web/back.png" alt="back" /></a>
+			Atlantis :: Basics
+		</h1>
+        <section id="samples"></section>
+    </body>
+	<script src="../web/js/populate.js"></script>
+	<script>
+	var demos = [
+		{ desc: "Basic structure", link: "1-basic-game.html", img: "../web/previews/black.png" },
+		{ desc: "Textures", link: "2-spritebatch-textures.html", img: "../web/previews/basics.png" },
+		{ desc: "Fonts", link: "3-spritebatch-fonts.html", img: "../web/previews/fonts.png" },
+		{ desc: "Transform", link: "4-spritebatch-transform-matrix.html", img: "../web/previews/transform.png" },
+		{ desc: "Sort mode", link: "5-spritebatch-sortmode.html", img: "../web/previews/texture.png" },
+		{ desc: "Upscaling", link: "6-upscaling.html", img: "../web/previews/texture.png" },
+		{ desc: "Keyboard input", link: "7-input-keyboard.html", img: "../web/previews/texture.png" },
+		{ desc: "Mouse input", link: "8-input-mouse.html", img: "../web/previews/texture.png" },
+		{ desc: "Gamepad input", link: "9-input-gamepad.html", img: "../web/previews/texture.png" },
+		{ desc: "Touch input", link: "10-input-touch.html", img: "../web/previews/texture.png" }
+	];
+	
+	populate("samples", demos);
+	
+	</script>
+</html>

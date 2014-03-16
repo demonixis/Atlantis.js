@@ -99,6 +99,8 @@
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
             
+                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
+            
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
                 <li><a href="../classes/Atlantis.SpriteAnimation.html">Atlantis.SpriteAnimation</a></li>
@@ -130,8 +132,6 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
-            
-                <li><a href="../classes/Atlantis.TmxMap.html">Atlantis.TmxMap</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -198,7 +198,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Engine_Graphics_Tilemap.js.html#l149"><code>Engine\Graphics\Tilemap.js:149</code></a>
+            Defined in: <a href="../files/Engine_Graphics_Tilemap.js.html#l86"><code>Engine\Graphics\Tilemap.js:86</code></a>
         </div>
     
 
@@ -265,7 +265,7 @@ A tilemap is composed of layers, tilesets and backgrounds.</p>
             
         
         
-        <a href="../files/Engine_Graphics_Tilemap.js.html#l149"><code>Engine\Graphics\Tilemap.js:149</code></a>
+        <a href="../files/Engine_Graphics_Tilemap.js.html#l86"><code>Engine\Graphics\Tilemap.js:86</code></a>
         
         </p>
 
@@ -337,6 +337,20 @@ A tilemap is composed of layers, tilesets and backgrounds.</p>
                         
                             <li class="index-item method">
                                 <a href="#method_draw">draw</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_drawBackground">drawBackground</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_drawLayer">drawLayer</a>
 
                                 
                                 
@@ -420,7 +434,7 @@ A tilemap is composed of layers, tilesets and backgrounds.</p>
             
         
         
-        <a href="../files/Engine_Graphics_Tilemap.js.html#l182"><code>Engine\Graphics\Tilemap.js:182</code></a>
+        <a href="../files/Engine_Graphics_Tilemap.js.html#l124"><code>Engine\Graphics\Tilemap.js:124</code></a>
         
         </p>
 
@@ -467,6 +481,294 @@ A tilemap is composed of layers, tilesets and backgrounds.</p>
 
                     <div class="param-description">
                         <p>The camera to use to defined what must be drawn.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_drawBackground" class="method item">
+    <h3 class="name"><code>drawBackground</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>spriteBatch</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>layer</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>background</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Tilemap.js.html#l145"><code>Engine\Graphics\Tilemap.js:145</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Draw the background with this defined offset</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">spriteBatch</code>
+                        <span class="type"><a href="..\classes\Atlantis.SpriteBatch.html" class="crosslink">Atlantis.SpriteBatch</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An instance of SpriteBatch for drawing the background.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">layer</code>
+                        <span class="type"><a href="..\classes\Atlantis.TilemapLayer.html" class="crosslink">Atlantis.TilemapLayer</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The layer to draw.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">background</code>
+                        <span class="type">Image | Canvas</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An image or canvas to draw as background.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_drawLayer" class="method item">
+    <h3 class="name"><code>drawLayer</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>spriteBatch</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>camera</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>layer</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>The</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Tilemap.js.html#l156"><code>Engine\Graphics\Tilemap.js:156</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Draw tiles with the defined offset, spacing and margin</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">spriteBatch</code>
+                        <span class="type"><a href="..\classes\Atlantis.SpriteBatch.html" class="crosslink">Atlantis.SpriteBatch</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>An instance of SpriteBatch for drawing the tileset.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">camera</code>
+                        <span class="type"><a href="..\classes\Atlantis.Camera2D.html" class="crosslink">Atlantis.Camera2D</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The camera to use to defined what must be drawn.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">layer</code>
+                        <span class="type"><a href="..\classes\Atlantis.TilemapLayer.html" class="crosslink">Atlantis.TilemapLayer</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The layer to draw.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">The</code>
+                        <span class="type"><a href="..\classes\Atlantis.Tileset.html" class="crosslink">Atlantis.Tileset</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>tileset to use for drawing the layer.</p>
 
                     </div>
 
@@ -547,7 +849,7 @@ A tilemap is composed of layers, tilesets and backgrounds.</p>
             
         
         
-        <a href="../files/Engine_Graphics_Tilemap.js.html#l222"><code>Engine\Graphics\Tilemap.js:222</code></a>
+        <a href="../files/Engine_Graphics_Tilemap.js.html#l240"><code>Engine\Graphics\Tilemap.js:240</code></a>
         
         </p>
 
@@ -717,7 +1019,7 @@ Note 2: The extraction is done once, the result is stored in a cache, so you can
             
         
         
-        <a href="../files/Engine_Graphics_Tilemap.js.html#l203"><code>Engine\Graphics\Tilemap.js:203</code></a>
+        <a href="../files/Engine_Graphics_Tilemap.js.html#l221"><code>Engine\Graphics\Tilemap.js:221</code></a>
         
         </p>
 

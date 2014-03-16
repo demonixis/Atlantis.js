@@ -1,4 +1,4 @@
-var GameScreen = function (name) {
+var PlayState = function (name) {
     Atlantis.State.call(this, name);
 
     this.background = new Atlantis.Sprite("forest.png");
@@ -9,9 +9,9 @@ var GameScreen = function (name) {
     this.speed = 0.01; 
 };
 
-GameScreen.prototype = new Atlantis.State();
+PlayState.prototype = new Atlantis.State();
 
-GameScreen.prototype.loadContent = function (content) {
+PlayState.prototype.loadContent = function (content) {
     Atlantis.State.prototype.loadContent.call(this, content);
 
     this.sprite.prepareAnimation(64, 64);
@@ -28,7 +28,7 @@ GameScreen.prototype.loadContent = function (content) {
     this.background.setSize(Atlantis.screen.width, Atlantis.screen.height);
 };
 
-GameScreen.prototype.update = function (gameTime) {
+PlayState.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
     if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {

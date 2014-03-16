@@ -3,31 +3,36 @@
     <head>
         <meta charset="utf-8" />
         <title>Atlantis Game Engine</title>
-        <style>
-            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
-            canvas { display: block; margin: auto; }
-        </style>
-        <link rel="icon" href="../web/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link href="../web/styles.css" rel="stylesheet" media="all" />
+        <link rel="icon" href="../web/favicon.png">
     </head>
     <body>
+		<h1 id="header">
+			<a class="back" href="../index.html"><img src="../web/back.png" alt="back" /></a>
+			Atlantis :: Tilemap
+		</h1>
         <!-- Framework -->
-        <script src="../../Build/Atlantis.Framework.min.js"></script>
-        <!-- Engine -->
-        <script src="../../Engine/AudioManager.js"></script>
-        <script src="../../Engine/StateManager.js"></script>
-        <script src="../../Engine/StorageManager.js"></script>
-        <script src="../../Engine/Graphics/Animation.js"></script>
-        <script src="../../Engine/Graphics/Sprite.js"></script>
-        <script src="../../Engine/Graphics/SpriteGroup.js"></script>
-        <script src="../../Engine/Input/KeyboardComponent.js"></script>
-        <script src="../../Engine/GameApplication.js"></script>
+        <script src="../../Build/AtlantisEngine.min.js"></script>
 
         <!-- The sprite game -->
-        <script src="js/MenuScreen.js"></script>
-        <script src="js/GameScreen.js"></script>
-        <script src="js/SpriteGame.js"></script>
+        <script src="js/MenuState.js"></script>
+        <script src="js/PlayState.js"></script>
 
         <script>
+            var SpriteGame = function () {
+                Atlantis.GameApplication.call(this, 640, 480);
+
+                this.content.rootDirectory = "Content/";
+
+                var menuState = new MenuState("menu")
+                var playState = new PlayState("game");
+
+                this.stateManager.add(menuState, true);
+                this.stateManager.add(playState, false);
+            };
+            SpriteGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
             var game = new SpriteGame();
             game.run();
         </script>

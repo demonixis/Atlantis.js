@@ -99,6 +99,8 @@
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
             
+                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
+            
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
                 <li><a href="../classes/Atlantis.SpriteAnimation.html">Atlantis.SpriteAnimation</a></li>
@@ -130,8 +132,6 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
-            
-                <li><a href="../classes/Atlantis.TmxMap.html">Atlantis.TmxMap</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -230,10 +230,11 @@ Atlantis.TmxLoader = {
 
             tilemap.height = map.height;
             tilemap.width = map.width;
-            tilemap.tileSize.width = map.tilewidth;
-            tilemap.tileSize.height = map.tileheight;
-            tilemap.mapWidth = tilemap.width * tilemap.tileSize.width;
-            tilemap.mapHeight = tilemap.height * tilemap.tileSize.height;
+            tilemap.tileWidth = map.tilewidth;
+            tilemap.tileHeight = map.tileheight;
+            tilemap.mapWidth = tilemap.width * tilemap.tileWidth;
+            tilemap.mapHeight = tilemap.height * tilemap.tileHeight;
+            tilemap.projection = map.orientation;
             tilemap.version = map.version
             tilemap.properties = map.properties;
             tilemap.visible = true;

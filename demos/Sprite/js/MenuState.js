@@ -1,4 +1,4 @@
-var MenuScreen = function (name) {
+var MenuState = function (name) {
     Atlantis.State.call(this, name);
     var backgroundMenu = new Atlantis.Sprite("backgroundMenu.png");
     this.scene.add(backgroundMenu);
@@ -7,9 +7,9 @@ var MenuScreen = function (name) {
     this.text = "Press Enter to start";
 };
 
-MenuScreen.prototype = new Atlantis.State();
+MenuState.prototype = new Atlantis.State();
 
-MenuScreen.prototype.update = function (gameTime) {
+MenuState.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
     if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
@@ -17,7 +17,7 @@ MenuScreen.prototype.update = function (gameTime) {
     }
 };
 
-MenuScreen.prototype.draw = function (spriteBatch) {
+MenuState.prototype.draw = function (spriteBatch) {
     Atlantis.State.prototype.draw.call(this, spriteBatch);
     spriteBatch.drawString(this.spriteFont, this.text, { x: Atlantis.screen.width / 2 - 150, y: Atlantis.screen.height / 2 }, "#fff");
 };

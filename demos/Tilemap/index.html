@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>AtlantisEngine.js - demos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link href="../web/styles.css" rel="stylesheet" media="all" />
+        <link rel="icon" href="../web/favicon.png">
+    </head>
+    <body>
+        <h1 id="header">
+			<a class="back" href="../index.html"><img src="../web/back.png" alt="back" /></a>
+			Atlantis :: Tilemap
+		</h1>
+        <section id="samples"></section>
+	</body>
+	<script src="../web/js/populate.js"></script>
+	<script>
+	var demos = [
+		{ desc: "Platform style", link: "1-tiled-ortho-platform.html", img: "../web/previews/tiledPlatform.png" },
+		{ desc: "RPG style", link: "2-tiled-orhto-topdown.html", img: "../web/tiles/tiledRPG.png" },
+	];
+	
+	populate("samples", demos);
+	
+	</script>
+</html>

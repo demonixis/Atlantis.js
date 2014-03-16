@@ -4,14 +4,10 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>Atlantis.js Game Engine</title>
-        <meta name="description" content="Atlantis.js is an experimental Game Engine written in JavaScript." />
+        <meta name="description" content="Atlantis.js : an experimental Game Engine written in JavaScript." />
         <meta name="viewport" content="width=device-width">
-		<meta property="og:title" content="Atlantis.js" /> 
-		<meta property="og:image" content="img/preview.png" /> 
-		<meta property="og:description" content="Atlantis.js is an experimental Game Engine written in JavaScript." /> 
-		<meta property="og:url" content="http://demonixis.github.io/AtlantisEngine.js" />
-        <link rel="stylesheet" href="css/normalize.min.css" />
-        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="web/css/normalize.min.css" />
+        <link rel="stylesheet" href="web/css/main.css" />
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
@@ -31,46 +27,52 @@
 			</nav>
 			<div id="whiteBlock">
 				<div id="content">
-					<p>
-						<img src="img/html5.png" alt="Html5 logo" />
-						Atlantis.js is an experimental game engine written in many languages, this is the JavaScript port.
-					</p>
-					<h3>Goals</h3>
+					<div class="article">
+						<img src="web/img/html5.png" alt="Html5 logo" class="left" />
+						<p>
+							Atlantis.js is an experimental game engine written in JavaScript and designed for making game easily. The project is splitted into 
+							two modules - a Framework which provide to the developper an API close to XNA and an engine which is largely inspired by the excellent 
+							<a href="http://www.flixel.org">Flixel</a>.
+						</p>
+						<p>
+							You can start your journey with Atlantis.js by testing some <a href="demos/index.html">demos</a> or read the online <a href="doc/index.html"> documentation</a>. 
+							Tutorials will come soon.
+						</p>
+						<div class="clear"></div>
+					</div>
+					
+					<h3>Screenshots</h3>
+					<div id="screenshots">
+						<img src="web/img/basics.png" alt="Basics" />
+						<img src="web/img/platformer2D.png" alt="A 2D Platformer" />
+						<img src="web/img/tiledRPG.png" alt="A 2D RPG" />
+					</div>
+					
+					<h3>Features</h3>
 					<ul>
-						<li>Using the standard API (try to avoid 3rd party librairies if possible)</li>
-						<li>Using the same API for each language</li>
-						<li>Two main modules: a Framework and an Engine</li>
-						<li>Must work with most browsers</li>
-						<li>Easy and fun programming</li>
+						<li class="list-title">Framework</li>
+						<li>Content manager</li>
+						<li>Sprite Batch</li>
+						<li>RenderTarget</li>
+						<li>Input handling (Keyboard, Mouse, Touch, Gamepad)</li>
+						<li>Math utils (Vector, Quaternion, Matrix)</li>
+						<li>Close to XNA API</li>
 					</ul>
 					
-					<h3>The Framework</h3>
-					<p>
-						<a href="http://monogame.net/" title="MonoGame web site">XNA/MonoGame Framework</a> is an elegant solution for making a game or building an engine, moreover the main probleme 
-						is there are a lot of classes and utilities that we doesn't use. The concept of the Framework behind Atlantis is to provide an API close to XNA/MonoGame 
-						without some features. So network, XACT, gamer services and all specific Xbox and Windows code will not be implemented.
-						The result is a lightweight Framework with only object that we really need for the engine.
-					</p>
-					
-					<h3>The Engine</h3>
-					<p>
-						The engine is a modified port of <a href="https://github.com/demonixis/YnaEngine" title="YnaEngine web site">YnaEngine</a>, another Game Engine that I written. The goal of the engine is to be simple as possible like <a href="http://flixel.org/" title="Flixel web site">Flixel (2D)</a> or 
-						<a href="http://threejs.org/" title="Three.js web site">Three.js (3D)</a> and provide to developer a rapid way to create prototypes or games. It's <em>mainly</em> designed for Game Jam.
-					</p>
-					
-					<h3>Some features</h3>
 					<ul>
-						<li>A Framework with an API close to XNA</li>
-						<li>Audio</li>
-						<li>State management</li>
+						<li class="list-title">Engine</li>
+						<li>Audio manager</li>
+						<li>Input manager</li>
+						<li>Storage manager (localStorage)</li>
+						<li>State manager</li>
 						<li>Sprite and animated Sprite</li>
-						<li>Storage</li>
-						<li>Inputs (keyboard, mouse, touch, gamepad)</li>
-						<li>Tilemap (TMX loader)</li>
+						<li>SpriteGroup</li>
+						<li>Tilemap (Tiled loader)</li>
 					</ul>
+				
 					<h3>License</h3>
 					<p>
-						AtlantisEngine is free to use for any type of projects. It's using <a href="http://www.linfo.org/mitlicense.html" title="About this license">MIT license</a>, take a look of the license file for more informations.
+						AtlantisEngine is free to use for any type of projects. It's using <a href="http://www.linfo.org/mitlicense.html" title="About this license">MIT license</a>, take a look at the license file for more informations.
 					</p>
 				</div>
 			</div>
