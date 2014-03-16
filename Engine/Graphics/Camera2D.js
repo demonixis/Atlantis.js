@@ -46,9 +46,19 @@ Atlantis.Camera2D.prototype.follow = function (sprite) {
  */
 Atlantis.Camera2D.prototype.getSpritePosition = function () {
     if (this._follow) {
-        return { x: this._follow.rectangle.x + this.x, y: this._follow.rectangle.y + this.y };
+        return this.getRelativePosition(this._follow);
     }
     return { x: this.x, y: this.y };
+};
+
+/**
+ * Gets the relative position of a sprite relative to the camera position.
+ * @method getRelativePosition
+ * @param {Atlantis.Sprite} sprite The sprite to use.
+ * @return {Object} Return a structure with x and y coordinates.
+ */
+Atlantis.Camera2D.prototype.getRelativePosition = function (sprite) {
+    return { x: sprite.rectangle.x + this.x, y: sprite.rectangle.y + this.y };
 };
 
 /**

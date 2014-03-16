@@ -85,68 +85,6 @@ Atlantis.TilemapLayer = function (layer) {
 Atlantis.TilemapLayer.Counter = 0;
 
 /**
- * Draw the background with this defined offset
- * @method drawBackground
- * @param {Atlantis.SpriteBatch} spriteBatch An instance of SpriteBatch for drawing the background.
- * @param {Image|Canvas} background An image or canvas to draw as background.
- */
-Atlantis.TilemapLayer.prototype.drawBackground = function (spriteBatch, background) {
-    spriteBatch.draw(background, { x: this.offset.x, y: this.offset.y });
-};
-
-/**
- * Draw tiles with the defined offset, spacing and margin
- * @method drawTiles
- * @param {Atlantis.SpriteBatch} spriteBatch An instance of SpriteBatch for drawing the tileset.
- * @param {Atlantis.Camera2D} camera The camera to use to defined what must be drawn.
- * @param {Atlantis.Tileset} The tileset to use for drawing the layer.
- */
-Atlantis.TilemapLayer.prototype.drawTiles = function (spriteBatch, camera, tileset, tileSize) {
-    var nbTileX = tileset.width / tileset.tileWidth,
-        nbTileY = tileset.height / tileset.tileHeight;
-    
-    // posX/Y   : Relative position to the camera
-    // start/End/X/Y : Start/End position for the render loop  
-    var posX = camera.x / tileSize.width,
-        posY = camera.y / tileSize.height,
-        startX = Math.floor(posX),
-        startY = Math.floor(posY),
-        stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tileWidth) + 1, this.width),
-        stopY = Math.min(Math.round((camera.y + Atlantis.screen.height) / tileset.tileHeight) + 1, this.height);
-    
-    // Source rectangle values for drawing a tile.
-    var srcX = 0,
-        srcY = 0,
-        tileId = 0;
-    
-    for (var x = startX; x < stopX; x++) {
-        for (var y = startY; y < stopY; y++) {
-            tileId = this.data[x + y * this.width] - tileset.firstGID;
-
-            // To prevent negative source rectangle
-            if (tileId >= 0) {
-                srcX = tileId % nbTileX;
-                srcY = Math.floor(tileId / nbTileX);
-                srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
-                
-                spriteBatch.draw(tileset.texture, { 
-                    x: ((x + this.offset.x) - posX) * tileSize.width, 
-                    y: ((y + this.offset.y) - posY) * tileSize.height, 
-                    width: tileSize.width, 
-                    height: tileSize.height
-                }, 
-                { 
-                    x: srcX * tileset.tileWidth, 
-                    y: srcY * tileset.tileHeight, 
-                    width: tileset.tileWidth, 
-                    height: tileset.tileHeight 
-                });
-            }
-        }
-    }
-};
-
-/**
  * This class is responsible to store all data for drawing a tilemap.
  * A tilemap is composed of layers, tilesets and backgrounds.
  * @class Tilemap
@@ -174,10 +112,47 @@ Atlantis.Tilemap = function (tilemap) {
     this.loaded = (typeof(tilemap.loaded) !== "undefined") ? tilemap.loaded : false;
     this.visible = (typeof(tilemap.visible) !== "undefined") ? tilemap.visible : true;
 
+    this._colliders = [];
     this._cacheTilesCanvas = [];
 };
 
 Atlantis.Tilemap.Counter = 0;
+
+Atlantis.Tilemap.prototype.collides = function (layerIndex, sprite) {
+    if (!this._colliders[layerIndex]) {
+        this._colliders[layerIndex] = [];
+    }
+
+    if (this._colliders[layerIndex].indexOf(sprite) === -1) {
+        this._colliders[layerIndex].push(sprite);
+    }
+};
+
+Atlantis.Tilemap.prototype.removeCollider = function (layerIndex, sprite) {
+    if (this._colliders[layerIndex]) {
+        var index = this._colliders[layerIndex].indexOf(sprite);
+
+        if (index > -1) {
+            this._colliders[layerIndex].splice(index, 1);
+        }
+    }
+};
+
+Atlantis.Tilemap.prototype.update = function (camera) {
+    if (this.enabled) {
+        var sprite = null;
+        var position = { x: 0, y: 0 };
+
+        for (var i = 0, l = this._colliders.length; i < l; i++) {
+            for (var j = 0, k = this._colliders[i].length; j < k; j++) {
+                sprite = this._colliders[i][j];
+                position = camera.getRelativePosition(sprite);
+
+                // TODO: Collision detection
+            }
+        }
+    }
+};
 
 /**
  * Draw the tilemap if it's visible and loaded.
@@ -190,11 +165,87 @@ Atlantis.Tilemap.prototype.draw = function (spriteBatch, camera) {
         for (var i = 0, l = this.layers.length; i < l; i++) {
             if (this.layers[i].visible) {
                 if (this.layers[i].type === Atlantis.TilemapLayerType.Background) {
-                    this.layers[i].drawBackground(spriteBatch, this.backgrounds[this.layers[i].backgroundId]);
+                    this.drawBackground(spriteBatch, this.layers[i], this.backgrounds[this.layers[i].backgroundId])
                 }
                 else if (this.layers[i].type === Atlantis.TilemapLayerType.Tiles) {
-                    this.layers[i].drawTiles(spriteBatch, camera, this.tilesets[this.layers[i].tilesetId], this.tileSize);
+                    this.drawLayer(spriteBatch, camera, this.layers[i], this.tilesets[this.layers[i].tilesetId]);
                 }
+            }
+        }
+    }
+};
+
+/**
+ * Draw the background with this defined offset
+ * @method drawBackground
+ * @param {Atlantis.SpriteBatch} spriteBatch An instance of SpriteBatch for drawing the background.
+ * @param {Atlantis.TilemapLayer} layer The layer to draw.
+ * @param {Image|Canvas} background An image or canvas to draw as background.
+ */
+Atlantis.Tilemap.prototype.drawBackground = function (spriteBatch, layer, background) {
+    spriteBatch.draw(background, { x: layer.offset.x, y: layer.offset.y });
+};
+
+/**
+ * Draw tiles with the defined offset, spacing and margin
+ * @method drawLayer
+ * @param {Atlantis.SpriteBatch} spriteBatch An instance of SpriteBatch for drawing the tileset.
+ * @param {Atlantis.Camera2D} camera The camera to use to defined what must be drawn.
+ * @param {Atlantis.TilemapLayer} layer The layer to draw.
+ * @param {Atlantis.Tileset} The tileset to use for drawing the layer.
+ */
+Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, tileset) { 
+     var nbTileX = tileset.width / tileset.tileWidth,
+         nbTileY = tileset.height / tileset.tileHeight;
+    
+    // posX/Y   : Relative position to the camera
+    // start/End/X/Y : Start/End position for the render loop  
+    var posX = camera.x / this.tileSize.width,
+        posY = camera.y / this.tileSize.height
+        startX = Math.floor(posX),
+        startY = Math.floor(posY),
+        stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tileWidth) + 1, layer.width),
+        stopY = Math.min(Math.round((camera.y + Atlantis.screen.height) / tileset.tileHeight) + 1, layer.height);
+    
+    // Source rectangle values for drawing a tile.
+    var srcX = 0,
+        srcY = 0,
+        destX = 0,
+        destY = 0,
+        tileId = 0;
+    
+    for (var x = startX; x < stopX; x++) {
+        for (var y = startY; y < stopY; y++) {
+            tileId = layer.data[x + y * layer.width] - tileset.firstGID;
+
+            // To prevent negative source rectangle
+            if (tileId >= 0) {
+                srcX = tileId % nbTileX;
+                srcY = Math.floor(tileId / nbTileX);
+                srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
+                
+                destX = ((x + layer.offset.x) - posX) * this.tileSize.width;
+                destY = ((y + layer.offset.y) - posY) * this.tileSize.height;
+
+                if (this.projection === Atlantis.TilemapProjection.Isometric) {
+                    var isoX = (destX - destY);
+                    var isoY = (destX + destY) / 2;
+                    destX = isoX;
+                    destY = isoY;
+                }
+
+                spriteBatch.draw(tileset.texture, { 
+                    x: destX, 
+                    y: destY, 
+                    width: this.tileSize.width, 
+                    height: this.tileSize.height
+                }, 
+                { 
+                    x: srcX * tileset.tileWidth, 
+                    y: srcY * tileset.tileHeight, 
+                    width: tileset.tileWidth, 
+                    height: tileset.tileHeight 
+                });
             }
         }
     }

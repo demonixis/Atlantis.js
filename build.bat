@@ -22,6 +22,7 @@ SET js_framework=%js_framework% --js=Framework/Graphics/SpriteBatch.js
 SET js_framework=%js_framework% --js=Framework/Game.js
 
 SET js_engine=--js=Engine\AudioManager.js
+SET js_engine=%js_engine% --js=Engine/Random.js
 SET js_engine=%js_engine% --js=Engine/StateManager.js
 SET js_engine=%js_engine% --js=Engine/StorageManager.js
 SET js_engine=%js_engine% --js=Engine/Input/KeyboardComponent.js

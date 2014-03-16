@@ -12,14 +12,25 @@
     <body>
         <!-- Framework -->
         <script src="../../Build/AtlantisEngine.min.js"></script>
-        <!-- Engine -->
 
         <!-- The sprite game -->
-        <script src="js/MenuScreen.js"></script>
-        <script src="js/GameScreen.js"></script>
-        <script src="js/SpriteGame.js"></script>
+        <script src="js/MenuState.js"></script>
+        <script src="js/PlayState.js"></script>
 
         <script>
+            var SpriteGame = function () {
+                Atlantis.GameApplication.call(this, 640, 480);
+
+                this.content.rootDirectory = "Content/";
+
+                var menuState = new MenuState("menu")
+                var playState = new PlayState("game");
+
+                this.stateManager.add(menuState, true);
+                this.stateManager.add(playState, false);
+            };
+            SpriteGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
             var game = new SpriteGame();
             game.run();
         </script>

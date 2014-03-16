@@ -38,6 +38,7 @@ Atlantis.TmxLoader = {
             tilemap.tileSize.height = map.tileheight;
             tilemap.mapWidth = tilemap.width * tilemap.tileSize.width;
             tilemap.mapHeight = tilemap.height * tilemap.tileSize.height;
+            tilemap.projection = map.orientation;
             tilemap.version = map.version
             tilemap.properties = map.properties;
             tilemap.visible = true;

@@ -34,6 +34,7 @@
         <script src="../../Framework/Graphics/SpriteBatch.js"></script>
         <script src="../../Framework/Game.js"></script>
         <!-- Engine -->
+        <script src="../../Engine/Random.js"></script>
         <script src="../../Engine/AudioManager.js"></script>
         <script src="../../Engine/StorageManager.js"></script>
         <script src="../../Engine/StateManager.js"></script>
@@ -42,7 +43,6 @@
         <script src="../../Engine/Graphics/Sprite.js"></script>
         <script src="../../Engine/Graphics/SpriteGroup.js"></script>
         <script src="../../Engine/Graphics/Scene2D.js"></script>
-        <script src="../../Engine/Graphics/TmxMap.js"></script>
         <script src="../../Engine/Graphics/Tilemap.js"></script>
         <script src="../../Engine/Graphics/TmxLoader.js"></script>
         <script src="../../Engine/Input/KeyboardComponent.js"></script>
@@ -57,21 +57,16 @@
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
             this.tilemap = null;
             this.camera = new Atlantis.Camera2D();
-            this.player = new Atlantis.Sprite("p1_stand.png");
-            this.player.move(15, 25);
-            this.camera.follow(this.player);
-          
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
     
         // Load you assets here.
         TestGame.prototype.loadContent = function () {
             Atlantis.GameApplication.prototype.loadContent.call(this);
-            this.player.loadContent(this.content);
 
             var that = this;
             
-            this.tilemap = Atlantis.TmxLoader.load(this.content, "platform.json", function (tilemap) {
+            this.tilemap = Atlantis.TmxLoader.load(this.content, "isometric.json", function (tilemap) {
                 that.camera.viewport.set(0, 0, tilemap.mapWidth, tilemap.mapHeight);
             });
         };
@@ -81,26 +76,19 @@
             Atlantis.GameApplication.prototype.update.call(this, gameTime);
             
             if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
-                this.player.translate(0, -10);    
+                this.camera.y -= 5;    
             }
             else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
-                this.player.translate(0, 10);    
+                this.camera.y += 5;    
             }
             
             if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
-                this.player.translate(-5, 0); 
+                this.camera.x -= 5;   
             }
             else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
-                this.player.translate(5, 0);
+                this.camera.x += 5;  
             }
             
-            var aPosition = this.camera.getSpritePosition();
-            var tileId = this.tilemap.getTileIdAt(2, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
-       
-            if (!tileId) { 
-                this.player.translate(0, 5); 
-            }
-          
             this.camera.update();
         };
 
@@ -110,7 +98,6 @@
             this.graphicsDevice.clear(); 
             this.spriteBatch.begin();
             this.tilemap.draw(this.spriteBatch, this.camera);
-            this.spriteBatch.draw(this.player.texture, this.player.rectangle);
             this.spriteBatch.end();
         };
     
