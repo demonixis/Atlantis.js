@@ -95,6 +95,8 @@
             
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
+                <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
+            
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
@@ -280,7 +282,7 @@ Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
  * @param {Atlantis.Sprite} sprite The sprite to add.
  */
 Atlantis.SpriteGroup.prototype.add = function (sprite) {
-	if (sprite instanceof Atlantis.Sprite &amp;&amp; this._sprites.indexof(sprite) === -1) {
+	if (sprite instanceof Atlantis.Sprite &amp;&amp; this._sprites.indexOf(sprite) === -1) {
 		this._sprites.push(sprite);
 	}
 };

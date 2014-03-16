@@ -26,6 +26,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "Atlantis.MusicState",
         "Atlantis.Point",
         "Atlantis.Quaternion",
+        "Atlantis.Random",
         "Atlantis.Rectangle",
         "Atlantis.RenderTarget",
         "Atlantis.Scene2D",

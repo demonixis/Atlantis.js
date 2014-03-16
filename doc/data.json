@@ -126,7 +126,9 @@
         "Engine\\Random.js": {
             "name": "Engine\\Random.js",
             "modules": {},
-            "classes": {},
+            "classes": {
+                "Atlantis.Random": 1
+            },
             "fors": {},
             "namespaces": {
                 "Atlantis": 1
@@ -433,6 +435,7 @@
                 "Atlantis.input": 1,
                 "Atlantis.screen": 1,
                 "Atlantis.Engine": 1,
+                "Atlantis.Random": 1,
                 "Atlantis.State": 1,
                 "Atlantis.StateManager": 1,
                 "Atlantis.StorageManager": 1,
@@ -497,6 +500,7 @@
                 "Atlantis.input": 1,
                 "Atlantis.screen": 1,
                 "Atlantis.Engine": 1,
+                "Atlantis.Random": 1,
                 "Atlantis.State": 1,
                 "Atlantis.StateManager": 1,
                 "Atlantis.StorageManager": 1
@@ -913,6 +917,22 @@
                     "type": "Number"
                 }
             ]
+        },
+        "Atlantis.Random": {
+            "name": "Atlantis.Random",
+            "shortname": "Random",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis",
+            "file": "Engine\\Random.js",
+            "line": 11,
+            "description": "An helper to generate random value for some types.",
+            "static": 1
         },
         "Atlantis.State": {
             "name": "Atlantis.State",
@@ -2247,7 +2267,63 @@
         },
         {
             "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 221,
+            "line": 223,
+            "description": "Get a transformed position from isometric world coordinates to screen coordinates.",
+            "itemtype": "method",
+            "name": "isoToScreen",
+            "static": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x coordinate on isometric world.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The y coordinate on isometric world.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return an object with transformed coordinates.",
+                "type": "Object"
+            },
+            "class": "Atlantis.Tilemap",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Tilemap.js",
+            "line": 235,
+            "description": "Get a transformed position from screen coordinates to iso coordinates.",
+            "itemtype": "method",
+            "name": "screenToIso",
+            "static": 1,
+            "params": [
+                {
+                    "name": "x",
+                    "description": "The x coordinate on screen.",
+                    "type": "Number"
+                },
+                {
+                    "name": "y",
+                    "description": "The y coordinate on screen.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return an object with transformed coordinates.",
+                "type": "Object"
+            },
+            "class": "Atlantis.Tilemap",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Graphics\\Tilemap.js",
+            "line": 247,
             "description": "Gets the tile index at the specified position.",
             "itemtype": "method",
             "name": "getTileIdAt",
@@ -2279,7 +2355,7 @@
         },
         {
             "file": "Engine\\Graphics\\Tilemap.js",
-            "line": 240,
+            "line": 266,
             "description": "Extract a tile from tileset and return a canvas element with the tile drawn in it.\nIt's usefull to do some tests, such as pixel perfect. \nNote 1: that it's work with a scale different to 1.\nNote 2: The extraction is done once, the result is stored in a cache, so you can safely call this method.",
             "itemtype": "method",
             "name": "getTileAt",
@@ -2689,6 +2765,183 @@
             "itemtype": "method",
             "name": "resume",
             "class": "Atlantis.AudioManager",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 17,
+            "description": "Gets a random value.",
+            "itemtype": "method",
+            "name": "value",
+            "return": {
+                "description": "Return a random value.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Random",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 26,
+            "description": "Gets a random float between min and max.",
+            "itemtype": "method",
+            "name": "randomFloat",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "The minimum value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "The maximum value.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a random value between min and max.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Random",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 37,
+            "description": "Gets a random integer between min and max.",
+            "itemtype": "method",
+            "name": "randomFloat",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "The minimum value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "The maximum value.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a random value between min and max.",
+                "type": "Number"
+            },
+            "class": "Atlantis.Random",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 48,
+            "description": "Gets a random Vector2 between min and max.",
+            "itemtype": "method",
+            "name": "vector2",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "The minimum value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "The maximum value.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a random Vector2 between min and max.",
+                "type": "Atlantis.Vector2"
+            },
+            "class": "Atlantis.Random",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 59,
+            "description": "Gets a random Vector3 between min and max.",
+            "itemtype": "method",
+            "name": "vector3",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "The minimum value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "The maximum value.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a random vector3 between min and max.",
+                "type": "Atlantis.Vector3"
+            },
+            "class": "Atlantis.Random",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 70,
+            "description": "Gets a random vector4 between min and max.",
+            "itemtype": "method",
+            "name": "vector4",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "The minimum value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "The maximum value.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a random vector4 between min and max.",
+                "type": "Atlantis.Vector4"
+            },
+            "class": "Atlantis.Random",
+            "module": "Atlantis",
+            "submodule": "Engine",
+            "namespace": "Atlantis"
+        },
+        {
+            "file": "Engine\\Random.js",
+            "line": 81,
+            "description": "Gets a random float between min and max.",
+            "itemtype": "method",
+            "name": "color",
+            "params": [
+                {
+                    "name": "min",
+                    "description": "The minimum value.",
+                    "type": "Number"
+                },
+                {
+                    "name": "max",
+                    "description": "The maximum value.",
+                    "type": "Number"
+                }
+            ],
+            "return": {
+                "description": "Return a random color in hexadecimal format.",
+                "type": "String"
+            },
+            "class": "Atlantis.Random",
             "module": "Atlantis",
             "submodule": "Engine",
             "namespace": "Atlantis"

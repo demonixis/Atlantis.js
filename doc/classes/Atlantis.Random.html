@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.State - AtlantisEngine.js</title>
+    <title>Atlantis.Random - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -192,7 +192,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.State Class</h1>
+                        <h1>Atlantis.Random Class</h1>
 <div class="box meta">
     
 
@@ -200,7 +200,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Engine_StateManager.js.html#l11"><code>Engine\StateManager.js:11</code></a>
+            Defined in: <a href="../files/Engine_Random.js.html#l11"><code>Engine\Random.js:11</code></a>
         </div>
     
 
@@ -217,67 +217,10 @@
 
 
 <div class="box intro">
-    <p>Define a base state class that contains a basic scene.</p>
+    <p>An helper to generate random value for some types.</p>
 
 </div>
 
-
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Atlantis.State" class="method item">
-    <h3 class="name"><code>Atlantis.State</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l11"><code>Engine\StateManager.js:11</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -303,77 +246,49 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_add">add</a>
+                                <a href="#method_color">color</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_draw">draw</a>
+                                <a href="#method_randomFloat">randomFloat</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_get">get</a>
+                                <a href="#method_randomFloat">randomFloat</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_initialize">initialize</a>
+                                <a href="#method_value">value</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_isActive">isActive</a>
+                                <a href="#method_vector2">vector2</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_isEnabled">isEnabled</a>
+                                <a href="#method_vector3">vector3</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_isVisible">isVisible</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_loadContent">loadContent</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_remove">remove</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_setActive">setActive</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_update">update</a>
+                                <a href="#method_vector4">vector4</a>
 
                                 
                                 
@@ -395,8 +310,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_add" class="method item">
-    <h3 class="name"><code>add</code></h3>
+                    <div id="method_color" class="method item">
+    <h3 class="name"><code>color</code></h3>
 
     
         <div class="args">
@@ -404,7 +319,13 @@
             
                 <li class="arg">
                     
-                        <code>entity</code>
+                        <code>min</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>max</code>
                     
                 </li>
             
@@ -412,6 +333,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
     
 
     
@@ -437,7 +362,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l102"><code>Engine\StateManager.js:102</code></a>
+        <a href="../files/Engine_Random.js.html#l81"><code>Engine\Random.js:81</code></a>
         
         </p>
 
@@ -448,7 +373,7 @@
     </div>
 
     <div class="description">
-        <p>Add an entity to the scene.</p>
+        <p>Gets a random float between min and max.</p>
 
     </div>
 
@@ -460,214 +385,30 @@
             
                 <li class="param">
                     
-                        <code class="param-name">entity</code>
-                        <span class="type">Atlantis.Entity</span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The entity to add.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_draw" class="method item">
-    <h3 class="name"><code>draw</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>gameTime</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>context</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l92"><code>Engine\StateManager.js:92</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Draw scene children on screen.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">gameTime</code>
-                        <span class="type"><a href="..\classes\Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>An instance of GameTime.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">context</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The canvas context.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_get" class="method item">
-    <h3 class="name"><code>get</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>index</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l120"><code>Engine\StateManager.js:120</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Gets an entity from the scene.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">index</code>
+                        <code class="param-name">min</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The index of the entity on the scene.</p>
+                        <p>The minimum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">max</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The maximum value.</p>
 
                     </div>
 
@@ -679,76 +420,51 @@
     
 
     
+        <div class="returns">
+            <h4>Returns:</h4>
 
-    
-</div>
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                    <p>Return a random color in hexadecimal format.</p>
 
                 
-                    <div id="method_initialize" class="method item">
-    <h3 class="name"><code>initialize</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l64"><code>Engine\StateManager.js:64</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initialize logic.</p>
-
-    </div>
-
-    
-
+            </div>
+        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_isActive" class="method item">
-    <h3 class="name"><code>isActive</code></h3>
+                    <div id="method_randomFloat" class="method item">
+    <h3 class="name"><code>randomFloat</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>min</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>max</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
         </span>
     
 
@@ -775,7 +491,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l27"><code>Engine\StateManager.js:27</code></a>
+        <a href="../files/Engine_Random.js.html#l26"><code>Engine\Random.js:26</code></a>
         
         </p>
 
@@ -786,10 +502,50 @@
     </div>
 
     <div class="description">
-        <p>Determine the activity of the state.</p>
+        <p>Gets a random float between min and max.</p>
 
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">min</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The minimum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">max</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The maximum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -799,9 +555,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
                     
-                    <p>Return true if the state is visible and enabled.</p>
+                    <p>Return a random value between min and max.</p>
 
                 
             </div>
@@ -812,16 +568,32 @@
 </div>
 
                 
-                    <div id="method_isEnabled" class="method item">
-    <h3 class="name"><code>isEnabled</code></h3>
+                    <div id="method_randomFloat" class="method item">
+    <h3 class="name"><code>randomFloat</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>min</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>max</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
         </span>
     
 
@@ -848,7 +620,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l36"><code>Engine\StateManager.js:36</code></a>
+        <a href="../files/Engine_Random.js.html#l37"><code>Engine\Random.js:37</code></a>
         
         </p>
 
@@ -859,10 +631,50 @@
     </div>
 
     <div class="description">
-        <p>Determine the activity of the state.</p>
+        <p>Gets a random integer between min and max.</p>
 
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">min</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The minimum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">max</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The maximum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -872,9 +684,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
                     
-                    <p>Return true if the state is enabled.</p>
+                    <p>Return a random value between min and max.</p>
 
                 
             </div>
@@ -885,8 +697,8 @@
 </div>
 
                 
-                    <div id="method_isVisible" class="method item">
-    <h3 class="name"><code>isVisible</code></h3>
+                    <div id="method_value" class="method item">
+    <h3 class="name"><code>value</code></h3>
 
     
         <span class="paren">()</span>
@@ -894,7 +706,7 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
         </span>
     
 
@@ -921,7 +733,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l45"><code>Engine\StateManager.js:45</code></a>
+        <a href="../files/Engine_Random.js.html#l17"><code>Engine\Random.js:17</code></a>
         
         </p>
 
@@ -932,7 +744,7 @@
     </div>
 
     <div class="description">
-        <p>Determine the activity of the state.</p>
+        <p>Gets a random value.</p>
 
     </div>
 
@@ -945,9 +757,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
                     
-                    <p>Return true if the state is visible.</p>
+                    <p>Return a random value.</p>
 
                 
             </div>
@@ -958,8 +770,8 @@
 </div>
 
                 
-                    <div id="method_loadContent" class="method item">
-    <h3 class="name"><code>loadContent</code></h3>
+                    <div id="method_vector2" class="method item">
+    <h3 class="name"><code>vector2</code></h3>
 
     
         <div class="args">
@@ -967,7 +779,13 @@
             
                 <li class="arg">
                     
-                        <code>contentManager</code>
+                        <code>min</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>max</code>
                     
                 </li>
             
@@ -975,6 +793,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>
+        </span>
     
 
     
@@ -1000,7 +822,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l73"><code>Engine\StateManager.js:73</code></a>
+        <a href="../files/Engine_Random.js.html#l48"><code>Engine\Random.js:48</code></a>
         
         </p>
 
@@ -1011,7 +833,7 @@
     </div>
 
     <div class="description">
-        <p>Load assets of entities that compose the scene.</p>
+        <p>Gets a random Vector2 between min and max.</p>
 
     </div>
 
@@ -1023,14 +845,30 @@
             
                 <li class="param">
                     
-                        <code class="param-name">contentManager</code>
-                        <span class="type"><a href="..\classes\Atlantis.ContentManager.html" class="crosslink">Atlantis.ContentManager</a></span>
+                        <code class="param-name">min</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An instance of ContentManager.</p>
+                        <p>The minimum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">max</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The maximum value.</p>
 
                     </div>
 
@@ -1041,14 +879,28 @@
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector2.html" class="crosslink">Atlantis.Vector2</a></span>:
+                    
+                    <p>Return a random Vector2 between min and max.</p>
+
+                
+            </div>
+        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_remove" class="method item">
-    <h3 class="name"><code>remove</code></h3>
+                    <div id="method_vector3" class="method item">
+    <h3 class="name"><code>vector3</code></h3>
 
     
         <div class="args">
@@ -1056,7 +908,13 @@
             
                 <li class="arg">
                     
-                        <code>entity</code>
+                        <code>min</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>max</code>
                     
                 </li>
             
@@ -1064,6 +922,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>
+        </span>
     
 
     
@@ -1089,7 +951,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l111"><code>Engine\StateManager.js:111</code></a>
+        <a href="../files/Engine_Random.js.html#l59"><code>Engine\Random.js:59</code></a>
         
         </p>
 
@@ -1100,7 +962,7 @@
     </div>
 
     <div class="description">
-        <p>remove an entity from the scene.</p>
+        <p>Gets a random Vector3 between min and max.</p>
 
     </div>
 
@@ -1112,14 +974,30 @@
             
                 <li class="param">
                     
-                        <code class="param-name">entity</code>
-                        <span class="type">Atlantis.Entity</span>
+                        <code class="param-name">min</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The entity to remove.</p>
+                        <p>The minimum value.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">max</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The maximum value.</p>
 
                     </div>
 
@@ -1130,14 +1008,28 @@
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector3.html" class="crosslink">Atlantis.Vector3</a></span>:
+                    
+                    <p>Return a random vector3 between min and max.</p>
+
+                
+            </div>
+        </div>
     
 
     
 </div>
 
                 
-                    <div id="method_setActive" class="method item">
-    <h3 class="name"><code>setActive</code></h3>
+                    <div id="method_vector4" class="method item">
+    <h3 class="name"><code>vector4</code></h3>
 
     
         <div class="args">
@@ -1145,7 +1037,13 @@
             
                 <li class="arg">
                     
-                        <code>Sets</code>
+                        <code>min</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>max</code>
                     
                 </li>
             
@@ -1153,6 +1051,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>
+        </span>
     
 
     
@@ -1178,7 +1080,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l54"><code>Engine\StateManager.js:54</code></a>
+        <a href="../files/Engine_Random.js.html#l70"><code>Engine\Random.js:70</code></a>
         
         </p>
 
@@ -1189,7 +1091,7 @@
     </div>
 
     <div class="description">
-        <p>Sets the activity of the state.</p>
+        <p>Gets a random vector4 between min and max.</p>
 
     </div>
 
@@ -1201,103 +1103,30 @@
             
                 <li class="param">
                     
-                        <code class="param-name">Sets</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <code class="param-name">min</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>to true to active the state.</p>
+                        <p>The minimum value.</p>
 
                     </div>
 
                     
                 </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_update" class="method item">
-    <h3 class="name"><code>update</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>gameTime</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l83"><code>Engine\StateManager.js:83</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Update logic of scene children.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
             
                 <li class="param">
                     
-                        <code class="param-name">gameTime</code>
-                        <span class="type"><a href="..\classes\Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                        <code class="param-name">max</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An instance of GameTime.</p>
+                        <p>The maximum value.</p>
 
                     </div>
 
@@ -1308,6 +1137,20 @@
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="..\classes\Atlantis.Vector4.html" class="crosslink">Atlantis.Vector4</a></span>:
+                    
+                    <p>Return a random vector4 between min and max.</p>
+
+                
+            </div>
+        </div>
     
 
     
