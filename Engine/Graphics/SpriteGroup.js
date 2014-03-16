@@ -84,7 +84,7 @@ Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
  * @param {Atlantis.Sprite} sprite The sprite to add.
  */
 Atlantis.SpriteGroup.prototype.add = function (sprite) {
-	if (sprite instanceof Atlantis.Sprite && this._sprites.indexof(sprite) === -1) {
+	if (sprite instanceof Atlantis.Sprite && this._sprites.indexOf(sprite) === -1) {
 		this._sprites.push(sprite);
 	}
 };
