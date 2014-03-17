@@ -114,11 +114,6 @@
                 else if (this.gameStatus === GameStatus.Playing) {
                     this.bird.play(this.selectedBird);
 
-                    if (Atlantis.input.keys.pressed(Atlantis.Keys.Up))
-                        this.bird.translate(0, -2);
-                    else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down))
-                        this.bird.translate(0, 2);
-
                     if (validateKey) {
                         this.bird.velocity.y -= 7;
                     }
