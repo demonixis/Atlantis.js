@@ -57,6 +57,12 @@
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
             this.tilemap = null;
             this.camera = new Atlantis.Camera2D();
+
+            this.content.preloader.push("isometric_map.json");
+            this.content.preloader.push("BackgroundGradient.png");
+            this.content.preloader.push("isometric_tiles.png");
+            this.content.preloader.push("platformer_map.json");
+            this.content.preloader.push("platformer_tiles.png");
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
     

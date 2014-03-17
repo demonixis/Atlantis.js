@@ -16,21 +16,24 @@ var Atlantis = window.Atlantis || {};
 Atlantis.ContentManager = function (rootDirectory) {
     this.rootDirectory = rootDirectory || "";
     this._assets = [];
-    this.preloadAssets = [];
+    this.preloader = [];
 };
 
 Atlantis.ContentManager.PreloadTimerInterval = 250;
 
-Atlantis.ContentManager.prototype.preload = function (assetName) {
-    var countAssets = this.preloadAssets.length,
+Atlantis.ContentManager.prototype.preload = function (progressCallback, doneCallback) {
+    var countAssets = this.preloader.length,
         nbLoaded = 0;
 
+    var progressCallback = (typeof(progressCallback) === "function") ? progressCallback : function () {};
+    var doneCallback = (typeof(doneCallback) === "function") ? doneCallback : function () {};
     var onLoaded = function (asset) { nbLoaded++; };
 
     for (var i = 0; i < countAssets; i++) {
-        this.load(this.preloadAssets[i], onLoaded);
+        this.load(this.preloader[i], onLoaded);
     }
 
+    var that = this;
     var progress = { status: "Loading", progress: 0 };
 
     var timer = setInterval(function () {
@@ -39,9 +42,12 @@ Atlantis.ContentManager.prototype.preload = function (assetName) {
         if (nbLoaded === countAssets) {
             clearInterval(timer);
             progress.status = "Complete";
+            that.preloader.length = 0;
+            doneCallback();
         }
         
         Atlantis.notify(Atlantis.events.ContentPreloading, progress);
+        progressCallback(progress);
     }, Atlantis.ContentManager.PreloadTimerInterval);
 };
 

@@ -144,8 +144,27 @@ Atlantis.Game = (function () {
         if (!this.initialized) {
             this.initialized = true;
             this.initialize();
-            this.loadContent();
-            mainLoop();
+
+            if (this.content.preloader.length) {
+                this.content.preload(function (progress) {
+                    var progressMessage = ["Game loading ", progress.progress, "%"].join("");
+                    var size = this.context.measureText(progressMessage),
+                        x = (this.frontBuffer.getWidth() >> 1) - (size.width >> 1),
+                        y = (this.frontBuffer.getHeight() >> 1);
+
+                    this.context.clearRect(0, 0, this.frontBuffer.getWidth(), this.frontBuffer.getHeight());
+                    this.context.fillStyle = "#fafafa";
+                    this.context.font = "normal 18px Arial";
+                    this.context.fillText(progressMessage, x, y);
+                }.bind(this), function () {
+                    this.loadContent();
+                    mainLoop();
+                }.bind(this));
+            }
+            else {
+                this.loadContent();
+                mainLoop();
+            }
         }
     };
     
