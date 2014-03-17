@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis Game Engine :: Badly Bird</title>
+        <style>
+            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
+            canvas { border: 4px solid #333; display: block; margin: auto; }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <!-- Framework -->
+        <script src="../../Build/AtlantisEngine.min.js"></script>
+
+        <script>
+            var GameStatus = {
+                Menu: 0, Playing: 1
+            };
+
+            var PlayState = function () {
+                Atlantis.State.call(this, "playstate");
+
+                this.elapsedTime = 0;
+                this.spawnPipeTime = 2500;
+                this.canAddPipe = true;
+
+                this.gameStatus = GameStatus.Menu;
+                this.score = 0;
+                this.bestScore = 0;
+
+                this.title = new Atlantis.SpriteFont("Arial", 48);
+                this.titleScore = new Atlantis.SpriteFont("Arial", 32);
+                this.scoreText = new Atlantis.SpriteFont("Arial", 32);
+                
+                this.backgrounds = new Atlantis.SpriteGroup();
+                this.scene.add(this.backgrounds);
+
+                var background = null;
+                for (var i = 0; i < 2; i++) {
+                    background = new Atlantis.Sprite("background.png");
+                    background.velocity.x = -2;
+                    this.backgrounds.add(background);
+                }
+               
+                this.bird = new Atlantis.Sprite("flappy.png");
+                this.bird.velocity.y = 1;
+                this.bird.maxVelocity = 0.85;
+                this.bird.acceleration.y = 0.3;
+                this.scene.add(this.bird);
+
+                this.pipes = new Atlantis.SpriteGroup();
+                this.scene.add(this.pipes);
+
+                this.ground = new Atlantis.Sprite("bottom.png");
+                this.scene.add(this.ground);
+
+                this.mouseState = null;
+                this.lastMouseState = null;
+                this.touchState = null;
+                this.lastTouchState = null;
+            };
+            PlayState.prototype = Object.create(Atlantis.State.prototype);
+
+            PlayState.prototype.initialize = function () {
+                Atlantis.State.prototype.initialize.call(this);
+
+                this.mouseState = Atlantis.app.game.mouse.getState();
+                this.lastMouseState = Atlantis.app.game.mouse.getState();
+
+                this.touchState = Atlantis.app.game.touchPanel.getState(0);
+                this.lastTouchState = Atlantis.app.game.touchPanel.getState(0);
+            }
+
+            PlayState.prototype.loadContent = function (content) {
+                Atlantis.State.prototype.loadContent.call(this, content);
+
+                this.backgrounds.get(0).move(0, 0);
+                this.backgrounds.get(1).move(288, 0);
+
+                this.ground.move(0, Atlantis.screen.height - 112);
+           
+                var rand = Atlantis.Random.randomInt(0, 3);
+                if (rand == 0) this.selectedBird = "yellow";
+                else if (rand == 0) this.selectedBird = "blue";
+                else this.selectedBird = "red";
+
+                this.bird.prepareAnimation(40, 40);
+                this.bird.addAnimation("yellow", [0, 1, 2], 25);
+                this.bird.addAnimation("blue", [3, 4, 5], 25);
+                this.bird.addAnimation("red", [6, 7, 8]);
+
+                this.showTitle();
+            };
+
+            PlayState.prototype.update = function (gameTime) {
+                Atlantis.State.prototype.update.call(this, gameTime);
+
+                this.lastMouseState = this.mouseState.clone();
+                this.mouseState = Atlantis.app.game.mouse.getState();
+
+                this.lastTouchState = this.touchState.clone();
+                this.touchState = Atlantis.app.game.touchPanel.getState(0);
+
+                var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Space) ||
+                    (this.mouseState.leftButton && !this.lastMouseState.leftButton) ||
+                    (this.touchState.state === Atlantis.TouchLocationState.Pressed && !this.lastTouchState.state === Atlantis.TouchLocationState.Pressed);
+
+                if (this.gameStatus === GameStatus.Menu) {
+                    if (validateKey) {
+                        this.restartLevel();
+                    }
+                }
+                else if (this.gameStatus === GameStatus.Playing) {
+                    this.bird.play(this.selectedBird);
+
+                    if (Atlantis.input.keys.pressed(Atlantis.Keys.Up))
+                        this.bird.translate(0, -2);
+                    else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down))
+                        this.bird.translate(0, 2);
+
+                    if (validateKey) {
+                        this.bird.velocity.y -= 7;
+                    }
+
+                    this.elapsedTime += gameTime.getElapsedTime();
+                    if (this.elapsedTime >= this.spawnPipeTime) {
+                        this.elapsedTime = 0;
+                        this.addPipeLine();
+                    }
+
+                    this.backgrounds.forEach(function(background) {
+                        if (background.rectangle.x + 288 <= 0) {
+                            background.rectangle.x = 288;
+                        }
+                    });
+
+                    this.pipes.forEach(function (pipe) {
+                        if (pipe.isActive() & pipe.rectangle.getRight() < 0) { 
+                            pipe.setActive(false);
+                            this.score += 0.5;
+                        }
+                        else if (pipe.rectangle.intersects(this.bird.rectangle)) {
+                            this.showTitle();
+                        }
+                    }.bind(this));
+
+                    if (this.bird.rectangle.intersects(this.ground.rectangle) || this.bird.rectangle.y <= 0) {
+                        this.showTitle();
+                    }
+
+                    if (this.gameStatus === GameStatus.Menu) {
+                        this.pipes.clear();
+                    }
+                }
+            };
+
+            PlayState.prototype.draw = function (spriteBatch) {
+                Atlantis.State.prototype.draw.call(this, spriteBatch);
+
+                if (this.gameStatus === GameStatus.Menu) {
+                    spriteBatch.drawString(this.title, "Badly Bird", { x: 40, y: 100 }, "#fff");
+                    spriteBatch.drawString(this.titleScore, "Best Score", { x: 70, y: 200 }, "#fff");
+                    spriteBatch.drawString(this.titleScore, this.bestScore, { x: 140, y: 300 }, "#fff");
+                }
+                else if (this.gameStatus === GameStatus.Playing) {
+                    spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: 32 }, "#fff");
+                }
+            }
+
+            PlayState.prototype.showTitle = function () {
+                this.bird.move(50, Atlantis.screen.height / 2 - this.bird.getHeight() / 2);
+                this.backgrounds.enabled = false;
+                this.bird.enabled = false;
+                this.gameStatus = GameStatus.Menu;
+            };
+
+            PlayState.prototype.restartLevel = function () {
+                this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
+                this.score = 0;
+                this.pipes.clear();
+                this.bird.enabled = true;
+                this.backgrounds.enabled = true;
+                this.elapsedTime = 0;
+                this.addPipeLine();
+                this.gameStatus = GameStatus.Playing;
+            };
+
+            PlayState.prototype.addPipeLine = function () {
+                var velocity = new Atlantis.Vector2(-1.5, 0);
+                var up = new Atlantis.Sprite("pipe_up.png", { velocity: velocity });
+                var down = new Atlantis.Sprite("pipe_down.png", { velocity: velocity });
+
+                down.move(Atlantis.screen.width, Atlantis.Random.randomInt(-300, 0));
+                up.move(Atlantis.screen.width, down.rectangle.y + 450);
+
+                this.pipes.add(up);
+                this.pipes.add(down);
+            };
+
+            var FlappyGame = function () {
+                Atlantis.GameApplication.call(this, 288, 576);
+                this.content.rootDirectory = "Content/";
+                this.content.preloader.push("background.png");
+                this.content.preloader.push("bottom.png");
+                this.content.preloader.push("flappy.png");
+                this.content.preloader.push("pipe_down.png");
+                this.content.preloader.push("pipe_up.png");
+                this.stateManager.add(new PlayState(), true);
+            };
+            FlappyGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+            var game = new FlappyGame();
+            game.run();
+        </script>
+    </body>
+</html>
