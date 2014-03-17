@@ -157,6 +157,7 @@ Atlantis.Game = (function () {
                     this.context.font = "normal 18px Arial";
                     this.context.fillText(progressMessage, x, y);
                 }.bind(this), function () {
+                    this.context.clearRect(0, 0, this.frontBuffer.getWidth(), this.frontBuffer.getHeight());
                     this.loadContent();
                     mainLoop();
                 }.bind(this));

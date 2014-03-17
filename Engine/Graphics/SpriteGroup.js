@@ -14,12 +14,12 @@ var Atlantis = window.Atlantis || {};
  * @constructor
  */
 Atlantis.SpriteGroup = function () {
-    this.enabled = true;
-    this.visible = true;
+	Atlantis.Sprite.call(this);
     this._initialized = false;
     this._loaded = false;
 	this._sprites = [];	
 };
+Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 
 /**
  * Initialize of all members.
@@ -78,6 +78,13 @@ Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
 	}
 };
 
+
+Atlantis.SpriteGroup.prototype.forEach = function (callback) {
+	for (var i = 0, l = this._sprites.length; i < l; i++) {
+		callback(this._sprites[i]);
+	}
+};
+
 /**
  * Add an sprite to the group.
  * @method add
@@ -86,6 +93,14 @@ Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
 Atlantis.SpriteGroup.prototype.add = function (sprite) {
 	if (sprite instanceof Atlantis.Sprite && this._sprites.indexOf(sprite) === -1) {
 		this._sprites.push(sprite);
+
+		if (this._initialized) {
+			sprite.initialize();
+		}
+
+		if (this._loaded) {
+			sprite.loadContent(Atlantis.app.content);
+		}
 	}
 };
 

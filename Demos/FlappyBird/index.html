@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis Game Engine :: Flapy Bird</title>
+        <style>
+            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
+            canvas { display: block; margin: auto; }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <!-- Framework -->
+        <script src="../../Framework/Compatibility.js"></script>
+        <script src="../../Framework/Common.js"></script>
+        <script src="../../Framework/ContentManager.js"></script>
+        <script src="../../Framework/GameComponent.js"></script>
+        <script src="../../Framework/GameTime.js"></script>
+        <script src="../../Framework/MathHelper.js"></script>
+        <script src="../../Framework/Rectangle.js"></script>
+        <script src="../../Framework/Matrix.js"></script>
+        <script src="../../Framework/Quaternion.js"></script>
+        <script src="../../Framework/Vector2.js"></script>
+        <script src="../../Framework/Vector3.js"></script>
+        <script src="../../Framework/Vector4.js"></script>
+        <script src="../../Framework/Input/Keyboard.js"></script>
+        <script src="../../Framework/Input/Mouse.js"></script>
+        <script src="../../Framework/Input/TouchPanel.js"></script>
+        <script src="../../Framework/Input/Gamepad.js"></script>
+        <script src="../../Framework/Input/Keys.js"></script>
+        <script src="../../Framework/Graphics/GraphicsDevice.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Graphics/RenderTarget.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Game.js"></script>
+        <!-- Engine -->
+        <script src="../../Engine/Random.js"></script>
+        <script src="../../Engine/AudioManager.js"></script>
+        <script src="../../Engine/StorageManager.js"></script>
+        <script src="../../Engine/StateManager.js"></script>
+        <script src="../../Engine/Graphics/Animation.js"></script>
+        <script src="../../Engine/Graphics/Camera2D.js"></script>
+        <script src="../../Engine/Graphics/Sprite.js"></script>
+        <script src="../../Engine/Graphics/SpriteGroup.js"></script>
+        <script src="../../Engine/Graphics/Scene2D.js"></script>
+        <script src="../../Engine/Graphics/Tilemap.js"></script>
+        <script src="../../Engine/Graphics/TmxLoader.js"></script>
+        <script src="../../Engine/Input/KeyboardComponent.js"></script>
+        <script src="../../Engine/GameApplication.js"></script>
+
+        <script>
+
+
+            var PlayState = function () {
+                Atlantis.State.call(this, "playstate");
+
+                this.backgrounds = new Atlantis.SpriteGroup();
+                this.backgrounds.add(new Atlantis.Sprite("background.png"));
+                this.backgrounds.add(new Atlantis.Sprite("background.png"));
+                this.scene.add(this.backgrounds);
+
+                this.bird = new Atlantis.Sprite("flappy.png");
+                this.scene.add(this.bird);
+
+                this.pipes = new Atlantis.SpriteGroup();
+                this.scene.add(this.pipes);
+
+                this.ground = new Atlantis.Sprite("bottom.png");
+                this.scene.add(this.ground);
+            };
+            PlayState.prototype = Object.create(Atlantis.State.prototype);
+
+            PlayState.prototype.loadContent = function (content) {
+                Atlantis.State.prototype.loadContent.call(this, content);
+
+                this.backgrounds.get(0).move(0, 0);
+                this.backgrounds.get(1).move(288, 0);
+                this.backgrounds.get(0).velocity.x = -2;
+                this.backgrounds.get(1).velocity.x = -2;
+
+                this.ground.move(0, Atlantis.screen.height - 112);
+
+                this.bird.prepareAnimation(40, 40);
+                this.bird.addAnimation("yellow", [0, 1, 2], 25);
+                this.bird.addAnimation("blue", [3, 4, 5], 25);
+                this.bird.addAnimation("red", [6, 7, 8]);
+                
+                var rand = Atlantis.Random.randomInt(0, 3);
+                if (rand == 0) this.selectedBird = "yellow";
+                else if (rand == 0) this.selectedBird = "blue";
+                else this.selectedBird = "red";
+
+                this.bird.move(50, Atlantis.screen.height / 2 - this.bird.getHeight() / 2);
+
+                var that = this;
+                setInterval(function () {
+                    that.addPipeLine();
+                }, 1500);
+
+                this.addPipeLine();
+            };
+
+            PlayState.prototype.update = function (gameTime) {
+                Atlantis.State.prototype.update.call(this, gameTime);
+
+                this.backgrounds.forEach(function(background) {
+                    if (background.rectangle.x + 288 <= 0) {
+                        background.rectangle.x = 288;
+                    }
+                });
+
+                this.pipes.forEach(function (pipe) {
+                    if (pipe.x < 0) { 
+                        pipe.setActive(false);
+                    }
+                });
+
+                this.bird.play(this.selectedBird);
+            };
+
+            PlayState.prototype.addPipeLine = function () {
+                var up = new Atlantis.Sprite("pipe_up.png");
+                var down = new Atlantis.Sprite("pipe_down.png");
+
+                up.rectangle.x = Atlantis.screen.width;
+                down.rectangle.x = Atlantis.screen.width;
+
+                up.rectangle.y = 350;
+                down.rectangle.y = -50;
+
+                up.velocity.x = -1.5;
+                down.velocity.x = -1.5;
+
+                this.pipes.add(up);
+                this.pipes.add(down);
+            };
+
+            var FlappyGame = function () {
+                Atlantis.GameApplication.call(this, 288, 576);
+                this.content.rootDirectory = "Content/";
+                this.content.preloader.push("background.png");
+                this.content.preloader.push("bottom.png");
+                this.content.preloader.push("flappy.png");
+                this.content.preloader.push("pipe_down.png");
+                this.content.preloader.push("pipe_up.png");
+                this.stateManager.add(new PlayState(), true);
+            };
+            FlappyGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+            var game = new FlappyGame();
+            game.run();
+        </script>
+    </body>
+</html>

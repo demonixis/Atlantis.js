@@ -29,7 +29,7 @@ Atlantis.Scene2D.prototype.add = function (element) {
 	else if (element instanceof Atlantis.Camera2D) {
 		this.camera = element;
 	}
-	else if (element instanceof Atlantis._tilemap) {
+	else if (element instanceof Atlantis.Tilemap) {
 		this._tilemap = element;
 
 		if (this._tilemap.loaded) {

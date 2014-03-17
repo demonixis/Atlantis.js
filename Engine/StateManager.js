@@ -134,6 +134,7 @@ Atlantis.State.prototype.get = function (index) {
 */
 Atlantis.StateManager = function (game) {
     Atlantis.DrawableGameComponent.call(this, game);
+    this.graphicsDevice = game.graphicsDevice;
     this.states = [];
     this.initialized = false;
     this.assetLoaded = false;
@@ -188,6 +189,7 @@ Atlantis.StateManager.prototype.update = function (gameTime) {
 * @param {Object} context The canvas context.
 */
 Atlantis.StateManager.prototype.draw = function (gameTime, context) {
+    this.graphicsDevice.clear();
     this.spriteBatch.begin();
 
     for (var i = 0, l = this.states.length; i < l; i++) {
