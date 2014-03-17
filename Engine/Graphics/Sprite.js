@@ -28,7 +28,7 @@ Atlantis.Sprite = function (textureName, params) {
     this.lastDistance = new Atlantis.Vector2();
 
     // Some physics
-    this.acceleration = new Atlantis.Vector2(1, 1);
+    this.acceleration = new Atlantis.Vector2();
     this.velocity = new Atlantis.Vector2();
     this.maxVelocity = 1;
 
@@ -165,9 +165,10 @@ Atlantis.Sprite.prototype.update = function (gameTime) {
         this.lastPosition.y = this.rectangle.y;
 
         // Update physics
-        this.rectangle.x += this.velocity.x * this.acceleration.x;
-        this.rectangle.y += this.velocity.y * this.acceleration.y;
+        this.rectangle.x += this.velocity.x;
+        this.rectangle.y += this.velocity.y;
         this.velocity.multiply(this.maxVelocity);
+        this.velocity.add(this.acceleration);
 
         // Update animation
         if (this.hasAnimation && this.assetLoaded) { 
