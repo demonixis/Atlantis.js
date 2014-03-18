@@ -15,7 +15,7 @@ var Atlantis = window.Atlantis || {};
       */
 Atlantis.ContentManager = function (rootDirectory) {
     this.rootDirectory = rootDirectory || "";
-    this._assets = [];
+    this._assets = {};
     this.preloader = [];
 };
 
@@ -68,15 +68,15 @@ Atlantis.ContentManager.prototype.preload = function (progressCallback, doneCall
 Atlantis.ContentManager.prototype.load = function (assetName, callback) {
     var callback = (typeof(callback) === "function") ? callback : function() {};
 
-    if (this._assets[assetName]) {
+    var temp = assetName.split(".");
+    var ext = temp[(temp.length - 1)];
+    assetName = this.rootDirectory + assetName;
+
+    if (this._assets[assetName]) { 
         callback(this._assets[assetName]);
         return this._assets[assetName];
     }
     else {
-        var temp = assetName.split(".");
-        var ext = temp[(temp.length - 1)];
-
-        assetName = this.rootDirectory + assetName;
         switch (ext) {
             case "png":
             case "jpg":

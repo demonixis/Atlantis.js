@@ -27,8 +27,8 @@ Atlantis.GraphicsDevice = function (width, height, settings) {
     settings.height = height;
     
     this.preferredBackBufferWidth = settings.backBufferWidth || width;
-    this.preferredBackBufferHeight = settings.backBufferWidth || height;
-    
+    this.preferredBackBufferHeight = settings.backBufferHeight || height;
+  
     this.viewport = new Atlantis.Rectangle();
     this.scaleMode = Atlantis.ScaleMode.ScaleToFit;
     
@@ -46,7 +46,7 @@ Atlantis.GraphicsDevice = function (width, height, settings) {
         canvas.style.backgroundColor = "#000";
         canvas.id = canvas.id ? canvas.id : "AtlantisCanvas";
         
-        this.viewport.setSize(this.preferredBackBufferWidth, this.preferredBackBufferHeight);
+        this.viewport.setSize(this.preferredBackBufferWidth, this.preferredBackBufferHeight); console.log(this.viewport)
     }
 };
 
