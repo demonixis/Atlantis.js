@@ -124,10 +124,11 @@ Atlantis.ContentManager.prototype.loadImage = function (imageName, callback) {
 // Load a music from an url
 Atlantis.ContentManager.prototype.loadAudio = function (audioName, callback) {
     var audio = document.createElement("audio");
-    audio.onload = callback;
     audio.src = audioName;
-    audio.controls = false;
+    audio.load();
+    audio.controls = false; 
     this._assets[audioName] = audio;
+    callback(audio);
     return audio;
 };
 

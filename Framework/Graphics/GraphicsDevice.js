@@ -46,7 +46,7 @@ Atlantis.GraphicsDevice = function (width, height, settings) {
         canvas.style.backgroundColor = "#000";
         canvas.id = canvas.id ? canvas.id : "AtlantisCanvas";
         
-        this.viewport.setSize(this.preferredBackBufferWidth, this.preferredBackBufferHeight); console.log(this.viewport)
+        this.viewport.setSize(this.preferredBackBufferWidth, this.preferredBackBufferHeight);
     }
 };
 

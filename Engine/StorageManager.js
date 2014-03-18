@@ -13,7 +13,9 @@ var Atlantis = window.Atlantis || {};
  * @constructor
  * @class StorageManager
  */
-Atlantis.StorageManager = function () {};
+Atlantis.StorageManager = function () {
+	this.container = "atlantis.game";
+};
 
 /**
  * Save data in the localStorage.
@@ -22,35 +24,32 @@ Atlantis.StorageManager = function () {};
  * @param {String} name Desired name for the data who'll save.
  * @param {Object} or {String} data An object to serialize or a serialized object.
  */
-Atlantis.StorageManager.prototype.save = function (container, name, data) {
-    if (typeof(data) == "object") {
+Atlantis.StorageManager.prototype.save = function (name, data) {
+    if (typeof(data) === "object") {
         data = JSON.stringify(data);
     }
 
-    localStorage.setItem(this.getLocalStorageKey(name, container), data)
+    localStorage.setItem(this.getLocalStorageKey(name), data)
 };
 
 /**
  * Load data from the localStorage.
  * @method load
- * @param {String} container The localStorage key.
- * @param {String} name Desired name for the data who'll save.
- * @param {Object} or {String} data An object to serialize or a serialized object.
- * @param {Boolean} deserializedObject Sets to true (default) for deserialize, false to gets the strings stored in localStorage.
- * @return {Object} The object
+ * @param {String} name The data key.
+ * @param {Object} defaultValue The default value if the data not exists.
+ * @return {Object} The object if exists otherwise return defaultValue
  */
-Atlantis.StorageManager.prototype.load = function (container, name, deserializeObject) {
-    var data = localStorage.getItem(this.getLocalStorageKey(name, container));
-    return (data && deserializeObject) ? JSON.parse(data) : data;
+Atlantis.StorageManager.prototype.load = function (name, defaultValue) {
+    var data = localStorage.getItem(this.getLocalStorageKey(name));
+    return data !== null ? data : defaultValue;
 };
 
 /**
  * Gets the localStorage key with a container name and a data name.
  * @method getLoadStorageKey
- * @param {String} container The localStorage key.
  * @param {String} name Desired name for the data who'll save.
  * @return {string} The localStorage final key.
  */
-Atlantis.StorageManager.prototype.getLocalStorageKey = function (name, container) {
-    return [container, ".", name].join("");
+Atlantis.StorageManager.prototype.getLocalStorageKey = function (name) {
+    return [this.container, ".", name].join("");
 };

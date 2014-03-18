@@ -61,6 +61,9 @@
                 this.elapsedTime = 0;
                 this.spawnCarTime = 1500;
 
+                this.elapsedAccelTime = 0;
+                this.accelTime = 5000;
+
                 this.gameStatus = GameStatus.Menu;
                 this.score = 0;
                 this.bestScore = 0;
@@ -68,6 +71,8 @@
                 this.title = new Atlantis.SpriteFont("Arial", 32);
                 this.titleScore = new Atlantis.SpriteFont("Arial", 18);
                 this.scoreText = new Atlantis.SpriteFont("Arial", 18);
+                this.messageText = new Atlantis.SpriteFont("Arial", 18, "bold");
+                this.messageText.visible = false;
                 
                 this.backgrounds = new Atlantis.SpriteGroup();
                 this.scene.add(this.backgrounds);
@@ -84,6 +89,9 @@
 
                 this.player = new Atlantis.Sprite("player.png", { maxVelocity: 0.85, insideScreen: true });
                 this.scene.add(this.player);
+
+                this.hitSound = null;
+                this.accelSound = null;
             };
             PlayState.prototype = Object.create(Atlantis.State.prototype);
 
@@ -91,6 +99,9 @@
                 Atlantis.State.prototype.loadContent.call(this, content);
 
                 this.backgrounds.get(1).move(0, -this.backgrounds.get(1).getHeight());
+
+                this.hitSound = content.load("break.wav");
+                this.accelSound = content.load("accel.wav");
 
                 this.showTitle();
             };
@@ -107,9 +118,26 @@
                     var loose = false;
 
                     this.elapsedTime += gameTime.getElapsedTime();
+                    this.elapsedAccelTime += gameTime.getElapsedTime();
+
                     if (this.elapsedTime >= this.spawnCarTime) {
                         this.elapsedTime = 0;
                         this.addCar();
+                    }
+
+                    if (this.elapsedAccelTime >= this.accelTime) {
+                        this.elapsedAccelTime = 0;
+                        this.spawnCarTime -= 100;
+
+                        if (this.spawnCarTime < 500) {
+                            this.spawnCarTime = 500;
+                        }
+                        else {
+                            this.accelSound.play();
+                            this.messageText.visible = true;
+
+                            setTimeout(function () { this.messageText.visible = false }.bind(this), 1000);
+                        }
                     }
 
                     this.backgrounds.forEach(function(background) {
@@ -126,6 +154,7 @@
                             }
                             else if (car.rectangle.intersects(this.player.rectangle)) {
                                 loose = true;
+                                this.hitSound.play();
                             } 
                         }
                     }.bind(this));
@@ -163,11 +192,19 @@
                     spriteBatch.drawString(this.titleScore, this.bestScore, { x: 87, y: 162 }, "#fff");
                 }
                 else if (this.gameStatus === GameStatus.Playing) {
-                    spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: 32 }, "#fff");
+                    spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: Atlantis.screen.height - 15 }, "#fff");
+
+                    if (this.messageText.visible) {
+                        spriteBatch.drawString(this.messageText, "Acceleration !", { x: 25, y: 30 }, "#fff");
+                        spriteBatch.drawString(this.messageText, "Acceleration !", { x: 26, y: 31 }, "#f00");
+                    }
                 }
             }
 
             PlayState.prototype.showTitle = function () {
+                this.elapsedAccelTime = 0;
+                this.elapsedTime = 0;
+                this.spawnCarTime = 1500;
                 this.cars.clear();
                 this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
                 this.score = 0;
@@ -206,6 +243,8 @@
                 this.content.preloader.push("car-red.png");
                 this.content.preloader.push("car-green.png");
                 this.content.preloader.push("car-blue.png");
+                this.content.preloader.push("accel.wav");
+                this.content.preloader.push("break.wav");
                 this.stateManager.add(new PlayState(), true);
 
                 this.graphicsDevice.preferredBackBufferWidth = 180;
