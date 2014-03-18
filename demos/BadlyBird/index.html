@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Atlantis Game Engine :: Badly Bird</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <style>
             body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
             canvas { border: 4px solid #333; display: block; margin: auto; }
@@ -10,9 +11,10 @@
         <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
-        <!-- Framework -->
+        <img src="../web/img/badlybird.png" style="display:none" />
+        <!-- Engine -->
         <script src="../../Build/AtlantisEngine.min.js"></script>
-
+        
         <script>
             var GameStatus = {
                 Menu: 0, Playing: 1
@@ -79,11 +81,6 @@
                 this.backgrounds.get(1).move(288, 0);
 
                 this.ground.move(0, Atlantis.screen.height - 112);
-           
-                var rand = Atlantis.Random.randomInt(0, 3);
-                if (rand == 0) this.selectedBird = "yellow";
-                else if (rand == 0) this.selectedBird = "blue";
-                else this.selectedBird = "red";
 
                 this.bird.prepareAnimation(40, 40);
                 this.bird.addAnimation("yellow", [0, 1, 2], 25);
@@ -104,7 +101,8 @@
 
                 var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Space) ||
                     (this.mouseState.leftButton && !this.lastMouseState.leftButton) ||
-                    (this.touchState.state === Atlantis.TouchLocationState.Pressed && !this.lastTouchState.state === Atlantis.TouchLocationState.Pressed);
+                    (this.touchState.state === Atlantis.TouchLocationState.Pressed &&
+                     this.lastTouchState.state !== Atlantis.TouchLocationState.Pressed);
 
                 if (this.gameStatus === GameStatus.Menu) {
                     if (validateKey) {
@@ -171,6 +169,11 @@
             };
 
             PlayState.prototype.restartLevel = function () {
+                var rand = Atlantis.Random.randomInt(0, 3);
+                if (rand == 0) this.selectedBird = "yellow";
+                else if (rand == 1) this.selectedBird = "blue";
+                else this.selectedBird = "red";
+
                 this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
                 this.score = 0;
                 this.pipes.clear();

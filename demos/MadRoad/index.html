@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis Game Engine :: Mad Road</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style>
+            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
+            canvas { border: 4px solid #333; display: block; margin: auto; }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <img src="../web/img/jsmadroad.png" style="display:none" />
+        <!-- Engine -->
+        <script src="../../Build/AtlantisEngine.min.js"></script>
+
+        <script>
+            var GameStatus = {
+                Menu: 0, Playing: 1
+            };
+
+            var PlayState = function () {
+                Atlantis.State.call(this, "playstate");
+
+                this.elapsedTime = 0;
+                this.spawnCarTime = 1500;
+
+                this.elapsedAccelTime = 0;
+                this.accelTime = 5000;
+
+                this.gameStatus = GameStatus.Menu;
+                this.score = 0;
+                this.bestScore = 0;
+
+                this.title = new Atlantis.SpriteFont("Arial", 32);
+                this.titleScore = new Atlantis.SpriteFont("Arial", 18);
+                this.scoreText = new Atlantis.SpriteFont("Arial", 18);
+                this.messageText = new Atlantis.SpriteFont("Arial", 18, "bold");
+                this.messageText.visible = false;
+                
+                this.backgrounds = new Atlantis.SpriteGroup();
+                this.scene.add(this.backgrounds);
+                
+                var background = null;
+                for (var i = 0; i < 2; i++) {
+                    background = new Atlantis.Sprite("road.png");
+                    background.velocity.y = 2;
+                    this.backgrounds.add(background);
+                }
+
+                this.cars = new Atlantis.SpriteGroup();
+                this.scene.add(this.cars);
+
+                this.player = new Atlantis.Sprite("player.png", { maxVelocity: 0.85, insideScreen: true });
+                this.scene.add(this.player);
+
+                this.hitSound = null;
+                this.accelSound = null;
+            };
+            PlayState.prototype = Object.create(Atlantis.State.prototype);
+
+            PlayState.prototype.loadContent = function (content) {
+                Atlantis.State.prototype.loadContent.call(this, content);
+
+                this.backgrounds.get(1).move(0, -this.backgrounds.get(1).getHeight());
+
+                this.hitSound = content.load("break.wav");
+                this.accelSound = content.load("accel.wav");
+
+                this.showTitle();
+            };
+
+            PlayState.prototype.update = function (gameTime) {
+                Atlantis.State.prototype.update.call(this, gameTime);
+
+                if (this.gameStatus === GameStatus.Menu) { 
+                    if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
+                        this.restartLevel();
+                    }
+                }
+                else if (this.gameStatus === GameStatus.Playing) {
+                    var loose = false;
+
+                    this.elapsedTime += gameTime.getElapsedTime();
+                    this.elapsedAccelTime += gameTime.getElapsedTime();
+
+                    if (this.elapsedTime >= this.spawnCarTime) {
+                        this.elapsedTime = 0;
+                        this.addCar();
+                    }
+
+                    if (this.elapsedAccelTime >= this.accelTime) {
+                        this.elapsedAccelTime = 0;
+                        this.spawnCarTime -= 100;
+
+                        if (this.spawnCarTime < 500) {
+                            this.spawnCarTime = 500;
+                        }
+                        else {
+                            this.accelSound.play();
+                            this.messageText.visible = true;
+
+                            setTimeout(function () { this.messageText.visible = false }.bind(this), 1000);
+                        }
+                    }
+
+                    this.backgrounds.forEach(function(background) {
+                        if (background.rectangle.y > Atlantis.screen.height) {
+                            background.move(0, -background.getHeight() + background.velocity.y);
+                        }
+                    });
+
+                    this.cars.forEach(function (car) {
+                        if (car.isActive()) {
+                            if (car.rectangle.y > Atlantis.screen.height) {
+                                car.setActive(false);
+                                this.score++;
+                            }
+                            else if (car.rectangle.intersects(this.player.rectangle)) {
+                                loose = true;
+                                this.hitSound.play();
+                            } 
+                        }
+                    }.bind(this));
+
+                    if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
+                        this.player.velocity.y -= 0.4;
+                    }
+                    else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
+                        this.player.velocity.y += 0.4;
+                    }
+
+                    if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
+                        this.player.velocity.x -= 1.5;
+                    }
+                    else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
+                        this.player.velocity.x += 1.5;
+                    }
+
+                    if (loose) {
+                        this.showTitle();
+                    }
+
+                }
+            };
+
+            PlayState.prototype.draw = function (spriteBatch) {
+                Atlantis.State.prototype.draw.call(this, spriteBatch);
+
+                if (this.gameStatus === GameStatus.Menu) {
+                    spriteBatch.drawString(this.title, "Mad Road", { x: 10, y: 50 }, "#000");
+                    spriteBatch.drawString(this.title, "Mad Road", { x: 12, y: 52 }, "#fff");
+                    spriteBatch.drawString(this.titleScore, "Best Score", { x: 50, y: 130 }, "#000");
+                    spriteBatch.drawString(this.titleScore, "Best Score", { x: 52, y: 132 }, "#fff");
+                    spriteBatch.drawString(this.titleScore, this.bestScore, { x: 85, y: 160 }, "#000");
+                    spriteBatch.drawString(this.titleScore, this.bestScore, { x: 87, y: 162 }, "#fff");
+                }
+                else if (this.gameStatus === GameStatus.Playing) {
+                    spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: Atlantis.screen.height - 15 }, "#fff");
+
+                    if (this.messageText.visible) {
+                        spriteBatch.drawString(this.messageText, "Acceleration !", { x: 25, y: 30 }, "#fff");
+                        spriteBatch.drawString(this.messageText, "Acceleration !", { x: 26, y: 31 }, "#f00");
+                    }
+                }
+            }
+
+            PlayState.prototype.showTitle = function () {
+                this.elapsedAccelTime = 0;
+                this.elapsedTime = 0;
+                this.spawnCarTime = 1500;
+                this.cars.clear();
+                this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
+                this.score = 0;
+                this.player.velocity.set(0, 0);
+                this.player.move(Atlantis.screen.width / 2 - this.player.getWidth() / 2, Atlantis.screen.height - this.player.getHeight() - 15);
+                this.backgrounds.enabled = false;
+                this.gameStatus = GameStatus.Menu;
+            };
+
+            PlayState.prototype.restartLevel = function () {
+                this.backgrounds.enabled = true;
+                this.addCar();
+                this.gameStatus = GameStatus.Playing;
+            };
+
+            PlayState.prototype.addCar = function () {
+                var rand = Atlantis.Random.randomInt(0, 3);
+                var color = "blue";
+
+                if (rand === 1) color = "green";
+                else if (rand == 2) color = "red";
+
+                var car = new Atlantis.Sprite(["car-", color, ".png"].join(""));
+                car.velocity.y = Atlantis.Random.randomFloat(1, 4);
+                this.cars.add(car);
+
+                car.move(Atlantis.Random.randomInt(0, Atlantis.screen.width - car.getWidth()), -car.getHeight());
+            };
+
+            var MadRoadGame = function () {
+                Atlantis.GameApplication.call(this, 360, 480);
+                this.content.rootDirectory = "Content/";
+                this.content.preloader.push("road.png");
+                this.content.preloader.push("wheel.png");
+                this.content.preloader.push("player.png");
+                this.content.preloader.push("car-red.png");
+                this.content.preloader.push("car-green.png");
+                this.content.preloader.push("car-blue.png");
+                this.content.preloader.push("accel.wav");
+                this.content.preloader.push("break.wav");
+                this.stateManager.add(new PlayState(), true);
+
+                this.graphicsDevice.preferredBackBufferWidth = 180;
+                this.graphicsDevice.preferredBackBufferHeight = 240;
+                this.graphicsDevice.applyChanges();
+            };
+            MadRoadGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+            var game = new MadRoadGame();
+            game.run();
+        </script>
+    </body>
+</html>
