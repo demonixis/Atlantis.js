@@ -55,6 +55,8 @@ Atlantis.TouchPanel = function (domElement) {
 	var that = this;
 
 	var onTouchHandler = function (event) { 
+		event.preventDefault();
+		
 		var size = event.touches.length;
 		that._states.length = size;
 
