@@ -18,6 +18,27 @@ Atlantis.SpriteGroup = function () {
     this._initialized = false;
     this._loaded = false;
 	this._sprites = [];	
+
+	var that = this;
+	Atlantis._createProperty(this, "x", 
+        function () { return that.rectangle.x; },
+        function (value) { 
+        	var diff = value - that.rectangle.x;
+        	that.rectangle.x = value; 
+        	for (var i = 0, l = that._sprites.length; i < l; i++) {
+        		that._sprites[i].translate(diff, 0);
+        	}
+        });
+
+    Atlantis._createProperty(this, "y", 
+        function () { return that.rectangle.y; },
+        function (value) {
+        	var diff = value - that.rectangle.y;
+        	that.rectangle.x = value; 
+        	for (var i = 0, l = that._sprites.length; i < l; i++) {
+        		that._sprites[i].translate(0, diff);
+        	}
+        });
 };
 Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 
@@ -94,6 +115,8 @@ Atlantis.SpriteGroup.prototype.add = function (sprite) {
 	if (sprite instanceof Atlantis.Sprite && this._sprites.indexOf(sprite) === -1) {
 		this._sprites.push(sprite);
 
+		sprite.parent = this;
+
 		if (this._initialized) {
 			sprite.initialize();
 		}
@@ -116,12 +139,14 @@ Atlantis.SpriteGroup.prototype.remove = function (spriteOrIndex) {
 		var index = this._sprites.indexOf(spriteOrIndex);
 		if (index > -1) {
 			sprite = this._sprites[index];
+			sprite.parent = null;
 			this._sprites.splice(index, 1);
 		}
 	}
 	else {
 		if (spriteOrIndex > -1) {
 			sprite = this._sprites[index];
+			sprite.parent = null;
 			this._sprites.splice(index, 1);
 		}
 	}

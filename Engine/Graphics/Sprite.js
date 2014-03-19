@@ -22,6 +22,7 @@ Atlantis.Sprite = function (textureName, params) {
     this.scale = new Atlantis.Vector2(1, 1);
     this.origin = new Atlantis.Vector2();
     this.layerDepth = Atlantis.Sprite.Counter++;
+    this.parent = null;
 
     this.direction = new Atlantis.Vector2();
     this.lastPosition = new Atlantis.Vector2();
@@ -42,6 +43,24 @@ Atlantis.Sprite = function (textureName, params) {
     // Animation
     this.spriteAnimator = new Atlantis.SpriteAnimator();
     this.elapsedTime = 0;
+
+    var that = this;
+
+    Atlantis._createProperty(this, "x", 
+        function () { return that.rectangle.x; },
+        function (value) { that.rectangle.x = value; });
+
+    Atlantis._createProperty(this, "y", 
+        function () { return that.rectangle.y; },
+        function (value) { that.rectangle.y = value; });
+
+    Atlantis._createProperty(this, "width", 
+        function () { return that.rectangle.width; },
+        function (value) { return that.rectangle.width; });
+
+    Atlantis._createProperty(this, "height", 
+        function () { return that.rectangle.height; },
+        function (value) { return that.rectangle.height; });
 
     var params = params || {};
     for (var i in params) {
@@ -99,6 +118,15 @@ Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
     else {
         callback(this);
     }
+};
+
+/**
+ *
+ * @method collides
+ * @return {Boolean} Return true if collides otherwise return false.
+ */
+Atlantis.Sprite.prototype.collides = function (sprite) {
+    return this.rectangle.intersects(sprite.rectangle);
 };
 
 /**

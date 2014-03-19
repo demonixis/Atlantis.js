@@ -11,6 +11,7 @@
         <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
+        <div id="gameContainer"></div>
         <!-- Framework -->
         <script src="../../Framework/Compatibility.js"></script>
         <script src="../../Framework/Common.js"></script>
@@ -66,8 +67,7 @@
 
                 this.gameStatus = GameStatus.Menu;
                 this.score = 0;
-                this.bestScore = 0;
-
+                this.bestScore = +Atlantis.app.storage.load("bestscore")|0;
                 this.title = new Atlantis.SpriteFont("Arial", 32);
                 this.titleScore = new Atlantis.SpriteFont("Arial", 18);
                 this.scoreText = new Atlantis.SpriteFont("Arial", 18);
@@ -98,7 +98,7 @@
             PlayState.prototype.loadContent = function (content) {
                 Atlantis.State.prototype.loadContent.call(this, content);
 
-                this.backgrounds.get(1).move(0, -this.backgrounds.get(1).getHeight());
+                this.backgrounds.get(1).move(0, -this.backgrounds.get(1).height);
 
                 this.hitSound = content.load("break.wav");
                 this.accelSound = content.load("accel.wav");
@@ -141,18 +141,18 @@
                     }
 
                     this.backgrounds.forEach(function(background) {
-                        if (background.rectangle.y > Atlantis.screen.height) {
-                            background.move(0, -background.getHeight() + background.velocity.y);
+                        if (background.y > Atlantis.screen.height) {
+                            background.y = (-background.height + background.velocity.y);
                         }
                     });
 
                     this.cars.forEach(function (car) {
                         if (car.isActive()) {
-                            if (car.rectangle.y > Atlantis.screen.height) {
+                            if (car.y > Atlantis.screen.height) {
                                 car.setActive(false);
                                 this.score++;
                             }
-                            else if (car.rectangle.intersects(this.player.rectangle)) {
+                            else if (car.collides(this.player)) {
                                 loose = true;
                                 this.hitSound.play();
                             } 
@@ -209,9 +209,10 @@
                 this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
                 this.score = 0;
                 this.player.velocity.set(0, 0);
-                this.player.move(Atlantis.screen.width / 2 - this.player.getWidth() / 2, Atlantis.screen.height - this.player.getHeight() - 15);
+                this.player.move(Atlantis.screen.width / 2 - this.player.width / 2, Atlantis.screen.height - this.player.height - 15);
                 this.backgrounds.enabled = false;
                 this.gameStatus = GameStatus.Menu;
+                Atlantis.app.storage.save("bestscore", this.bestScore);
             };
 
             PlayState.prototype.restartLevel = function () {
@@ -231,11 +232,16 @@
                 car.velocity.y = Atlantis.Random.randomFloat(1, 4);
                 this.cars.add(car);
 
-                car.move(Atlantis.Random.randomInt(0, Atlantis.screen.width - car.getWidth()), -car.getHeight());
+                car.move(Atlantis.Random.randomInt(0, Atlantis.screen.width - car.width), -car.height);
             };
 
             var MadRoadGame = function () {
                 Atlantis.GameApplication.call(this, 360, 480);
+                
+                // Define the container name for saves.
+                Atlantis.app.storage.container = "atlantis.demo.jsmadroad";
+
+                // Preloading assets
                 this.content.rootDirectory = "Content/";
                 this.content.preloader.push("road.png");
                 this.content.preloader.push("wheel.png");
@@ -245,8 +251,11 @@
                 this.content.preloader.push("car-blue.png");
                 this.content.preloader.push("accel.wav");
                 this.content.preloader.push("break.wav");
+                
+                // Add and start a new PlayState.
                 this.stateManager.add(new PlayState(), true);
 
+                // Double the render size.
                 this.graphicsDevice.preferredBackBufferWidth = 180;
                 this.graphicsDevice.preferredBackBufferHeight = 240;
                 this.graphicsDevice.applyChanges();

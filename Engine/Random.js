@@ -87,5 +87,16 @@ Atlantis.Random = {
 	 */
 	color: function () {
 		return ("#" + (Math.floor(Math.random() * 16777215).toString(16)));
+	},
+
+	/**
+	 * Gets a random element from an Array.
+	 * @method randomArrayItem
+	 * @param {Array} array The array to use.
+	 * @return {Object} Return a random value from the array.
+	 */
+	randomArrayItem: function(array) {
+		if (array.length === 0) return undefined;
+		return array[Atlantis.Random.randomInt(0, array.length - 1)];
 	}
 };

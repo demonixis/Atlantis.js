@@ -41,6 +41,10 @@ Atlantis.Game = (function () {
                 this.domElement = document.getElementById(domElement);
             }
         }
+
+        if (this.domElement instanceof HTMLCanvasElement) {
+            this.settings.canvas = this.domElement;
+        }
         
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();

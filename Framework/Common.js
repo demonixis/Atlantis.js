@@ -88,3 +88,12 @@ Atlantis.isMobileDevice = function () {
 
     return false;
 };
+
+Atlantis._createProperty = function (object, property, fn0, fn1) {
+    Object.defineProperty(object, property, {
+        get: fn0,
+        set: fn1,
+        enumerable: true,
+        configurable: true
+    });
+}

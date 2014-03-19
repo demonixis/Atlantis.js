@@ -64,7 +64,7 @@
 
                 this.gameStatus = GameStatus.Menu;
                 this.score = 0;
-                this.bestScore = 0;
+                this.bestScore = +Atlantis.app.storage.load("bestscore")|0;
 
                 this.title = new Atlantis.SpriteFont("Arial", 48);
                 this.titleScore = new Atlantis.SpriteFont("Arial", 32);
@@ -112,12 +112,10 @@
             PlayState.prototype.loadContent = function (content) {
                 Atlantis.State.prototype.loadContent.call(this, content);
 
-                this.backgrounds.get(0).move(0, 0);
-                this.backgrounds.get(1).move(288, 0);
+                this.backgrounds.get(1).x = this.backgrounds.get(1).width;
+                this.ground.y = Atlantis.screen.height - this.ground.height;
 
-                this.ground.move(0, Atlantis.screen.height - 112);
-
-                this.bird.prepareAnimation(40, 40);
+                this.bird.prepareAnimation(40, 38);
                 this.bird.addAnimation("yellow", [0, 1, 2], 25);
                 this.bird.addAnimation("blue", [3, 4, 5], 25);
                 this.bird.addAnimation("red", [6, 7, 8]);
@@ -158,22 +156,22 @@
                     }
 
                     this.backgrounds.forEach(function(background) {
-                        if (background.rectangle.x + 288 <= 0) {
-                            background.rectangle.x = 288;
+                        if (background.x + background.width <= 0) {
+                            background.x = background.width;
                         }
                     });
 
                     this.pipes.forEach(function (pipe) {
-                        if (pipe.isActive() & pipe.rectangle.getRight() < 0) { 
+                        if (pipe.isActive() && pipe.rectangle.getRight() < 0) { 
                             pipe.setActive(false);
                             this.score += 0.5;
                         }
-                        else if (pipe.rectangle.intersects(this.bird.rectangle)) {
+                        else if (pipe.collides(this.bird)) {
                             this.showTitle();
                         }
                     }.bind(this));
 
-                    if (this.bird.rectangle.intersects(this.ground.rectangle) || this.bird.rectangle.y <= 0) {
+                    if (this.bird.collides(this.ground) || this.bird.y <= 0) {
                         this.showTitle();
                     }
 
@@ -197,18 +195,14 @@
             }
 
             PlayState.prototype.showTitle = function () {
-                this.bird.move(50, Atlantis.screen.height / 2 - this.bird.getHeight() / 2);
+                this.bird.move(50, Atlantis.screen.height / 2 - this.bird.height / 2);
                 this.backgrounds.enabled = false;
                 this.bird.enabled = false;
                 this.gameStatus = GameStatus.Menu;
             };
 
             PlayState.prototype.restartLevel = function () {
-                var rand = Atlantis.Random.randomInt(0, 3);
-                if (rand == 0) this.selectedBird = "yellow";
-                else if (rand == 1) this.selectedBird = "blue";
-                else this.selectedBird = "red";
-
+                this.selectedBird = Atlantis.Random.randomArrayItem(["red", "yellow", "blue"]);
                 this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
                 this.score = 0;
                 this.pipes.clear();
@@ -217,6 +211,8 @@
                 this.elapsedTime = 0;
                 this.addPipeLine();
                 this.gameStatus = GameStatus.Playing;
+
+                Atlantis.app.storage.save("bestscore", this.bestScore);
             };
 
             PlayState.prototype.addPipeLine = function () {
@@ -225,7 +221,7 @@
                 var down = new Atlantis.Sprite("pipe_down.png", { velocity: velocity });
 
                 down.move(Atlantis.screen.width, Atlantis.Random.randomInt(-300, 0));
-                up.move(Atlantis.screen.width, down.rectangle.y + 450);
+                up.move(Atlantis.screen.width, down.y + 450);
 
                 this.pipes.add(up);
                 this.pipes.add(down);
@@ -233,6 +229,9 @@
 
             var FlappyGame = function () {
                 Atlantis.GameApplication.call(this, 288, 576);
+
+                Atlantis.app.storage.container = "atlantis.demo.badlybird";
+
                 this.content.rootDirectory = "Content/";
                 this.content.preloader.push("background.png");
                 this.content.preloader.push("bottom.png");
