@@ -147,16 +147,14 @@
                     });
 
                     this.cars.forEach(function (car) {
-                        if (car.isActive()) {
-                            if (car.y > Atlantis.screen.height) {
-                                car.setActive(false);
-                                this.score++;
-                            }
-                            else if (car.collides(this.player)) {
-                                loose = true;
-                                this.hitSound.play();
-                            } 
+                        if (car.y > Atlantis.screen.height) {
+                            car.kill();
+                            this.score++;
                         }
+                        else if (car.collides(this.player)) {
+                            loose = true;
+                            this.hitSound.play();
+                        } 
                     }.bind(this));
 
                     if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
@@ -228,10 +226,20 @@
                 if (rand === 1) color = "green";
                 else if (rand == 2) color = "red";
 
-                var car = new Atlantis.Sprite(["car-", color, ".png"].join(""));
-                car.velocity.y = Atlantis.Random.randomFloat(1, 4);
-                this.cars.add(car);
+                // Try to recycle an existing car
+                var car = this.cars.getFirstKilled();
 
+                if (!car) {
+                    car = new Atlantis.Sprite(["car-", color, ".png"].join(""));
+                    this.cars.add(car);
+                }
+                else {
+                    car.textureName = ["car-", color, ".png"].join("");
+                    car.loadContent(Atlantis.app.content); 
+                    car.revive();
+                }
+
+                car.velocity.y = Atlantis.Random.randomFloat(1, 4);
                 car.move(Atlantis.Random.randomInt(0, Atlantis.screen.width - car.width), -car.height);
             };
 

@@ -19,6 +19,13 @@ Atlantis.SpriteGroup = function () {
     this._loaded = false;
 	this._sprites = [];	
 
+	// Indice of Sprite that must be added or removed
+	this._needReAdd = [];
+	this._needRemove = [];
+
+	// Sprite that are not actives and removed from the main collection.
+	this._killed = [];
+
 	var that = this;
 	Atlantis._createProperty(this, "x", 
         function () { return that.rectangle.x; },
@@ -41,6 +48,34 @@ Atlantis.SpriteGroup = function () {
         });
 };
 Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
+
+/**
+ * Gets the first killed sprite if available.
+ * @method getFirstKilled
+ * @return {Atlantis.Sprite} Return the first killed sprite otherwise return null.
+ */
+Atlantis.SpriteGroup.prototype.getFirstKilled = function () {
+	if (this._killed.length) {
+		return this._killed[this._killed.length - 1];
+	}
+	return null;
+};
+
+Atlantis.SpriteGroup.prototype._kill = function (sprite) {
+	var index = this._sprites.indexOf(sprite);
+
+	if (index > -1) {
+		this._needRemove.push(index);
+	}
+};
+
+Atlantis.SpriteGroup.prototype._revive = function (sprite) { 
+	var index = this._killed.indexOf(sprite);
+
+	if (index > -1) {
+		this._needReAdd.push(index);
+	}
+};
 
 /**
  * Initialize of all members.
@@ -76,6 +111,29 @@ Atlantis.SpriteGroup.prototype.loadContent = function (contentManager) {
  */
 Atlantis.SpriteGroup.prototype.update = function (gameTime) {
 	if (this.enabled) {
+		// Sprites that must be removed.
+		if (this._needRemove.length) {
+			var index = 0;
+			while (this._needRemove.length) {
+				index = this._needRemove.length - 1;
+				this._killed.push(this._sprites[this._needRemove[index]]);
+				this._sprites.splice(this._needRemove[index], 1);
+				this._needRemove.splice(index, 1);
+			}
+		}
+
+		// Sprites that must be readded.
+		if (this._needReAdd.length) {
+			var index = 0;
+			while (this._needReAdd.length) {
+				index = this._needReAdd.length - 1;
+				this._sprites.push(this._killed[this._needReAdd[index]]);
+				this._killed.splice(this._needReAdd[index], 1);
+				this._needReAdd.splice(index, 1);
+			}
+		}
+
+		// Update
 		for (var i = 0, l = this._sprites.length; i < l; i++) {
             if (this._sprites[i].enabled) {
     		     this._sprites[i].update(gameTime);
@@ -137,17 +195,31 @@ Atlantis.SpriteGroup.prototype.remove = function (spriteOrIndex) {
 
 	if (spriteOrIndex instanceof Atlantis.Sprite) {
 		var index = this._sprites.indexOf(spriteOrIndex);
+		var indexK = this._killed.indexOf(spriteOrIndex);
+
 		if (index > -1) {
 			sprite = this._sprites[index];
 			sprite.parent = null;
 			this._sprites.splice(index, 1);
 		}
+		else if (indexK > -1) {
+			sprite = this._killed[index];
+			sprite.parent = null;
+			this._killed.splice(index, 1);
+		}
 	}
 	else {
 		if (spriteOrIndex > -1) {
-			sprite = this._sprites[index];
-			sprite.parent = null;
-			this._sprites.splice(index, 1);
+			if (this._sprites[index]) {
+				sprite = this._sprites[index];
+				sprite.parent = null;
+				this._sprites.splice(index, 1);
+			}
+			else if (this._killed[index]) {
+				sprite = this._killed[index];
+				sprite.parent = null;
+				this._killed.splice(index, 1);
+			}
 		}
 	}
 
@@ -171,4 +243,7 @@ Atlantis.SpriteGroup.prototype.get = function (index) {
 
 Atlantis.SpriteGroup.prototype.clear = function () {
     this._sprites.length = 0;  
+    this._killed.length = 0;
+    this._needReAdd.length = 0;
+    this._needRemove.length = 0;
 };
