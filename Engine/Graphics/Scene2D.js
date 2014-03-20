@@ -47,17 +47,17 @@ Atlantis.Scene2D.prototype.remove = function (element) {
 	}
 };
 
-Atlantis.Scene2D.prototype.lateUpdate = function () {
-	this.camera.update();
-	
-	if (this.tilemap) {
-		this.tilemap.update(this.camera);
+Atlantis.Scene2D.prototype.postUpdate = function () {
+	if (this.enabled) {
+		this.camera.update();
+		
+		if (this.tilemap) {
+			this.tilemap.update(this.camera);
+		}
 	}
 };
 
 Atlantis.Scene2D.prototype.draw = function (spriteBatch) {
-	this.lateUpdate();
-	
 	if (this.visible) {
 		Atlantis.SpriteGroup.prototype.draw.call(this, spriteBatch);
 

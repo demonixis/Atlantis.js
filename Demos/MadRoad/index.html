@@ -227,7 +227,7 @@
                 else if (rand == 2) color = "red";
 
                 // Try to recycle an existing car
-                var car = this.cars.getFirstKilled();
+                var car = this.cars.getFirstDead();
 
                 if (!car) {
                     car = new Atlantis.Sprite(["car-", color, ".png"].join(""));

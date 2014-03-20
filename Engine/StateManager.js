@@ -15,10 +15,6 @@ var Atlantis = window.Atlantis || {};
 */
 Atlantis.State = function (name) {
     this.name = name;
-    this.active = true;
-    this.stateManager = null;
-    this.initialized = false;
-    this.assetLoaded = false;
     this.enabled = true;
     this.visible = true;
     this.scene = new Atlantis.Scene2D();
@@ -31,24 +27,6 @@ Atlantis.State = function (name) {
 */
 Atlantis.State.prototype.isActive = function () {
     return this.visible && this.enabled;
-};
-
-/**
-* Determine the activity of the state.
-* @method isEnabled
-* @return {Boolean} Return true if the state is enabled.
-*/
-Atlantis.State.prototype.isEnabled = function () {
-    return this.enabled;
-};
-
-/**
-* Determine the activity of the state.
-* @method isVisible
-* @return {Boolean} Return true if the state is visible.
-*/
-Atlantis.State.prototype.isVisible = function () {
-    return this.visible;
 };
 
 /**
@@ -67,7 +45,6 @@ Atlantis.State.prototype.setActive = function (isActive) {
 */
 Atlantis.State.prototype.initialize = function () {
     this.scene.initialize();
-    this.initialized = true;
 };
 
 /**
@@ -77,7 +54,6 @@ Atlantis.State.prototype.initialize = function () {
 */
 Atlantis.State.prototype.loadContent = function (contentManager) {
     this.scene.loadContent(contentManager);
-    this.assetLoaded = true;
 };
 
 /**
@@ -87,6 +63,7 @@ Atlantis.State.prototype.loadContent = function (contentManager) {
 */
 Atlantis.State.prototype.update = function (gameTime) {
     this.scene.update(gameTime);
+    this.scene.postUpdate(gameTime);
 };
 
 /**
@@ -97,33 +74,6 @@ Atlantis.State.prototype.update = function (gameTime) {
 */
 Atlantis.State.prototype.draw = function (spriteBatch) {
     this.scene.draw(spriteBatch);
-};
-
-/**
-* Add an entity to the scene.
-* @method add
-* @param {Atlantis.Entity} entity The entity to add.
-*/
-Atlantis.State.prototype.add = function (entity) {
-    this.scene.add(entity);
-};
-
-/**
-* remove an entity from the scene.
-* @method remove
-* @param {Atlantis.Entity} entity The entity to remove.
-*/
-Atlantis.State.prototype.remove = function (entity) {
-    this.scene.remove(entity);
-};
-
-/**
-* Gets an entity from the scene.
-* @method get
-* @param {Number} index The index of the entity on the scene.
-*/
-Atlantis.State.prototype.get = function (index) {
-    return this.scene.get(index);
 };
 
 
@@ -176,7 +126,7 @@ Atlantis.StateManager.prototype.loadContent = function () {
 */
 Atlantis.StateManager.prototype.update = function (gameTime) {
     for (var i = 0, l = this.states.length; i < l; i++) {
-        if (this.states[i].isEnabled()) {
+        if (this.states[i].enabled) {
             this.states[i].update(gameTime);
         }
     }
@@ -193,7 +143,7 @@ Atlantis.StateManager.prototype.draw = function (gameTime, context) {
     this.spriteBatch.begin();
 
     for (var i = 0, l = this.states.length; i < l; i++) {
-        if (this.states[i].isVisible()) {
+        if (this.states[i].visible) {
             this.states[i].draw(this.spriteBatch);
         }
     }
@@ -288,7 +238,6 @@ Atlantis.StateManager.prototype.add = function (state, isActive, disableOtherSta
     }
 
     var isActive = (typeof (isActive) != "undefined") ? isActive : true;
-    state.stateManager = this;
     state.setActive(isActive);
 
     // If the state manager is already initialized we must load an initialize the state

@@ -299,7 +299,6 @@ Atlantis.Sprite.prototype.postUpdate = function () {
 * @param
 */
 Atlantis.Sprite.prototype.draw = function (spriteBatch) { 
-    this.postUpdate();
      if (this.visible && this._assetLoaded) {
         spriteBatch.draw(this.texture, this.rectangle, this.sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
     }
