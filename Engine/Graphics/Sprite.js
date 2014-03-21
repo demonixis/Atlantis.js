@@ -13,10 +13,13 @@ Atlantis.Sprite = function (_textureName, params) {
     this.enabled = true;
     this.visible = true;
     this.texture = null;
+    this.rectangle = new Atlantis.Rectangle();
+
+    this._dead = false;
     this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
     this._assetLoaded = false;
-    this.rectangle = new Atlantis.Rectangle();
-    this.sourceRectangle = null;
+    this._sourceRectangle = null;
+
     this.color = null;
     this.rotation = 0;
     this.scale = new Atlantis.Vector2(1, 1);
@@ -34,7 +37,7 @@ Atlantis.Sprite = function (_textureName, params) {
     this.maxVelocity = 1;
 
     // Rectangle and viewport
-    this.viewport = new Atlantis.Rectangle();
+    this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
 
     // Force the sprite to stay in screen or to enable across screen
     this.insideScreen = false;
@@ -42,9 +45,26 @@ Atlantis.Sprite = function (_textureName, params) {
 
     // Animation
     this.spriteAnimator = new Atlantis.SpriteAnimator();
-    this.elapsedTime = 0;
 
     var that = this;
+
+    Atlantis._createProperty(this, "active", 
+        function () { return that.visible && that.enabled; },
+        function (value) { 
+            that.enabled = value;
+            that.visible = value;
+        });
+
+    Atlantis._createProperty(this, "alive", 
+        function () { return !that._dead; },
+        function (value) {
+            if (value && that._dead) {
+                that.revive();
+            }
+            else if (!value && !that._dead) {
+                that.kill();
+            }
+        })
 
     Atlantis._createProperty(this, "x", 
         function () { return that.rectangle.x; },
@@ -85,9 +105,7 @@ Atlantis.Sprite.Counter = 0;
  *
  * @method initialize
  */
-Atlantis.Sprite.prototype.initialize = function () {
-    this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
-};
+Atlantis.Sprite.prototype.initialize = function () { };
 
 /**
  *
@@ -95,8 +113,8 @@ Atlantis.Sprite.prototype.initialize = function () {
  * @param
  */
 Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
-    var callback = (typeof(callback) === "function") ? callback : function () { };
     if (this._textureName != "" && this._assetLoaded == false) {
+        var callback = (typeof(callback) === "function") ? callback : function () { };
         var that = this;
 
         this.texture = contentManager.load(this._textureName, function (image) {
@@ -105,6 +123,7 @@ Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
 
             that._assetLoaded = true;
 
+            // If animations has been added before content loading
             if (that._reqPrepareAnims) {
                 that.prepareAnimation(that._reqPrepareAnims.width, that._reqPrepareAnims.height);
             }
@@ -143,10 +162,7 @@ Atlantis.Sprite.prototype.collides = function (sprite) {
 Atlantis.Sprite.prototype.kill = function () {
     this.enabled = false;
     this.visible = false;
-
-    if (this.parent) {
-        this.parent._kill(this);
-    }
+    this._dead = true;
 };
 
 /** 
@@ -156,11 +172,7 @@ Atlantis.Sprite.prototype.kill = function () {
 Atlantis.Sprite.prototype.revive = function () {
     this.enabled = true;
     this.visible = true;
-
-    // Only for SpriteGroup
-    if (this.parent) { 
-        this.parent._revive(this);
-    }
+    this._dead = false;
 };
 
 /**
@@ -193,7 +205,7 @@ Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
 Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
     if (this._assetLoaded) {
         this.spriteAnimator.add(name, framesIndex, frameRate);
-        this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
+        this._sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     }
     else {
         this._reqAddAnims.push({ name: name, framesIndex: framesIndex, frameRate: frameRate });
@@ -207,100 +219,102 @@ Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate)
 */
 Atlantis.Sprite.prototype.play = function (animationName) {
     if (this._assetLoaded) {
-        this.sourceRectangle = this.spriteAnimator.play(animationName);
+        this._sourceRectangle = this.spriteAnimator.play(animationName);
     }
 };
 
 /**
-*
-* @method update
-* @param
-*/
+ * Function called before update process.
+ * @method preUpdate
+ * @param {Atlantis.GameTime} gameTime
+ */
+Atlantis.Sprite.prototype.preUpdate = function (gameTime) { }
+
+/**
+ * Update process.
+ * @method update
+ * @param {Atlantis.GameTime} gameTime
+ */
 Atlantis.Sprite.prototype.update = function (gameTime) {
-    if (this.enabled) {
-        // Determine the last distance and direction
-        this.lastDistance.x = this.rectangle.x - this.lastPosition.x;
-        this.lastDistance.y = this.rectangle.y - this.lastPosition.y;
+    // Determine the last distance and direction
+    this.lastDistance.x = this.rectangle.x - this.lastPosition.x;
+    this.lastDistance.y = this.rectangle.y - this.lastPosition.y;
 
-        // Determine the last position
-        this.lastPosition.x = this.rectangle.x;
-        this.lastPosition.y = this.rectangle.y;
+    // Determine the last position
+    this.lastPosition.x = this.rectangle.x;
+    this.lastPosition.y = this.rectangle.y;
 
-        // Update physics
-        this.rectangle.x += this.velocity.x;
-        this.rectangle.y += this.velocity.y;
-        this.velocity.multiply(this.maxVelocity);
-        this.velocity.add(this.acceleration);
+    // Update physics
+    this.rectangle.x += this.velocity.x;
+    this.rectangle.y += this.velocity.y;
+    this.velocity.multiply(this.maxVelocity);
+    this.velocity.add(this.acceleration);
 
-        // Update animation
-        if (this.hasAnimation && this._assetLoaded) { 
-            this.spriteAnimator.update(gameTime);
-            if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
-                this.sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
-            }
+    // Update animation
+    if (this.hasAnimation && this._assetLoaded) { 
+        this.spriteAnimator.update(gameTime);
+        if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
+            this._sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
         }
     }
 };
 
 /**
-*
+* Method called after the update process.
 * @method postUpdate
-* @param
+* @param {Atlantis.GameTime} gameTime
 */
 Atlantis.Sprite.prototype.postUpdate = function () {
-    if (this.enabled) {
-        this.direction.x = this.rectangle.x - this.lastPosition.x;
-        this.direction.y = this.rectangle.y - this.lastPosition.y;
+    this.direction.x = this.rectangle.x - this.lastPosition.x;
+    this.direction.y = this.rectangle.y - this.lastPosition.y;
 
-        // Force the sprite to stay inside screen
-        if (this.insideScreen) {
-            if (this.rectangle.x < this.viewport.x) {
-                this.rectangle.x = this.viewport.x;
-                this.velocity.multiply(0);
-            }
-            else if (this.rectangle.getRight() > this.viewport.width) {
-                this.rectangle.x = this.viewport.width - this.rectangle.width;
-                this.velocity.multiply(0);
-            }
-
-            if (this.rectangle.y < this.viewport.y) {
-                this.rectangle.y = this.viewport.y;
-                this.velocity.multiply(0);
-            }
-            else if (this.rectangle.getBottom() > this.viewport.height) {
-                this.rectangle.y = this.viewport.height - this.rectangle.height;
-                this.velocity.multiply(0);
-            }
+    // Force the sprite to stay inside screen
+    if (this.insideScreen) {
+        if (this.rectangle.x < this.viewport.x) {
+            this.rectangle.x = this.viewport.x;
+            this.velocity.multiply(0);
+        }
+        else if (this.rectangle.getRight() > this.viewport.width) {
+            this.rectangle.x = this.viewport.width - this.rectangle.width;
+            this.velocity.multiply(0);
         }
 
-        // The sprite move accross the screen
-        else if (this.acrossScreen) {
-            if (this.rectangle.getRight() < this.viewport.x) {
-                this.rectangle.x = this.viewport.width
-            }
-            else if (this.rectangle.x > this.viewport.width) {
-                this.rectangle.x = this.viewport.x;
-            }
+        if (this.rectangle.y < this.viewport.y) {
+            this.rectangle.y = this.viewport.y;
+            this.velocity.multiply(0);
+        }
+        else if (this.rectangle.getBottom() > this.viewport.height) {
+            this.rectangle.y = this.viewport.height - this.rectangle.height;
+            this.velocity.multiply(0);
+        }
+    }
 
-            if (this.rectangle.getBottom() < this.viewport.y) {
-                this.rectangle.y = this.viewport.height;
-            }
-            else if (this.rectangle.y > this.viewport.height) {
-                this.rectangle.y = this.viewport.y;
-            }
+    // The sprite move accross the screen
+    else if (this.acrossScreen) {
+        if (this.rectangle.getRight() < this.viewport.x) {
+            this.rectangle.x = this.viewport.width
+        }
+        else if (this.rectangle.x > this.viewport.width) {
+            this.rectangle.x = this.viewport.x;
+        }
+
+        if (this.rectangle.getBottom() < this.viewport.y) {
+            this.rectangle.y = this.viewport.height;
+        }
+        else if (this.rectangle.y > this.viewport.height) {
+            this.rectangle.y = this.viewport.y;
         }
     }
 };
 
 /**
-*
+* Draw the sprite on screen.
 * @method draw
-* @param
-* @param
+* @param {Atlantis.SpriteBatch} spriteBatch
 */
 Atlantis.Sprite.prototype.draw = function (spriteBatch) { 
-     if (this.visible && this._assetLoaded) {
-        spriteBatch.draw(this.texture, this.rectangle, this.sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
+     if (this._assetLoaded) {
+        spriteBatch.draw(this.texture, this.rectangle, this._sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
     }
 };
 
@@ -320,15 +334,6 @@ Atlantis.Sprite.prototype.setSize = function (width, height) {
     }
 };
 
-Atlantis.Sprite.prototype.isActive = function () {
-    return this.enabled && this.visible;
-};
-
-Atlantis.Sprite.prototype.setActive = function (active) {
-    this.enabled = active;
-    this.visible = active;
-};
-
 Atlantis.Sprite.prototype.move = function (x, y) {
     this.rectangle.x = x;
     this.rectangle.y = y;
@@ -339,39 +344,6 @@ Atlantis.Sprite.prototype.move = function (x, y) {
 Atlantis.Sprite.prototype.translate = function (x, y) {
     this.rectangle.x += x;
     this.rectangle.y += y;
-};
-
-Atlantis.Sprite.prototype.getX = function () { 
-    return this.rectangle.x;
-};
-
-Atlantis.Sprite.prototype.getY = function () {
-    return this.rectangle.y;
-};
-
-Atlantis.Sprite.prototype.getWidth = function () {
-    return this.rectangle.width;
-};
-
-Atlantis.Sprite.prototype.getHeight = function () {
-    return this.rectangle.height;
-};
-
-Atlantis.Sprite.prototype.setDirection = function (direction) {
-    this.direction.x = x;
-    this.direction.y = y;
-};
-
-Atlantis.Sprite.prototype.getDirection = function () {
-    return this.direction;    
-};
-
-Atlantis.Sprite.prototype.getName = function () {
-    return this.name;
-};
-
-Atlantis.Sprite.prototype.setName = function (name) { 
-    this.name = name; 
 };
 
 Atlantis.Sprite.prototype.getBoundingRect = function () {
