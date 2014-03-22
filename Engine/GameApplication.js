@@ -54,7 +54,7 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
         content: that.content,
         components: that.components,
         storage: that.storageManager,
-        level: that.stateManager
+        stateManager: that.stateManager
     };
     
     Atlantis.input = {

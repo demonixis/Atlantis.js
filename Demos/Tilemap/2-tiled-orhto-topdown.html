@@ -170,8 +170,8 @@
             }
 
             var aPosition = this.camera.getSpritePosition();
-            var tileCollide = this.tilemap.getTileIdAt(2, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
-            var tileCollide2 = this.tilemap.getTileIdAt(3, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
+            var tileCollide = this.tilemap.getTileIdAt(2, aPosition.x + this.player.width / 2, aPosition.y + this.player.height);
+            var tileCollide2 = this.tilemap.getTileIdAt(3, aPosition.x + this.player.width / 2, aPosition.y + this.player.height);
             
             if (tileCollide || tileCollide2) { 
                 this.player.move(this.player.lastPosition.x, this.player.lastPosition.y);

@@ -13,7 +13,7 @@ MenuState.prototype.update = function (gameTime) {
     Atlantis.State.prototype.update.call(this, gameTime);
 
     if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
-        this.stateManager.setActive("game", true);
+        Atlantis.app.stateManager.setActive("game", true);
     }
 };
 

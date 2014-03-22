@@ -62,7 +62,7 @@
             
             // Fake gravity
             var aPosition = this.camera.getSpritePosition();
-            var tileId = this.tilemap.getTileIdAt(2, aPosition.x + this.player.getWidth() / 2, aPosition.y + this.player.getHeight());
+            var tileId = this.tilemap.getTileIdAt(2, aPosition.x + this.player.width / 2, aPosition.y + this.player.height);
        
             if (!tileId) { 
                 this.player.translate(0, 5); 

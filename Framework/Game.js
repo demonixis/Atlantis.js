@@ -53,6 +53,7 @@ Atlantis.Game = (function () {
         this.mouse = null;
         this.touchPanel = null;
         this.gamepad = null;
+        this.preloader = null;
         
         this.graphicsDevice = new Atlantis.GraphicsDevice(width, height, this.settings);
         this.canvas = this.settings.canvas;
@@ -150,16 +151,14 @@ Atlantis.Game = (function () {
             this.initialize();
 
             if (this.content.preloader.length) {
-                this.content.preload(function (progress) {
-                    var progressMessage = ["Game loading ", progress.progress, "%"].join("");
-                    var size = this.context.measureText(progressMessage),
-                        x = (this.frontBuffer.getWidth() >> 1) - (size.width >> 1),
-                        y = (this.frontBuffer.getHeight() >> 1);
 
-                    this.context.clearRect(0, 0, this.frontBuffer.getWidth(), this.frontBuffer.getHeight());
-                    this.context.fillStyle = "#fafafa";
-                    this.context.font = "normal 18px Arial";
-                    this.context.fillText(progressMessage, x, y);
+                // If user don't use a custom preloader
+                if (this.preloader === null) {
+                    this.preloader = new Atlantis.Preloader(this);
+                }
+
+                this.content.preload(function (progress) {
+                    this.preloader.onProgress(this.context, progress);    
                 }.bind(this), function () {
                     this.context.clearRect(0, 0, this.frontBuffer.getWidth(), this.frontBuffer.getHeight());
                     this.loadContent();

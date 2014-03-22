@@ -139,6 +139,8 @@ Atlantis.Sprite.prototype.initialize = function () { };
  * @param
  */
 Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
+    this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
+    
     if (this._textureName != "" && this._assetLoaded == false) {
         var callback = (typeof(callback) === "function") ? callback : function () { };
         var that = this;

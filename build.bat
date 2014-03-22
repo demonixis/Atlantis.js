@@ -19,6 +19,7 @@ SET js_framework=%js_framework% --js=Framework/Graphics/RenderTarget.js
 SET js_framework=%js_framework% --js=Framework/Graphics/GraphicsDevice.js
 SET js_framework=%js_framework% --js=Framework/Graphics/SpriteFont.js
 SET js_framework=%js_framework% --js=Framework/Graphics/SpriteBatch.js
+SET js_framework=%js_framework% --js=Framework/Preloader.js
 SET js_framework=%js_framework% --js=Framework/Game.js
 
 SET js_engine=--js=Engine\AudioManager.js

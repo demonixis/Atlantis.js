@@ -32,6 +32,8 @@
         <script src="../../Framework/Graphics/SpriteBatch.js"></script>
         <script src="../../Framework/Graphics/RenderTarget.js"></script>
         <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Graphics/SpriteFont.js"></script>
+        <script src="../../Framework/Preloader.js"></script>
         <script src="../../Framework/Game.js"></script>
         <!-- Engine -->
         <script src="../../Engine/Random.js"></script>
@@ -57,6 +59,8 @@
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
             this.player = new Atlantis.Sprite("Player.png");
             this.scene = new Atlantis.Scene2D();
+
+            this.content.preloader.push("Player.png");
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
 
