@@ -162,8 +162,8 @@
                     });
 
                     this.pipes.forEach(function (pipe) {
-                        if (pipe.isActive() && pipe.rectangle.getRight() < 0) { 
-                            pipe.setActive(false);
+                        if (pipe.rectangle.getRight() < 0) { 
+                            pipe.kill();
                             this.score += 0.5;
                         }
                         else if (pipe.collides(this.bird)) {
@@ -217,14 +217,30 @@
 
             PlayState.prototype.addPipeLine = function () {
                 var velocity = new Atlantis.Vector2(-1.5, 0);
-                var up = new Atlantis.Sprite("pipe_up.png", { velocity: velocity });
-                var down = new Atlantis.Sprite("pipe_down.png", { velocity: velocity });
+
+                var up = this.pipes.getFirstDead();
+                if (!up) {
+                    up = new Atlantis.Sprite("pipe_up.png", { velocity: velocity });
+                    this.pipes.add(up);
+                }
+                else {
+                    up.texture = Atlantis.app.content.load("pipe_up.png");
+                    up.revive();
+                }
+
+                var down = this.pipes.getFirstDead();
+                if (!down) {
+                    down = new Atlantis.Sprite("pipe_down.png", { velocity: velocity });
+                    this.pipes.add(down);
+                }
+                else {
+                    down.texture = Atlantis.app.content.load("pipe_down.png");
+                    down.revive();
+                }
 
                 down.move(Atlantis.screen.width, Atlantis.Random.randomInt(-300, 0));
                 up.move(Atlantis.screen.width, down.y + 450);
 
-                this.pipes.add(up);
-                this.pipes.add(down);
             };
 
             var FlappyGame = function () {

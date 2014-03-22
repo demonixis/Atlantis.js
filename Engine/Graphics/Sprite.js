@@ -13,8 +13,9 @@ Atlantis.Sprite = function (_textureName, params) {
     this.enabled = true;
     this.visible = true;
     this.texture = null;
-    this.rectangle = new Atlantis.Rectangle();
+    
 
+    this.rectangle = new Atlantis.Rectangle();
     this._dead = false;
     this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
     this._assetLoaded = false;

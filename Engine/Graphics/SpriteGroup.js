@@ -49,7 +49,7 @@ Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
  */
 Atlantis.SpriteGroup.prototype.initialize = function () {
 	if (!this._initialized) {
-		for (var i = 0 i < this._length; i++) {
+		for (var i = 0; i < this._length; i++) {
 			this._sprites[i].initialize();
 		}
 		this._initialized = true;
@@ -96,7 +96,7 @@ Atlantis.SpriteGroup.prototype.update = function (gameTime) {
 Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
 	if (this.visible) {
 		for (var i = 0; i < this._length; i++) {
-            if (this._sprites[i] !== null && this._sprite[i].alive && this._sprites[i].visible) {
+            if (this._sprites[i] !== null && this._sprites[i].alive && this._sprites[i].visible) {
     		     this._sprites[i].draw(spriteBatch);
             }
     	}
@@ -151,7 +151,9 @@ Atlantis.SpriteGroup.prototype.countDead = function () {
  */
 Atlantis.SpriteGroup.prototype.forEach = function (callback) {
 	for (var i = 0; i < this._length; i++) {
-		callback(this._sprites[i]);
+		if (this._sprites[i] !== null && this._sprites[i].alive) {
+			callback(this._sprites[i]);
+		}
 	}
 };
 
@@ -209,7 +211,7 @@ Atlantis.SpriteGroup.prototype.getFirstNull = function () {
 Atlantis.SpriteGroup.prototype.kill = function () {
 	Atlantis.Sprite.prototype.kill.call(this);
 
-	for (var i = 0 i < this._length; i++) {
+	for (var i = 0; i < this._length; i++) {
 		if (this._sprites[i] !== null) {
 			this._sprites[i].kill();
 		}
