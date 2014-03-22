@@ -52,61 +52,92 @@
     <script>
         // The Game class
         var TestGame = function () {
-            Atlantis.GameApplication.call(this, 640, 480, ".container");
+            Atlantis.GameApplication.call(this, 640, 480);
             this.content.rootDirectory = "Content/";
             this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
-            this.tilemap = null;
-            this.camera = new Atlantis.Camera2D();
-
-            this.content.preloader.push("isometric_map.json");
-            this.content.preloader.push("BackgroundGradient.png");
-            this.content.preloader.push("isometric_tiles.png");
-            this.content.preloader.push("platformer_map.json");
-            this.content.preloader.push("platformer_tiles.png");
+            this.player = new Atlantis.Sprite("Player.png");
+            this.scene = new Atlantis.Scene2D();
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
-    
+
         // Load you assets here.
         TestGame.prototype.loadContent = function () {
             Atlantis.GameApplication.prototype.loadContent.call(this);
+            this.player.initialize();
+            this.player.loadContent(this.content);
+            this.player.move(300, 200);
+            this.player.collisionType = Atlantis.SpriteCollisionType.Stop;
 
-            var that = this;
-            
-            this.tilemap = Atlantis.TmxLoader.load(this.content, "isometric_map.json", function (tilemap) {
-                that.camera.viewport.set(0, 0, tilemap.mapWidth, tilemap.mapHeight);
-            });
+            this.scene.initialize();
+            this.scene.loadContent(this.content);
+
+            var createSprite = function (x, y) {
+                var sprite = new Atlantis.Sprite("Player.png");
+                sprite.initialize();
+                sprite.loadContent(this.content);
+                sprite.x = x;
+                sprite.y = y;
+                return sprite;
+            }.bind(this);
+
+            this.scene.add(createSprite(10, 10));
+            this.scene.add(createSprite(10, 50));
+            this.scene.add(createSprite(10, 100));
+            this.scene.add(createSprite(10, 140));
+            this.scene.add(createSprite(10, 190));
+            this.scene.add(createSprite(10, 240));
         };
 
         // Update the game logic here as Input, Physics, etc.
         TestGame.prototype.update = function (gameTime) {
             Atlantis.GameApplication.prototype.update.call(this, gameTime);
             
+            this.player.update(gameTime);
+            
+            this.scene.update(gameTime);
+      
             if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
-                this.camera.y -= 5;    
+                  this.player.y -= 5;
             }
             else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
-                this.camera.y += 5;    
+                this.player.y += 5;
             }
-            
+
             if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
-                this.camera.x -= 5;   
+               this.player.x -= 5;
             }
             else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
-                this.camera.x += 5;  
+                this.player.x += 5;
             }
-            
-            this.camera.update();
+
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Z)) {
+                  this.scene.y -= 5;
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.S)) {
+                this.scene.y += 5;
+            }
+
+            if (Atlantis.input.keys.pressed(Atlantis.Keys.Q)) {
+               this.scene.x -= 5;
+            }
+            else if (Atlantis.input.keys.pressed(Atlantis.Keys.D)) {
+                this.scene.x += 5;
+            }
+
+            this.scene.collides(this.player);
+
+            this.player.postUpdate(gameTime);
         };
 
-        // Draw sprites and text here.
-        TestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
-            this.graphicsDevice.clear(); 
+        TestGame.prototype.draw = function(gameTime) {
+            Atlantis.GameApplication.prototype.draw.call(this, gameTime);
+            this.graphicsDevice.clear();
             this.spriteBatch.begin();
-            this.tilemap.draw(this.spriteBatch, this.camera);
+            this.player.draw(this.spriteBatch);
+            this.scene.draw(this.spriteBatch);
             this.spriteBatch.end();
-        };
-    
+        }
+
         // Start the game !
         var game = new TestGame();
         game.run();

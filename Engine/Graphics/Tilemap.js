@@ -263,6 +263,18 @@ Atlantis.Tilemap.prototype.getTileIdAt = function (layerIndex, x, y) {
     return 0;
 };
 
+Atlantis.Tilemap.prototype.getTileRectAt = function (layerIndex, x, y) {
+    var rect = { x: 0, y: 0, width: this.tileWidth, height: this.tileHeight };
+
+    if (this.layers[layerIndex]) {
+        var layer = this.layers[layerIndex];
+        rect.x = Math.floor(x / this.tileWidth);
+        rect.y = Math.floor(y / this.tileHeight);
+    }
+
+    return rect;
+};
+
 /**
  * Extract a tile from tileset and return a canvas element with the tile drawn in it.
  * It's usefull to do some tests, such as pixel perfect. 

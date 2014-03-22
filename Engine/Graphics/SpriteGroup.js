@@ -19,6 +19,7 @@ Atlantis.SpriteGroup = function () {
     this._assetLoaded = false;
 	this._sprites = [];	
 	this._length = 0;
+	this._needBoundingCompute = true;
 
 	var that = this;
 	Atlantis._createProperty(this, "x", 
@@ -29,6 +30,7 @@ Atlantis.SpriteGroup = function () {
         	for (var i = 0, l = that._sprites.length; i < l; i++) {
         		that._sprites[i].translate(diff, 0);
         	}
+        	that._needBoundingCompute = true;
         });
 
     Atlantis._createProperty(this, "y", 
@@ -39,6 +41,7 @@ Atlantis.SpriteGroup = function () {
         	for (var i = 0, l = that._sprites.length; i < l; i++) {
         		that._sprites[i].translate(0, diff);
         	}
+        	that._needBoundingCompute = true;
         });
 };
 Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
@@ -76,6 +79,8 @@ Atlantis.SpriteGroup.prototype.loadContent = function (contentManager) {
  * @param {Atlantis.GameTime} gameTime An instance of GameTime.
  */
 Atlantis.SpriteGroup.prototype.update = function (gameTime) {
+	Atlantis.Sprite.prototype.update.call(this, gameTime);
+
 	if (!this._dead && this.enabled) {
 		// Update
 		for (var i = 0; i < this._length; i++) {
@@ -89,8 +94,7 @@ Atlantis.SpriteGroup.prototype.update = function (gameTime) {
 };
 
 // Overriding these methods to do nothing. All must be done in update method.
-Atlantis.SpriteGroup.prototype.preUpdate = function (gameTime) {};
-Atlantis.SpriteGroup.prototype.postUpdate = function (gameTime) {};
+
 
 /**
  * Draw all members on screen.
@@ -121,9 +125,13 @@ Atlantis.SpriteGroup.prototype.collides = function (sprite) {
 		var i = 0,
 			collides = false;
 
-		while (i < this._length && collide === false) {
+		while (i < this._length && collides === false) {
 			collides = (sprite.collides(this._sprites[i])) ? true : collides;
 			i++;
+		}
+
+		if (collides && sprite.collisionType === Atlantis.SpriteCollisionType.Stop) {
+			sprite.move(sprite.lastPosition.x, sprite.lastPosition.y);
 		}
 
 		return collides;
@@ -140,7 +148,7 @@ Atlantis.SpriteGroup.prototype.collides = function (sprite) {
  * @return {Boolean}
  */
 Atlantis.SpriteGroup.prototype.collidesWithGroup = function (sprite, computeBoundingRect) {
-	if (computeBoundingRect) {
+	if (computeBoundingRect || this._needBoundingCompute) {
 		this.computeBoundingRect();
 	}
 	return this.rectangle.intersects(sprite.rectangle);
@@ -151,10 +159,14 @@ Atlantis.SpriteGroup.prototype.collidesWithGroup = function (sprite, computeBoun
  * @method computeBoundingSize
  */
 Atlantis.SpriteGroup.prototype.computeBoundingRect = function () {
+	this.rectangle.setSize(0, 0);
+
 	for (var i = 0; i < this._length; i++) {
 		this.rectangle.width = Math.max(this.rectangle.getRight(), this._sprites[i].rectangle.getRight()) - this.rectangle.x;
-		this.rectangle.height = Math.max(this.rectangle.getDown(), this._sprites[i].rectangle.getDown()) - this.rectangle.y;
+		this.rectangle.height = Math.max(this.rectangle.getBottom(), this._sprites[i].rectangle.getBottom()) - this.rectangle.y;
 	}
+
+	this._needBoundingCompute = false;
 };
 
 /**
@@ -311,6 +323,8 @@ Atlantis.SpriteGroup.prototype.add = function (sprite) {
 		if (this._assetLoaded) {
 			sprite.loadContent(Atlantis.app.content);
 		}
+
+		this._needBoundingCompute = true;
 	}
 };
 
@@ -335,6 +349,7 @@ Atlantis.SpriteGroup.prototype.removeAt = function (index, splice) {
 		}
 
 		this._length--;
+		this._needBoundingCompute = true;
 	}
 
 	return result;
@@ -365,6 +380,7 @@ Atlantis.SpriteGroup.prototype.replace = function (oldSprite, newSprite) {
 		oldSprite.parent = null;
 		newSprite.parent = this;
 		this._sprites[index] = newSprite;
+		this._needBoundingCompute = true;
 
 		return newSprite;
 	}

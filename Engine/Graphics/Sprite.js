@@ -8,14 +8,18 @@
 
 var Atlantis = window.Atlantis || {};
 
+Atlantis.SpriteCollisionType = {
+    Stop: 0, None: 1
+};
+
 Atlantis.Sprite = function (_textureName, params) {
     this.name = "GameObject";
     this.enabled = true;
     this.visible = true;
-    this.texture = null;
-    
-
     this.rectangle = new Atlantis.Rectangle();
+    this.collisionType = Atlantis.SpriteCollisionType.None;
+
+    this._texture = null;
     this._dead = false;
     this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
     this._assetLoaded = false;
@@ -70,11 +74,17 @@ Atlantis.Sprite = function (_textureName, params) {
 
     Atlantis._createProperty(this, "x", 
         function () { return that.rectangle.x; },
-        function (value) { that.rectangle.x = value; });
+        function (value) { 
+            that.lastPosition.x = that.rectangle.x;
+            that.rectangle.x = value; 
+        });
 
     Atlantis._createProperty(this, "y", 
         function () { return that.rectangle.y; },
-        function (value) { that.rectangle.y = value; });
+        function (value) {
+            that.lastPosition.y = that.rectangle.y;
+            that.rectangle.y = value; 
+        });
 
     Atlantis._createProperty(this, "width", 
         function () { return that.rectangle.width; },
@@ -89,6 +99,20 @@ Atlantis.Sprite = function (_textureName, params) {
         function (value) {
             that._textureName = value;
             that._assetLoaded = false;
+        });
+
+    Atlantis._createProperty(this, "texture",
+        function () { return that._texture; },
+        function (value) {
+            that._texture = value;
+            if (that._texture) {
+                that.rectangle.setSize(that._texture.width, that._texture.height);
+                that._assetLoaded = true;
+            }
+            else {
+                that.rectangle.setSize(0, 0);
+                that._assetLoaded = false;
+            }
         });
 
     var params = params || {};
@@ -119,7 +143,7 @@ Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
         var callback = (typeof(callback) === "function") ? callback : function () { };
         var that = this;
 
-        this.texture = contentManager.load(this._textureName, function (image) {
+        this._texture = contentManager.load(this._textureName, function (image) {
             that.rectangle.width = image.width;
             that.rectangle.height = image.height;
 
@@ -143,7 +167,7 @@ Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
             callback(that);
         });
     }
-    else {
+    else if (callback) {
         callback(this);
     }
 };
@@ -154,7 +178,13 @@ Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
  * @return {Boolean} Return true if collides otherwise return false.
  */
 Atlantis.Sprite.prototype.collides = function (sprite) {
-    return this.rectangle.intersects(sprite.rectangle);
+    var collides = this.rectangle.intersects(sprite.rectangle);
+    
+    if (sprite.collisionType === Atlantis.SpriteCollisionType.Stop) {
+        sprite.move(sprite.lastPosition.x, sprite.lastPosition.y);
+    }
+
+    return collides;
 };
 
 /**
@@ -188,7 +218,7 @@ Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
         this.hasAnimation = true;
         var animationWidth = width;
         var animationHeight = height || animationWidth;
-        this.spriteAnimator.initialize(animationWidth, animationHeight, this.texture.width || this.rectangle.width, this.texture.height || this.rectangle.height);
+        this.spriteAnimator.initialize(animationWidth, animationHeight, this._texture.width || this.rectangle.width, this._texture.height || this.rectangle.height);
         this.rectangle.width = animationWidth;
         this.rectangle.height = animationHeight;
     }
@@ -322,7 +352,7 @@ Atlantis.Sprite.prototype.postUpdate = function () {
 */
 Atlantis.Sprite.prototype.draw = function (spriteBatch) { 
      if (this._assetLoaded) {
-        spriteBatch.draw(this.texture, this.rectangle, this._sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
+        spriteBatch.draw(this._texture, this.rectangle, this._sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
     }
 };
 
