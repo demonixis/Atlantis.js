@@ -46,6 +46,7 @@ Atlantis.Sprite = function (_textureName, params) {
 
     // Animation
     this.spriteAnimator = new Atlantis.SpriteAnimator();
+    this.deleteIf = null;
 
     var that = this;
 
@@ -304,6 +305,12 @@ Atlantis.Sprite.prototype.postUpdate = function () {
         }
         else if (this.rectangle.y > this.viewport.height) {
             this.rectangle.y = this.viewport.y;
+        }
+    }
+
+    if (this.deleteIf) {
+        if (this.deleteIf(this)) {
+            this.kill();
         }
     }
 };

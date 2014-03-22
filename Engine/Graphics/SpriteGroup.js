@@ -88,6 +88,10 @@ Atlantis.SpriteGroup.prototype.update = function (gameTime) {
 	}
 };
 
+// Overriding these methods to do nothing. All must be done in update method.
+Atlantis.SpriteGroup.prototype.preUpdate = function (gameTime) {};
+Atlantis.SpriteGroup.prototype.postUpdate = function (gameTime) {};
+
 /**
  * Draw all members on screen.
  * @method draw
@@ -103,16 +107,54 @@ Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
 	}
 };
 
-Atlantis.SpriteGroup.prototype.collides = function (sprite) {
-	var i = 0,
-		collides = false;
+/**
+ * Clear the collection.
+ * @method clear
+ */
+Atlantis.SpriteGroup.prototype.clear = function () {
+    this._sprites.length = 0;
+    this._length = 0;
+};
 
-	while (i < this._length && collide === false) {
-		collides = (sprite.collides(this._sprites[i])) ? true : collides;
-		i++;
+Atlantis.SpriteGroup.prototype.collides = function (sprite) {
+	if (this.collidesWithGroup(sprite)) {
+		var i = 0,
+			collides = false;
+
+		while (i < this._length && collide === false) {
+			collides = (sprite.collides(this._sprites[i])) ? true : collides;
+			i++;
+		}
+
+		return collides;
 	}
 
-	return collides;
+	return false;
+};
+
+/**
+ *
+ * @method collidesWithGroup
+ * @param {Atlantis.Sprite} sprite
+ * @param {Boolean} computeBoundingRect
+ * @return {Boolean}
+ */
+Atlantis.SpriteGroup.prototype.collidesWithGroup = function (sprite, computeBoundingRect) {
+	if (computeBoundingRect) {
+		this.computeBoundingRect();
+	}
+	return this.rectangle.intersects(sprite.rectangle);
+};
+
+/**
+ * Compute the bounding size of the group.
+ * @method computeBoundingSize
+ */
+Atlantis.SpriteGroup.prototype.computeBoundingRect = function () {
+	for (var i = 0; i < this._length; i++) {
+		this.rectangle.width = Math.max(this.rectangle.getRight(), this._sprites[i].rectangle.getRight()) - this.rectangle.x;
+		this.rectangle.height = Math.max(this.rectangle.getDown(), this._sprites[i].rectangle.getDown()) - this.rectangle.y;
+	}
 };
 
 /**
@@ -155,6 +197,21 @@ Atlantis.SpriteGroup.prototype.forEach = function (callback) {
 			callback(this._sprites[i]);
 		}
 	}
+};
+
+/**
+ * Gets an sprite from the group.
+ * @method get
+ * @param {Number} index The index of the sprite on the group.
+ */
+Atlantis.SpriteGroup.prototype.get = function (index) {
+	var sprite = null;
+
+	if (index > -1 && index < this._sprites.length) {
+		sprite = this._sprites[index];
+	}
+
+	return sprite;
 };
 
 /**
@@ -290,24 +347,8 @@ Atlantis.SpriteGroup.prototype.removeAt = function (index, splice) {
  * @param {Boolean} splice Whether the object should be cut from the array entirely or not.
  */
 Atlantis.SpriteGroup.prototype.remove = function (sprite, splice) {
-	var result = null,
-		index = this._sprites.indexOf(sprite);
-
-	if (index > -1) {
-		result = this._sprites[index];
-		result.parent = null;
-
-		if (splice) {
-			this._sprites.splice(index, 1);
-		}
-		else {
-			this._sprites[index] = null;
-		}
-
-		this._length--;
-	}
-
-	return result;
+	var index = this._sprites.indexOf(sprite);
+	return this.removeAt(index, splice);
 };
 
 /** 
@@ -329,28 +370,4 @@ Atlantis.SpriteGroup.prototype.replace = function (oldSprite, newSprite) {
 	}
 
 	return null;
-};
-
-/**
- * Gets an sprite from the group.
- * @method get
- * @param {Number} index The index of the sprite on the group.
- */
-Atlantis.SpriteGroup.prototype.get = function (index) {
-	var sprite = null;
-
-	if (index > -1 && index < this._sprites.length) {
-		sprite = this._sprites[index];
-	}
-
-	return sprite;
-};
-
-/**
- * Clear the collection.
- * @method clear
- */
-Atlantis.SpriteGroup.prototype.clear = function () {
-    this._sprites.length = 0;
-    this._length = 0;
 };
