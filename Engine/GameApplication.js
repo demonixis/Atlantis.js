@@ -45,6 +45,8 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
     this.audioManager = new Atlantis.AudioManager();
     this.storageManager = new Atlantis.StorageManager();
     this.stateManager = new Atlantis.StateManager(this);
+    this.levelManager = new Atlantis.LevelManager(this);
+    this.components.add(this.levelManager);
     this.components.add(this.stateManager);
 
     var that = this;
@@ -54,7 +56,8 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
         content: that.content,
         components: that.components,
         storage: that.storageManager,
-        stateManager: that.stateManager
+        stateManager: that.stateManager,
+        levelManager: that.levelManager,
     };
     
     Atlantis.input = {
@@ -66,7 +69,9 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
 
     Atlantis.screen = {
         width: width,  
+        widthPerTwo: width / 2,
         height: height,
+        heightPerTwo: height / 2,
         getCanvasWidth: function () {
             return that.graphicsDevice.getFrontBuffer().getWidth();   
         },
@@ -77,7 +82,9 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
     
      document.addEventListener(Atlantis.events.ResolutionChanged, function (event) {
         Atlantis.screen.width = event.width;
+        Atlantis.screen.widthPerTwo = event.width / 2;
         Atlantis.screen.height = event.height;
+        Atlantis.screen.heightPerTwo = event.height / 2;
     }, false);
 };
 

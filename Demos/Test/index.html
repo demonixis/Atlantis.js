@@ -39,6 +39,7 @@
         <script src="../../Engine/Random.js"></script>
         <script src="../../Engine/AudioManager.js"></script>
         <script src="../../Engine/StorageManager.js"></script>
+        <script src="../../Engine/LevelManager.js"></script>
         <script src="../../Engine/StateManager.js"></script>
         <script src="../../Engine/Graphics/Animation.js"></script>
         <script src="../../Engine/Graphics/Camera2D.js"></script>
@@ -52,95 +53,35 @@
 
     </body>
     <script>
+        var Level1 = function() {
+            Atlantis.Level.call(this, "level1");
+        }
+        Level1.prototype = Object.create(Atlantis.Level.prototype);
+
+        Level1.prototype.update = function (gt) {
+            Atlantis.Level.prototype.update(this, gt);
+
+            if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
+                Atlantis.app.levelManager.loadLevel("level2");
+            }
+        }
+
+        var Level2 = function() {
+            Atlantis.Level.call(this, "level1");
+        }
+        Level2.prototype = Object.create(Atlantis.Level.prototype);
+
         // The Game class
         var TestGame = function () {
             Atlantis.GameApplication.call(this, 640, 480);
             this.content.rootDirectory = "Content/";
-            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
-            this.player = new Atlantis.Sprite("Player.png");
-            this.scene = new Atlantis.Scene2D();
+            
+            this.levelManager.add(new Level1());
+            this.levelManager.add(new Level2());
 
-            this.content.preloader.push("Player.png");
+            this.levelManager.loadLevel(0);
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
-
-        // Load you assets here.
-        TestGame.prototype.loadContent = function () {
-            Atlantis.GameApplication.prototype.loadContent.call(this);
-            this.player.initialize();
-            this.player.loadContent(this.content);
-            this.player.move(300, 200);
-            this.player.collisionType = Atlantis.SpriteCollisionType.Stop;
-
-            this.scene.initialize();
-            this.scene.loadContent(this.content);
-
-            var createSprite = function (x, y) {
-                var sprite = new Atlantis.Sprite("Player.png");
-                sprite.initialize();
-                sprite.loadContent(this.content);
-                sprite.x = x;
-                sprite.y = y;
-                return sprite;
-            }.bind(this);
-
-            this.scene.add(createSprite(10, 10));
-            this.scene.add(createSprite(10, 50));
-            this.scene.add(createSprite(10, 100));
-            this.scene.add(createSprite(10, 140));
-            this.scene.add(createSprite(10, 190));
-            this.scene.add(createSprite(10, 240));
-        };
-
-        // Update the game logic here as Input, Physics, etc.
-        TestGame.prototype.update = function (gameTime) {
-            Atlantis.GameApplication.prototype.update.call(this, gameTime);
-            
-            this.player.update(gameTime);
-            
-            this.scene.update(gameTime);
-      
-            if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
-                  this.player.y -= 5;
-            }
-            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Down)) {
-                this.player.y += 5;
-            }
-
-            if (Atlantis.input.keys.pressed(Atlantis.Keys.Left)) {
-               this.player.x -= 5;
-            }
-            else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
-                this.player.x += 5;
-            }
-
-            if (Atlantis.input.keys.pressed(Atlantis.Keys.Z)) {
-                  this.scene.y -= 5;
-            }
-            else if (Atlantis.input.keys.pressed(Atlantis.Keys.S)) {
-                this.scene.y += 5;
-            }
-
-            if (Atlantis.input.keys.pressed(Atlantis.Keys.Q)) {
-               this.scene.x -= 5;
-            }
-            else if (Atlantis.input.keys.pressed(Atlantis.Keys.D)) {
-                this.scene.x += 5;
-            }
-
-            this.scene.collides(this.player);
-
-            this.player.postUpdate(gameTime);
-        };
-
-        TestGame.prototype.draw = function(gameTime) {
-            Atlantis.GameApplication.prototype.draw.call(this, gameTime);
-            this.graphicsDevice.clear();
-            this.spriteBatch.begin();
-            this.player.draw(this.spriteBatch);
-            this.scene.draw(this.spriteBatch);
-            this.spriteBatch.end();
-        }
 
         // Start the game !
         var game = new TestGame();
