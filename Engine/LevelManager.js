@@ -8,45 +8,16 @@
 
 var Atlantis = window.Atlantis || {};
 
-Atlantis.Level = function (name) {
-    this._initialized = false;
-    this.scene = new Atlantis.Scene2D();
-    this.enabled = false;
-    this.visible = false;
 
-    var that = this;
-
-    Atlantis._createProperty(this, "active", 
-        function () { return that.visible && that.enabled; },
-        function (value) { 
-            that.enabled = value;
-            that.visible = value;
-        });
+/**
+ * An interface for a 2D scene.
+ * @class Scene2D
+ * @extends SpriteGroup
+ */
+Atlantis.Scene2D = function () {
+    Atlantis.SpriteGroup.call(this);
 };
-
-Atlantis.Level.Counter = 0;
-
-Atlantis.Level.prototype.awake = function () {
-    if (!this._initialized) {
-        this.scene.initialize();
-        this.scene.loadContent(Atlantis.app.content);
-    }
-    this.scene.clear();
-};
-
-Atlantis.level.prototype.create = function () {};
-
-Atlantis.level.prototype.update = function (gameTime) {
-    this.scene.preUpdate(gameTime);
-    this.scene.update(gameTime);
-    this.scene.postUpdate(gameTime);
-};
-
-Atlantis.level.prototype.draw = function (gameTime, spriteBatch) {
-    spriteBatch.begin();
-    this.scene.draw(spriteBatch);
-    spriteBatch.end();
-};
+Atlantis.Scene2D.prototype = Object.create(Atlantis.SpriteGroup.prototype);
 
 /**
 * A level manager.
@@ -57,6 +28,7 @@ Atlantis.LevelManager = function (game) {
     Atlantis.DrawableGameComponent.call(this, game);
     this.graphicsDevice = game.graphicsDevice;
     this.levels = [];
+    this.autoClear = true;
     this.activeLevel = null;
     this.spriteBatch = null;
 };
@@ -65,7 +37,7 @@ Atlantis.LevelManager.prototype = new Atlantis.DrawableGameComponent();
 
 Atlantis.LevelManager.prototype.initialize = function () {
     this.spriteBatch = new Atlantis.SpriteBatch(this.game.graphicsDevice);
-}
+};
 
 /**
 * Update active level.
@@ -75,6 +47,7 @@ Atlantis.LevelManager.prototype.initialize = function () {
 Atlantis.LevelManager.prototype.update = function (gameTime) {
     if (this.activeLevel !== null && this.activeLevel.enabled) {
         this.activeLevel.update(gameTime);
+        Atlantis.screen.cameras[0].update(gameTime);
     }
 };
 
@@ -85,7 +58,7 @@ Atlantis.LevelManager.prototype.update = function (gameTime) {
 */
 Atlantis.LevelManager.prototype.draw = function (gameTime) {
     if (this.activeLevel !== null && this.activeLevel.visible) {
-        if (this.activeLevel.autoClear) {
+        if (this.autoClear) {
             this.graphicsDevice.clear();
         }
 
@@ -115,7 +88,7 @@ Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
     }
 
     if (this.activeLevel) {
-        this.activeLevel.awake();
+        Atlantis.screen.cameras[0].reset();
         this.activeLevel.create();
         this.activeLevel.active = true;
     }

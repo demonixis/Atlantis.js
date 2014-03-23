@@ -54,6 +54,12 @@ Atlantis.Sprite = function (_textureName, params) {
 
     var that = this;
 
+    /**
+    * Active or not the sprite.
+    * @property active
+    * @type {Boolean}
+    * @default true
+    */
     Atlantis._createProperty(this, "active", 
         function () { return that.visible && that.enabled; },
         function (value) { 
@@ -61,6 +67,12 @@ Atlantis.Sprite = function (_textureName, params) {
             that.visible = value;
         });
 
+    /**
+    * Indicate if the sprite is alive or dead.
+    * @property alive
+    * @type {Boolean}
+    * @default true
+    */
     Atlantis._createProperty(this, "alive", 
         function () { return !that._dead; },
         function (value) {
@@ -72,6 +84,12 @@ Atlantis.Sprite = function (_textureName, params) {
             }
         })
 
+    /**
+    * Position on X axis.
+    * @property x
+    * @type {Number}
+    * @default 0
+    */
     Atlantis._createProperty(this, "x", 
         function () { return that.rectangle.x; },
         function (value) { 
@@ -79,6 +97,12 @@ Atlantis.Sprite = function (_textureName, params) {
             that.rectangle.x = value; 
         });
 
+    /**
+    * Position on Y axis.
+    * @property y
+    * @type {Boolean}
+    * @default 0
+    */
     Atlantis._createProperty(this, "y", 
         function () { return that.rectangle.y; },
         function (value) {
@@ -86,14 +110,32 @@ Atlantis.Sprite = function (_textureName, params) {
             that.rectangle.y = value; 
         });
 
+    /**
+    * Sprite's width.
+    * @property width
+    * @type {Number}
+    * @default 0
+    */
     Atlantis._createProperty(this, "width", 
         function () { return that.rectangle.width; },
         function (value) { that.rectangle.width = value; });
 
+    /**
+    * Sprite's height.
+    * @property height
+    * @type {Number}
+    * @default 0
+    */
     Atlantis._createProperty(this, "height", 
         function () { return that.rectangle.height; },
         function (value) { that.rectangle.height = value; });
 
+    /**
+    * The name of the texture used by the sprite.
+    * @property textureName
+    * @type {String}
+    * @default ""
+    */
     Atlantis._createProperty(this, "textureName",
         function () { return that._textureName; },
         function (value) {
@@ -101,6 +143,12 @@ Atlantis.Sprite = function (_textureName, params) {
             that._assetLoaded = false;
         });
 
+    /**
+    * Sprite's texture.
+    * @property texture
+    * @type {Object}
+    * @default null
+    */
     Atlantis._createProperty(this, "texture",
         function () { return that._texture; },
         function (value) {
@@ -119,52 +167,27 @@ Atlantis.Sprite = function (_textureName, params) {
     for (var i in params) {
         this[i] = params[i];
     }
-
-    this._reqSize = null;
-    this._reqPrepareAnims = null;
-    this._reqAddAnims = [];
 };
 
 Atlantis.Sprite.Counter = 0;
 
 /**
  *
- * @method initialize
+ * @method create
+ * @param {Function} callback A callback called when the sprite is fully loaded.
  */
-Atlantis.Sprite.prototype.initialize = function () { };
-
-/**
- *
- * @method loadContent
- * @param
- */
-Atlantis.Sprite.prototype.loadContent = function (contentManager, callback) {
+Atlantis.Sprite.prototype.create = function (callback) {
     this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
     
     if (this._textureName != "" && this._assetLoaded == false) {
         var callback = (typeof(callback) === "function") ? callback : function () { };
         var that = this;
 
-        this._texture = contentManager.load(this._textureName, function (image) {
+        this._texture = Atlantis.app.content.load(this._textureName, function (image) {
             that.rectangle.width = image.width;
             that.rectangle.height = image.height;
 
             that._assetLoaded = true;
-
-            // If animations has been added before content loading
-            if (that._reqPrepareAnims) {
-                that.prepareAnimation(that._reqPrepareAnims.width, that._reqPrepareAnims.height);
-            }
-
-            if (that._reqAddAnims.length) {
-                for (var i = 0, l = that._reqAddAnims.length; i < l; i++) {
-                    that.addAnimation(that._reqAddAnims[i].name, that._reqAddAnims[i].framesIndex, that._reqAddAnims[i].frameRate);
-                }
-            }
-
-            if (that._reqSize) {
-                that.setSize(that._reqSize.width, that._reqSize.height);
-            }
 
             callback(that);
         });
@@ -224,9 +247,6 @@ Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
         this.rectangle.width = animationWidth;
         this.rectangle.height = animationHeight;
     }
-    else {
-        this._reqPrepareAnims = { width: width, height: height };
-    }
 };
 
 /**
@@ -240,9 +260,6 @@ Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate)
     if (this._assetLoaded) {
         this.spriteAnimator.add(name, framesIndex, frameRate);
         this._sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
-    }
-    else {
-        this._reqAddAnims.push({ name: name, framesIndex: framesIndex, frameRate: frameRate });
     }
 };
 
@@ -365,13 +382,8 @@ Atlantis.Sprite.prototype.draw = function (spriteBatch) {
  * @param
  */
 Atlantis.Sprite.prototype.setSize = function (width, height) {
-    if (!this._assetLoaded) {
-        this._reqSize = { width: width, height: height };
-    }
-    else {
-        this.rectangle.width = width || this.rectangle.width;
-        this.rectangle.height = height || this.rectangle.height;
-    }
+    this.rectangle.width = width || this.rectangle.width;
+    this.rectangle.height = height || this.rectangle.height;
 };
 
 Atlantis.Sprite.prototype.move = function (x, y) {

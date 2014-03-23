@@ -44,10 +44,8 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
 
     this.audioManager = new Atlantis.AudioManager();
     this.storageManager = new Atlantis.StorageManager();
-    this.stateManager = new Atlantis.StateManager(this);
     this.levelManager = new Atlantis.LevelManager(this);
     this.components.add(this.levelManager);
-    this.components.add(this.stateManager);
 
     var that = this;
 
@@ -56,7 +54,6 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
         content: that.content,
         components: that.components,
         storage: that.storageManager,
-        stateManager: that.stateManager,
         levelManager: that.levelManager,
     };
     
@@ -68,6 +65,7 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
     };
 
     Atlantis.screen = {
+        cameras: [ new Atlantis.Camera2D() ],
         width: width,  
         widthPerTwo: width / 2,
         height: height,
@@ -85,6 +83,7 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
         Atlantis.screen.widthPerTwo = event.width / 2;
         Atlantis.screen.height = event.height;
         Atlantis.screen.heightPerTwo = event.height / 2;
+        Atlantis.screen.cameras[0].resize(event.width, event.height);
     }, false);
 };
 
@@ -95,6 +94,7 @@ Atlantis.GameApplication.prototype.initialize = function () {
 
     Atlantis.screen.width = this.graphicsDevice.preferredBackBufferWidth;
     Atlantis.screen.height = this.graphicsDevice.preferredBackBufferHeight;
+    Atlantis.screen.cameras[0].set(0, 0, Atlantis.screen.width, Atlantis.screen.height);
     
     var keyboardComponent = new Atlantis.KeyboardComponent(this);
     this.components.add(keyboardComponent);

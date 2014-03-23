@@ -18,16 +18,24 @@ var Atlantis = window.Atlantis || {};
  * @param {Number} height The size of the camera.
  */
 Atlantis.Camera2D = function (x, y, width, height) {
+    this._follow = null;
+    this.set(x, y, width, height);
+};
+
+Atlantis.Camera2D.prototype.set = function (x, y, width, height) {
+    this.x = x;
+    this.y = y;
+    this.viewport = new Atlantis.Rectangle(0, 0, width, height);
+    this._center = new Atlantis.Vector2(Atlantis.screen.widthPerTwo, Atlantis.screen.heightPerTwo);
+};
+
+Atlantis.Camera2D.prototype.reset = function () {
     this.x = 0;
     this.y = 0;
-    this.viewport = new Atlantis.Rectangle(0, 0, width, height);
-    this._center = new Atlantis.Vector2(Atlantis.screen.width >> 1, Atlantis.screen.height >> 1);
-    this._follow = null;
-    
-    var that = this;
-    document.addEventListener(Atlantis.events.ResolutionChanged, function (event) {
-        that._center = new Atlantis.Vector2(Atlantis.screen.width >> 1, Atlantis.screen.height >> 1);
-    }, false);
+};
+
+Atlantis.Camera2D.onResize = function (width, height) {
+    this._center = new Atlantis.Vector2(width >> 1, height >> 1);
 };
  
 /**

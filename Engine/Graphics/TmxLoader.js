@@ -8,11 +8,23 @@
 
 var Atlantis = window.Atlantis || {};
 
+/**
+ * A loader that load a map created with Tiled and exported to JSON.
+ * @class TmxLoader
+ * @static
+ */
 Atlantis.TmxLoader = {
-    load: function (content, mapPath, callback) {
+    /**
+     * Load a tilemap at the specified path.
+     * @method load
+     * @param {String} mapPath
+     * @param {Function} callback
+     * @return {Atlantis.Tilemap} Return a tilemap.
+     */
+    load: function (mapPath, callback) {
         var tilemap = new Atlantis.Tilemap();
 
-        content.load(mapPath, function (map) {
+        Atlantis.app.content.load(mapPath, function (map) {
             var i = 0,
                 l = 0;
 

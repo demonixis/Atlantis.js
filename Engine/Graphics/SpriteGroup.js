@@ -11,6 +11,7 @@ var Atlantis = window.Atlantis || {};
 /** 
  * A collection that initialize, load, update and draw _sprites.
  * @class SpriteGroup
+ * @extends Sprite
  * @constructor
  */
 Atlantis.SpriteGroup = function () {
@@ -47,29 +48,22 @@ Atlantis.SpriteGroup = function () {
 Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 
 /**
- * Initialize of all members.
- * @method initialize
- */
-Atlantis.SpriteGroup.prototype.initialize = function () {
-	if (!this._initialized) {
-		for (var i = 0; i < this._length; i++) {
-			this._sprites[i].initialize();
-		}
-		this._initialized = true;
-	}
-};
-
-/**
  * Load assets of all members.
- * @method loadContent
- * @param {Atlantis.ContentManager} contentManager An instance of ContentManager.
+ * @method create
+ * @param {Function} callback
  */
-Atlantis.SpriteGroup.prototype.loadContent = function (contentManager) {
+Atlantis.SpriteGroup.prototype.create = function (callback) {
+	var callback = (typeof(callback) === "function") ? callback : function () {};
+	
 	if (!this._assetLoaded) {
 		for (var i = 0; i < this._length; i++) {
-			this._sprites[i].loadContent(contentManager);
+			this._sprites[i].create();
 		}
 		this._assetLoaded = true;
+		callback(this);
+	}
+	else {
+		callback(this);
 	}
 };
 
@@ -329,7 +323,7 @@ Atlantis.SpriteGroup.prototype.add = function (sprite) {
 };
 
 /**
- * remove a sprite from the group at the position.
+ * Remove a sprite from the group at the position.
  * @method removeAt
  * @param {Number} index The index of the sprite to remove.
  * @param {Boolean} splice Whether the object should be cut from the array entirely or not.
