@@ -40,15 +40,14 @@
         <script src="../../Engine/AudioManager.js"></script>
         <script src="../../Engine/StorageManager.js"></script>
         <script src="../../Engine/LevelManager.js"></script>
-        <script src="../../Engine/StateManager.js"></script>
         <script src="../../Engine/Graphics/Animation.js"></script>
         <script src="../../Engine/Graphics/Camera2D.js"></script>
         <script src="../../Engine/Graphics/Sprite.js"></script>
         <script src="../../Engine/Graphics/SpriteGroup.js"></script>
-        <script src="../../Engine/Graphics/Scene2D.js"></script>
         <script src="../../Engine/Graphics/Tilemap.js"></script>
         <script src="../../Engine/Graphics/TmxLoader.js"></script>
         <script src="../../Engine/Input/KeyboardComponent.js"></script>
+        <script src="../../Engine/Level.js"></script>
         <script src="../../Engine/GameApplication.js"></script>
 
     </body>
@@ -58,34 +57,60 @@
         }
         Level1.prototype = Object.create(Atlantis.Level.prototype);
 
-        Level1.prototype.create = function () {
-            
+        Level1.prototype.initialize = function () {
+            this.font = new Atlantis.SpriteFont("Arial", 18);
         };
 
         Level1.prototype.update = function (gt) {
-            Atlantis.Level.prototype.update(this, gt);
+           // Atlantis.Level.prototype.update(this, gt);
 
             if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
                 Atlantis.app.levelManager.loadLevel("level2");
             }
         }
 
+        Level1.prototype.draw = function (sb) {
+            this.spriteBatch.drawString(this.font, "Level 1", { x: 50, y: 50 }, "#000");
+        };
+
         var Level2 = function() {
-            Atlantis.Level.call(this, "level1");
+            Atlantis.Level.call(this, "level2");
         }
         Level2.prototype = Object.create(Atlantis.Level.prototype);
 
+        Level2.prototype.initialize = function () {
+            this.font = new Atlantis.SpriteFont("Arial", 18);
+        };
+
+        Level2.prototype.update = function (gt) {
+            Atlantis.Level.prototype.update(this, gt);
+
+            if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
+                Atlantis.app.levelManager.loadLevel("level1");
+            }
+        }
+
+        Level2.prototype.draw = function (sb) {
+            this.spriteBatch.drawString(this.font, "Level 2", { x: 50, y: 50 }, "#000");
+        };
+
         // The Game class
         var TestGame = function () {
-            Atlantis.GameApplication.call(this, 640, 480);
+            Atlantis.GameApplication.call(this, 400, 400);
             this.content.rootDirectory = "Content/";
             
-            this.levelManager.add(new Level1());
-            this.levelManager.add(new Level2());
+            var l1 = new Level1();
+            var l2 = new Level2();
 
-            this.levelManager.loadLevel(0);
+            this.levelManager.add(l1);
+            this.levelManager.add(l2);
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+        TestGame.prototype.initialize = function () {
+            Atlantis.GameApplication.prototype.initialize.call(this);
+            this.levelManager.loadLevel(0);
+        };
 
         // Start the game !
         var game = new TestGame();

@@ -8,17 +8,6 @@
 
 var Atlantis = window.Atlantis || {};
 
-
-/**
- * An interface for a 2D scene.
- * @class Scene2D
- * @extends SpriteGroup
- */
-Atlantis.Scene2D = function () {
-    Atlantis.SpriteGroup.call(this);
-};
-Atlantis.Scene2D.prototype = Object.create(Atlantis.SpriteGroup.prototype);
-
 /**
 * A level manager.
 * @constructor
@@ -45,9 +34,8 @@ Atlantis.LevelManager.prototype.initialize = function () {
 * @param {Atlantis.GameTime} gameTime An instance of GameTime.
 */
 Atlantis.LevelManager.prototype.update = function (gameTime) {
-    if (this.activeLevel !== null && this.activeLevel.enabled) {
+    if (this.activeLevel !== null) {
         this.activeLevel.update(gameTime);
-        Atlantis.screen.cameras[0].update(gameTime);
     }
 };
 
@@ -57,12 +45,12 @@ Atlantis.LevelManager.prototype.update = function (gameTime) {
 * @param {Atlantis.GameTime} gameTime An instance of GameTime.
 */
 Atlantis.LevelManager.prototype.draw = function (gameTime) {
-    if (this.activeLevel !== null && this.activeLevel.visible) {
+    if (this.activeLevel !== null) {
         if (this.autoClear) {
             this.graphicsDevice.clear();
         }
 
-        this.activeLevel.draw(gameTime, this.spriteBatch);
+        this.activeLevel.draw(gameTime);
     }
 };
 
@@ -77,19 +65,12 @@ Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
     if (typeof (nameOrIndex) === "string") {
         this.activeLevel = this.getByName(nameOrIndex);
     }
-    else if (typeof(nameOrIndex) === "object") {
-        if (this.levels.indexOf(nameOrIndex) === -1) {
-            this.add(nameOrIndex);
-        }
-        this.activeLevel = nameOrIndex;
-    }
     else if (this._checkIndex(nameOrIndex)) {
         this.activeLevel = this.levels[nameOrIndex];
     }
 
     if (this.activeLevel) {
-        Atlantis.screen.cameras[0].reset();
-        this.activeLevel.create();
+        this.activeLevel.initialize();
         this.activeLevel.active = true;
     }
 };
@@ -141,7 +122,11 @@ Atlantis.LevelManager.prototype.remove = function (nameOrIndex) {
 */
 Atlantis.LevelManager.prototype.get = function (nameOrIndex) {
     if (typeof(nameOrIndex) === "string") {
-        return this.getByName(nameOrIndex);
+        var index = this.getByName(nameOrIndex);
+
+        if (+index > -1) {
+            return this.levels[index];
+        }
     }
     else if (this._checkIndex(nameOrIndex)) {
         return this.levels[nameOrIndex];
@@ -155,10 +140,11 @@ Atlantis.LevelManager.prototype._checkIndex = function (index) {
 Atlantis.LevelManager.prototype.getByName = function (name) {
     var i = 0,
         size = this.levels.length,
-        index = -1;
+        index = -1,
+        level = null;
 
     while (i < size && level === null) {
-        level = (this.levels[i].name === nameOrIndex) ? i : level;
+        level = (this.levels[i].name === name) ? this.levels[i] : level;
         i++;
     }
 

@@ -143,17 +143,6 @@ Atlantis.Gamepad.prototype.initialize = function () {
     window.addEventListener("gamepaddisconnected", function (event) {
         that._removeGamepad(event.gamepad);   
     }, false);
-    
-    if (navigator.webkitGetGamepads) {
-        setInterval(this._scanGamepads.bind(this), 500);   
-    }
-    // Change mapping for Firefox
-    else {
-        Atlantis.GamepadButton.Select = 6;
-        Atlantis.GamepadButton.Start = 7;
-        Atlantis.GamepadButton.L3 = 8;
-        Atlantis.GamepadButton.R3 = 9;
-    }
 };
 
 // Add a gamepad
@@ -168,32 +157,12 @@ Atlantis.Gamepad.prototype._removeGamepad = function (gamepad) {
     delete this._states[gamepad.index];
 };
 
-// Chrome: Scan available gamepads
-Atlantis.Gamepad.prototype._scanGamepads = function () {
-    var gamepads = navigator.webkitGetGamepads();
-
-    for (var i = 0, l = gamepads.length; i < l; i++) {
-        if (gamepads[i]) {
-            if (!(gamepads[i].index in this._gamepads)) {
-                this._addGamepad(gamepads[i]);
-            }
-            else {
-                this._gamepads[gamepads[i].index] = gamepads[i];   
-            }
-        }
-    }
-};
-
 /**
  * Update states of connected gamepads
  * @method update
  * @param {Atlantis.GameTime} gameTime
  */
 Atlantis.Gamepad.prototype.update = function (gameTime) {
-    if (navigator.webkitGetGamepads) {
-        this._scanGamepads();
-    }
-
     for (var j in this._gamepads) {
         var gamepad = this._gamepads[j];
 

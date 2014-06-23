@@ -173,10 +173,10 @@ Atlantis.Sprite.Counter = 0;
 
 /**
  *
- * @method create
+ * @method initialize
  * @param {Function} callback A callback called when the sprite is fully loaded.
  */
-Atlantis.Sprite.prototype.create = function (callback) {
+Atlantis.Sprite.prototype.initialize = function (callback) {
     this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
     
     if (this._textureName != "" && this._assetLoaded == false) {

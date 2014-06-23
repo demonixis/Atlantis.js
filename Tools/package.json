@@ -4,7 +4,9 @@
 	"description": "A lightweight 2D game engine",
 	"main": "",
 	"dependencies": {
-		"through": "^2.3.4"
+	"through": "^2.3.4"
+	},
+  	"devDependencies": {
 		"gulp-concat": "^2.2.0",
 		"gulp-clean": "^0.2.4",
 		"gulp": "^3.5.6",

@@ -49,15 +49,15 @@ Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 
 /**
  * Load assets of all members.
- * @method create
+ * @method initialize
  * @param {Function} callback
  */
-Atlantis.SpriteGroup.prototype.create = function (callback) {
+Atlantis.SpriteGroup.prototype.initialize = function (callback) {
 	var callback = (typeof(callback) === "function") ? callback : function () {};
 	
 	if (!this._assetLoaded) {
 		for (var i = 0; i < this._length; i++) {
-			this._sprites[i].create();
+			this._sprites[i].initialize();
 		}
 		this._assetLoaded = true;
 		callback(this);
@@ -87,8 +87,12 @@ Atlantis.SpriteGroup.prototype.update = function (gameTime) {
 	}
 };
 
-// Overriding these methods to do nothing. All must be done in update method.
-
+/**
+ * Function called before update process.
+ * @method preUpdate
+ * @param {Atlantis.GameTime} gameTime
+ */
+Atlantis.SpriteGroup.prototype.postUpdate = function (gameTime) { }
 
 /**
  * Draw all members on screen.
