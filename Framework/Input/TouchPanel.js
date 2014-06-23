@@ -54,6 +54,30 @@ Atlantis.TouchPanel = function (domElement) {
 
 	var that = this;
 
+	var wrapEvent = function (id, event) {
+		event.preventDefault();
+		
+		if (!that._states[id]) {
+			that._states[id] = { x: 0, y: 0, touchState: -1 };
+		}
+		
+		that._states[id].x = event.touches[id].clientX;
+		that._states[id].y = event.touches[id].clientY;
+			
+		if (event.type == "pointerdown" || event.type == "touchstart") {
+			that._states[id].touchState = Atlantis.TouchLocationState.Pressed;
+		}
+		else if (event.type == "pointermove" || event.type == "touchmove") {
+			that._states[id].touchState = Atlantis.TouchLocationState.Moved;
+		}
+		else if (event.type == "pointerup" || event.type == "touchend") {
+			that._states[id].touchState = Atlantis.TouchLocationState.Released;
+		}
+		else {
+			that._states[id].touchState = Atlantis.TouchLocationState.Invalid;
+		}
+	};
+	
 	var onTouchHandler = function (event) { 
 		event.preventDefault();
 		
@@ -61,30 +85,29 @@ Atlantis.TouchPanel = function (domElement) {
 		that._states.length = size;
 
 		for (var i = 0; i < size; i++) {
-			that._states[i] = {
-				x: event.touches[i].clientX,
-				y: event.touches[i].clientY
-			};
-			
-			if (event.type == "touchstart") {
-				that._states[i].touchState = Atlantis.TouchLocationState.Pressed;
-			}
-			else if (event.type == "touchmove") {
-				that._states[i].touchState = Atlantis.TouchLocationState.Moved;
-			}
-			else if (event.type == "touchend") {
-				that._states[i].touchState = Atlantis.TouchLocationState.Released;
-			}
-			else {
-				that._states[i].touchState = Atlantis.TouchLocationState.Invalid;
-			}
+			wrapEvent(i, event.touches[i]);
 		}
 	};
-
+	
+	var onPointerHandler = function (event) {
+		event.preventDefault();
+		
+		// Start at 2 for touch, but internaly we need 0
+		var pointerId = event.pointerId - 2;
+		wrapEvent(pointerId, event);
+	};
+	
+	// All world except IE.
 	domElement.addEventListener("touchstart", onTouchHandler, false);
 	domElement.addEventListener("touchmove", onTouchHandler, false);
 	domElement.addEventListener("touchend", onTouchHandler, false);
 	domElement.addEventListener("touchcancel", onTouchHandler, false);
+	
+	// IE11+
+	domElement.addEventListener("pointerdown", onPointerHandler, false);
+	domElement.addEventListener("pointermove", onPointerHandler, false);
+	domElement.addEventListener("pointerend", onPointerHandler, false);
+	domElement.addEventListener("pointercancel", onPointerHandler, false);
 };
 
 /**
@@ -93,7 +116,7 @@ Atlantis.TouchPanel = function (domElement) {
  * @return {Object} Return an object which contains touch panel capabilities.
  */
 Atlantis.TouchPanel.prototype.getCapabilities = function () {
-    return { hasTouch: !!("ontouchstart" in window) || !!("onmsgesturechange" in window)  }
+    return { hasTouch: !!("ontouchstart" in window) || !!("ongesturechange" in window)  }
 };
 
 /** 

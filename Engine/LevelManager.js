@@ -34,7 +34,7 @@ Atlantis.LevelManager.prototype.initialize = function () {
 * @param {Atlantis.GameTime} gameTime An instance of GameTime.
 */
 Atlantis.LevelManager.prototype.update = function (gameTime) {
-    if (this.activeLevel !== null) {
+    if (this.activeLevel) {
         this.activeLevel.update(gameTime);
     }
 };
@@ -45,7 +45,7 @@ Atlantis.LevelManager.prototype.update = function (gameTime) {
 * @param {Atlantis.GameTime} gameTime An instance of GameTime.
 */
 Atlantis.LevelManager.prototype.draw = function (gameTime) {
-    if (this.activeLevel !== null) {
+    if (this.activeLevel) {
         if (this.autoClear) {
             this.graphicsDevice.clear();
         }
@@ -63,7 +63,7 @@ Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
     this.activeLevel = null;
 
     if (typeof (nameOrIndex) === "string") {
-        this.activeLevel = this.getByName(nameOrIndex);
+        this.activeLevel = this.getLevelByName(nameOrIndex);
     }
     else if (this._checkIndex(nameOrIndex)) {
         this.activeLevel = this.levels[nameOrIndex];
@@ -98,7 +98,7 @@ Atlantis.LevelManager.prototype.remove = function (nameOrIndex) {
         index = -1;
 
     if (typeof(nameOrIndex) === "string") {
-        level = this.getByName(nameOrIndex);
+        level = this.getLevelByName(nameOrIndex);
         index = this.levels.indexOf(level);
     }
     else if (this._checkIndex(nameOrIndex)) {
@@ -119,28 +119,28 @@ Atlantis.LevelManager.prototype.remove = function (nameOrIndex) {
 * Gets a level by its index or its name.
 * @method get
 * @param {Number|String} nameOrIndex level's index or name.
+* @return {Atlantis.Level} Return the level if it exists, otherwise return null.
 */
 Atlantis.LevelManager.prototype.get = function (nameOrIndex) {
     if (typeof(nameOrIndex) === "string") {
-        var index = this.getByName(nameOrIndex);
-
-        if (+index > -1) {
-            return this.levels[index];
-        }
+        return this.getLevelByName(nameOrIndex);
     }
     else if (this._checkIndex(nameOrIndex)) {
         return this.levels[nameOrIndex];
     }
+	
+	return null;
 };
 
-Atlantis.LevelManager.prototype._checkIndex = function (index) {
-    return index > -1 && index < this.levels.length;
-};
-
-Atlantis.LevelManager.prototype.getByName = function (name) {
+/**
+ * Get a level by its name
+ * @method getLevelByName
+ * @param {String} name The name of the level to load.
+ * @return {Atlantis.Level} Return the level if it exists, otherwise return null.
+ */
+Atlantis.LevelManager.prototype.getLevelByName = function (name) {
     var i = 0,
         size = this.levels.length,
-        index = -1,
         level = null;
 
     while (i < size && level === null) {
@@ -149,4 +149,8 @@ Atlantis.LevelManager.prototype.getByName = function (name) {
     }
 
     return level;
+};
+
+Atlantis.LevelManager.prototype._checkIndex = function (index) {
+    return index > -1 && index < this.levels.length;
 };
