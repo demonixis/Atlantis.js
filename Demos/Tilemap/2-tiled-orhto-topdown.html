@@ -27,6 +27,11 @@
                 border: 1px solid #fafafa;
             }
 
+            #mobile-controller .arrow img {
+                width: 100%;
+                height: 100%;
+            }
+
             #up {
                 bottom: 110px;
                 left: 115px;
@@ -52,10 +57,10 @@
     <body>
         <div id="gameContainer">
             <div id="mobile-controller">
-                <div class="arrow" id="up"></div>
-                <div class="arrow" id="down"></div>
-                <div class="arrow" id="left"></div>
-                <div class="arrow" id="right"></div>
+                <div class="arrow" id="up"><img src="Content/kbup.png" /></div>
+                <div class="arrow" id="down"><img src="Content/kbdown.png" /></div>
+                <div class="arrow" id="left"><img src="Content/kbleft.png" /></div>
+                <div class="arrow" id="right"><img src="Content/kbright.png" /></div>
             </div>
         </div>
         <!-- Engine -->
@@ -82,10 +87,12 @@
             }
 
             var onTouchStart = function (e) {
+                e.preventDefault();
                 applyValue(this.id, true);
             }
 
             var onTouchEnd = function (e) {
+                e.preventDefault();
                 applyValue(this.id, false);
             };
 

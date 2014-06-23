@@ -1,0 +1,13 @@
+{
+	"name": "Atlantis.js",
+	"version": "0.0.3",
+	"description": "A lightweight 2D game engine",
+	"main": "",
+	"dependencies": {
+		"through": "^2.3.4"
+		"gulp-concat": "^2.2.0",
+		"gulp-clean": "^0.2.4",
+		"gulp": "^3.5.6",
+		"gulp-uglify": "^0.2.1"
+	}
+}

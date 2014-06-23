@@ -8,7 +8,7 @@
         "attributesEmit": "true",
         "selleck": "true",
 		"exclude": "vendors",
-        "paths": ["./Engine/", "./Framework/"],
+        "paths": ["../Engine/", "../Framework/"],
         "outdir": "Build/Docs"
     }
 }
