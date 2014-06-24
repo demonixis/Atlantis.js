@@ -58,8 +58,8 @@
         };
 
         // Draw sprites and text here.
-        IsoGame.prototype.draw = function (gameTime, context) {
-            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+        IsoGame.prototype.draw = function (gameTime) {
+            Atlantis.GameApplication.prototype.draw.call(this, gameTime);
             this.graphicsDevice.clear(); 
             this.spriteBatch.begin();
             this.tilemap.draw(this.spriteBatch, this.camera);

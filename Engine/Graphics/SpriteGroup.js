@@ -318,10 +318,6 @@ Atlantis.SpriteGroup.prototype.add = function (sprite) {
 			sprite.initialize();
 		}
 
-		if (this._assetLoaded) {
-			sprite.loadContent(Atlantis.app.content);
-		}
-
 		this._needBoundingCompute = true;
 	}
 };

@@ -25,16 +25,11 @@
           
         };
         TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
-
-        // Initialize your objects here. 
+    
+        // Initialization
         TestGame.prototype.initialize = function () {
             Atlantis.GameApplication.prototype.initialize.call(this);
-        };
-    
-        // Load you assets here.
-        TestGame.prototype.loadContent = function () {
-            Atlantis.GameApplication.prototype.loadContent.call(this);
-            this.player.loadContent(this.content);
+            this.player.initialize();
             
             var that = this;
             

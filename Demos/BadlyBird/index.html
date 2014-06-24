@@ -12,7 +12,47 @@
     </head>
     <body>
         <!-- Engine -->
-        <script src="../../Build/Atlantis.min.js"></script>
+        <!--<script src="../../Build/Atlantis.min.js"></script>
+
+        <!-- Framework -->
+        <script src="../../Framework/Compatibility.js"></script>
+        <script src="../../Framework/Common.js"></script>
+        <script src="../../Framework/ContentManager.js"></script>
+        <script src="../../Framework/GameComponent.js"></script>
+        <script src="../../Framework/GameTime.js"></script>
+        <script src="../../Framework/MathHelper.js"></script>
+        <script src="../../Framework/Rectangle.js"></script>
+        <script src="../../Framework/Matrix.js"></script>
+        <script src="../../Framework/Quaternion.js"></script>
+        <script src="../../Framework/Vector2.js"></script>
+        <script src="../../Framework/Vector3.js"></script>
+        <script src="../../Framework/Vector4.js"></script>
+        <script src="../../Framework/Input/Keyboard.js"></script>
+        <script src="../../Framework/Input/Mouse.js"></script>
+        <script src="../../Framework/Input/TouchPanel.js"></script>
+        <script src="../../Framework/Input/Gamepad.js"></script>
+        <script src="../../Framework/Input/Keys.js"></script>
+        <script src="../../Framework/Graphics/GraphicsDevice.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Graphics/RenderTarget.js"></script>
+        <script src="../../Framework/Graphics/SpriteBatch.js"></script>
+        <script src="../../Framework/Graphics/SpriteFont.js"></script>
+        <script src="../../Framework/Preloader.js"></script>
+        <script src="../../Framework/Game.js"></script>
+        <!-- Engine -->
+        <script src="../../Engine/Random.js"></script>
+        <script src="../../Engine/AudioManager.js"></script>
+        <script src="../../Engine/StorageManager.js"></script>
+        <script src="../../Engine/LevelManager.js"></script>
+        <script src="../../Engine/Graphics/Animation.js"></script>
+        <script src="../../Engine/Graphics/Camera2D.js"></script>
+        <script src="../../Engine/Graphics/Sprite.js"></script>
+        <script src="../../Engine/Graphics/SpriteGroup.js"></script>
+        <script src="../../Engine/Graphics/Tilemap.js"></script>
+        <script src="../../Engine/Graphics/TmxLoader.js"></script>
+        <script src="../../Engine/Input/KeyboardComponent.js"></script>
+        <script src="../../Engine/Level.js"></script>
+        <script src="../../Engine/GameApplication.js"></script>
 
         <script>
             var GameStatus = {
@@ -20,7 +60,7 @@
             };
 
             var PlayState = function () {
-                Atlantis.State.call(this, "playstate");
+                Atlantis.Level.call(this, "playstate");
 
                 this.elapsedTime = 0;
                 this.spawnPipeTime = 2500;
@@ -64,21 +104,21 @@
                 this.pipeSound = null;
                 this.endSound = null;
             };
-            PlayState.prototype = Object.create(Atlantis.State.prototype);
+            PlayState.prototype = Object.create(Atlantis.Level.prototype);
 
-            PlayState.prototype.initialize = function () {
-                Atlantis.State.prototype.initialize.call(this);
+            PlayState.prototype.initialize = function () { 
+                Atlantis.Level.prototype.initialize.call(this);
 
                 this.mouseState = Atlantis.app.game.mouse.getState();
                 this.lastMouseState = Atlantis.app.game.mouse.getState();
 
                 this.touchState = Atlantis.app.game.touchPanel.getState(0);
                 this.lastTouchState = Atlantis.app.game.touchPanel.getState(0);
+
+                this.loadContent(Atlantis.app.content);
             }
 
-            PlayState.prototype.loadContent = function (content) {
-                Atlantis.State.prototype.loadContent.call(this, content);
-
+            PlayState.prototype.loadContent = function (content) { 
                 this.backgrounds.get(1).x = this.backgrounds.get(1).width;
                 this.ground.y = Atlantis.screen.height - this.ground.height;
 
@@ -94,7 +134,7 @@
             };
 
             PlayState.prototype.update = function (gameTime) {
-                Atlantis.State.prototype.update.call(this, gameTime);
+                Atlantis.Level.prototype.update.call(this, gameTime);
 
                 this.lastMouseState = this.mouseState.clone();
                 this.mouseState = Atlantis.app.game.mouse.getState();
@@ -153,17 +193,21 @@
                 }
             };
 
-            PlayState.prototype.draw = function (spriteBatch) {
-                Atlantis.State.prototype.draw.call(this, spriteBatch);
+            PlayState.prototype.draw = function (gameTime) {
+                Atlantis.Level.prototype.draw.call(this, gameTime);
+
+                this.spriteBatch.begin();
 
                 if (this.gameStatus === GameStatus.Menu) {
-                    spriteBatch.drawString(this.title, "Badly Bird", { x: 40, y: 100 }, "#fff");
-                    spriteBatch.drawString(this.titleScore, "Best Score", { x: 70, y: 200 }, "#fff");
-                    spriteBatch.drawString(this.titleScore, this.bestScore, { x: 140, y: 300 }, "#fff");
+                    this.spriteBatch.drawString(this.title, "Badly Bird", { x: 40, y: 100 }, "#fff");
+                    this.spriteBatch.drawString(this.titleScore, "Best Score", { x: 70, y: 200 }, "#fff");
+                    this.spriteBatch.drawString(this.titleScore, this.bestScore, { x: 140, y: 300 }, "#fff");
                 }
                 else if (this.gameStatus === GameStatus.Playing) {
-                    spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: 32 }, "#fff");
+                    this.spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: 32 }, "#fff");
                 }
+
+                this.spriteBatch.end();
             }
 
             PlayState.prototype.showTitle = function () {
@@ -228,9 +272,14 @@
                 this.content.preloader.push("pipe_up.png");
                 this.content.preloader.push("highDown.wav");
                 this.content.preloader.push("powerUp4.wav");
-                this.stateManager.add(new PlayState(), true);
+                this.levelManager.add(new PlayState());
             };
             FlappyGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+            FlappyGame.prototype.initialize = function () {
+                Atlantis.GameApplication.prototype.initialize.call(this);
+                this.levelManager.loadLevel(0);
+            };
 
             var game = new FlappyGame();
             game.run();

@@ -20,12 +20,20 @@ Atlantis.LevelManager = function (game) {
     this.autoClear = true;
     this.activeLevel = null;
     this.spriteBatch = null;
+    this.initialized = false;
+    this._autoLoadLevel;
 };
 
 Atlantis.LevelManager.prototype = new Atlantis.DrawableGameComponent();
 
 Atlantis.LevelManager.prototype.initialize = function () {
     this.spriteBatch = new Atlantis.SpriteBatch(this.game.graphicsDevice);
+    this.initialized = true;
+
+    if (typeof(this._autoLoadLevel) !== "undefined") {
+        this.loadLevel(this._autoLoadLevel);
+        this._autoLoadLevel = "";
+    }
 };
 
 /**
@@ -60,6 +68,11 @@ Atlantis.LevelManager.prototype.draw = function (gameTime) {
 * @param {Altantis.level} levelParam Instance of the level to add.
 */
 Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
+    if (!this.initialized) {
+        this._autoLoadLevel = nameOrIndex;
+        return;
+    }
+
     this.activeLevel = null;
 
     if (typeof (nameOrIndex) === "string") {

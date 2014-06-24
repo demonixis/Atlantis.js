@@ -179,7 +179,7 @@ Atlantis.Sprite.Counter = 0;
 Atlantis.Sprite.prototype.initialize = function (callback) {
     this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
     
-    if (this._textureName != "" && this._assetLoaded == false) {
+    if (this._textureName != "" && this._assetLoaded === false) {
         var callback = (typeof(callback) === "function") ? callback : function () { };
         var that = this;
 

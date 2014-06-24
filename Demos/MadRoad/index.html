@@ -21,7 +21,7 @@
             };
 
             var PlayState = function () {
-                Atlantis.State.call(this, "playstate");
+                Atlantis.Level.call(this, "playstate");
 
                 this.elapsedTime = 0;
                 this.spawnCarTime = 1500;
@@ -57,21 +57,21 @@
                 this.hitSound = null;
                 this.accelSound = null;
             };
-            PlayState.prototype = Object.create(Atlantis.State.prototype);
+            PlayState.prototype = Object.create(Atlantis.Level.prototype);
 
-            PlayState.prototype.loadContent = function (content) {
-                Atlantis.State.prototype.loadContent.call(this, content);
+            PlayState.prototype.initialize = function () {
+                Atlantis.Level.prototype.initialize.call(this);
 
                 this.backgrounds.get(1).move(0, -this.backgrounds.get(1).height);
 
-                this.hitSound = content.load("break.wav");
-                this.accelSound = content.load("accel.wav");
+                this.hitSound = Atlantis.app.content.load("break.wav");
+                this.accelSound = Atlantis.app.content.load("accel.wav");
 
                 this.showTitle();
             };
 
             PlayState.prototype.update = function (gameTime) {
-                Atlantis.State.prototype.update.call(this, gameTime);
+                Atlantis.Level.prototype.update.call(this, gameTime);
 
                 if (this.gameStatus === GameStatus.Menu) { 
                     if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
@@ -142,25 +142,29 @@
                 }
             };
 
-            PlayState.prototype.draw = function (spriteBatch) {
-                Atlantis.State.prototype.draw.call(this, spriteBatch);
+            PlayState.prototype.draw = function (gameTime) {
+                Atlantis.Level.prototype.draw.call(this, gameTime);
+
+                this.spriteBatch.begin();
 
                 if (this.gameStatus === GameStatus.Menu) {
-                    spriteBatch.drawString(this.title, "Mad Road", { x: 10, y: 50 }, "#000");
-                    spriteBatch.drawString(this.title, "Mad Road", { x: 12, y: 52 }, "#fff");
-                    spriteBatch.drawString(this.titleScore, "Best Score", { x: 50, y: 130 }, "#000");
-                    spriteBatch.drawString(this.titleScore, "Best Score", { x: 52, y: 132 }, "#fff");
-                    spriteBatch.drawString(this.titleScore, this.bestScore, { x: 85, y: 160 }, "#000");
-                    spriteBatch.drawString(this.titleScore, this.bestScore, { x: 87, y: 162 }, "#fff");
+                    this.spriteBatch.drawString(this.title, "Mad Road", { x: 10, y: 50 }, "#000");
+                    this.spriteBatch.drawString(this.title, "Mad Road", { x: 12, y: 52 }, "#fff");
+                    this.spriteBatch.drawString(this.titleScore, "Best Score", { x: 50, y: 130 }, "#000");
+                    this.spriteBatch.drawString(this.titleScore, "Best Score", { x: 52, y: 132 }, "#fff");
+                    this.spriteBatch.drawString(this.titleScore, this.bestScore, { x: 85, y: 160 }, "#000");
+                    this.spriteBatch.drawString(this.titleScore, this.bestScore, { x: 87, y: 162 }, "#fff");
                 }
                 else if (this.gameStatus === GameStatus.Playing) {
-                    spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: Atlantis.screen.height - 15 }, "#fff");
+                    this.spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: Atlantis.screen.height - 15 }, "#fff");
 
                     if (this.messageText.visible) {
-                        spriteBatch.drawString(this.messageText, "Acceleration !", { x: 25, y: 30 }, "#fff");
-                        spriteBatch.drawString(this.messageText, "Acceleration !", { x: 26, y: 31 }, "#f00");
+                        this.spriteBatch.drawString(this.messageText, "Acceleration !", { x: 25, y: 30 }, "#fff");
+                        this.spriteBatch.drawString(this.messageText, "Acceleration !", { x: 26, y: 31 }, "#f00");
                     }
                 }
+
+                this.spriteBatch.end();
             }
 
             PlayState.prototype.showTitle = function () {
@@ -199,7 +203,7 @@
                 }
                 else {
                     car.textureName = ["car-", color, ".png"].join("");
-                    car.loadContent(Atlantis.app.content); 
+                    car.initialize(); 
                     car.revive();
                 }
 
@@ -225,7 +229,8 @@
                 this.content.preloader.push("break.wav");
                 
                 // Add and start a new PlayState.
-                this.stateManager.add(new PlayState(), true);
+                this.levelManager.add(new PlayState());
+                this.levelManager.loadLevel(0);
 
                 // Double the render size.
                 this.graphicsDevice.preferredBackBufferWidth = 180;

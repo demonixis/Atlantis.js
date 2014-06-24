@@ -67,11 +67,7 @@ Atlantis.Game = (function () {
     
     game.version = "0.2a";
 
-    /**
-    * Initialize the game logic and components.
-    * @method initialize
-    */
-    game.prototype.initialize = function () {
+    game.prototype._internalIntialize = function () {
         this.frontBuffer = this.graphicsDevice.getFrontBuffer();
         this.context = this.frontBuffer.getContext();
 
@@ -93,7 +89,13 @@ Atlantis.Game = (function () {
         if (this.domElement && !this.settings.canvas) {
             this.domElement.appendChild(this.frontBuffer.getCanvas());
         }
-        
+    };
+
+    /**
+    * Initialize the game logic and components.
+    * @method initialize
+    */
+    game.prototype.initialize = function () {
         this.components.initialize();
     };
 
@@ -146,9 +148,17 @@ Atlantis.Game = (function () {
     * @method run
     */
     game.prototype.run = function () {
+        var that = this;
+        var startProcess = function () {
+            that.initialize();
+            that.initialized = true;
+            that.loadContent();
+            mainLoop();
+        };
+
         if (!this.initialized) {
             this.initialized = true;
-            this.initialize();
+            this._internalIntialize();
 
             if (this.content.preloader.length) {
 
@@ -161,13 +171,11 @@ Atlantis.Game = (function () {
                     this.preloader.onProgress(this.context, progress);    
                 }.bind(this), function () {
                     this.context.clearRect(0, 0, this.frontBuffer.getWidth(), this.frontBuffer.getHeight());
-                    this.loadContent();
-                    mainLoop();
+                    startProcess();
                 }.bind(this));
             }
             else {
-                this.loadContent();
-                mainLoop();
+                startProcess();
             }
         }
     };

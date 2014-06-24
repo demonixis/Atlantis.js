@@ -22,12 +22,16 @@
                 Atlantis.GameApplication.call(this, 640, 480);
 
                 this.content.rootDirectory = "Content/";
+                this.content.preloader.push("backgroundMenu.png");
+                this.content.preloader.push("player.png");
+                this.content.preloader.push("forest.png");
 
                 var menuState = new MenuState("menu")
                 var playState = new PlayState("game");
 
-                this.stateManager.add(menuState, true);
-                this.stateManager.add(playState, false);
+                this.levelManager.add(menuState);
+                this.levelManager.add(playState);
+                this.levelManager.loadLevel(0);
             };
             SpriteGame.prototype = Object.create(Atlantis.GameApplication.prototype);
 

@@ -1,5 +1,5 @@
 var PlayState = function (name) {
-    Atlantis.State.call(this, name);
+    Atlantis.Level.call(this, name);
 
     this.background = new Atlantis.Sprite("forest.png");
     this.scene.add(this.background);
@@ -9,10 +9,10 @@ var PlayState = function (name) {
     this.speed = 0.01; 
 };
 
-PlayState.prototype = new Atlantis.State();
+PlayState.prototype = Object.create(Atlantis.Level.prototype);
 
-PlayState.prototype.loadContent = function (content) {
-    Atlantis.State.prototype.loadContent.call(this, content);
+PlayState.prototype.initialize = function () {
+    Atlantis.Level.prototype.initialize.call(this);
 
     this.sprite.prepareAnimation(64, 64);
     this.sprite.addAnimation("up", [0, 1, 2, 3, 4, 5, 6, 7, 8], 50);
@@ -29,7 +29,7 @@ PlayState.prototype.loadContent = function (content) {
 };
 
 PlayState.prototype.update = function (gameTime) {
-    Atlantis.State.prototype.update.call(this, gameTime);
+    Atlantis.Level.prototype.update.call(this, gameTime);
 
     if (Atlantis.input.keys.pressed(Atlantis.Keys.Up)) {
         this.sprite.velocity.y -= this.speed * gameTime.getElapsedTime();

@@ -130,7 +130,7 @@
         // Load you assets here.
         TestGame.prototype.loadContent = function () {
             Atlantis.GameApplication.prototype.loadContent.call(this);
-            this.player.loadContent(this.content);
+            this.player.initialize(this.content);
             
             this.player.prepareAnimation(64, 64);
             this.player.addAnimation("up", [0, 1, 2], 50);
@@ -188,8 +188,8 @@
         };
 
         // Draw sprites and text here.
-        TestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+        TestGame.prototype.draw = function (gameTime) {
+            Atlantis.GameApplication.prototype.draw.call(this, gameTime);
             this.graphicsDevice.clear(); 
             this.spriteBatch.begin();
             this.tilemap.draw(this.spriteBatch, this.camera);
