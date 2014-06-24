@@ -23,9 +23,9 @@ Atlantis.Camera2D = function (x, y, width, height) {
 };
 
 Atlantis.Camera2D.prototype.set = function (x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.viewport = new Atlantis.Rectangle(0, 0, width, height);
+    this.x = +x|0;
+    this.y = +y|0;
+    this.viewport = new Atlantis.Rectangle(0, 0, +width|0 > 0 ? +width : Atlantis.screen.width, +height|0 > 0 ? +height : Atlantis.screen.height);
     this._center = new Atlantis.Vector2(Atlantis.screen.widthPerTwo, Atlantis.screen.heightPerTwo);
 };
 

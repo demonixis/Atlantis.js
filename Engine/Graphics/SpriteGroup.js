@@ -17,7 +17,6 @@ var Atlantis = window.Atlantis || {};
 Atlantis.SpriteGroup = function () {
 	Atlantis.Sprite.call(this);
     this._initialized = false;
-    this._assetLoaded = false;
 	this._sprites = [];	
 	this._length = 0;
 	this._needBoundingCompute = true;
@@ -55,11 +54,11 @@ Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 Atlantis.SpriteGroup.prototype.initialize = function (callback) {
 	var callback = (typeof(callback) === "function") ? callback : function () {};
 	
-	if (!this._assetLoaded) {
+	if (!this._initialized) {
 		for (var i = 0; i < this._length; i++) {
 			this._sprites[i].initialize();
 		}
-		this._assetLoaded = true;
+		this._initialized = true;
 		callback(this);
 	}
 	else {

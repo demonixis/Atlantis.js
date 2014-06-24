@@ -22,7 +22,7 @@ Atlantis.Sprite = function (_textureName, params) {
     this._texture = null;
     this._dead = false;
     this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
-    this._assetLoaded = false;
+    this._initialized = false;
     this._sourceRectangle = null;
 
     this.color = null;
@@ -140,7 +140,7 @@ Atlantis.Sprite = function (_textureName, params) {
         function () { return that._textureName; },
         function (value) {
             that._textureName = value;
-            that._assetLoaded = false;
+            that._initialized = false;
         });
 
     /**
@@ -155,11 +155,11 @@ Atlantis.Sprite = function (_textureName, params) {
             that._texture = value;
             if (that._texture) {
                 that.rectangle.setSize(that._texture.width, that._texture.height);
-                that._assetLoaded = true;
+                that._initialized = true;
             }
             else {
                 that.rectangle.setSize(0, 0);
-                that._assetLoaded = false;
+                that._initialized = false;
             }
         });
 
@@ -179,7 +179,7 @@ Atlantis.Sprite.Counter = 0;
 Atlantis.Sprite.prototype.initialize = function (callback) {
     this.viewport = new Atlantis.Rectangle(0, 0, Atlantis.screen.width, Atlantis.screen.height);
     
-    if (this._textureName != "" && this._assetLoaded === false) {
+    if (this._textureName != "" && this._initialized === false) {
         var callback = (typeof(callback) === "function") ? callback : function () { };
         var that = this;
 
@@ -187,7 +187,7 @@ Atlantis.Sprite.prototype.initialize = function (callback) {
             that.rectangle.width = image.width;
             that.rectangle.height = image.height;
 
-            that._assetLoaded = true;
+            that._initialized = true;
 
             callback(that);
         });
@@ -239,7 +239,7 @@ Atlantis.Sprite.prototype.revive = function () {
 * @param
 */
 Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
-    if (this._assetLoaded) { 
+    if (this._initialized) { 
         this.hasAnimation = true;
         var animationWidth = width;
         var animationHeight = height || animationWidth;
@@ -257,7 +257,7 @@ Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
 * @param
 */
 Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
-    if (this._assetLoaded) {
+    if (this._initialized) {
         this.spriteAnimator.add(name, framesIndex, frameRate);
         this._sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     }
@@ -269,7 +269,7 @@ Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate)
 * @param
 */
 Atlantis.Sprite.prototype.play = function (animationName) {
-    if (this._assetLoaded) {
+    if (this._initialized) {
         this._sourceRectangle = this.spriteAnimator.play(animationName);
     }
 };
@@ -302,7 +302,7 @@ Atlantis.Sprite.prototype.update = function (gameTime) {
     this.velocity.add(this.acceleration);
 
     // Update animation
-    if (this.hasAnimation && this._assetLoaded) { 
+    if (this.hasAnimation && this._initialized) { 
         this.spriteAnimator.update(gameTime);
         if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
             this._sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
@@ -370,7 +370,7 @@ Atlantis.Sprite.prototype.postUpdate = function () {
 * @param {Atlantis.SpriteBatch} spriteBatch
 */
 Atlantis.Sprite.prototype.draw = function (spriteBatch) { 
-     if (this._assetLoaded) {
+     if (this._initialized) {
         spriteBatch.draw(this._texture, this.rectangle, this._sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
     }
 };

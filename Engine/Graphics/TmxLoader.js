@@ -30,7 +30,7 @@ Atlantis.TmxLoader = {
 
             for (i = 0, l = map.tilesets.length; i < l; i++) {
                 tilemap.tilesets.push(new Atlantis.Tileset(map.tilesets[i]));
-                tilemap.tilesets[i].texture = content.load(map.tilesets[i].image);
+                tilemap.tilesets[i].texture = Atlantis.app.content.load(map.tilesets[i].image);
                 tilemap.tilesets[i].texture.width = map.tilesets[i].imagewidth;
                 tilemap.tilesets[i].texture.height = map.tilesets[i].imageheight;
             }
@@ -39,7 +39,7 @@ Atlantis.TmxLoader = {
                 tilemap.layers.push(new Atlantis.TilemapLayer(map.layers[i]));
 
                 if (map.layers[i].image) {
-                    tilemap.backgrounds.push(content.load(map.layers[i].image));
+                    tilemap.backgrounds.push(Atlantis.app.content.load(map.layers[i].image));
                     tilemap.layers[i].backgroundId = i;
                 }
             }
