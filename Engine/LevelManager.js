@@ -19,7 +19,6 @@ Atlantis.LevelManager = function (game) {
     this.levels = [];
     this.autoClear = true;
     this.activeLevel = null;
-    this.spriteBatch = null;
     this.initialized = false;
     this._autoLoadLevel;
 };
@@ -27,7 +26,6 @@ Atlantis.LevelManager = function (game) {
 Atlantis.LevelManager.prototype = new Atlantis.DrawableGameComponent();
 
 Atlantis.LevelManager.prototype.initialize = function () {
-    this.spriteBatch = new Atlantis.SpriteBatch(this.game.graphicsDevice);
     this.initialized = true;
 
     if (typeof(this._autoLoadLevel) !== "undefined") {

@@ -52,7 +52,7 @@ Atlantis.Camera2D.prototype.follow = function (sprite) {
  * @method getSpritePosition
  * @return {Object} Return a structure with x and y coordinates.
  */
-Atlantis.Camera2D.prototype.getSpritePosition = function () {
+Atlantis.Camera2D.prototype.getSpritePosition = function () { // FIXME rename to getPosition
     if (this._follow) {
         return this.getRelativePosition(this._follow);
     }
