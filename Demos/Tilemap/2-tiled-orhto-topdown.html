@@ -124,7 +124,7 @@
                     this.touchController.hide();
                 }
             };
-            TestGame.prototype = new Atlantis.GameApplication();
+            TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
         
             // Load you assets here.
             TestGame.prototype.initialize = function () {

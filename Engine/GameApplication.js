@@ -85,7 +85,7 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
     }, false);
 };
 
-Atlantis.GameApplication.prototype = new Atlantis.Game();
+Atlantis.GameApplication.prototype = Object.create(Atlantis.Game.prototype);
 
 Atlantis.GameApplication.prototype.initialize = function () {
     Atlantis.Game.prototype.initialize.call(this);

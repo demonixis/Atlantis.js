@@ -15,8 +15,6 @@ var Atlantis = window.Atlantis || {};
  * @param {Atlantis.Game} game
  */
 Atlantis.Preloader = function (game) {
-	this.atlantisLogo = document.createElement("img");
-	this.atlantisLogo.src= "http://www.demonixis.net/downloads/logo_atlantis.jpg";
 	this.screenWidth = game.graphicsDevice.preferredBackBufferWidth;
 	this.screenHeight = game.graphicsDevice.preferredBackBufferHeight; 
 	this.screenWidthPerTwo = this.screenWidth / 2;
@@ -46,5 +44,4 @@ Atlantis.Preloader.prototype.onProgress = function (context, progress) {
     context.fillStyle = "#fafafa";
     context.font = this.spriteFont.getFont();
     context.fillText(progressMessage, x, y);
-    context.drawImage(this.atlantisLogo, this.logoRect.x, this.logoRect.y, this.logoRect.width, this.logoRect.height);
 };

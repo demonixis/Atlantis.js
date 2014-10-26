@@ -104,8 +104,8 @@
 
                 var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Space) ||
                     (this.mouseState.leftButton && !this.lastMouseState.leftButton) ||
-                    (this.touchState.state === Atlantis.TouchLocationState.Pressed &&
-                     this.lastTouchState.state !== Atlantis.TouchLocationState.Pressed);
+                    (this.touchState.state !== Atlantis.TouchLocationState.Pressed &&
+                     this.lastTouchState.state === Atlantis.TouchLocationState.Pressed);
 
                 if (this.gameStatus === GameStatus.Menu) {
                     if (validateKey) {

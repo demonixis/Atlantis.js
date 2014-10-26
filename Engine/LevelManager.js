@@ -23,7 +23,7 @@ Atlantis.LevelManager = function (game) {
     this._autoLoadLevel;
 };
 
-Atlantis.LevelManager.prototype = new Atlantis.DrawableGameComponent();
+Atlantis.LevelManager.prototype = Object.create(Atlantis.DrawableGameComponent.prototype);
 
 Atlantis.LevelManager.prototype.initialize = function () {
     this.initialized = true;
