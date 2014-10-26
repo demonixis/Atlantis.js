@@ -78,13 +78,18 @@ Atlantis.Mouse = function (domElement) {
         if (that.preventDefault)
             event.preventDefault();
         
-		that._x = event.offsetX || event.layerX;
-		that._y = event.offsetY || event.layerY;
+		that._x = event.pageX - domElement.offsetLeft;
+		that._y = event.pageY - domElement.offsetTop;
 
 		resetButtonState();
         
-        that._buttons[event.button] = (event.type === "mousedown") ? true : false;
-        
+		if ((event.type === "mousedown") || (event.type === "pointerdown")) {
+			that._buttons[event.button] =  true;
+		}
+		else {
+			that._buttons[event.button] = false;
+		}
+
         if (event.button > 0 && event.type === "mousemove") {
             that._buttons[event.button] = true;
         }
@@ -94,9 +99,18 @@ Atlantis.Mouse = function (domElement) {
 		that._scroll = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
 	};
 
-	domElement.addEventListener("mousedown", onMouseEvent, false);
-	domElement.addEventListener("mousemove", onMouseEvent, false);
-	domElement.addEventListener("mouseup", onMouseEvent, false);
+	// For MSIE 11+
+	if (window.PointerEvent) {
+		domElement.addEventListener("pointerdown", onMouseEvent, false);
+		domElement.addEventListener("pointermove", onMouseEvent, false);
+		domElement.addEventListener("pointerup", onMouseEvent, false);
+	}
+	else {
+		domElement.addEventListener("mousedown", onMouseEvent, false);
+		domElement.addEventListener("mousemove", onMouseEvent, false);
+		domElement.addEventListener("mouseup", onMouseEvent, false);
+	}
+
 	domElement.addEventListener("click", onMouseEvent, false);
 	domElement.addEventListener("mousewheel", onMouseScroll, false);
 	domElement.addEventListener("DOMMouseScroll", onMouseScroll, false);

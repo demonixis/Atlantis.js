@@ -54,16 +54,20 @@ Atlantis.TouchPanel = function (domElement) {
 
 	var that = this;
 
-	var wrapEvent = function (id, event) {
-		event.preventDefault();
-		
+	var wrapEvent = function (id, event) {		
 		if (!that._states[id]) {
 			that._states[id] = { x: 0, y: 0, touchState: -1 };
 		}
 		
-		that._states[id].x = event.touches[id].clientX;
-		that._states[id].y = event.touches[id].clientY;
-			
+		if (event.touches) {
+			that._states[id].x = event.touches[id].pageX - domElement.offsetLeft;
+			that._states[id].y = event.touches[id].pageY - domElement.offsetTop;
+		}
+		else {
+			that._states[id].x = event.clientX - domElement.offsetLeft;
+			that._states[id].y = event.clientY - domElement.offsetTop;
+		}
+
 		if (event.type == "pointerdown" || event.type == "touchstart") {
 			that._states[id].touchState = Atlantis.TouchLocationState.Pressed;
 		}
@@ -85,29 +89,28 @@ Atlantis.TouchPanel = function (domElement) {
 		that._states.length = size;
 
 		for (var i = 0; i < size; i++) {
-			wrapEvent(i, event.touches[i]);
+			wrapEvent(i, event);
 		}
 	};
 	
 	var onPointerHandler = function (event) {
 		event.preventDefault();
-		
-		// Start at 2 for touch, but internaly we need 0
-		var pointerId = event.pointerId - 2;
-		wrapEvent(pointerId, event);
+		wrapEvent(0, event);
 	};
 	
-	// All world except IE.
-	domElement.addEventListener("touchstart", onTouchHandler, false);
-	domElement.addEventListener("touchmove", onTouchHandler, false);
-	domElement.addEventListener("touchend", onTouchHandler, false);
-	domElement.addEventListener("touchcancel", onTouchHandler, false);
-	
 	// IE11+
-	domElement.addEventListener("pointerdown", onPointerHandler, false);
-	domElement.addEventListener("pointermove", onPointerHandler, false);
-	domElement.addEventListener("pointerend", onPointerHandler, false);
-	domElement.addEventListener("pointercancel", onPointerHandler, false);
+	if (window.PointerEvent) {
+		domElement.addEventListener("pointerdown", onPointerHandler, false);
+		domElement.addEventListener("pointermove", onPointerHandler, false);
+		domElement.addEventListener("pointerend", onPointerHandler, false);
+		domElement.addEventListener("pointercancel", onPointerHandler, false);
+	}
+	else {
+		domElement.addEventListener("touchstart", onTouchHandler, false);
+		domElement.addEventListener("touchmove", onTouchHandler, false);
+		domElement.addEventListener("touchend", onTouchHandler, false);
+		domElement.addEventListener("touchcancel", onTouchHandler, false);
+	}
 };
 
 /**

@@ -65,7 +65,7 @@ Atlantis.GamepadState = function (axis, buttons) {
     }
     else {
         for (var i = 0; i < 6; i++) {
-            this.axis.push(false);   
+            this.axis.push(0);   
         }
     }
     
@@ -123,7 +123,7 @@ Atlantis.GamepadState.prototype.getAxis = function (axis) {
  */
 Atlantis.Gamepad = function () {
     Atlantis.GameComponent.call(this);
-    this._gamepads = {}
+    this._gamepads = [];
     this._states = {};
 };
 
@@ -135,7 +135,11 @@ Atlantis.Gamepad.prototype = Object.create(Atlantis.GameComponent.prototype);
  */
 Atlantis.Gamepad.prototype.initialize = function () {
     var that = this;
-    
+
+    navigator.getGamepads = navigator.getGamepads || navigator.webkitGetGamepads || navigator.msGetGamepads || navigator.webkitGamepads;
+ 
+    this._gamepadsSupported = navigator.getGamepads ? true : false;
+
     window.addEventListener("gamepadconnected", function (event) {
         that._addGamepad(event.gamepad);
     }, false);
@@ -147,7 +151,7 @@ Atlantis.Gamepad.prototype.initialize = function () {
 
 // Add a gamepad
 Atlantis.Gamepad.prototype._addGamepad = function (gamepad) {
-    this._gamepads[gamepad.index] = gamepad;
+    this._gamepads.push(gamepad);
     this._states[gamepad.index] = new Atlantis.GamepadState();
 };
 
@@ -157,29 +161,45 @@ Atlantis.Gamepad.prototype._removeGamepad = function (gamepad) {
     delete this._states[gamepad.index];
 };
 
+Atlantis.Gamepad.prototype._updateGamepads = function () {
+    var gamepads = navigator.getGamepads();
+
+    for (var i = 0; i < gamepads.length; i++) {
+        if (gamepads[i]) {
+            if (this._gamepads.indexOf(gamepads[i]) === -1) {
+                this._addGamepad(gamepads[i]);
+            }
+        }
+    }
+};
+
 /**
  * Update states of connected gamepads
  * @method update
  * @param {Atlantis.GameTime} gameTime
  */
 Atlantis.Gamepad.prototype.update = function (gameTime) {
-    for (var j in this._gamepads) {
-        var gamepad = this._gamepads[j];
+    if (this._gamepadsSupported) {
+        this._updateGamepads();
 
-        for (var i = 0, l = gamepad.buttons.length; i < l; i++) {
-            var btnVal = gamepad.buttons[i];
-            var pressed = (btnVal === 1.0) ? true : false;
+        for (var i = 0, l = this._gamepads.length; i < l; i++) {
+            var gamepad = this._gamepads[i];
 
-            if (typeof (btnVal) == "object") {
-                pressed = btnVal.pressed;
-                btnVal = btnVal.value;
+            for (var j = 0, m = gamepad.buttons.length; j < m; j++) {
+                var btnVal = gamepad.buttons[j];
+                var pressed = (btnVal === 1.0) ? true : false;
+
+                if (typeof (btnVal) == "object") {
+                    pressed = btnVal.pressed;
+                    btnVal = btnVal.value;
+                }
+
+                this._states[gamepad.index].buttons[j] = pressed;
             }
 
-            this._states[gamepad.index].buttons[i] = pressed;
-        }
-
-        for (var i = 0, l = gamepad.axes.length; i < l; i++) {
-            this._states[gamepad.index].axis[i] = gamepad.axes[i].toFixed(4);   
+            for (var j = 0, m = gamepad.axes.length; j < m; j++) {
+                this._states[gamepad.index].axis[j] = +gamepad.axes[j]|0;   
+            }
         }
     }
 };
@@ -192,7 +212,7 @@ Atlantis.Gamepad.prototype.update = function (gameTime) {
 Atlantis.Gamepad.prototype.getState = function (index) {
     var index = (typeof(index) !== "undefined") ? index : 0;
     if (this._gamepads[index]) {
-        return new Atlantis.GamepadState(this._gamepads[index].axes, this._gamepads[index].buttons);
+        return new Atlantis.GamepadState(this._states[index].axis, this._states[index].buttons);
     }
     else {
         return new Atlantis.GamepadState()
