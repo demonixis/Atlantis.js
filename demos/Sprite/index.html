@@ -4,16 +4,15 @@
         <meta charset="utf-8" />
         <title>Atlantis Game Engine</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link href="../web/styles.css" rel="stylesheet" media="all" />
-        <link rel="icon" href="../web/favicon.png">
+        <style>
+            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
+            canvas { display: block; margin: auto; }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
-		<h1 id="header">
-			<a class="back" href="../index.html"><img src="../web/back.png" alt="back" /></a>
-			Atlantis :: Tilemap
-		</h1>
         <!-- Framework -->
-        <script src="../../Build/AtlantisEngine.min.js"></script>
+        <script src="../../Build/Atlantis.min.js"></script>
 
         <!-- The sprite game -->
         <script src="js/MenuState.js"></script>
@@ -24,12 +23,16 @@
                 Atlantis.GameApplication.call(this, 640, 480);
 
                 this.content.rootDirectory = "Content/";
+                this.content.preloader.push("backgroundMenu.png");
+                this.content.preloader.push("player.png");
+                this.content.preloader.push("forest.png");
 
                 var menuState = new MenuState("menu")
                 var playState = new PlayState("game");
 
-                this.stateManager.add(menuState, true);
-                this.stateManager.add(playState, false);
+                this.levelManager.add(menuState);
+                this.levelManager.add(playState);
+                this.levelManager.loadLevel(0);
             };
             SpriteGame.prototype = Object.create(Atlantis.GameApplication.prototype);
 

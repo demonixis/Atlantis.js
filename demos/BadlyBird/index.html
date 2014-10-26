@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Atlantis Game Engine :: Badly Bird</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <style>
+            body { width: 100%; height: 100%; overflow: hidden; margin: 0; padding: 0; }
+            canvas { border: 4px solid #333; display: block; margin: auto; }
+        </style>
+        <link rel="icon" href="../web/favicon.png" />
+    </head>
+    <body>
+        <!-- Engine -->
+        <script src="../../Build/Atlantis.min.js"></script>
+
+        <script>
+            var GameStatus = {
+                Menu: 0, Playing: 1
+            };
+
+            var PlayState = function () {
+                Atlantis.Level.call(this, "playstate");
+
+                this.elapsedTime = 0;
+                this.spawnPipeTime = 2500;
+                this.canAddPipe = true;
+
+                this.gameStatus = GameStatus.Menu;
+                this.score = 0;
+                this.bestScore = +Atlantis.app.storage.load("bestscore")|0;
+
+                this.title = new Atlantis.SpriteFont("Arial", 48);
+                this.titleScore = new Atlantis.SpriteFont("Arial", 32);
+                this.scoreText = new Atlantis.SpriteFont("Arial", 32);
+                
+                this.backgrounds = new Atlantis.SpriteGroup();
+                this.scene.add(this.backgrounds);
+
+                var background = null;
+                for (var i = 0; i < 2; i++) {
+                    background = new Atlantis.Sprite("background.png");
+                    background.velocity.x = -2;
+                    this.backgrounds.add(background);
+                }
+               
+                this.bird = new Atlantis.Sprite("flappy.png");
+                this.bird.velocity.y = 1;
+                this.bird.maxVelocity = 0.85;
+                this.bird.acceleration.y = 0.3;
+                this.scene.add(this.bird);
+
+                this.pipes = new Atlantis.SpriteGroup();
+                this.scene.add(this.pipes);
+
+                this.ground = new Atlantis.Sprite("bottom.png");
+                this.scene.add(this.ground);
+
+                this.mouseState = null;
+                this.lastMouseState = null;
+                this.touchState = null;
+                this.lastTouchState = null;
+
+                this.pipeSound = null;
+                this.endSound = null;
+            };
+            PlayState.prototype = Object.create(Atlantis.Level.prototype);
+
+            PlayState.prototype.initialize = function () { 
+                Atlantis.Level.prototype.initialize.call(this);
+
+                this.mouseState = Atlantis.app.game.mouse.getState();
+                this.lastMouseState = Atlantis.app.game.mouse.getState();
+
+                this.touchState = Atlantis.app.game.touchPanel.getState(0);
+                this.lastTouchState = Atlantis.app.game.touchPanel.getState(0);
+
+                this.loadContent(Atlantis.app.content);
+            }
+
+            PlayState.prototype.loadContent = function (content) { 
+                this.backgrounds.get(1).x = this.backgrounds.get(1).width;
+                this.ground.y = Atlantis.screen.height - this.ground.height;
+
+                this.bird.prepareAnimation(40, 38);
+                this.bird.addAnimation("yellow", [0, 1, 2], 25);
+                this.bird.addAnimation("blue", [3, 4, 5], 25);
+                this.bird.addAnimation("red", [6, 7, 8]);
+
+                this.pipeSound = content.load("powerUp4.wav")
+                this.endSound = content.load("highDown.wav")
+
+                this.showTitle();
+            };
+
+            PlayState.prototype.update = function (gameTime) {
+                Atlantis.Level.prototype.update.call(this, gameTime);
+
+                this.lastMouseState = this.mouseState.clone();
+                this.mouseState = Atlantis.app.game.mouse.getState();
+
+                this.lastTouchState = this.touchState.clone();
+                this.touchState = Atlantis.app.game.touchPanel.getState(0);
+
+                var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Space) ||
+                    (this.mouseState.leftButton && !this.lastMouseState.leftButton) ||
+                    (this.touchState.state !== Atlantis.TouchLocationState.Pressed &&
+                     this.lastTouchState.state === Atlantis.TouchLocationState.Pressed);
+
+                if (this.gameStatus === GameStatus.Menu) {
+                    if (validateKey) {
+                        this.restartLevel();
+                    }
+                }
+                else if (this.gameStatus === GameStatus.Playing) {
+                    this.bird.play(this.selectedBird);
+
+                    if (validateKey) {
+                        this.bird.velocity.y -= 7;
+                    }
+
+                    this.elapsedTime += gameTime.getElapsedTime();
+                    if (this.elapsedTime >= this.spawnPipeTime) {
+                        this.elapsedTime = 0;
+                        this.addPipeLine();
+                    }
+
+                    this.backgrounds.forEach(function(background) {
+                        if (background.x + background.width <= 0) {
+                            background.x = background.width;
+                        }
+                    });
+
+                    this.pipes.forEach(function (pipe) {
+                        if (pipe.rectangle.getRight() < 0) { 
+                            pipe.kill();
+                            this.pipeSound.play();
+                            this.score += 0.5;
+                        }
+                        else if (pipe.collides(this.bird)) {
+                            this.showTitle();
+                        }
+                    }.bind(this));
+
+                    if (this.bird.collides(this.ground) || this.bird.y <= 0) {
+                        this.showTitle();
+                    }
+
+                    if (this.gameStatus === GameStatus.Menu) {
+                        this.endSound.play();
+                        this.pipes.clear();
+                    }
+                }
+            };
+
+            PlayState.prototype.draw = function (gameTime) {
+                Atlantis.Level.prototype.draw.call(this, gameTime);
+
+                this.spriteBatch.begin();
+
+                if (this.gameStatus === GameStatus.Menu) {
+                    this.spriteBatch.drawString(this.title, "Badly Bird", { x: 40, y: 100 }, "#fff");
+                    this.spriteBatch.drawString(this.titleScore, "Best Score", { x: 70, y: 200 }, "#fff");
+                    this.spriteBatch.drawString(this.titleScore, this.bestScore, { x: 140, y: 300 }, "#fff");
+                }
+                else if (this.gameStatus === GameStatus.Playing) {
+                    this.spriteBatch.drawString(this.scoreText, this.score, { x: Atlantis.screen.width - 40, y: 32 }, "#fff");
+                }
+
+                this.spriteBatch.end();
+            }
+
+            PlayState.prototype.showTitle = function () {
+                this.bird.move(50, Atlantis.screen.height / 2 - this.bird.height / 2);
+                this.backgrounds.enabled = false;
+                this.bird.enabled = false;
+                this.gameStatus = GameStatus.Menu;
+            };
+
+            PlayState.prototype.restartLevel = function () {
+                this.selectedBird = Atlantis.Random.randomArrayItem(["red", "yellow", "blue"]);
+                this.bestScore = (this.score > this.bestScore) ? this.score : this.bestScore;
+                this.score = 0;
+                this.pipes.clear();
+                this.bird.enabled = true;
+                this.backgrounds.enabled = true;
+                this.elapsedTime = 0;
+                this.addPipeLine();
+                this.gameStatus = GameStatus.Playing;
+
+                Atlantis.app.storage.save("bestscore", this.bestScore);
+            };
+
+            PlayState.prototype.addPipeLine = function () {
+                var velocity = new Atlantis.Vector2(-1.5, 0);
+
+                var up = this.pipes.getFirstDead();
+                if (!up) {
+                    up = new Atlantis.Sprite("pipe_up.png", { velocity: velocity });
+                    this.pipes.add(up);
+                }
+                else {
+                    up.texture = Atlantis.app.content.load("pipe_up.png");
+                    up.revive();
+                }
+
+                var down = this.pipes.getFirstDead();
+                if (!down) {
+                    down = new Atlantis.Sprite("pipe_down.png", { velocity: velocity });
+                    this.pipes.add(down);
+                }
+                else {
+                    down.texture = Atlantis.app.content.load("pipe_down.png");
+                    down.revive();
+                }
+
+                down.move(Atlantis.screen.width, Atlantis.Random.randomInt(-300, 0));
+                up.move(Atlantis.screen.width, down.y + 450);
+
+            };
+
+            var FlappyGame = function () {
+                Atlantis.GameApplication.call(this, 288, 576);
+
+                Atlantis.app.storage.container = "atlantis.demo.badlybird";
+
+                this.content.rootDirectory = "Content/";
+                this.content.preloader.push("background.png");
+                this.content.preloader.push("bottom.png");
+                this.content.preloader.push("flappy.png");
+                this.content.preloader.push("pipe_down.png");
+                this.content.preloader.push("pipe_up.png");
+                this.content.preloader.push("highDown.wav");
+                this.content.preloader.push("powerUp4.wav");
+                this.levelManager.add(new PlayState());
+            };
+            FlappyGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+            FlappyGame.prototype.initialize = function () {
+                Atlantis.GameApplication.prototype.initialize.call(this);
+                this.levelManager.loadLevel(0);
+            };
+
+            var game = new FlappyGame();
+            game.run();
+        </script>
+    </body>
+</html>
