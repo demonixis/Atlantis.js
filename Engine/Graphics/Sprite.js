@@ -9,7 +9,7 @@
 var Atlantis = window.Atlantis || {};
 
 Atlantis.SpriteCollisionType = {
-    Stop: 0, None: 1
+    None: 0, Stop: 1
 };
 
 Atlantis.Sprite = function (_textureName, params) {
@@ -50,6 +50,7 @@ Atlantis.Sprite = function (_textureName, params) {
 
     // Animation
     this.spriteAnimator = new Atlantis.SpriteAnimator();
+	this.hasAnimationss = false;
     this.deleteIf = null;
 
     var that = this;
@@ -240,7 +241,7 @@ Atlantis.Sprite.prototype.revive = function () {
 */
 Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
     if (this._initialized) { 
-        this.hasAnimation = true;
+        this.hasAnimations = true;
         var animationWidth = width;
         var animationHeight = height || animationWidth;
         this.spriteAnimator.initialize(animationWidth, animationHeight, this._texture.width || this.rectangle.width, this._texture.height || this.rectangle.height);
@@ -256,9 +257,9 @@ Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
 * @param
 * @param
 */
-Atlantis.Sprite.prototype.addAnimation = function (name, framesIndex, frameRate) {
+Atlantis.Sprite.prototype.addAnimation = function (name, indices, frameRate) {
     if (this._initialized) {
-        this.spriteAnimator.add(name, framesIndex, frameRate);
+        this.spriteAnimator.add(name, indices, frameRate);
         this._sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     }
 };
@@ -302,7 +303,7 @@ Atlantis.Sprite.prototype.update = function (gameTime) {
     this.velocity.add(this.acceleration);
 
     // Update animation
-    if (this.hasAnimation && this._initialized) { 
+    if (this.hasAnimations && this._initialized) { 
         this.spriteAnimator.update(gameTime);
         if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
             this._sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
