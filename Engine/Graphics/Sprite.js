@@ -303,7 +303,7 @@ Atlantis.Sprite.prototype.update = function (gameTime) {
     this.velocity.add(this.acceleration);
 
     // Update animation
-    if (this.hasAnimations && this._initialized) { 
+    if (this.hasAnimations && this._initialized) {
         this.spriteAnimator.update(gameTime);
         if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
             this._sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   

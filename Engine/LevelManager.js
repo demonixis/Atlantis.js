@@ -94,9 +94,14 @@ Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
 * Add a level to the level manager.
 * @method add
 * @param {Altantis.level} name Instance of the level to add.
+* @param {Boolean} autoload Sets to `true` to load the level.
 */
-Atlantis.LevelManager.prototype.add = function (level) {
+Atlantis.LevelManager.prototype.add = function (level, autoLoad) {
     this.levels.push(level);
+
+    if (autoLoad) {
+        this.loadLevel(this.levels.length - 1);
+    }
 };
 
 /**
