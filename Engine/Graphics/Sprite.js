@@ -93,9 +93,10 @@ Atlantis.Sprite = function (_textureName, params) {
     */
     Atlantis._createProperty(this, "x", 
         function () { return that.rectangle.x; },
-        function (value) { 
+        function (value) {
             that.lastPosition.x = that.rectangle.x;
             that.rectangle.x = value; 
+            that.direction.x = that.rectangle.x - that.lastPosition.x;
         });
 
     /**
@@ -109,6 +110,7 @@ Atlantis.Sprite = function (_textureName, params) {
         function (value) {
             that.lastPosition.y = that.rectangle.y;
             that.rectangle.y = value; 
+            that.direction.y = that.rectangle.x - that.lastPosition.y;
         });
 
     /**
