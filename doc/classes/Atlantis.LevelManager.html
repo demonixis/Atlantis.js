@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.State - AtlantisEngine.js</title>
+    <title>Atlantis.LevelManager - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -192,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.State Class</h1>
+                        <h1>Atlantis.LevelManager Class</h1>
 <div class="box meta">
     
 
@@ -200,7 +202,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Engine_StateManager.js.html#l11"><code>Engine\StateManager.js:11</code></a>
+            Defined in: <a href="../files/Engine_LevelManager.js.html#l11"><code>Engine\LevelManager.js:11</code></a>
         </div>
     
 
@@ -217,15 +219,15 @@
 
 
 <div class="box intro">
-    <p>Define a base state class that contains a basic scene.</p>
+    <p>A level manager.</p>
 
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_Atlantis.State" class="method item">
-    <h3 class="name"><code>Atlantis.State</code></h3>
+        <div id="method_Atlantis.LevelManager" class="method item">
+    <h3 class="name"><code>Atlantis.LevelManager</code></h3>
 
     
         <span class="paren">()</span>
@@ -256,7 +258,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l11"><code>Engine\StateManager.js:11</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l11"><code>Engine\LevelManager.js:11</code></a>
         
         </p>
 
@@ -324,35 +326,14 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_initialize">initialize</a>
+                                <a href="#method_getLevelByName">getLevelByName</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_isActive">isActive</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_isEnabled">isEnabled</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_isVisible">isVisible</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_loadContent">loadContent</a>
+                                <a href="#method_loadLevel">loadLevel</a>
 
                                 
                                 
@@ -360,13 +341,6 @@
                         
                             <li class="index-item method">
                                 <a href="#method_remove">remove</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_setActive">setActive</a>
 
                                 
                                 
@@ -404,7 +378,13 @@
             
                 <li class="arg">
                     
-                        <code>entity</code>
+                        <code>name</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>autoload</code>
                     
                 </li>
             
@@ -437,7 +417,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l102"><code>Engine\StateManager.js:102</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l93"><code>Engine\LevelManager.js:93</code></a>
         
         </p>
 
@@ -448,7 +428,7 @@
     </div>
 
     <div class="description">
-        <p>Add an entity to the scene.</p>
+        <p>Add a level to the level manager.</p>
 
     </div>
 
@@ -460,14 +440,30 @@
             
                 <li class="param">
                     
-                        <code class="param-name">entity</code>
-                        <span class="type">Atlantis.Entity</span>
+                        <code class="param-name">name</code>
+                        <span class="type">Altantis.level</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The entity to add.</p>
+                        <p>Instance of the level to add.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">autoload</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Sets to <code>true</code> to load the level.</p>
 
                     </div>
 
@@ -497,12 +493,6 @@
                     
                 </li>
             
-                <li class="arg">
-                    
-                        <code>context</code>
-                    
-                </li>
-            
             </ul><span class="paren">)</span>
         </div>
     
@@ -532,7 +522,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l92"><code>Engine\StateManager.js:92</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l48"><code>Engine\LevelManager.js:48</code></a>
         
         </p>
 
@@ -543,7 +533,7 @@
     </div>
 
     <div class="description">
-        <p>Draw scene children on screen.</p>
+        <p>Draw active levels.</p>
 
     </div>
 
@@ -556,29 +546,13 @@
                 <li class="param">
                     
                         <code class="param-name">gameTime</code>
-                        <span class="type"><a href="..\classes\Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
                     
 
                     
 
                     <div class="param-description">
                         <p>An instance of GameTime.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">context</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The canvas context.</p>
 
                     </div>
 
@@ -604,7 +578,7 @@
             
                 <li class="arg">
                     
-                        <code>index</code>
+                        <code>nameOrIndex</code>
                     
                 </li>
             
@@ -612,6 +586,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Atlantis.Level.html" class="crosslink">Atlantis.Level</a></span>
+        </span>
     
 
     
@@ -637,7 +615,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l120"><code>Engine\StateManager.js:120</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l134"><code>Engine\LevelManager.js:134</code></a>
         
         </p>
 
@@ -648,7 +626,7 @@
     </div>
 
     <div class="description">
-        <p>Gets an entity from the scene.</p>
+        <p>Gets a level by its index or its name.</p>
 
     </div>
 
@@ -660,14 +638,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">index</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                        <code class="param-name">nameOrIndex</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The index of the entity on the scene.</p>
+                        <p>level&#39;s index or name.</p>
 
                     </div>
 
@@ -679,129 +657,15 @@
     
 
     
-
-    
-</div>
-
-                
-                    <div id="method_initialize" class="method item">
-    <h3 class="name"><code>initialize</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l64"><code>Engine\StateManager.js:64</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Initialize logic.</p>
-
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_isActive" class="method item">
-    <h3 class="name"><code>isActive</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l27"><code>Engine\StateManager.js:27</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Determine the activity of the state.</p>
-
-    </div>
-
-    
-
-    
         <div class="returns">
             <h4>Returns:</h4>
 
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                        <span class="type"><a href="../classes/Atlantis.Level.html" class="crosslink">Atlantis.Level</a></span>:
                     
-                    <p>Return true if the state is visible and enabled.</p>
+                    <p>Return the level if it exists, otherwise return null.</p>
 
                 
             </div>
@@ -812,154 +676,8 @@
 </div>
 
                 
-                    <div id="method_isEnabled" class="method item">
-    <h3 class="name"><code>isEnabled</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l36"><code>Engine\StateManager.js:36</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Determine the activity of the state.</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-                    
-                    <p>Return true if the state is enabled.</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_isVisible" class="method item">
-    <h3 class="name"><code>isVisible</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l45"><code>Engine\StateManager.js:45</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Determine the activity of the state.</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
-                    
-                    <p>Return true if the state is visible.</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_loadContent" class="method item">
-    <h3 class="name"><code>loadContent</code></h3>
+                    <div id="method_getLevelByName" class="method item">
+    <h3 class="name"><code>getLevelByName</code></h3>
 
     
         <div class="args">
@@ -967,7 +685,114 @@
             
                 <li class="arg">
                     
-                        <code>contentManager</code>
+                        <code>name</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Atlantis.Level.html" class="crosslink">Atlantis.Level</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_LevelManager.js.html#l151"><code>Engine\LevelManager.js:151</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Get a level by its name</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">name</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The name of the level to load.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/Atlantis.Level.html" class="crosslink">Atlantis.Level</a></span>:
+                    
+                    <p>Return the level if it exists, otherwise return null.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_loadLevel" class="method item">
+    <h3 class="name"><code>loadLevel</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>levelParam</code>
                     
                 </li>
             
@@ -1000,7 +825,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l73"><code>Engine\StateManager.js:73</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l63"><code>Engine\LevelManager.js:63</code></a>
         
         </p>
 
@@ -1011,7 +836,7 @@
     </div>
 
     <div class="description">
-        <p>Load assets of entities that compose the scene.</p>
+        <p>Add a level to the level manager.</p>
 
     </div>
 
@@ -1023,14 +848,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">contentManager</code>
-                        <span class="type"><a href="..\classes\Atlantis.ContentManager.html" class="crosslink">Atlantis.ContentManager</a></span>
+                        <code class="param-name">levelParam</code>
+                        <span class="type">Altantis.level</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An instance of ContentManager.</p>
+                        <p>Instance of the level to add.</p>
 
                     </div>
 
@@ -1056,7 +881,7 @@
             
                 <li class="arg">
                     
-                        <code>entity</code>
+                        <code>nameOrIndex</code>
                     
                 </li>
             
@@ -1089,7 +914,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l111"><code>Engine\StateManager.js:111</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l107"><code>Engine\LevelManager.js:107</code></a>
         
         </p>
 
@@ -1100,7 +925,7 @@
     </div>
 
     <div class="description">
-        <p>remove an entity from the scene.</p>
+        <p>Remove a level by its index, name or instance.</p>
 
     </div>
 
@@ -1112,103 +937,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">entity</code>
-                        <span class="type">Atlantis.Entity</span>
+                        <code class="param-name">nameOrIndex</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The entity to remove.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_setActive" class="method item">
-    <h3 class="name"><code>setActive</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>Sets</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_StateManager.js.html#l54"><code>Engine\StateManager.js:54</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Sets the activity of the state.</p>
-
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">Sets</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>to true to active the state.</p>
+                        <p>level&#39;s index or name.</p>
 
                     </div>
 
@@ -1267,7 +1003,7 @@
             
         
         
-        <a href="../files/Engine_StateManager.js.html#l83"><code>Engine\StateManager.js:83</code></a>
+        <a href="../files/Engine_LevelManager.js.html#l37"><code>Engine\LevelManager.js:37</code></a>
         
         </p>
 
@@ -1278,7 +1014,7 @@
     </div>
 
     <div class="description">
-        <p>Update logic of scene children.</p>
+        <p>Update active level.</p>
 
     </div>
 
@@ -1291,7 +1027,7 @@
                 <li class="param">
                     
                         <code class="param-name">gameTime</code>
-                        <span class="type"><a href="..\classes\Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
                     
 
                     

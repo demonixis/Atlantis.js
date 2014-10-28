@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.Keys - AtlantisEngine.js</title>
+    <title>Engine\Level.js - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -194,68 +194,50 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.Keys Class</h1>
-<div class="box meta">
-    
+                        <h1 class="file-heading">File: Engine\Level.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+/**
+ * AtlantisEngine.js a lightweight JavaScript game engine.
+ *
+ * @module Atlantis
+ * @submodule Engine
+ * @namespace Atlantis
+ */
 
-    
-        <div class="foundat">
-            Defined in: <a href="../files/Framework_Input_Keys.js.html#l11"><code>Framework\Input\Keys.js:11</code></a>
-        </div>
-    
+var Atlantis = window.Atlantis || {};
 
-    
-        
-            Module: <a href="../modules/Framework.html">Framework</a><br>
-            Parent Module: <a href="../modules/Atlantis.html">Atlantis</a>
-        
-    
+/**
+ * An interface for a 2D level.
+ * @class Level
 
-    
-</div>
+ */
+Atlantis.Level = function (name) { 
+	this.active = false;
+	this.name = name || &quot;Level_0&quot;;
+	this.scene = new Atlantis.SpriteGroup();
+	this.camera = new Atlantis.Camera2D(0, 0, Atlantis.screen.width, Atlantis.screen.height);
+	this.spriteBatch = new Atlantis.SpriteBatch(Atlantis.app.game.graphicsDevice);
+};
 
+Atlantis.Level.prototype.initialize = function () {
+	this.scene.initialize();
+	this.camera.reset();
+};
 
+Atlantis.Level.prototype.update = function (gameTime) {
+	this.scene.update(gameTime);
+	this.camera.update(gameTime);
+};
 
-<div class="box intro">
-    <p>An enumeration of keys who can be pressed/released</p>
+Atlantis.Level.prototype.draw = function (gameTime) {
+	this.spriteBatch.begin();
+	this.scene.draw(this.spriteBatch);
+	this.spriteBatch.end();
+};
 
-</div>
-
-
-
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
-
-        
-        
-        
-        
-    </ul>
-
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
-
-            
-
-            
-
-            
-
-            
-        </div>
-
-        
-
-        
-
-        
-
-        
-    </div>
+    </pre>
 </div>
 
                     </div>

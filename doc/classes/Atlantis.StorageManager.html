@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -348,12 +350,6 @@
             
                 <li class="arg">
                     
-                        <code>container</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
                         <code>name</code>
                     
                 </li>
@@ -414,22 +410,6 @@
             
                 <li class="param">
                     
-                        <code class="param-name">container</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The localStorage key.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
                         <code class="param-name">name</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
@@ -477,25 +457,13 @@
             
                 <li class="arg">
                     
-                        <code>container</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
                         <code>name</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>or</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>deserializedObject</code>
+                        <code>defaultValue</code>
                     
                 </li>
             
@@ -532,7 +500,7 @@
             
         
         
-        <a href="../files/Engine_StorageManager.js.html#l33"><code>Engine\StorageManager.js:33</code></a>
+        <a href="../files/Engine_StorageManager.js.html#l35"><code>Engine\StorageManager.js:35</code></a>
         
         </p>
 
@@ -555,22 +523,6 @@
             
                 <li class="param">
                     
-                        <code class="param-name">container</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The localStorage key.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
                         <code class="param-name">name</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
@@ -578,7 +530,7 @@
                     
 
                     <div class="param-description">
-                        <p>Desired name for the data who&#39;ll save.</p>
+                        <p>The data key.</p>
 
                     </div>
 
@@ -587,30 +539,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">or</code>
+                        <code class="param-name">defaultValue</code>
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>{String} data An object to serialize or a serialized object.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">deserializedObject</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>Sets to true (default) for deserialize, false to gets the strings stored in localStorage.</p>
+                        <p>The default value if the data not exists.</p>
 
                     </div>
 
@@ -630,7 +566,7 @@
                     
                         <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
                     
-                    <p>The object</p>
+                    <p>The object if exists otherwise return defaultValue</p>
 
                 
             </div>
@@ -695,7 +631,7 @@
             
         
         
-        <a href="../files/Engine_StorageManager.js.html#l18"><code>Engine\StorageManager.js:18</code></a>
+        <a href="../files/Engine_StorageManager.js.html#l20"><code>Engine\StorageManager.js:20</code></a>
         
         </p>
 

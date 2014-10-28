@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -196,6 +198,10 @@
 <div class="box meta">
     
 
+    
+        <div class="extends">
+            Extends Sprite
+        </div>
     
 
     
@@ -288,6 +294,8 @@
             <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
         
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
         
         
     </ul>
@@ -300,7 +308,7 @@
                 <div class="index-section methods">
                     <h3>Methods</h3>
 
-                    <ul class="index-list methods">
+                    <ul class="index-list methods extends">
                         
                             <li class="index-item method">
                                 <a href="#method_add">add</a>
@@ -317,6 +325,48 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_clear">clear</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_collides">collides</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_collidesWithGroup">collidesWithGroup</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_computeBoundingSize">computeBoundingSize</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_countDead">countDead</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_countLiving">countLiving</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_draw">draw</a>
 
                                 
@@ -325,6 +375,13 @@
                         
                             <li class="index-item method">
                                 <a href="#method_draw">draw</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_forEach">forEach</a>
 
                                 
                                 
@@ -338,7 +395,21 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_initialize">initialize</a>
+                                <a href="#method_getFirstAlive">getFirstAlive</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getFirstDead">getFirstDead</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_getFirstNull">getFirstNull</a>
 
                                 
                                 
@@ -352,14 +423,14 @@
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_loadContent">loadContent</a>
+                                <a href="#method_initialize">initialize</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_loadContent">loadContent</a>
+                                <a href="#method_kill">kill</a>
 
                                 
                                 
@@ -387,7 +458,35 @@
                             </li>
                         
                             <li class="index-item method">
+                                <a href="#method_preUpdate">preUpdate</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_preUpdate">preUpdate</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
                                 <a href="#method_remove">remove</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_removeAt">removeAt</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method">
+                                <a href="#method_revive">revive</a>
 
                                 
                                 
@@ -418,6 +517,70 @@
                 </div>
             
 
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties extends">
+                        
+                            <li class="index-item property">
+                                <a href="#property_active">active</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_alive">alive</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_height">height</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_texture">texture</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_textureName">textureName</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_width">width</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_x">x</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_y">y</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
             
 
             
@@ -472,7 +635,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l81"><code>Engine\Graphics\SpriteGroup.js:81</code></a>
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l297"><code>Engine\Graphics\SpriteGroup.js:297</code></a>
         
         </p>
 
@@ -551,7 +714,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_Sprite.js.html#l124"><code>Engine\Graphics\Sprite.js:124</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l255"><code>Engine\Graphics\Sprite.js:255</code></a>
         
         </p>
 
@@ -565,6 +728,546 @@
         
     </div>
 
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_clear" class="method item">
+    <h3 class="name"><code>clear</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l111"><code>Engine\Graphics\SpriteGroup.js:111</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Clear the collection.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_collides" class="method item">
+    <h3 class="name"><code>collides</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l203"><code>Engine\Graphics\Sprite.js:203</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                    <p>Return true if collides otherwise return false.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_collidesWithGroup" class="method item">
+    <h3 class="name"><code>collidesWithGroup</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>sprite</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>computeBoundingRect</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l140"><code>Engine\Graphics\SpriteGroup.js:140</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">sprite</code>
+                        <span class="type">Atlantis.Sprite</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">computeBoundingRect</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_computeBoundingSize" class="method item">
+    <h3 class="name"><code>computeBoundingSize</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l154"><code>Engine\Graphics\SpriteGroup.js:154</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Compute the bounding size of the group.</p>
+
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_countDead" class="method item">
+    <h3 class="name"><code>countDead</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l184"><code>Engine\Graphics\SpriteGroup.js:184</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Count the number of dead sprite in the group.</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                    <p>Return the number of dead sprites.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_countLiving" class="method item">
+    <h3 class="name"><code>countLiving</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l169"><code>Engine\Graphics\SpriteGroup.js:169</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Count the number of living sprite in the group.</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                    <p>Return the number of living sprites.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_draw" class="method item">
+    <h3 class="name"><code>draw</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>spriteBatch</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l370"><code>Engine\Graphics\Sprite.js:370</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Draw the sprite on screen.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">spriteBatch</code>
+                        <span class="type"><a href="../classes/Atlantis.SpriteBatch.html" class="crosslink">Atlantis.SpriteBatch</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -615,7 +1318,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l66"><code>Engine\Graphics\SpriteGroup.js:66</code></a>
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l96"><code>Engine\Graphics\SpriteGroup.js:96</code></a>
         
         </p>
 
@@ -639,13 +1342,13 @@
                 <li class="param">
                     
                         <code class="param-name">UNKNOWN</code>
-                        <span class="type"><a href="..\classes\Atlantis.SpriteBatch.html" class="crosslink">Atlantis.SpriteBatch</a></span>
+                        <span class="type"><a href="../classes/Atlantis.SpriteBatch.html" class="crosslink">Atlantis.SpriteBatch</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        
+                         
                     </div>
 
                     
@@ -661,11 +1364,21 @@
 </div>
 
                 
-                    <div id="method_draw" class="method item">
-    <h3 class="name"><code>draw</code></h3>
+                    <div id="method_forEach" class="method item">
+    <h3 class="name"><code>forEach</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -693,7 +1406,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_Sprite.js.html#l232"><code>Engine\Graphics\Sprite.js:232</code></a>
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l199"><code>Engine\Graphics\SpriteGroup.js:199</code></a>
         
         </p>
 
@@ -707,6 +1420,29 @@
         
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -757,7 +1493,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l117"><code>Engine\Graphics\SpriteGroup.js:117</code></a>
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l211"><code>Engine\Graphics\SpriteGroup.js:211</code></a>
         
         </p>
 
@@ -804,13 +1540,17 @@
 </div>
 
                 
-                    <div id="method_initialize" class="method item">
-    <h3 class="name"><code>initialize</code></h3>
+                    <div id="method_getFirstAlive" class="method item">
+    <h3 class="name"><code>getFirstAlive</code></h3>
 
     
         <span class="paren">()</span>
     
 
+    
+        <span class="returns-inline">
+            <span class="type">Atlantis.Sprite</span>
+        </span>
     
 
     
@@ -836,7 +1576,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l24"><code>Engine\Graphics\SpriteGroup.js:24</code></a>
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l243"><code>Engine\Graphics\SpriteGroup.js:243</code></a>
         
         </p>
 
@@ -847,12 +1587,172 @@
     </div>
 
     <div class="description">
-        <p>Initialize of all members.</p>
+        <p>Gets the first alive sprite if available.</p>
 
     </div>
 
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Atlantis.Sprite</span>:
+                    
+                    <p>Return the first alive sprite, otherwise return null.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getFirstDead" class="method item">
+    <h3 class="name"><code>getFirstDead</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Atlantis.Sprite</span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l226"><code>Engine\Graphics\SpriteGroup.js:226</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the first dead sprite if available.</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Atlantis.Sprite</span>:
+                    
+                    <p>Return the first killed sprite otherwise return null.</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_getFirstNull" class="method item">
+    <h3 class="name"><code>getFirstNull</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l260"><code>Engine\Graphics\SpriteGroup.js:260</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Gets the first null index.</p>
+
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    
+                    <p>Return the index of the first null element in the group otherwise return -1.</p>
+
+                
+            </div>
+        </div>
     
 
     
@@ -861,114 +1761,6 @@
                 
                     <div id="method_initialize" class="method item">
     <h3 class="name"><code>initialize</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_Graphics_Sprite.js.html#l58"><code>Engine\Graphics\Sprite.js:58</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_loadContent" class="method item">
-    <h3 class="name"><code>loadContent</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_Graphics_Sprite.js.html#l66"><code>Engine\Graphics\Sprite.js:66</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_loadContent" class="method item">
-    <h3 class="name"><code>loadContent</code></h3>
 
     
         <div class="args">
@@ -976,7 +1768,7 @@
             
                 <li class="arg">
                     
-                        <code>contentManager</code>
+                        <code>callback</code>
                     
                 </li>
             
@@ -1009,7 +1801,95 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l37"><code>Engine\Graphics\SpriteGroup.js:37</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l177"><code>Engine\Graphics\Sprite.js:177</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A callback called when the sprite is fully loaded.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_initialize" class="method item">
+    <h3 class="name"><code>initialize</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>callback</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l49"><code>Engine\Graphics\SpriteGroup.js:49</code></a>
         
         </p>
 
@@ -1032,15 +1912,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">contentManager</code>
-                        <span class="type"><a href="..\classes\Atlantis.ContentManager.html" class="crosslink">Atlantis.ContentManager</a></span>
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An instance of ContentManager.</p>
-
+                         
                     </div>
 
                     
@@ -1048,6 +1927,61 @@
             
             </ul>
         </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_kill" class="method item">
+    <h3 class="name"><code>kill</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l218"><code>Engine\Graphics\Sprite.js:218</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Kill the sprite and put it in a cache so that it can be recycled if needed.</p>
+
+    </div>
+
     
 
     
@@ -1088,7 +2022,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_Sprite.js.html#l141"><code>Engine\Graphics\Sprite.js:141</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l269"><code>Engine\Graphics\Sprite.js:269</code></a>
         
         </p>
 
@@ -1114,7 +2048,17 @@
     <h3 class="name"><code>postUpdate</code></h3>
 
     
-        <span class="paren">()</span>
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>gameTime</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
     
 
     
@@ -1142,7 +2086,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_Sprite.js.html#l182"><code>Engine\Graphics\Sprite.js:182</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l316"><code>Engine\Graphics\Sprite.js:316</code></a>
         
         </p>
 
@@ -1153,9 +2097,33 @@
     </div>
 
     <div class="description">
-        
+        <p>Method called after the update process.</p>
+
     </div>
 
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">gameTime</code>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
     
@@ -1196,7 +2164,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_Sprite.js.html#l104"><code>Engine\Graphics\Sprite.js:104</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l238"><code>Engine\Graphics\Sprite.js:238</code></a>
         
         </p>
 
@@ -1218,8 +2186,8 @@
 </div>
 
                 
-                    <div id="method_remove" class="method item">
-    <h3 class="name"><code>remove</code></h3>
+                    <div id="method_preUpdate" class="method item">
+    <h3 class="name"><code>preUpdate</code></h3>
 
     
         <div class="args">
@@ -1227,7 +2195,7 @@
             
                 <li class="arg">
                     
-                        <code>sprite</code>
+                        <code>gameTime</code>
                     
                 </li>
             
@@ -1260,7 +2228,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l92"><code>Engine\Graphics\SpriteGroup.js:92</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l280"><code>Engine\Graphics\Sprite.js:280</code></a>
         
         </p>
 
@@ -1271,7 +2239,189 @@
     </div>
 
     <div class="description">
-        <p>remove an sprite from the group.</p>
+        <p>Function called before update process.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">gameTime</code>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_preUpdate" class="method item">
+    <h3 class="name"><code>preUpdate</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>gameTime</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l89"><code>Engine\Graphics\SpriteGroup.js:89</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Function called before update process.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">gameTime</code>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_remove" class="method item">
+    <h3 class="name"><code>remove</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>sprite</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>splice</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l351"><code>Engine\Graphics\SpriteGroup.js:351</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>remove a sprite from the group.</p>
 
     </div>
 
@@ -1297,8 +2447,190 @@
                     
                 </li>
             
+                <li class="param">
+                    
+                        <code class="param-name">splice</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Whether the object should be cut from the array entirely or not.</p>
+
+                    </div>
+
+                    
+                </li>
+            
             </ul>
         </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_removeAt" class="method item">
+    <h3 class="name"><code>removeAt</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>index</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>splice</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l324"><code>Engine\Graphics\SpriteGroup.js:324</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Remove a sprite from the group at the position.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">index</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The index of the sprite to remove.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">splice</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>Whether the object should be cut from the array entirely or not.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="method_revive" class="method item">
+    <h3 class="name"><code>revive</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l228"><code>Engine\Graphics\Sprite.js:228</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Revive the Sprite and remove it from the recycle cache.</p>
+
+    </div>
+
     
 
     
@@ -1339,61 +2671,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_Sprite.js.html#l245"><code>Engine\Graphics\Sprite.js:245</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_update" class="method item">
-    <h3 class="name"><code>update</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_Graphics_Sprite.js.html#l152"><code>Engine\Graphics\Sprite.js:152</code></a>
+        <a href="../files/Engine_Graphics_Sprite.js.html#l381"><code>Engine\Graphics\Sprite.js:381</code></a>
         
         </p>
 
@@ -1457,7 +2735,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l51"><code>Engine\Graphics\SpriteGroup.js:51</code></a>
+        <a href="../files/Engine_Graphics_SpriteGroup.js.html#l69"><code>Engine\Graphics\SpriteGroup.js:69</code></a>
         
         </p>
 
@@ -1481,7 +2759,7 @@
                 <li class="param">
                     
                         <code class="param-name">gameTime</code>
-                        <span class="type"><a href="..\classes\Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
                     
 
                     
@@ -1504,9 +2782,479 @@
 </div>
 
                 
+                    <div id="method_update" class="method item">
+    <h3 class="name"><code>update</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>gameTime</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l287"><code>Engine\Graphics\Sprite.js:287</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Update process.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">gameTime</code>
+                        <span class="type"><a href="../classes/Atlantis.GameTime.html" class="crosslink">Atlantis.GameTime</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
             </div>
         
 
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_active" class="property item">
+    <h3 class="name"><code>active</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l58"><code>Engine\Graphics\Sprite.js:58</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Active or not the sprite.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_alive" class="property item">
+    <h3 class="name"><code>alive</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l71"><code>Engine\Graphics\Sprite.js:71</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Indicate if the sprite is alive or dead.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> true</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_height" class="property item">
+    <h3 class="name"><code>height</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l126"><code>Engine\Graphics\Sprite.js:126</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sprite&#39;s height.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_texture" class="property item">
+    <h3 class="name"><code>texture</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l149"><code>Engine\Graphics\Sprite.js:149</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sprite&#39;s texture.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> null</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_textureName" class="property item">
+    <h3 class="name"><code>textureName</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l136"><code>Engine\Graphics\Sprite.js:136</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The name of the texture used by the sprite.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> &quot;&quot;</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_width" class="property item">
+    <h3 class="name"><code>width</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l116"><code>Engine\Graphics\Sprite.js:116</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Sprite&#39;s width.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_x" class="property item">
+    <h3 class="name"><code>x</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l88"><code>Engine\Graphics\Sprite.js:88</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Position on X axis.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_y" class="property item">
+    <h3 class="name"><code>y</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Engine_Graphics_Sprite.js.html#l102"><code>Engine\Graphics\Sprite.js:102</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Position on Y axis.</p>
+
+    </div>
+
+    
+        <p><strong>Default:</strong> 0</p>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
         
 
         

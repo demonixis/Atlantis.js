@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Engine\Graphics\TmxMap.js - AtlantisEngine.js</title>
+    <title>Framework\Preloader.js - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,7 +97,11 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
+            
+                <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
             
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
@@ -115,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -131,7 +135,7 @@
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
             
-                <li><a href="../classes/Atlantis.TmxMap.html">Atlantis.TmxMap</a></li>
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -190,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: Engine\Graphics\TmxMap.js</h1>
+                        <h1 class="file-heading">File: Framework\Preloader.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -198,140 +202,50 @@
  * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
- * @submodule Engine
+ * @submodule Framework
  * @namespace Atlantis
  */
 
 var Atlantis = window.Atlantis || {};
 
 /**
- * A loader of tilemap created with Tiled and exported in JSON
- * @class TmxMap
+ * The Preloader is used during asset loading in game class.
+ * @class Preloader
  * @constructor
- * @param {String} mapPath The path of the map to load.
+ * @param {Atlantis.Game} game
  */
-Atlantis.TmxMap = function (mapPath) {
-    this.mapPath = mapPath;
-    this.height = 0;
-    this.height = 0;
-    this.tileWidth = 0;
-    this.tileHeight = 0;
-    this.layers = [];
-    this.tilesets = [];
-    this.tilesetTextures = [];
-    this.backgroundTextures = [];
-    this.orientation = &quot;orthogonal&quot;;
-    this.properties = {};
-    this.version = 0;
-    this._loaded = false;
-};
-
-Atlantis.TmxMap.prototype.loadContent = function (content, callback) {
-    var that = this;
-
-    content.load(this.mapPath, function (map) {
-        var i = 0,
-            l = 0;
-
-        for (i = 0, l = map.layers.length; i &lt; l; i++) {
-            that.layers.push(map.layers[i]);
-            
-            if (map.layers[i].image) {
-                that.backgroundTextures.push(content.load(map.layers[i].image));
-            }
-        }
-
-        for (i = 0, l = map.tilesets.length; i &lt; l; i++) {
-            that.tilesets.push(map.tilesets[i]);
-            that.tilesetTextures.push(content.load(map.tilesets[i].image));
-            that.tilesetTextures[i].width = map.tilesets[i].imagewidth;
-            that.tilesetTextures[i].height = map.tilesets[i].imageheight;
-        }
-
-        that.height = map.height;
-        that.width = map.width;
-        that.tileWidth = map.tilewidth;
-        that.tileHeight = map.tileheight;
-        that.mapWidth = that.width * that.tileWidth;
-        that.mapHeight = that.height * that.tileHeight;
-        that.version = map.version
-        that.properties = map.properties;
-        that._loaded = true;
-        
-        if (callback) {
-            callback(that);
-        }
-    });
-};
-
-Atlantis.TmxMap.prototype.getTileId = function (layerIndex, camera, x, y) {
-    var layer = this.layers[layerIndex];
-    var x = Math.floor((x + camera.x) / this.tileWidth);
-    var y = Math.floor((y + camera.y) / this.tileHeight);
-    return layer.data[x + y * layer.width];
+Atlantis.Preloader = function (game) {
+	this.screenWidth = game.graphicsDevice.preferredBackBufferWidth;
+	this.screenHeight = game.graphicsDevice.preferredBackBufferHeight; 
+	this.screenWidthPerTwo = this.screenWidth / 2;
+	this.screenHeightPerTwo = this.screenHeight / 2;
+	this.logoRect = {
+		x: this.screenWidth - 96 - 15,
+		y: this.screenHeight - 96 - 15, 
+		width: 96,
+		height: 96
+	};
+	this.spriteFont = new Atlantis.SpriteFont(&quot;Arial&quot;, 32);
 };
 
 /**
- * Draw the map relative to a camera position.
- * @method draw
- * @param {Atlantis.SpriteBatch} spriteBatch The SpriteBatch to use to draw the map.
- * @param {Atlantis.Camera2D} camera The camera used in the scene.
+ * Called when an asset is loaded.
+ * @method onProgress
+ * @param {Object} context The canvas context.
+ * @param {Number} progress The loading progression in percent.
  */
-Atlantis.TmxMap.prototype.draw = function (spriteBatch, camera) {
-    if (this._loaded) {
-        for (var i = 0, l = this.layers.length; i &lt; l; i++) {
-            if (this.layers[i].visible) {
-                if (this.layers[i].type === &quot;imagelayer&quot;) {
-                    spriteBatch.draw(this.backgroundTextures[i], { x: 0, y: 0 });
-                }
-                else if (this.layers[i].type === &quot;tilelayer&quot;) {
-                    this._drawLayer(spriteBatch, camera, this.layers[i], this.tilesets[0]);
-                }
-            }
-        }
-    }
+Atlantis.Preloader.prototype.onProgress = function (context, progress) {
+	var progressMessage = [&quot;Game loading &quot;, progress.progress, &quot;%&quot;].join(&quot;&quot;);
+    var size = context.measureText(progressMessage),
+        x = (this.screenWidthPerTwo) - (size.width / 2),
+        y = (this.screenHeightPerTwo) - (this.spriteFont.size / 2);
+
+    context.clearRect(0, 0, this.screenWidth, this.screenHeight);
+    context.fillStyle = &quot;#fafafa&quot;;
+    context.font = this.spriteFont.getFont();
+    context.fillText(progressMessage, x, y);
 };
 
-Atlantis.TmxMap.prototype._drawLayer = function (spriteBatch, camera, layer, tileset) {
-    var nbTileX = tileset.imagewidth / tileset.tilewidth,
-        nbTileY = tileset.imageheight / tileset.tileheight;
-    
-    var posX = camera.x / this.tileWidth,
-        posY = camera.y / this.tileHeight,
-        startX = Math.floor(posX),
-        startY = Math.floor(posY),
-        stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tilewidth) + 1, layer.width),
-        stopY = Math.min(Math.round((camera.y + Atlantis.screen.height) / tileset.tileheight) + 1, layer.height);
-    
-    var srcX = 0,
-        srcY = 0,
-        tileId = 0;
-    
-    for (var x = startX; x &lt; stopX; x++) {
-        for (var y = startY; y &lt; stopY; y++) {
-            tileId = layer.data[x + y * layer.width] - tileset.firstgid;
-
-            if (tileId &gt;= 0) {
-                srcX = tileId % nbTileX;
-                srcY = Math.floor(tileId / nbTileX);
-                srcX = (srcY &gt; 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
-                
-                spriteBatch.draw(this.tilesetTextures[0], { 
-                    x: (x - posX) * this.tileWidth, 
-                    y: (y - posY) * this.tileHeight, 
-                    width: this.tileWidth, 
-                    height: this.tileHeight
-                }, 
-                { 
-                    x: srcX * tileset.tilewidth, 
-                    y: srcY * tileset.tileheight, 
-                    width: tileset.tilewidth, 
-                    height: tileset.tileheight 
-                });
-            }
-        }
-    }
-};
     </pre>
 </div>
 

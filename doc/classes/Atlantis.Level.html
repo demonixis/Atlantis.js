@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Engine\Graphics\Scene2D.js - AtlantisEngine.js</title>
+    <title>Atlantis.Level - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -192,80 +194,68 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: Engine\Graphics\Scene2D.js</h1>
+                        <h1>Atlantis.Level Class</h1>
+<div class="box meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
- /**
- * AtlantisEngine.js a lightweight JavaScript game engine.
- *
- * @module Atlantis
- * @submodule Engine
- * @namespace Atlantis
- */
+    
 
-var Atlantis = window.Atlantis || {};
+    
+        <div class="foundat">
+            Defined in: <a href="../files/Engine_Level.js.html#l11"><code>Engine\Level.js:11</code></a>
+        </div>
+    
 
-/** 
- * The main 2D scene that contains sprites, camera, tilemap
- * @class Scene2D
- * @constructor
- * @extends Atlantis.SpriteGroup
- */
-Atlantis.Scene2D = function () {
-	Atlantis.SpriteGroup.call(this);
-	this.camera = new Atlantis.Camera2D(0, 0, Atlantis.screen.width, Atlantis.screen.height);
-	this._tilemap = null;
-};
+    
+        
+            Module: <a href="../modules/Engine.html">Engine</a><br>
+            Parent Module: <a href="../modules/Atlantis.html">Atlantis</a>
+        
+    
 
-Atlantis.Scene2D.prototype = Object.create(Atlantis.SpriteGroup.prototype);
+    
+</div>
 
-Atlantis.Scene2D.prototype.add = function (element) {
-	if (element instanceof Atlantis.Sprite) {
-		Atlantis.SpriteGroup.prototype.add.call(this, element);
-	}
-	else if (element instanceof Atlantis.Camera2D) {
-		this.camera = element;
-	}
-	else if (element instanceof Atlantis._tilemap) {
-		this._tilemap = element;
 
-		if (this._tilemap.loaded) {
-			this.camera.viewport.set(0, 0, this._tilemap.mapWidth, this._tilemap.mapHeight);
-		}
-	}
-};
 
-Atlantis.Scene2D.prototype.remove = function (element) {
-	if (element instanceof Atlantis.Sprite || typeof(element) === &quot;number&quot;) {
-		Atlantis.SpriteGroup.prototype.remove.call(this, element);
-	}
-	else if (element instanceof Atlantis._tilemap) {
-		this._tilemap = null;
-	}
-};
+<div class="box intro">
+    <p>An interface for a 2D level.</p>
 
-Atlantis.Scene2D.prototype.lateUpdate = function () {
-	this.camera.update();
-	
-	if (this.tilemap) {
-		this.tilemap.update(this.camera);
-	}
-};
+</div>
 
-Atlantis.Scene2D.prototype.draw = function (spriteBatch) {
-	this.lateUpdate();
-	
-	if (this.visible) {
-		Atlantis.SpriteGroup.prototype.draw.call(this, spriteBatch);
 
-		if (this._tilemap) {
-			this._tilemap.draw(spriteBatch, this.camera);
-		}
-	}
-};
 
-    </pre>
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+
+            
+
+            
+
+            
+        </div>
+
+        
+
+        
+
+        
+
+        
+    </div>
 </div>
 
                     </div>

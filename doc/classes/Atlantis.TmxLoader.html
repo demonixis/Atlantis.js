@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.TmxMap - AtlantisEngine.js</title>
+    <title>Atlantis.TmxLoader - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,7 +97,11 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
+            
+                <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
             
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
@@ -115,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -131,7 +135,7 @@
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
             
-                <li><a href="../classes/Atlantis.TmxMap.html">Atlantis.TmxMap</a></li>
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -190,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.TmxMap Class</h1>
+                        <h1>Atlantis.TmxLoader Class</h1>
 <div class="box meta">
     
 
@@ -198,7 +202,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Engine_Graphics_TmxMap.js.html#l11"><code>Engine\Graphics\TmxMap.js:11</code></a>
+            Defined in: <a href="../files/Engine_Graphics_TmxLoader.js.html#l11"><code>Engine\Graphics\TmxLoader.js:11</code></a>
         </div>
     
 
@@ -215,101 +219,10 @@
 
 
 <div class="box intro">
-    <p>A loader of tilemap created with Tiled and exported in JSON</p>
+    <p>A loader that load a map created with Tiled and exported to JSON.</p>
 
 </div>
 
-
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_Atlantis.TmxMap" class="method item">
-    <h3 class="name"><code>Atlantis.TmxMap</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>mapPath</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/Engine_Graphics_TmxMap.js.html#l11"><code>Engine\Graphics\TmxMap.js:11</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">mapPath</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                        <p>The path of the map to load.</p>
-
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -335,7 +248,7 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_draw">draw</a>
+                                <a href="#method_load">load</a>
 
                                 
                                 
@@ -357,8 +270,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_draw" class="method item">
-    <h3 class="name"><code>draw</code></h3>
+                    <div id="method_load" class="method item">
+    <h3 class="name"><code>load</code></h3>
 
     
         <div class="args">
@@ -366,13 +279,13 @@
             
                 <li class="arg">
                     
-                        <code>spriteBatch</code>
+                        <code>mapPath</code>
                     
                 </li>
             
                 <li class="arg">
                     
-                        <code>camera</code>
+                        <code>callback</code>
                     
                 </li>
             
@@ -380,6 +293,10 @@
         </div>
     
 
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/Atlantis.Tilemap.html" class="crosslink">Atlantis.Tilemap</a></span>
+        </span>
     
 
     
@@ -405,7 +322,7 @@
             
         
         
-        <a href="../files/Engine_Graphics_TmxMap.js.html#l78"><code>Engine\Graphics\TmxMap.js:78</code></a>
+        <a href="../files/Engine_Graphics_TmxLoader.js.html#l17"><code>Engine\Graphics\TmxLoader.js:17</code></a>
         
         </p>
 
@@ -416,7 +333,7 @@
     </div>
 
     <div class="description">
-        <p>Draw the map relative to a camera position.</p>
+        <p>Load a tilemap at the specified path.</p>
 
     </div>
 
@@ -428,15 +345,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">spriteBatch</code>
-                        <span class="type"><a href="..\classes\Atlantis.SpriteBatch.html" class="crosslink">Atlantis.SpriteBatch</a></span>
+                        <code class="param-name">mapPath</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The SpriteBatch to use to draw the map.</p>
-
+                         
                     </div>
 
                     
@@ -444,15 +360,14 @@
             
                 <li class="param">
                     
-                        <code class="param-name">camera</code>
-                        <span class="type"><a href="..\classes\Atlantis.Camera2D.html" class="crosslink">Atlantis.Camera2D</a></span>
+                        <code class="param-name">callback</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The camera used in the scene.</p>
-
+                         
                     </div>
 
                     
@@ -462,6 +377,20 @@
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/Atlantis.Tilemap.html" class="crosslink">Atlantis.Tilemap</a></span>:
+                    
+                    <p>Return a tilemap.</p>
+
+                
+            </div>
+        </div>
     
 
     

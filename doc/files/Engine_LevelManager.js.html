@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Engine\StateManager.js - AtlantisEngine.js</title>
+    <title>Engine\LevelManager.js - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -192,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: Engine\StateManager.js</h1>
+                        <h1 class="file-heading">File: Engine\LevelManager.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
@@ -207,263 +209,80 @@
 var Atlantis = window.Atlantis || {};
 
 /**
-* Define a base state class that contains a basic scene.
+* A level manager.
 * @constructor
-* @class State
+* @class LevelManager
 */
-Atlantis.State = function (name) {
-    this.name = name;
-    this.active = true;
-    this.stateManager = null;
-    this.initialized = false;
-    this.assetLoaded = false;
-    this.enabled = true;
-    this.visible = true;
-    this.scene = new Atlantis.Scene2D();
-};
-
-/**
-* Determine the activity of the state.
-* @method isActive
-* @return {Boolean} Return true if the state is visible and enabled.
-*/
-Atlantis.State.prototype.isActive = function () {
-    return this.visible &amp;&amp; this.enabled;
-};
-
-/**
-* Determine the activity of the state.
-* @method isEnabled
-* @return {Boolean} Return true if the state is enabled.
-*/
-Atlantis.State.prototype.isEnabled = function () {
-    return this.enabled;
-};
-
-/**
-* Determine the activity of the state.
-* @method isVisible
-* @return {Boolean} Return true if the state is visible.
-*/
-Atlantis.State.prototype.isVisible = function () {
-    return this.visible;
-};
-
-/**
-* Sets the activity of the state.
-* @method setActive
-* @param {Boolean} Sets to true to active the state.
-*/
-Atlantis.State.prototype.setActive = function (isActive) {
-    this.enabled = isActive;
-    this.visible = isActive;
-};
-
-/**
-* Initialize logic.
-* @method initialize
-*/
-Atlantis.State.prototype.initialize = function () {
-    this.scene.initialize();
-    this.initialized = true;
-};
-
-/**
-* Load assets of entities that compose the scene.
-* @method loadContent
-* @param {Atlantis.ContentManager} contentManager An instance of ContentManager.
-*/
-Atlantis.State.prototype.loadContent = function (contentManager) {
-    this.scene.loadContent(contentManager);
-    this.assetLoaded = true;
-};
-
-/**
-* Update logic of scene children.
-* @method update
-* @param {Atlantis.GameTime} gameTime An instance of GameTime.
-*/
-Atlantis.State.prototype.update = function (gameTime) {
-    this.scene.update(gameTime);
-};
-
-/**
-* Draw scene children on screen.
-* @method draw
-* @param {Atlantis.GameTime} gameTime An instance of GameTime.
-* @param {Object} context The canvas context.
-*/
-Atlantis.State.prototype.draw = function (spriteBatch) {
-    this.scene.draw(spriteBatch);
-};
-
-/**
-* Add an entity to the scene.
-* @method add
-* @param {Atlantis.Entity} entity The entity to add.
-*/
-Atlantis.State.prototype.add = function (entity) {
-    this.scene.add(entity);
-};
-
-/**
-* remove an entity from the scene.
-* @method remove
-* @param {Atlantis.Entity} entity The entity to remove.
-*/
-Atlantis.State.prototype.remove = function (entity) {
-    this.scene.remove(entity);
-};
-
-/**
-* Gets an entity from the scene.
-* @method get
-* @param {Number} index The index of the entity on the scene.
-*/
-Atlantis.State.prototype.get = function (index) {
-    return this.scene.get(index);
-};
-
-
-/**
-* A state manager.
-* @constructor
-* @class StateManager
-*/
-Atlantis.StateManager = function (game) {
+Atlantis.LevelManager = function (game) {
     Atlantis.DrawableGameComponent.call(this, game);
-    this.states = [];
+    this.graphicsDevice = game.graphicsDevice;
+    this.levels = [];
+    this.autoClear = true;
+    this.activeLevel = null;
     this.initialized = false;
-    this.assetLoaded = false;
-    this.spriteBatch = null;
+    this._autoLoadLevel;
 };
 
-Atlantis.StateManager.prototype = new Atlantis.DrawableGameComponent();
+Atlantis.LevelManager.prototype = Object.create(Atlantis.DrawableGameComponent.prototype);
 
-/**
-* Initialize all levels 
-* @method initialize.
-*
-*/
-Atlantis.StateManager.prototype.initialize = function () {
-    this.spriteBatch = new Atlantis.SpriteBatch(this.game.graphicsDevice);
-
-    for (var i = 0, l = this.states.length; i &lt; l; i++) {
-        this.states[i].initialize();
-    }
+Atlantis.LevelManager.prototype.initialize = function () {
     this.initialized = true;
-};
 
-/**
-* Load assets of entities that compose the scene.
-* @method loadContent
-* @param {Atlantis.ContentManager} contentManager An instance of ContentManager.
-*/
-Atlantis.StateManager.prototype.loadContent = function () {
-    for (var i = 0, l = this.states.length; i &lt; l; i++) {
-        this.states[i].loadContent(this.game.content);
+    if (typeof(this._autoLoadLevel) !== &quot;undefined&quot;) {
+        this.loadLevel(this._autoLoadLevel);
+        this._autoLoadLevel = &quot;&quot;;
     }
-    this.assetLoaded = true;
 };
 
 /**
-* Update all active state.
+* Update active level.
 * @method update
 * @param {Atlantis.GameTime} gameTime An instance of GameTime.
 */
-Atlantis.StateManager.prototype.update = function (gameTime) {
-    for (var i = 0, l = this.states.length; i &lt; l; i++) {
-        if (this.states[i].isEnabled()) {
-            this.states[i].update(gameTime);
-        }
+Atlantis.LevelManager.prototype.update = function (gameTime) {
+    if (this.activeLevel) {
+        this.activeLevel.update(gameTime);
     }
 };
 
 /**
-* Draw all active states.
+* Draw active levels.
 * @method draw
 * @param {Atlantis.GameTime} gameTime An instance of GameTime.
-* @param {Object} context The canvas context.
 */
-Atlantis.StateManager.prototype.draw = function (gameTime, context) {
-    this.spriteBatch.begin();
-
-    for (var i = 0, l = this.states.length; i &lt; l; i++) {
-        if (this.states[i].isVisible()) {
-            this.states[i].draw(this.spriteBatch);
+Atlantis.LevelManager.prototype.draw = function (gameTime) {
+    if (this.activeLevel) {
+        if (this.autoClear) {
+            this.graphicsDevice.clear();
         }
-    }
 
-    this.spriteBatch.end();
-};
-
-/**
-* Active a state by its name or index.
-* @method setActive
-* @param {Number} stateParam Index of the state.
-* @param {String} stateParam Name of the state.
-* @param {Altantis.State} stateParam Instance of thee state.
-* @param {Boolean} disableOtherStates Sets to true for desactive all other states.
-*/
-Atlantis.StateManager.prototype.setActive = function (stateParam, disableOtherStates) {
-    if (disableOtherStates) {
-        this.disableStates();
-    }
-
-    if (stateParam instanceof Atlantis.State) {
-        var index = this.states.indexOf(stateParam);
-        if (index &gt; -1) {
-            this.states[index].setActive(true);
-        }
-    }
-    else if (typeof (stateParam) == &quot;string&quot;) {
-        var i = 0;
-        var index = -1;
-        var size = this.states.length;
-
-        while (i &lt; size &amp;&amp; index == -1) {
-            if (this.states[i].name == stateParam) {
-                this.states[i].setActive(true);
-                index = i;
-            }
-            i++;
-        }
-    }
-    else if (stateParam &gt; -1 &amp;&amp; stateParam &lt; this.states.length) {
-        this.states[stateParam].active = true;
-    }
-};
-
-Atlantis.StateManager.prototype.loadLevel = function (nameOrIndex) {
-    var size = this.states.length;
-    var index = size - 1;
-
-    this.disableStates();
-
-    if (typeof (nameOrIndex) == &quot;string&quot;) {
-        for (var i = 0; i &lt; size; i++) {
-            if (this.states[i].name == nameOrIndex) {
-                index = i;
-                break;
-            }
-        }
-    }
-    else if (typeof(nameOrIndex) === &quot;number&quot;) {
-        index = nameOrIndex &lt; size ? nameOrIndex : index;
-    }
-
-    if (index &gt; -1) {
-        this.states[index].active = true;
+        this.activeLevel.draw(gameTime);
     }
 };
 
 /**
-* Disable all states
-* @method disableStates
+* Add a level to the level manager.
+* @method loadLevel
+* @param {Altantis.level} levelParam Instance of the level to add.
 */
-Atlantis.StateManager.prototype.disableStates = function () {
-    for (var i = 0, l = this.states.length; i &lt; l; i++) {
-        this.states[i].setActive(false);
+Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
+    if (!this.initialized) {
+        this._autoLoadLevel = nameOrIndex;
+        return;
+    }
+
+    this.activeLevel = null;
+
+    if (typeof (nameOrIndex) === &quot;string&quot;) {
+        this.activeLevel = this.getLevelByName(nameOrIndex);
+    }
+    else if (this._checkIndex(nameOrIndex)) {
+        this.activeLevel = this.levels[nameOrIndex];
+    }
+
+    if (this.activeLevel) {
+        this.activeLevel.initialize();
+        this.activeLevel.active = true;
     }
 };
 
@@ -472,95 +291,84 @@ Atlantis.StateManager.prototype.disableStates = function () {
 // -------------------------- //
 
 /**
-* Add a state to the state manager.
+* Add a level to the level manager.
 * @method add
-* @param {Altantis.State} stateParam Instance of the state to add.
-* @param {Boolean} isActive Sets to true for active the state, default is true.
-* @param {Boolean} disableOtherStates Sets to true for desactive all other states.
+* @param {Altantis.level} name Instance of the level to add.
+* @param {Boolean} autoload Sets to &#x60;true&#x60; to load the level.
 */
-Atlantis.StateManager.prototype.add = function (state, isActive, disableOtherStates) {
-    if (disableOtherStates) {
-        this.disableStates();
+Atlantis.LevelManager.prototype.add = function (level, autoLoad) {
+    this.levels.push(level);
+
+    if (autoLoad) {
+        this.loadLevel(this.levels.length - 1);
     }
-
-    var isActive = (typeof (isActive) != &quot;undefined&quot;) ? isActive : true;
-    state.stateManager = this;
-    state.setActive(isActive);
-
-    // If the state manager is already initialized we must load an initialize the state
-    if (this.initialized) {
-        state[i].initialize();
-        state[i].loadContent(this.game.content);
-    }
-
-    this.states.push(state);
 };
 
 /**
-* Remove a state by its index, name or instance.
+* Remove a level by its index, name or instance.
 * @method remove
-* @param {Number} stateParam Index of the state to remove.
-* @param {String} stateParam Name of the state to remove.
-* @param {Altantis.State} stateParam Instance of the state to remove.
+* @param {Number|String} nameOrIndex level&#x27;s index or name.
 */
-Atlantis.StateManager.prototype.remove = function (stateParam) {
-    var state = null;
+Atlantis.LevelManager.prototype.remove = function (nameOrIndex) {
+    var level = null,
+        index = -1;
 
-    if (typeof (stateParam) == &quot;string&quot;) {
-        var i = 0;
-        var index = -1;
-
-        while (i &lt; size &amp;&amp; index == -1) {
-            if (this.states[i].name == stateParam) {
-                index = i;
-            }
-            i++;
-        }
-
-        if (index &gt; -1) {
-            state = this.states[index];
-            this.states.splice(index, 1);
-        }
+    if (typeof(nameOrIndex) === &quot;string&quot;) {
+        level = this.getLevelByName(nameOrIndex);
+        index = this.levels.indexOf(level);
     }
-    else if (stateParam &gt; -1) {
-        state = this.states[stateParam];
-        this.states.splice(index, 1);
+    else if (this._checkIndex(nameOrIndex)) {
+        level = this.levels[nameOrIndex];
+        index = nameOrIndex;
     }
 
-    return state;
+    if (level === this.activeLevel) {
+        this.activeLevel = null;
+    } 
+
+    if (this._checkIndex(index)) {
+        this.levels.splice(index, 1);
+    }
 };
 
 /**
-* Gets a state by its index or its name.
+* Gets a level by its index or its name.
 * @method get
-* @param {Number} stateParam Index of the state.
-* @param {String} stateParam Name of the state.
+* @param {Number|String} nameOrIndex level&#x27;s index or name.
+* @return {Atlantis.Level} Return the level if it exists, otherwise return null.
 */
-Atlantis.StateManager.prototype.get = function (stateParam) {
-    var state = null;
-
-    if (typeof (stateParam) == &quot;string&quot;) {
-        var i = 0;
-        var index = -1;
-
-        while (i &lt; size &amp;&amp; index == -1) {
-            if (this.states[i].name == stateParam) {
-                index = i;
-            }
-            i++;
-        }
-
-        if (index &gt; -1) {
-            state = this.states[index];
-        }
+Atlantis.LevelManager.prototype.get = function (nameOrIndex) {
+    if (typeof(nameOrIndex) === &quot;string&quot;) {
+        return this.getLevelByName(nameOrIndex);
     }
-    else {
-        if (state &gt; -1) {
-            state = this.states[stateParam];
-        }
+    else if (this._checkIndex(nameOrIndex)) {
+        return this.levels[nameOrIndex];
+    }
+	
+	return null;
+};
+
+/**
+ * Get a level by its name
+ * @method getLevelByName
+ * @param {String} name The name of the level to load.
+ * @return {Atlantis.Level} Return the level if it exists, otherwise return null.
+ */
+Atlantis.LevelManager.prototype.getLevelByName = function (name) {
+    var i = 0,
+        size = this.levels.length,
+        level = null;
+
+    while (i &lt; size &amp;&amp; level === null) {
+        level = (this.levels[i].name === name) ? this.levels[i] : level;
+        i++;
     }
 
-    return state;
+    return level;
+};
+
+Atlantis.LevelManager.prototype._checkIndex = function (index) {
+    return index &gt; -1 &amp;&amp; index &lt; this.levels.length;
 };
     </pre>
 </div>

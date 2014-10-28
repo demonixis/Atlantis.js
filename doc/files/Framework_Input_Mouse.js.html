@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -273,29 +275,40 @@ Atlantis.Mouse = function (domElement) {
 	};
 
 	var onMouseEvent = function (event) {
-        if (that.preventDefault)
-            event.preventDefault();
-        
-		that._x = event.offsetX || event.layerX;
-		that._y = event.offsetY || event.layerY;
+		that._x = (event.pageX - domElement.offsetLeft) * Atlantis.Game.scaleFactor.x;
+		that._y = (event.pageY - domElement.offsetTop) * Atlantis.Game.scaleFactor.y;
+
+		if (event.type === &quot;mousemove&quot; || event.type === &quot;pointermove&quot;) {
+			return;
+		}
 
 		resetButtonState();
-        
-        that._buttons[event.button] = (event.type === &quot;mousedown&quot;) ? true : false;
-        
-        if (event.button &gt; 0 &amp;&amp; event.type === &quot;mousemove&quot;) {
-            that._buttons[event.button] = true;
-        }
+     
+		if ((event.type === &quot;mousedown&quot;) || (event.type === &quot;pointerdown&quot;)) {
+			that._buttons[event.button] =  true;
+		}
+		else {
+			that._buttons[event.button] = false;
+		}
 	};
 
 	var onMouseScroll = function (event) {
 		that._scroll = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
 	};
 
-	domElement.addEventListener(&quot;mousedown&quot;, onMouseEvent, false);
-	domElement.addEventListener(&quot;mousemove&quot;, onMouseEvent, false);
-	domElement.addEventListener(&quot;mouseup&quot;, onMouseEvent, false);
-	domElement.addEventListener(&quot;click&quot;, onMouseEvent, false);
+	// For MSIE 11+
+	if (window.PointerEvent) {
+		domElement.addEventListener(&quot;pointerdown&quot;, onMouseEvent, false);
+		domElement.addEventListener(&quot;pointermove&quot;, onMouseEvent, false);
+		domElement.addEventListener(&quot;pointerup&quot;, onMouseEvent, false);
+	}
+	else {
+		domElement.addEventListener(&quot;mousedown&quot;, onMouseEvent, false);
+		domElement.addEventListener(&quot;mousemove&quot;, onMouseEvent, false);
+		domElement.addEventListener(&quot;mouseup&quot;, onMouseEvent, false);
+	}
+
+	//domElement.addEventListener(&quot;click&quot;, onMouseEvent, false);
 	domElement.addEventListener(&quot;mousewheel&quot;, onMouseScroll, false);
 	domElement.addEventListener(&quot;DOMMouseScroll&quot;, onMouseScroll, false);
 };

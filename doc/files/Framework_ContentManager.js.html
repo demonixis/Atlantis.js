@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -213,22 +215,25 @@ var Atlantis = window.Atlantis || {};
       */
 Atlantis.ContentManager = function (rootDirectory) {
     this.rootDirectory = rootDirectory || &quot;&quot;;
-    this._assets = [];
-    this.preloadAssets = [];
+    this._assets = {};
+    this.preloader = [];
 };
 
 Atlantis.ContentManager.PreloadTimerInterval = 250;
 
-Atlantis.ContentManager.prototype.preload = function (assetName) {
-    var countAssets = this.preloadAssets.length,
+Atlantis.ContentManager.prototype.preload = function (progressCallback, doneCallback) {
+    var countAssets = this.preloader.length,
         nbLoaded = 0;
 
+    var progressCallback = (typeof(progressCallback) === &quot;function&quot;) ? progressCallback : function () {};
+    var doneCallback = (typeof(doneCallback) === &quot;function&quot;) ? doneCallback : function () {};
     var onLoaded = function (asset) { nbLoaded++; };
 
     for (var i = 0; i &lt; countAssets; i++) {
-        this.load(this.preloadAssets[i], onLoaded);
+        this.load(this.preloader[i], onLoaded);
     }
 
+    var that = this;
     var progress = { status: &quot;Loading&quot;, progress: 0 };
 
     var timer = setInterval(function () {
@@ -237,9 +242,12 @@ Atlantis.ContentManager.prototype.preload = function (assetName) {
         if (nbLoaded === countAssets) {
             clearInterval(timer);
             progress.status = &quot;Complete&quot;;
+            that.preloader.length = 0;
+            doneCallback();
         }
         
         Atlantis.notify(Atlantis.events.ContentPreloading, progress);
+        progressCallback(progress);
     }, Atlantis.ContentManager.PreloadTimerInterval);
 };
 
@@ -260,15 +268,15 @@ Atlantis.ContentManager.prototype.preload = function (assetName) {
 Atlantis.ContentManager.prototype.load = function (assetName, callback) {
     var callback = (typeof(callback) === &quot;function&quot;) ? callback : function() {};
 
-    if (this._assets[assetName]) {
+    var temp = assetName.split(&quot;.&quot;);
+    var ext = temp[(temp.length - 1)];
+    assetName = this.rootDirectory + assetName;
+
+    if (this._assets[assetName]) { 
         callback(this._assets[assetName]);
         return this._assets[assetName];
     }
     else {
-        var temp = assetName.split(&quot;.&quot;);
-        var ext = temp[(temp.length - 1)];
-
-        assetName = this.rootDirectory + assetName;
         switch (ext) {
             case &quot;png&quot;:
             case &quot;jpg&quot;:
@@ -316,10 +324,11 @@ Atlantis.ContentManager.prototype.loadImage = function (imageName, callback) {
 // Load a music from an url
 Atlantis.ContentManager.prototype.loadAudio = function (audioName, callback) {
     var audio = document.createElement(&quot;audio&quot;);
-    audio.onload = callback;
     audio.src = audioName;
-    audio.controls = false;
+    audio.load();
+    audio.controls = false; 
     this._assets[audioName] = audio;
+    callback(audio);
     return audio;
 };
 

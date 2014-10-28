@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -211,7 +213,9 @@ var Atlantis = window.Atlantis || {};
  * @constructor
  * @class StorageManager
  */
-Atlantis.StorageManager = function () {};
+Atlantis.StorageManager = function () {
+	this.container = &quot;atlantis.game&quot;;
+};
 
 /**
  * Save data in the localStorage.
@@ -220,37 +224,34 @@ Atlantis.StorageManager = function () {};
  * @param {String} name Desired name for the data who&#x27;ll save.
  * @param {Object} or {String} data An object to serialize or a serialized object.
  */
-Atlantis.StorageManager.prototype.save = function (container, name, data) {
-    if (typeof(data) == &quot;object&quot;) {
+Atlantis.StorageManager.prototype.save = function (name, data) {
+    if (typeof(data) === &quot;object&quot;) {
         data = JSON.stringify(data);
     }
 
-    localStorage.setItem(this.getLocalStorageKey(name, container), data)
+    localStorage.setItem(this.getLocalStorageKey(name), data)
 };
 
 /**
  * Load data from the localStorage.
  * @method load
- * @param {String} container The localStorage key.
- * @param {String} name Desired name for the data who&#x27;ll save.
- * @param {Object} or {String} data An object to serialize or a serialized object.
- * @param {Boolean} deserializedObject Sets to true (default) for deserialize, false to gets the strings stored in localStorage.
- * @return {Object} The object
+ * @param {String} name The data key.
+ * @param {Object} defaultValue The default value if the data not exists.
+ * @return {Object} The object if exists otherwise return defaultValue
  */
-Atlantis.StorageManager.prototype.load = function (container, name, deserializeObject) {
-    var data = localStorage.getItem(this.getLocalStorageKey(name, container));
-    return (data &amp;&amp; deserializeObject) ? JSON.parse(data) : data;
+Atlantis.StorageManager.prototype.load = function (name, defaultValue) {
+    var data = localStorage.getItem(this.getLocalStorageKey(name));
+    return data !== null ? data : defaultValue;
 };
 
 /**
  * Gets the localStorage key with a container name and a data name.
  * @method getLoadStorageKey
- * @param {String} container The localStorage key.
  * @param {String} name Desired name for the data who&#x27;ll save.
  * @return {string} The localStorage final key.
  */
-Atlantis.StorageManager.prototype.getLocalStorageKey = function (name, container) {
-    return [container, &quot;.&quot;, name].join(&quot;&quot;);
+Atlantis.StorageManager.prototype.getLocalStorageKey = function (name) {
+    return [this.container, &quot;.&quot;, name].join(&quot;&quot;);
 };
     </pre>
 </div>

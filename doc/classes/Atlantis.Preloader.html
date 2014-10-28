@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Atlantis.Keys - AtlantisEngine.js</title>
+    <title>Atlantis.Preloader - AtlantisEngine.js</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -194,7 +194,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>Atlantis.Keys Class</h1>
+                        <h1>Atlantis.Preloader Class</h1>
 <div class="box meta">
     
 
@@ -202,7 +202,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/Framework_Input_Keys.js.html#l11"><code>Framework\Input\Keys.js:11</code></a>
+            Defined in: <a href="../files/Framework_Preloader.js.html#l11"><code>Framework\Preloader.js:11</code></a>
         </div>
     
 
@@ -219,16 +219,108 @@
 
 
 <div class="box intro">
-    <p>An enumeration of keys who can be pressed/released</p>
+    <p>The Preloader is used during asset loading in game class.</p>
 
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_Atlantis.Preloader" class="method item">
+    <h3 class="name"><code>Atlantis.Preloader</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>game</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Preloader.js.html#l11"><code>Framework\Preloader.js:11</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">game</code>
+                        <span class="type"><a href="../classes/Atlantis.Game.html" class="crosslink">Atlantis.Game</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
     <ul class="api-class-tabs">
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
+        
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
         
         
@@ -240,6 +332,21 @@
             <h2 class="off-left">Item Index</h2>
 
             
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods">
+                        
+                            <li class="index-item method">
+                                <a href="#method_onProgress">onProgress</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
 
             
 
@@ -248,6 +355,123 @@
             
         </div>
 
+        
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+                
+                    <div id="method_onProgress" class="method item">
+    <h3 class="name"><code>onProgress</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>context</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code>progress</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/Framework_Preloader.js.html#l31"><code>Framework\Preloader.js:31</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Called when an asset is loaded.</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">context</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The canvas context.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+                <li class="param">
+                    
+                        <code class="param-name">progress</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>The loading progression in percent.</p>
+
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
         
 
         

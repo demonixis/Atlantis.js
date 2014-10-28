@@ -81,6 +81,10 @@
             
                 <li><a href="../classes/Atlantis.Keys.html">Atlantis.Keys</a></li>
             
+                <li><a href="../classes/Atlantis.Level.html">Atlantis.Level</a></li>
+            
+                <li><a href="../classes/Atlantis.LevelManager.html">Atlantis.LevelManager</a></li>
+            
                 <li><a href="../classes/Atlantis.MathHelpers.html">Atlantis.MathHelpers</a></li>
             
                 <li><a href="../classes/Atlantis.Matrix.html">Atlantis.Matrix</a></li>
@@ -93,6 +97,8 @@
             
                 <li><a href="../classes/Atlantis.Point.html">Atlantis.Point</a></li>
             
+                <li><a href="../classes/Atlantis.Preloader.html">Atlantis.Preloader</a></li>
+            
                 <li><a href="../classes/Atlantis.Quaternion.html">Atlantis.Quaternion</a></li>
             
                 <li><a href="../classes/Atlantis.Random.html">Atlantis.Random</a></li>
@@ -100,8 +106,6 @@
                 <li><a href="../classes/Atlantis.Rectangle.html">Atlantis.Rectangle</a></li>
             
                 <li><a href="../classes/Atlantis.RenderTarget.html">Atlantis.RenderTarget</a></li>
-            
-                <li><a href="../classes/Atlantis.Scene2D.html">Atlantis.Scene2D</a></li>
             
                 <li><a href="../classes/Atlantis.screen.html">Atlantis.screen</a></li>
             
@@ -119,10 +123,6 @@
             
                 <li><a href="../classes/Atlantis.SpriteSortMode.html">Atlantis.SpriteSortMode</a></li>
             
-                <li><a href="../classes/Atlantis.State.html">Atlantis.State</a></li>
-            
-                <li><a href="../classes/Atlantis.StateManager.html">Atlantis.StateManager</a></li>
-            
                 <li><a href="../classes/Atlantis.StorageManager.html">Atlantis.StorageManager</a></li>
             
                 <li><a href="../classes/Atlantis.Tilemap.html">Atlantis.Tilemap</a></li>
@@ -134,6 +134,8 @@
                 <li><a href="../classes/Atlantis.TilemapProjection.html">Atlantis.TilemapProjection</a></li>
             
                 <li><a href="../classes/Atlantis.Tileset.html">Atlantis.Tileset</a></li>
+            
+                <li><a href="../classes/Atlantis.TmxLoader.html">Atlantis.TmxLoader</a></li>
             
                 <li><a href="../classes/Atlantis.TouchLocationState.html">Atlantis.TouchLocationState</a></li>
             
@@ -229,7 +231,7 @@ Atlantis.TouchLocationState = {
  */
 Atlantis.TouchPanelState = function (panelState) {
 	this.state = panelState.touchState || Atlantis.TouchLocationState.Invalid;
-	this.position = new Atlantis.Vector2(panelState.x || 0, panelState.y || 0);
+	this.position = new Atlantis.Vector2(+panelState.x|0, +panelState.y|0);
 };
 
 /**
@@ -238,7 +240,7 @@ Atlantis.TouchPanelState = function (panelState) {
  * @return {Atlantis.TouchPanelState} Return a clone of this instance.
  */
 Atlantis.TouchPanelState.prototype.clone = function () {
-	return new Atlantis.TouchPanelState({ state: this.state, position: { x: this.position.x, y: this.position.y } });
+	return new Atlantis.TouchPanelState({ touchState: this.state, x: this.position.x, y: this.position.y });
 };
 
 /**
@@ -252,35 +254,73 @@ Atlantis.TouchPanel = function (domElement) {
 
 	var that = this;
 
-	var onTouchHandler = function (event) { 
-		var size = event.touches.length;
-		that._states.length = size;
+	var wrapEvent = function (id, event) {		
+		if (!that._states[id]) {
+			that._states[id] = { x: 0, y: 0, touchState: -1 };
+		}
+		
+		if (event.touches) {
+			that._states[id].x = event.touches[id].pageX - domElement.offsetLeft;
+			that._states[id].y = event.touches[id].pageY - domElement.offsetTop;
+		}
+		else {
+			that._states[id].x = event.clientX - domElement.offsetLeft;
+			that._states[id].y = event.clientY - domElement.offsetTop;
+		}
 
-		for (var i = 0; i &lt; size; i++) {
-			that._states[i] = {
-				x: event.touches[i].clientX,
-				y: event.touches[i].clientY
-			};
-			
-			if (event.type == &quot;touchstart&quot;) {
-				that._states[i].touchState = Atlantis.TouchLocationState.Pressed;
-			}
-			else if (event.type == &quot;touchmove&quot;) {
-				that._states[i].touchState = Atlantis.TouchLocationState.Moved;
-			}
-			else if (event.type == &quot;touchend&quot;) {
+		that._states[id].x *= Atlantis.Game.scaleFactor.x;
+		that._states[id].y *= Atlantis.Game.scaleFactor.y;
+
+		if (event.type == &quot;pointerdown&quot; || event.type == &quot;touchstart&quot;) {
+			that._states[id].touchState = Atlantis.TouchLocationState.Pressed;
+		}
+		else if (event.type == &quot;pointermove&quot; || event.type == &quot;touchmove&quot;) {
+			event.preventDefault();
+			that._states[id].touchState = Atlantis.TouchLocationState.Moved;
+		}
+		else if (event.type == &quot;pointerup&quot; || event.type == &quot;touchend&quot;) {
+			that._states[id].touchState = Atlantis.TouchLocationState.Released;
+		}
+		else { 
+			that._states[id].touchState = Atlantis.TouchLocationState.Invalid;
+		}
+	};
+	
+	var onTouchHandler = function (event) {
+		var size = event.touches.length;
+
+		if (!size &amp;&amp; (event.type === &quot;touchend&quot; || event.type === &quot;touchcancel&quot;)) {
+			for (var i = 0, l = that._states.length; i &lt; l; i++) {
 				that._states[i].touchState = Atlantis.TouchLocationState.Released;
 			}
-			else {
-				that._states[i].touchState = Atlantis.TouchLocationState.Invalid;
+		}
+		else {
+			that._states.length = size;
+
+			for (var i = 0; i &lt; size; i++) {
+				wrapEvent(i, event);
 			}
 		}
 	};
-
-	domElement.addEventListener(&quot;touchstart&quot;, onTouchHandler, false);
-	domElement.addEventListener(&quot;touchmove&quot;, onTouchHandler, false);
-	domElement.addEventListener(&quot;touchend&quot;, onTouchHandler, false);
-	domElement.addEventListener(&quot;touchcancel&quot;, onTouchHandler, false);
+	
+	var onPointerHandler = function (event) {
+		event.preventDefault();
+		wrapEvent(0, event);
+	};
+	
+	// IE11+
+	if (window.PointerEvent) {
+		domElement.addEventListener(&quot;pointerdown&quot;, onPointerHandler, false);
+		domElement.addEventListener(&quot;pointermove&quot;, onPointerHandler, false);
+		domElement.addEventListener(&quot;pointerend&quot;, onPointerHandler, false);
+		domElement.addEventListener(&quot;pointercancel&quot;, onPointerHandler, false);
+	}
+	else {
+		domElement.addEventListener(&quot;touchstart&quot;, onTouchHandler, false);
+		domElement.addEventListener(&quot;touchmove&quot;, onTouchHandler, false);
+		domElement.addEventListener(&quot;touchend&quot;, onTouchHandler, false);
+		domElement.addEventListener(&quot;touchcancel&quot;, onTouchHandler, false);
+	}
 };
 
 /**
@@ -289,7 +329,7 @@ Atlantis.TouchPanel = function (domElement) {
  * @return {Object} Return an object which contains touch panel capabilities.
  */
 Atlantis.TouchPanel.prototype.getCapabilities = function () {
-    return { hasTouch: !!(&quot;ontouchstart&quot; in window) || !!(&quot;onmsgesturechange&quot; in window)  }
+    return { hasTouch: !!(&quot;ontouchstart&quot; in window) || !!(&quot;ongesturechange&quot; in window)  }
 };
 
 /** 
@@ -300,7 +340,7 @@ Atlantis.TouchPanel.prototype.getCapabilities = function () {
            otherwise it return an Atlantis.TouchPanelState of the finger id passed in parameter.
  */
 Atlantis.TouchPanel.prototype.getState = function (id) {
-	if (typeof(id) === &quot;number&quot;) { 
+	if (typeof(id) === &quot;number&quot;) {
 		return new Atlantis.TouchPanelState(this._states[id] ? this._states[id] : {}) ;
 	}
 	else {
