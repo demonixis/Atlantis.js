@@ -24,8 +24,8 @@ Atlantis.Game = (function () {
         this.settings = params || {};
         this.settings.webGL = false; // FIXME
         
-        var width = width || window.innerWidth || 640;
-        var height = height || window.innerHeight || 480;
+        var width = width || window.innerWidth;
+        var height = height || window.innerHeight;
         this.domElement = document.body;
         
         if (typeof(domElement) instanceof HTMLElement) {
@@ -66,6 +66,12 @@ Atlantis.Game = (function () {
     };
     
     game.version = "0.2a";
+
+    /**
+     * Gets the scale factor relative to the backbuffer.
+     * @property {Atlantis.Vector2} scaleFactor
+     */
+    game.scaleFactor = new Atlantis.Vector2(1, 1);
 
     game.prototype._internalIntialize = function () {
         this.frontBuffer = this.graphicsDevice.getFrontBuffer();

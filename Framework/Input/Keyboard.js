@@ -80,7 +80,7 @@ Atlantis.Keyboard = function (maxKeys) {
     document.addEventListener("keyup", onKeyStateChange, false);
 };
 
-Atlantis.Keyboard.preventDefault = true;
+Atlantis.Keyboard.preventDefault = false;
 
 /**
  * Gets the current state of the keyboard.

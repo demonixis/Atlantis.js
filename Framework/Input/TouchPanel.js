@@ -68,6 +68,9 @@ Atlantis.TouchPanel = function (domElement) {
 			that._states[id].y = event.clientY - domElement.offsetTop;
 		}
 
+		that._states[id].x *= Atlantis.Game.scaleFactor.x;
+		that._states[id].y *= Atlantis.Game.scaleFactor.y;
+
 		if (event.type == "pointerdown" || event.type == "touchstart") {
 			that._states[id].touchState = Atlantis.TouchLocationState.Pressed;
 		}

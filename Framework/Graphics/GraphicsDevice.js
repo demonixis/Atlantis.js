@@ -90,6 +90,9 @@ Atlantis.GraphicsDevice.prototype.applyChanges = function () {
         this.viewport.height = this.preferredBackBufferHeight;
     }
     
+    Atlantis.Game.scaleFactor.x = this.preferredBackBufferWidth / this._frontBuffer.getWidth();
+    Atlantis.Game.scaleFactor.y = this.preferredBackBufferHeight / this._frontBuffer.getHeight();
+
     Atlantis.notify(Atlantis.events.ResolutionChanged, { width: this.preferredBackBufferWidth, height: this.preferredBackBufferHeight });
 };
 

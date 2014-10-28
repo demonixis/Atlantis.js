@@ -75,24 +75,21 @@ Atlantis.Mouse = function (domElement) {
 	};
 
 	var onMouseEvent = function (event) {
-        if (that.preventDefault)
-            event.preventDefault();
-        
-		that._x = event.pageX - domElement.offsetLeft;
-		that._y = event.pageY - domElement.offsetTop;
+		that._x = (event.pageX - domElement.offsetLeft) * Atlantis.Game.scaleFactor.x;
+		that._y = (event.pageY - domElement.offsetTop) * Atlantis.Game.scaleFactor.y;
+
+		if (event.type === "mousemove" || event.type === "pointermove") {
+			return;
+		}
 
 		resetButtonState();
-        
+     
 		if ((event.type === "mousedown") || (event.type === "pointerdown")) {
 			that._buttons[event.button] =  true;
 		}
 		else {
 			that._buttons[event.button] = false;
 		}
-
-        if (event.button > 0 && event.type === "mousemove") {
-            that._buttons[event.button] = true;
-        }
 	};
 
 	var onMouseScroll = function (event) {
@@ -111,7 +108,7 @@ Atlantis.Mouse = function (domElement) {
 		domElement.addEventListener("mouseup", onMouseEvent, false);
 	}
 
-	domElement.addEventListener("click", onMouseEvent, false);
+	//domElement.addEventListener("click", onMouseEvent, false);
 	domElement.addEventListener("mousewheel", onMouseScroll, false);
 	domElement.addEventListener("DOMMouseScroll", onMouseScroll, false);
 };
