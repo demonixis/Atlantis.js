@@ -8,6 +8,14 @@
 var Atlantis = window.Atlantis || {};
 
 
+/**
+ * An enumeration to define the scale mode
+ * - ScaleToFit: Take all the space on the screen.
+ * - ConserveAspectRatio: Take the maximum space but conserve the ratio.
+ * - NoScaleCenter: Center the content on the screen.
+ *
+ * @static
+ */
 Atlantis.ScaleMode = {
     ScaleToFit: 0, ConserveAspectRatio: 1, NoScaleCenter: 2
 };

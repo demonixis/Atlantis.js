@@ -96,6 +96,10 @@ Atlantis.GameApplication.prototype.initialize = function () {
     var keyboardComponent = new Atlantis.KeyboardComponent(this);
     this.components.add(keyboardComponent);
 
+    var touchComponent = new Atlantis.TouchComponent(this);
+    this.components.add(touchComponent);
+
     Atlantis.input.keys = keyboardComponent;
+    Atlantis.input.touch = touchComponent;
 };
 

@@ -150,6 +150,16 @@ Atlantis.TouchPanel.prototype.getState = function (id) {
 			states.push(new Atlantis.TouchPanelState(this._states[i]));
 		}
 
+		states.clone = function () {
+			var _states = [];
+
+			for (var i = 0, l = this.length; i < l; i++) {
+				_states.push(this[i].clone());
+			}
+
+			return _states;
+		};
+
 		return states;
 	}
 };

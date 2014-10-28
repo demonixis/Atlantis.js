@@ -220,9 +220,14 @@
             };
 
             var FlappyGame = function () {
-                Atlantis.GameApplication.call(this, 288, 576);
+                Atlantis.GameApplication.call(this);
 
                 Atlantis.app.storage.container = "atlantis.demo.badlybird";
+
+                this.graphicsDevice.scaleMode = Atlantis.ScaleMode.ConserveAspectRatio;
+                this.graphicsDevice.preferredBackBufferWidth = 288;
+                this.graphicsDevice.preferredBackBufferHeight = 576;
+                this.graphicsDevice.applyChanges();
 
                 this.content.rootDirectory = "Content/";
                 this.content.preloader.push("background.png");
