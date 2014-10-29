@@ -51,8 +51,8 @@ Atlantis.TouchCollection.prototype.clone = function () {
  * @param {Object} panelState An object that contains states and position of the touch event.
  */
 Atlantis.TouchPanelState = function (panelState) {
-	this.state = panelState.touchState || Atlantis.TouchLocationState.Invalid;
-	this.position = new Atlantis.Vector2(+panelState.x|0, +panelState.y|0);
+	this.state = panelState.state || Atlantis.TouchLocationState.Invalid;
+	this.position = panelState.position ? panelState.position : new Atlantis.Vector2(0, 0);
 };
 
 /**
@@ -61,7 +61,7 @@ Atlantis.TouchPanelState = function (panelState) {
  * @return {Atlantis.TouchPanelState} Return a clone of this instance.
  */
 Atlantis.TouchPanelState.prototype.clone = function () {
-	return new Atlantis.TouchPanelState({ touchState: this.state, x: this.position.x, y: this.position.y });
+	return new Atlantis.TouchPanelState({ state: this.state, position: { x: this.position.x, y: this.position.y } });
 };
 
 /**
@@ -71,54 +71,54 @@ Atlantis.TouchPanelState.prototype.clone = function () {
  * @param {HTMLElement} The DOM element to use for events (default is document.body).
  */
 Atlantis.TouchPanel = function (domElement) {
-	this._states = [];
+	this._states = [
+		new Atlantis.TouchPanelState({}),
+		new Atlantis.TouchPanelState({}),
+		new Atlantis.TouchPanelState({})
+	];
 
 	var that = this;
 
 	var wrapEvent = function (id, event) {		
 		if (!that._states[id]) {
-			that._states[id] = { x: 0, y: 0, touchState: Atlantis.TouchLocationState.Invalid };
+			that._states[id] = new Atlantis.TouchPanelState();
 		}
 		
 		if (event.touches) {
-			that._states[id].x = event.touches[id].pageX - domElement.offsetLeft;
-			that._states[id].y = event.touches[id].pageY - domElement.offsetTop;
+			that._states[id].position.x = event.touches[id].pageX - domElement.offsetLeft;
+			that._states[id].position.y = event.touches[id].pageY - domElement.offsetTop;
 		}
 		else {
-			that._states[id].x = event.clientX - domElement.offsetLeft;
-			that._states[id].y = event.clientY - domElement.offsetTop;
+			that._states[id].position.x = event.clientX - domElement.offsetLeft;
+			that._states[id].position.y = event.clientY - domElement.offsetTop;
 		}
 
-		that._states[id].x *= Atlantis.Game.scaleFactor.x;
-		that._states[id].y *= Atlantis.Game.scaleFactor.y;
+		that._states[id].position.x *= Atlantis.Game.scaleFactor.x;
+		that._states[id].position.y *= Atlantis.Game.scaleFactor.y;
 
 		if (event.type == "pointerdown" || event.type == "touchstart") {
-			that._states[id].touchState = Atlantis.TouchLocationState.Pressed;
+			that._states[id].state = Atlantis.TouchLocationState.Pressed;
 		}
 		else if (event.type == "pointermove" || event.type == "touchmove") {
 			event.preventDefault();
-			that._states[id].touchState = Atlantis.TouchLocationState.Moved;
+			that._states[id].state = Atlantis.TouchLocationState.Moved;
 		}
 		else if (event.type == "pointerup" || event.type == "touchend") {
-			that._states[id].touchState = Atlantis.TouchLocationState.Released;
+			that._states[id].state = Atlantis.TouchLocationState.Released;
 		}
 		else { 
-			that._states[id].touchState = Atlantis.TouchLocationState.Invalid;
+			that._states[id].state = Atlantis.TouchLocationState.Invalid;
 		}
 	};
 	
 	var onTouchHandler = function (event) {
-		var size = event.touches.length;
-
-		if (!size && (event.type === "touchend" || event.type === "touchcancel")) {
+		if (event.type === "touchend" || event.type === "touchcancel") {
 			for (var i = 0, l = that._states.length; i < l; i++) {
-				that._states[i].touchState = Atlantis.TouchLocationState.Released;
+				that._states[i].state = event.type === "touchend" ? Atlantis.TouchLocationState.Released : Atlantis.TouchLocationState.Invalid;
 			}
 		}
 		else {
-			that._states.length = size;
-
-			for (var i = 0; i < size; i++) {
+			for (var i = 0, l = event.touches.length; i < l; i++) {
 				wrapEvent(i, event);
 			}
 		}
@@ -128,7 +128,7 @@ Atlantis.TouchPanel = function (domElement) {
 		event.preventDefault();
 		wrapEvent(0, event);
 	};
-	
+
 	// IE11+
 	if (window.PointerEvent) {
 		domElement.addEventListener("pointerdown", onPointerHandler, false);

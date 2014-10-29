@@ -50,7 +50,6 @@
         <script src="../../Engine/Graphics/Tilemap.js"></script>
         <script src="../../Engine/Graphics/TmxLoader.js"></script>
         <script src="../../Engine/Input/KeyboardComponent.js"></script>
-        <script src="../../Engine/Input/TouchComponent.js"></script>
         <script src="../../Engine/Level.js"></script>
         <script src="../../Engine/GameApplication.js"></script>
 
@@ -112,9 +111,20 @@
             PlayState.prototype.update = function (gameTime) {
                 Atlantis.Level.prototype.update.call(this, gameTime);
 
+                var touchState = Atlantis.app.game.touchPanel.getState(0);
+
+                if (!this._lastTouch) {
+                    this._lastTouch = { x: touchState.position.x, y: touchState.position.y };
+                    this._delta = { x: 0, y: 0 };
+                }
+
+                this._delta.x = touchState.position.x - this._lastTouch.x;
+                this._delta.y = touchState.position.y - this._lastTouch.y;
+                this._lastTouch.x = touchState.position.x;
+                this._lastTouch.y = touchState.position.y;
+
                 if (this.gameStatus === GameStatus.Menu) { 
-                    var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Enter) ||
-                         Atlantis.input.touch.pressed(0);
+                    var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Enter) || touchState.state === Atlantis.TouchLocationState.Pressed;
 
                     if (validateKey) {
                         this.restartLevel();
@@ -177,8 +187,8 @@
                         this.player.velocity.x += 1.5;
                     }
 
-                    this.player.velocity.x += Atlantis.input.touch.delta.x * gameTime.getElapsedTime() * 0.01;
-                    this.player.velocity.y += Atlantis.input.touch.delta.y * gameTime.getElapsedTime() * 0.01;
+                    this.player.velocity.x += this._delta.x * gameTime.getElapsedTime() * 0.01;
+                    this.player.velocity.y += this._delta.y * gameTime.getElapsedTime() * 0.01;
 
                     if (loose) {
                         this.showTitle();

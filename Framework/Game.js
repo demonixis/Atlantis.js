@@ -159,6 +159,7 @@ Atlantis.Game = (function () {
             that.initialize();
             that.initialized = true;
             that.loadContent();
+            that.frontBuffer.getCanvas().focus();
             mainLoop();
         };
 

@@ -94,7 +94,7 @@ Atlantis.Mouse = function (domElement) {
 
 	var onMouseScroll = function (event) {
 		that._scroll = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
-	};
+	};return;
 
 	// For MSIE 11+
 	if (window.PointerEvent) {

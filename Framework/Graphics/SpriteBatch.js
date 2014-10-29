@@ -47,10 +47,9 @@ Atlantis.SpriteBatch = function (graphicsDevice) {
     this._graphicsDevice = graphicsDevice;
 
     // Canvas used to render all item of the batch.
-    this._renderTarget = new Atlantis.RenderTarget(graphicsDevice.preferredBackBufferWidth, graphicsDevice.preferredBackBufferHeight, false);
     this._viewport = new Atlantis.Rectangle(0, 0, graphicsDevice.preferredBackBufferWidth, graphicsDevice.preferredBackBufferHeight);
-    this._canvas = this._renderTarget.getCanvas();
-    this._context = this._renderTarget.getContext();
+    this._canvas = this._graphicsDevice.getBackBuffer().getCanvas();
+    this._context = this._graphicsDevice.getBackBuffer().getContext();
 
     this._batchItems = [];
     this._batchStarted = false;
@@ -62,7 +61,6 @@ Atlantis.SpriteBatch = function (graphicsDevice) {
 };
 
 Atlantis.SpriteBatch.prototype._onResize = function (event) {
-    this._renderTarget.setSize(event.width, event.height);
     this._viewport.width = event.width;
     this._viewport.height = event.height;
 };
@@ -79,7 +77,6 @@ Atlantis.SpriteBatch.prototype.begin = function (spriteSortMode, transformMatrix
         this._batchStarted = true;
         this._transformMatrix = transformMatrix ? (transformMatrix.length === 6 ? transformMatrix : null) : null;
         this._spriteSortMode = typeof(spriteSortMode) === "number" ? spriteSortMode : Atlantis.SpriteSortMode.Immediate;
-        this._renderTarget.clear();
     }
 };
 
@@ -196,8 +193,6 @@ Atlantis.SpriteBatch.prototype.end = function () {
          }
 
         // Flush renderTarget into backbuffer
-        this._graphicsDevice.getBackBuffer().getContext().drawImage(this._canvas, 0, 0, this._viewport.width, this._viewport.height);
-      //  this._graphicsDevice.present();
         this._batchItems.length = 0;
         this._batchStarted = false;
     }
