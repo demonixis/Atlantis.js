@@ -13,10 +13,9 @@ Atlantis.TouchComponent = (function () {
     	this.sensibility = new Atlantis.Vector2(1, 1);
     	this.deadZone = new Atlantis.Vector2(0, 0);
     	this.maxDelta = 100;
-    	this.maxFingerPoints = 3; 
+    	this.maxFingerPoints = 1; 
     	this.delta = new Atlantis.Vector2(0, 0);
-    	this._touchCollection = null;
-    	this._lastTouchCollection = null;
+    	this._touchCollection = new Atlantis.TouchCollection();
     	this._position = [];
     	this._lastPosition = [];
     	this._needUpdate = false;
@@ -40,13 +39,6 @@ Atlantis.TouchComponent = (function () {
 
     touchComponent.prototype.update = function (gameTime) {
     	if (this.maxFingerPoints) {
-
-	    	if (this._needUpdate) {
-	    		this.initialize();
-	    		this._needUpdate = false;
-	    	}
-
-	    	this._lastTouchCollection = this._touchCollection.clone();
 	    	this._touchCollection = this.game.touchPanel.getState();
 
 	    	var count = this._touchCollection.length;

@@ -145,7 +145,7 @@ Atlantis.Game = (function () {
      *
      *
      */
-    game.prototype.beforeDraw = function (gameTime) {
+    game.prototype.afterDraw = function (gameTime) {
         this.graphicsDevice.present();  
     };
 
@@ -211,7 +211,7 @@ Atlantis.Game = (function () {
         _instance.gameTime.update();
         _instance.update(_instance.gameTime);
         _instance.draw(_instance.gameTime);
-        _instance.beforeDraw(_instance.gamepad);
+        _instance.afterDraw(_instance.gamepad);
         
         if (!_instance._paused) {
             requestAnimationFrame(mainLoop);

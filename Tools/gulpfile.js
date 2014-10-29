@@ -43,6 +43,7 @@ var engineFiles = [
 	"../Engine/Graphics/Tilemap.js",
 	"../Engine/Graphics/TmxLoader.js",
 	"../Engine/Input/KeyboardComponent.js",
+	"../Engine/Input/TouchComponent.js",
 	"../Engine/Level.js",
 	"../Engine/GameApplication.js"
 ];

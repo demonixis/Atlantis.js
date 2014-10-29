@@ -23,6 +23,27 @@ Atlantis.TouchLocationState = {
     Released: 4
 };
 
+Atlantis.TouchCollection = function (touchStates) {
+	Array.call(this);
+
+	var touchStates = touchStates || [];
+	for (var i = 0, l = touchStates.length; i < l; i++) {
+		this.push(new Atlantis.TouchPanelState(touchStates[i]));
+	}
+};
+
+Atlantis.TouchCollection.prototype = Object.create(Array.prototype);
+
+Atlantis.TouchCollection.prototype.clone = function () {
+	var states = [];
+
+	for (var i = 0, l = this.length; i < l; i++) {
+		states.push(this[i].clone());
+	}
+
+	return new Atlantis.TouchCollection(states);
+};
+
 /**
  * Define a touch state with a position and a touch state.
  * @class TouchPanelState
@@ -56,7 +77,7 @@ Atlantis.TouchPanel = function (domElement) {
 
 	var wrapEvent = function (id, event) {		
 		if (!that._states[id]) {
-			that._states[id] = { x: 0, y: 0, touchState: -1 };
+			that._states[id] = { x: 0, y: 0, touchState: Atlantis.TouchLocationState.Invalid };
 		}
 		
 		if (event.touches) {
@@ -136,30 +157,14 @@ Atlantis.TouchPanel.prototype.getCapabilities = function () {
  * Get the state of the touch panel at this time.
  * @method getState
  * @param {Number} id (optional) A finger id.
- * @return {Array|Atlantis.TouchPanelState} if no finger is passed, it return an array of Atlantis.TouchPanelState,
-           otherwise it return an Atlantis.TouchPanelState of the finger id passed in parameter.
+ * @return {Atlantis.TouchCollection|Atlantis.TouchPanelState} if no finger is passed, it return an array of Atlantis.TouchPanelState,
+ *         otherwise it returns an Atlantis.TouchPanelState of the finger id passed in parameter.
  */
 Atlantis.TouchPanel.prototype.getState = function (id) {
 	if (typeof(id) === "number") {
 		return new Atlantis.TouchPanelState(this._states[id] ? this._states[id] : {}) ;
 	}
 	else {
-		var states = [];
-
-		for (var i = 0, l = this._states.length; i < l; i++) {
-			states.push(new Atlantis.TouchPanelState(this._states[i]));
-		}
-
-		states.clone = function () {
-			var _states = [];
-
-			for (var i = 0, l = this.length; i < l; i++) {
-				_states.push(this[i].clone());
-			}
-
-			return _states;
-		};
-
-		return states;
+		return new Atlantis.TouchCollection(this._states);
 	}
 };
