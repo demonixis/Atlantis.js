@@ -14,7 +14,6 @@
         <div id="gameContainer"></div>
         <!-- Engine -->
         <script src="../../Build/Atlantis.min.js"></script>
-
         <script>
             var GameStatus = {
                 Menu: 0, Playing: 1
@@ -74,7 +73,10 @@
                 Atlantis.Level.prototype.update.call(this, gameTime);
 
                 if (this.gameStatus === GameStatus.Menu) { 
-                    if (Atlantis.input.keys.justPressed(Atlantis.Keys.Enter)) {
+                    var validateKey = Atlantis.input.keys.justPressed(Atlantis.Keys.Enter) ||
+                         Atlantis.input.touch.pressed(0);
+
+                    if (validateKey) {
                         this.restartLevel();
                     }
                 }
@@ -134,6 +136,9 @@
                     else if (Atlantis.input.keys.pressed(Atlantis.Keys.Right)) {
                         this.player.velocity.x += 1.5;
                     }
+
+                    this.player.velocity.x += Atlantis.input.touch.delta.x * gameTime.getElapsedTime() * 0.01;
+                    this.player.velocity.y += Atlantis.input.touch.delta.y * gameTime.getElapsedTime() * 0.01;
 
                     if (loose) {
                         this.showTitle();
@@ -212,7 +217,7 @@
             };
 
             var MadRoadGame = function () {
-                Atlantis.GameApplication.call(this, 360, 480);
+                Atlantis.GameApplication.call(this);
                 
                 // Define the container name for saves.
                 Atlantis.app.storage.container = "atlantis.demo.jsmadroad";
@@ -235,6 +240,14 @@
                 // Double the render size.
                 this.graphicsDevice.preferredBackBufferWidth = 180;
                 this.graphicsDevice.preferredBackBufferHeight = 240;
+                
+                if (window.innerWidth < window.innerHeight) {
+                    this.graphicsDevice.scaleMode = Atlantis.ScaleMode.ScaleToFit;
+                }
+                else {
+                    this.graphicsDevice.getFrontBuffer().setSize(360, 480);
+                }
+                
                 this.graphicsDevice.applyChanges();
             };
             MadRoadGame.prototype = Object.create(Atlantis.GameApplication.prototype);
