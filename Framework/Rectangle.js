@@ -18,18 +18,10 @@ var Atlantis = Atlantis || {};
  * @param {Number} height A value for the height of the rectangle
  */
 Atlantis.Rectangle = function (x, y, width, height) {
-    if (x instanceof Atlantis.Rectangle) {
-        this.x = x.x;
-        this.y = x.y;
-        this.width = x.width;
-        this.height = x.height;
-    }
-    else {
-        this.x = x || 0;
-        this.y = y || 0;
-        this.width = width || 0;
-        this.height = height || 0;
-    }
+    this.x = x || 0;
+    this.y = y || 0;
+    this.width = width || 0;
+    this.height = height || 0;
 };
 
 /**
@@ -54,6 +46,13 @@ Atlantis.Rectangle.prototype.divide = function (rectangle) {
     this.y /= rectangle.y;
     this.width /= rectangle.width;
     this.height /= rectangle.height;
+};
+
+Atlantis.Rectangle.prototype.fromRectangle = function (rectangle) {
+    this.x = rectangle.x|0;
+    this.y = rectangle.y|0;
+    this.width = rectangle.width|0;
+    this.height = rectangle.height|0;
 };
 
 /**

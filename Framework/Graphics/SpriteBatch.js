@@ -56,6 +56,7 @@ Atlantis.SpriteBatch = function (graphicsDevice) {
     this._spriteSortMode = Atlantis.SpriteSortMode.Immediate;
     this._transformMatrix = null;
     this._cacheColoredTextures = [];
+    this._batchRect = new Atlantis.Rectangle();
     
     document.addEventListener(Atlantis.events.ResolutionChanged, this._onResize.bind(this), false);
 };
@@ -75,33 +76,90 @@ Atlantis.SpriteBatch.prototype._onResize = function (event) {
 Atlantis.SpriteBatch.prototype.begin = function (spriteSortMode, transformMatrix) {
     if (!this._batchStarted) {
         this._batchStarted = true;
-        this._transformMatrix = transformMatrix ? (transformMatrix.length === 6 ? transformMatrix : null) : null;
         this._spriteSortMode = typeof(spriteSortMode) === "number" ? spriteSortMode : Atlantis.SpriteSortMode.Immediate;
+
+        if (this._transformMatrix) {
+            this._context.save();
+            
+            this._context.transform(
+                this._transformMatrix[0], this._transformMatrix[1], this._transformMatrix[2],
+                this._transformMatrix[3], this._transformMatrix[4], this._transformMatrix[5]);
+        }
     }
 };
 
-Atlantis.SpriteBatch.prototype._sortBatchItem = function (itemA, itemB) {
-    if (this._spriteSortMode === Atlantis.SpriteSortMode.BackToFront) {
-        if (+itemA.layerDepth > +itemB.layerDepth) {
-            return 1;   
+/**
+ * Draw a texture on the screen
+ * @method draw
+ * @param {Image} The image or canvas to draw.
+ * @param {Atlantis.Rectangle|Atlantis.Vector2} The position or the rectangle of the image.
+ * @param {Atlantis.Rectangle} A source rectangle.
+ * @param {String} A color to apply on the image in hex format.
+ * @param {Number} Rotation of the image.
+ * @param {Atlantis.Vector2} Origin of the image (defaut is 0, 0 on top/left).
+ * @param {Atlantis.Vector2} Scale of the image (default is 1/1);
+ * @param {Atlantis.SpriteEffect} An effect to apply (default is none).
+ * @param {Number} The layer depth (Important when SpriteSortMode is set to BackToFront or FrontToBack).
+ */
+Atlantis.SpriteBatch.prototype.draw = function (texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth) {
+    if (this._batchStarted) {
+        if (!destinationRectangle.width) {
+            destinationRectangle.width = texture2D.width;
+            destinationRectangle.height = texture2D.height;
         }
-        
-        if (+itemA.layerDepth < +itemB.layerDepth) {
-            return -1;   
+
+        if (this._spriteSortMode == Atlantis.SpriteSortMode.Immediate) {
+            this._drawBatchItem(texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth, Atlantis.BatchItemType.Texture);
         }
-        
-        return 0;
+        else {
+            this._batchItems.push({ 
+                type: Atlantis.BatchItemType.Texture, 
+                texture2D: texture2D, 
+                sourceRectangle: sourceRectangle, 
+                destinationRectangle: destinationRectangle, 
+                color: color, 
+                rotation: rotation,
+                origin: origin, 
+                scale: scale,
+                effect: effect ? effect : Atlantis.SpriteEffect.None, 
+                layerDepth: +layerDepth|0 
+            });
+        }
     }
-    else {
-        if (+itemA.layerDepth < +itemB.layerDepth) {
-            return 1;   
+};
+
+/**
+ * Draw a string on the screen
+ * @method drawString
+ * @param {Atlantis.SpriteFont} The SpriteFont to use.
+ * @param {String} The string to draw.
+ * @param {Atlantis.Vector2} The position of the string.
+ * @param {String} The color of the string in hex format.
+ * @param {Number} Rotation of the image.
+ * @param {Atlantis.Vector2} Origin of the image (defaut is 0, 0 on top/left).
+ * @param {Atlantis.Vector2} Scale of the image (default is 1/1);
+ * @param {Atlantis.SpriteEffect} An effect to apply (default is none).
+ * @param {Number} The layer depth (Important when SpriteSortMode is set to BackToFront or FrontToBack).
+ */
+Atlantis.SpriteBatch.prototype.drawString = function (spriteFont, text, position, color, rotation, origin, scale, effect, layerDepth) {
+    if (this._batchStarted) {
+        if (this._spriteSortMode === Atlantis.SpriteSortMode.Immediate) {
+            this._drawBatchItem(spriteFont, position, text, color, rotation, origin, scale, effect, layerDepth, Atlantis.BatchItemType.Font);
         }
-        
-        if (+itemA.layerDepth > +itemB.layerDepth) {
-            return -1;   
+        else {
+            this._batchItems.push({ 
+                type: Atlantis.BatchItemType.Font, 
+                texture2D: spriteFont, 
+                sourceRectangle: text, 
+                destinationRectangle: { x: position.x, y: position.y, width: 1, height: 1 }, 
+                color: color, 
+                rotation: rotation,
+                origin: origin, 
+                scale: scale,
+                effect: effect ? effect : Atlantis.SpriteEffect.None, 
+                layerDepth: +layerDepth|0 
+            });   
         }
-        
-        return 0;
     }
 };
 
@@ -111,89 +169,20 @@ Atlantis.SpriteBatch.prototype._sortBatchItem = function (itemA, itemB) {
  */
 Atlantis.SpriteBatch.prototype.end = function () {
     if (this._batchStarted) {
-        var item = {};
-        var that = this;
-
         if (this._spriteSortMode !== Atlantis.SpriteSortMode.Immediate) {
             this._batchItems = this._batchItems.sort(this._sortBatchItem.bind(this));
-        }
-        
-        var fX, fY, fWidth, fHeight;
-        var oX, oY;
-        var testRectangle = new Atlantis.Rectangle();
-
-        if (this._transformMatrix) {
-            this._context.save();
             
-            this._context.transform(
-                this._transformMatrix[0], this._transformMatrix[1], this._transformMatrix[2],
-                this._transformMatrix[3], this._transformMatrix[4], this._transformMatrix[5]);
-        }
-        
-        for (var i = 0, l = this._batchItems.length; i < l; i++) {
-            item = this._batchItems[i];
-            
-            fX = item.destinationRectangle.x;
-            fY = item.destinationRectangle.y;
-            fWidth = item.destinationRectangle.width;
-            fHeight = item.destinationRectangle.height;
-            
-            // If the entity is visible on the screen.   
-            testRectangle.set(fX, fY, fWidth, fHeight);
-            if (this._viewport.intersects(testRectangle)) {
-                oX = item.origin ? item.origin.x : 0;
-                oY = item.origin ? item.origin.y : 0;
-       
-                this._context.save();
-
-                this._context.translate(item.destinationRectangle.x, item.destinationRectangle.y);
-                this._context.translate(oX, oY);
-                fX = -oX;
-                fY = -oY;
-
-                if (item.rotation) {
-                    this._context.rotate(item.rotation);    
-                }
-
-                if (item.scale) {
-                    this._context.scale(item.scale.x, item.scale.y);   
-                }
-
-                if (item.effect != Atlantis.SpriteEffect.None) {
-                    if (item.effect == Atlantis.SpriteEffect.FlipHorizontaly) {
-                        this._context.scale(-1, 1);
-                        fX -= item.destinationRectangle.width;
-                    }
-                    else {
-                        this._context.scale(1, -1);   
-                        fY -= item.destinationRectangle.height; 
-                    }
-                }
-
-                if (item.type === Atlantis.BatchItemType.Texture) { 
-                    if (item.color && item.texture2D.width && item.texture2D.height) {
-                        Atlantis.SpriteBatch.drawTexture(this._context, this._colorizeTexture(item.texture2D, item.color), fX, fY, fWidth, fHeight, item.sourceRectangle);  
-                    }
-                    else {
-                        Atlantis.SpriteBatch.drawTexture(this._context, item.texture2D, fX, fY, fWidth, fHeight, item.sourceRectangle); 
-                    }
-                }
-                else if (item.type === Atlantis.BatchItemType.Font) {
-                    this._context.fillStyle = item.color;
-                    this._context.font = item.spriteFont.getFont();
-                    this._context.fillText(item.text, fX, fY);
-                }
-
-                this._context.restore();
+            for (var i = 0, l = this._batchItems.length; i < l; i++) {
+                this._drawBatchItem(this._batchItems[i].texture2D, this._batchItems[i].destinationRectangle, this._batchItems[i].sourceRectangle, this._batchItems[i].color, this._batchItems[i].rotation, this._batchItems[i].origin, this._batchItems[i].scale, this._batchItems[i].effect, this._batchItems[i].layerDepth, this._batchItems[i].type);
             }
+
+            this._batchItems.length = 0;
         }
         
-         if (this._transformMatrix) {
+        if (this._transformMatrix) {
             this._context.restore();
-         }
+        }
 
-        // Flush renderTarget into backbuffer
-        this._batchItems.length = 0;
         this._batchStarted = false;
     }
 };
@@ -219,68 +208,61 @@ Atlantis.SpriteBatch.drawTexture  = function (context, texture, x, y, width, hei
     }
 };
 
-/**
- * Draw a texture on the screen
- * @method draw
- * @param {Image} The image or canvas to draw.
- * @param {Atlantis.Rectangle|Atlantis.Vector2} The position or the rectangle of the image.
- * @param {Atlantis.Rectangle} A source rectangle.
- * @param {String} A color to apply on the image in hex format.
- * @param {Number} Rotation of the image.
- * @param {Atlantis.Vector2} Origin of the image (defaut is 0, 0 on top/left).
- * @param {Atlantis.Vector2} Scale of the image (default is 1/1);
- * @param {Atlantis.SpriteEffect} An effect to apply (default is none).
- * @param {Number} The layer depth (Important when SpriteSortMode is set to BackToFront or FrontToBack).
- */
-Atlantis.SpriteBatch.prototype.draw = function (texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth) {
-    if (this._batchStarted) {
-        if (!destinationRectangle.width) {
-            destinationRectangle.width = texture2D.width;
-            destinationRectangle.height = texture2D.height;
-        }
-
-        this._batchItems.push({ 
-            type: Atlantis.BatchItemType.Texture, 
-            texture2D: texture2D, 
-            sourceRectangle: sourceRectangle, 
-            destinationRectangle: destinationRectangle, 
-            color: color, 
-            rotation: rotation,
-            origin: origin, 
-            scale: scale,
-            effect: effect ? effect : Atlantis.SpriteEffect.None, 
-            layerDepth: (typeof(layerDepth) === "number") ? layerDepth : 0 
-        });
-    }
+Atlantis.SpriteBatch.drawString = function (context, spriteFont, text, position, color) {
+    context.fillStyle = color;
+    context.font = spriteFont.getFont();
+    context.fillText(text, position.x, position.y);
 };
 
-/**
- * Draw a string on the screen
- * @method drawString
- * @param {Atlantis.SpriteFont} The SpriteFont to use.
- * @param {String} The string to draw.
- * @param {Atlantis.Vector2} The position of the string.
- * @param {String} The color of the string in hex format.
- * @param {Number} Rotation of the image.
- * @param {Atlantis.Vector2} Origin of the image (defaut is 0, 0 on top/left).
- * @param {Atlantis.Vector2} Scale of the image (default is 1/1);
- * @param {Atlantis.SpriteEffect} An effect to apply (default is none).
- * @param {Number} The layer depth (Important when SpriteSortMode is set to BackToFront or FrontToBack).
- */
-Atlantis.SpriteBatch.prototype.drawString = function (spriteFont, text, position, color, rotation, origin, scale, effect, layerDepth) {
-    if (this._batchStarted) {
-        this._batchItems.push({ 
-            type: Atlantis.BatchItemType.Font, 
-            spriteFont: spriteFont, 
-            text: text, 
-            destinationRectangle: { x: position.x, y: position.y, width: 1, height: 1 }, 
-            color: color, 
-            rotation: rotation,
-            origin: origin, 
-            scale: scale,
-            effect: effect ? effect : Atlantis.SpriteEffect.None, 
-            layerDepth: (typeof(layerDepth) === "number") ? layerDepth : 0 
-        });   
+Atlantis.SpriteBatch.prototype._drawBatchItem = function (texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth, type) {                
+    // If the entity is visible on the screen.   
+    this._batchRect.fromRectangle(destinationRectangle);
+
+    if (this._viewport.intersects(this._batchRect)) {
+        var oX = origin ? origin.x : 0;
+        var oY = origin ? origin.y : 0;
+
+        this._context.save();
+
+        this._context.translate(destinationRectangle.x, destinationRectangle.y);
+        this._context.translate(oX, oY);
+        this._batchRect.x = -oX;
+        this._batchRect.y = -oY;
+
+        if (rotation) {
+            this._context.rotate(rotation);    
+        }
+
+        if (scale) {
+            this._context.scale(scale.x, scale.y);   
+        }
+
+        if (effect && effect !== Atlantis.SpriteEffect.None) {
+            if (effect == Atlantis.SpriteEffect.FlipHorizontaly) {
+                this._context.scale(-1, 1);
+                this._batchRect.x -= this._batchRect.width;
+            }
+            else {
+                this._context.scale(1, -1);   
+                this._batchRect.y -= this._batchRect.height; 
+            }
+        }
+
+        if (type === Atlantis.BatchItemType.Texture) { 
+            if (color && texture2D.width && texture2D.height) {
+                Atlantis.SpriteBatch.drawTexture(this._context, this._colorizeTexture(texture2D, color), this._batchRect.x, this._batchRect.y, this._batchRect.width, this._batchRect.height, sourceRectangle);  
+            }
+            else {
+                Atlantis.SpriteBatch.drawTexture(this._context, texture2D, this._batchRect.x, this._batchRect.y, this._batchRect.width, this._batchRect.height, sourceRectangle); 
+            }
+        }
+        else if (type === Atlantis.BatchItemType.Font) {
+            // Because JavaScript is so Magic..
+            // The prototype become (spriteFont, position, text, color)
+            Atlantis.SpriteBatch.drawString(this._context, texture2D, sourceRectangle, this._batchRect, color); 
+        }
+
+        this._context.restore();
     }
 };
 
@@ -352,4 +334,29 @@ Atlantis.SpriteBatch.prototype._searchColoredTexture = function(texture, color) 
     }
 
     return canvas;
+};
+
+Atlantis.SpriteBatch.prototype._sortBatchItem = function (itemA, itemB) {
+    if (this._spriteSortMode === Atlantis.SpriteSortMode.BackToFront) {
+        if (+itemA.layerDepth > +itemB.layerDepth) {
+            return 1;   
+        }
+        
+        if (+itemA.layerDepth < +itemB.layerDepth) {
+            return -1;   
+        }
+        
+        return 0;
+    }
+    else {
+        if (+itemA.layerDepth < +itemB.layerDepth) {
+            return 1;   
+        }
+        
+        if (+itemA.layerDepth > +itemB.layerDepth) {
+            return -1;   
+        }
+        
+        return 0;
+    }
 };
