@@ -25,6 +25,8 @@ Atlantis.RenderTarget = function (width, height, is3D, canvas) {
     }
     
     this._context = null;
+    this._data = null;
+    this._needUpdate = false;
     
     if (is3D) {
         this._context = this._canvas.getContext("webgl") || this._canvas.getContext("experimental-webgl");
@@ -38,6 +40,12 @@ Atlantis.RenderTarget = function (width, height, is3D, canvas) {
     };
    
     this.setSize(width, height);
+};
+
+Atlantis.RenderTarget.fromImage = function (image) {
+    var rt = new Atlantis.RenderTarget(image.width, image.height, false);
+    rt._context.drawImage(image, 0, 0, image.width, image.height);
+    return rt;
 };
 
 /**
@@ -55,8 +63,15 @@ Atlantis.RenderTarget.prototype.setData = function (imageData) {
 * @return {Object} Return the ImageData of the context.
 */
 Atlantis.RenderTarget.prototype.getData = function () {
-    var imageData = this._context.getImageData(0, 0, this.viewport.width, this.viewport.height);
-    return imageData;
+    if (!this._data || this._needUpdate) {
+        this._data = this._context.getImageData(0, 0, this._canvas.width, this._canvas.height);
+    }
+    return this._data;
+};
+
+Atlantis.RenderTarget.prototype.getPixelData = function (x, y) {
+    var color = this._context.getImageData(x, y, 1, 1).data;
+    return { r: color[0], g: color[1], b: color[2], a: color[3] };
 };
 
 /**
