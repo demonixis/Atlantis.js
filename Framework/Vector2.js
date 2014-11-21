@@ -118,7 +118,7 @@ Atlantis.Vector2.add = function (vec1, vec2) {
 * @param {Atlantis.Vector2} value A vector or a value to subtract to this vector.
 */
 Atlantis.Vector2.prototype.subtract = function (value) {
-    if (value instanceof Atlantis.Vector2) {
+    if (typeof(value.x) !== "undefined") {
         this.x -= value.x;
         this.y -= value.y;
     }
@@ -332,12 +332,9 @@ Atlantis.Vector2.negate = function (vector) {
 * @method normalize
 */
 Atlantis.Vector2.prototype.normalize = function () {
-    var factor = Atlantis.Vector3.distance(this, new Vector3());
-
-    if (factor != 0) {
-        factor = 1.0 / factor;
-        this.set(this.x * factor, this.y * factor, this.z * factor);
-    }
+    var value = 1.0 / Math.sqrt((this.x * this.x) + (this.y * this.y));
+    this.x *= value;
+    this.y *= value;
 };
 
 /** Gets a normalized vector.
@@ -347,7 +344,7 @@ Atlantis.Vector2.prototype.normalize = function () {
 * @param {Atlantis.Vector2} A vector to normalize.
 */
 Atlantis.Vector2.normalize = function (vector) {
-    var vec = new vector2(vector);
+    var vec = new Atlantis.Vector2(vector);
     vec.normalize();
     return vec;
 };

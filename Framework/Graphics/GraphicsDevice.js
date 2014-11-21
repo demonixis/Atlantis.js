@@ -36,9 +36,13 @@ Atlantis.GraphicsDevice = function (width, height, settings) {
     
     this.preferredBackBufferWidth = settings.backBufferWidth || width;
     this.preferredBackBufferHeight = settings.backBufferHeight || height;
+
+    this.disableSmoothing = false;
+    this.forceDisableSmoothing = false;
   
     this.viewport = new Atlantis.Rectangle();
     this.scaleMode = Atlantis.ScaleMode.ScaleToFit;
+    this._backBufferCache = document.createElement("canvas");
     
     if (width && height) {
         // The front buffer (what you see).
@@ -137,7 +141,55 @@ Atlantis.GraphicsDevice.prototype.clear = function (color) {
  * @method present
  */
 Atlantis.GraphicsDevice.prototype.present = function () {
-    this._fbContext.drawImage(this._bbCanvas, this.viewport.x, this.viewport.y, this.viewport.width, this.viewport.height);
+    if (this.disableSmoothing) {
+        this._fbContext.imageSmoothingEnabled = false;
+    }
+
+    if (this.forceDisableSmoothing) {
+        this._backBufferCache = this._resizePixelCanvas(this._bbCanvas, { x: Atlantis.Game.scaleFactor.x, y: Atlantis.Game.scaleFactor.y });
+    }
+    else {
+        this._backBufferCache = this._bbCanvas;
+    }
+
+    this._fbContext.drawImage(this._backBufferCache, this.viewport.x, this.viewport.y, this.viewport.width, this.viewport.height);
+};
+
+/**
+ * Scale an image to the desired size without pixel interpolation.
+ * Code from http://phoboslab.org/log/2012/09/drawing-pixels-is-hard
+ * @method _resizePixelCanvas
+ * @param {Image|HTMLCanvas} image The image to scale
+ */
+Atlantis.GraphicsDevice.prototype._resizePixelCanvas = function(image) {
+    // Takes an image and a scaling factor and returns the scaled image
+    
+    // The original image is drawn into an offscreen canvas of the same size
+    // and copied, pixel by pixel into another offscreen canvas with the 
+    // new size.
+    
+    var widthScaled = image.width / Atlantis.Game.scaleFactor.x;
+    var heightScaled = image.height / Atlantis.Game.scaleFactor.y;
+    var origPixels = image.getContext("2d").getImageData(0, 0, image.width, image.height);
+    
+    var scaled = document.createElement('canvas');
+    scaled.width = widthScaled;
+    scaled.height = heightScaled;
+    var scaledCtx = scaled.getContext('2d');
+    var scaledPixels = scaledCtx.getImageData(0, 0, widthScaled, heightScaled);
+    
+    for (var y = 0; y < heightScaled; y++) {
+        for (var x = 0; x < widthScaled; x++) {
+            var index = (Math.floor(y * Atlantis.Game.scaleFactor.y) * image.width + Math.floor(x * Atlantis.Game.scaleFactor.x)) * 4;
+            var indexScaled = (y * widthScaled + x) * 4;
+            scaledPixels.data[indexScaled] = origPixels.data[index];
+            scaledPixels.data[indexScaled + 1] = origPixels.data[index + 1];
+            scaledPixels.data[indexScaled + 2] = origPixels.data[index + 2];
+            scaledPixels.data[indexScaled + 3] = origPixels.data[index + 3];
+        }
+    }
+    scaledCtx.putImageData(scaledPixels, 0, 0);
+    return scaled;
 };
 
 /**
