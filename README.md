@@ -21,7 +21,7 @@ This project is separated in two parts: A Framework which is very close to XNA a
 * Audio manager
 * Camera
 * Input manager
-* Sprite with easy animations system and a bit of physics
+* Sprite with an easy animation system
 * SpriteGroup
 * SpriteText
 * Tilemap (Tiled JSON export)
@@ -37,7 +37,7 @@ You can browse the online documentation [here](http://demonixis.github.io/Atlant
 
 ```javascript
 // The Game class
-var TestGame = function () {
+var AwesomeGame = function () {
 	Atlantis.Game.call(this, 800, 600);
 	this.content.setRootDirectory("Content/");
 	this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
@@ -46,23 +46,24 @@ var TestGame = function () {
 	this.position = { x: 50, y: 50 };
 	this.rotation = 0;
 };
-TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+
+AwesomeGame.prototype = Object.create(Atlantis.Game.prototype);
 
 // Initialize your objects here. 
-TestGame.prototype.initialize = function () {
-	Atlantis.GameApplication.prototype.initialize.call(this);
+AwesomeGame.prototype.initialize = function () {
+	Atlantis.Game.prototype.initialize.call(this);
 };
 
 // Load you assets here.
-TestGame.prototype.loadContent = function () {
-	Atlantis.GameApplication.prototype.loadContent.call(this);
+AwesomeGame.prototype.loadContent = function () {
+	Atlantis.Game.prototype.loadContent.call(this);
 	this.spriteA = this.content.load("atlantis_logo.jpg");
 	this.textA = new Atlantis.SpriteFont();
 };
 
 // Update the game logic here as Input, Physics, etc.
-TestGame.prototype.update = function (gameTime) {
-	Atlantis.GameApplication.prototype.update.call(this, gameTime);
+AwesomeGame.prototype.update = function (gameTime) {
+	Atlantis.Game.prototype.update.call(this, gameTime);
 
 	var state = this.keyboard.getState();
   
@@ -83,8 +84,8 @@ TestGame.prototype.update = function (gameTime) {
 };
 
 // Draw sprites and text here.
-TestGame.prototype.draw = function (gameTime, context) {
-	Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
+AwesomeGame.prototype.draw = function (gameTime, context) {
+	Atlantis.Game.prototype.draw.call(this, gameTime, context);
 	this.graphicsDevice.clear(); 
  
 	this.spriteBatch.begin();
@@ -100,7 +101,7 @@ TestGame.prototype.draw = function (gameTime, context) {
 };
 
 // Start the game !
-var game = new TestGame();
+var game = new AwesomeGame();
 game.run();
 ```
 
