@@ -21,9 +21,9 @@ Atlantis.Sprite = function (_textureName, params) {
 
     this._texture = null;
     this._dead = false;
-    this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
     this._initialized = false;
     this._sourceRectangle = null;
+    this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
 
     this.color = null;
     this.rotation = 0;
@@ -135,7 +135,7 @@ Atlantis.Sprite = function (_textureName, params) {
 
     /**
     * The name of the texture used by the sprite.
-    * @property textureName
+    * @property _textureName
     * @type {String}
     * @default ""
     */
