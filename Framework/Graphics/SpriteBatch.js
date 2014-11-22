@@ -211,7 +211,15 @@ Atlantis.SpriteBatch.drawTexture  = function (context, texture, x, y, width, hei
 Atlantis.SpriteBatch.drawString = function (context, spriteFont, text, position, color) {
     context.fillStyle = color;
     context.font = spriteFont.getFont();
+
+    if (spriteFont.strokeStyle && spriteFont.lineWidth) {
+        context.lineWidth = spriteFont.lineWidth;
+        context.strokeStyle = spriteFont.strokeStyle
+        context.strokeText(text, position.x, position.y);
+    }
+   
     context.fillText(text, position.x, position.y);
+    
 };
 
 Atlantis.SpriteBatch.prototype._drawBatchItem = function (texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth, type) {                
@@ -258,7 +266,7 @@ Atlantis.SpriteBatch.prototype._drawBatchItem = function (texture2D, destination
         }
         else if (type === Atlantis.BatchItemType.Font) {
             // Because JavaScript is so Magic..
-            // The prototype become (spriteFont, position, text, color)
+            // The prototype become (spriteFont, text, position, color)
             Atlantis.SpriteBatch.drawString(this._context, texture2D, sourceRectangle, this._batchRect, color); 
         }
 

@@ -19,6 +19,8 @@ Atlantis.SpriteFont = function (fontName, size, style) {
     this.fontName = fontName || "Arial";
     this.size = size || 14;
     this.style = style || "normal";
+    this.strokeStyle = null;
+    this.lineWidth = 0;
 };
 
 /**

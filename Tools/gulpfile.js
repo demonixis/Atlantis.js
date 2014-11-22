@@ -39,6 +39,7 @@ var engineFiles = [
 	"../Engine/Graphics/Animation.js",
 	"../Engine/Graphics/Camera2D.js",
 	"../Engine/Graphics/Sprite.js",
+	"../Engine/Graphics/SpriteText.js",
 	"../Engine/Graphics/SpriteGroup.js",
 	"../Engine/Graphics/Tilemap.js",
 	"../Engine/Graphics/TmxLoader.js",
