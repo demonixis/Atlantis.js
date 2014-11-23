@@ -259,8 +259,17 @@ Atlantis.Sprite.prototype.prepareAnimation = function (width, height) {
 * @param
 * @param
 */
-Atlantis.Sprite.prototype.addAnimation = function (name, indices, frameRate) {
+Atlantis.Sprite.prototype.addAnimation = function (name, indices, frameRate, twoIndices) {
     if (this._initialized) {
+        if (twoIndices) {
+            var ids = [];
+            for (var i = indices[0]; i <= indices[1]; i++) {
+                ids.push(i);
+            }
+
+            indices = ids;
+        }
+        
         this.spriteAnimator.add(name, indices, frameRate);
         this._sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     }

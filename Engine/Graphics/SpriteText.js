@@ -35,3 +35,30 @@ Atlantis.SpriteText.prototype.draw = function (spriteBatch) {
 Atlantis.SpriteText.prototype.measureText = function (text) {
 	return  Atlantis.app.game.graphicsDevice.getBackBuffer().getContext().measureText(text || this.text);
 };
+
+Atlantis.SpriteText.prototype.measureTextHeight = function (text, maxWidth, lineHeight) {
+	var text = text || this.text;
+    var words = text.split(" ");
+    var line = "";
+    var testLine = "";
+    var y = lineHeight;
+    var metrics = null;
+    var testWidth = 0;
+    var context = Atlantis.app.game.graphicsDevice.getBackBuffer().getContext();
+
+    for (var n = 0; n < words.length; n++) {
+        testLine = line + words[n] + ' ';
+        metrics = context.measureText(testLine);
+        testWidth = metrics.width;
+
+        if (testWidth > maxWidth && n > 0) {
+            line = words[n] + ' ';
+            y += lineHeight;
+        }
+        else {
+            line = testLine;
+        }
+    }
+
+    return y;
+};

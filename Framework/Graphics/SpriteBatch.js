@@ -215,11 +215,18 @@ Atlantis.SpriteBatch.drawString = function (context, spriteFont, text, position,
     if (spriteFont.strokeStyle && spriteFont.lineWidth) {
         context.lineWidth = spriteFont.lineWidth;
         context.strokeStyle = spriteFont.strokeStyle
-        context.strokeText(text, position.x, position.y);
+
+        if (!spriteFont.wrapText) {
+            context.strokeText(text, position.x, position.y);
+        }
     }
-   
-    context.fillText(text, position.x, position.y);
-    
+
+    if (!spriteFont.wrapText) {
+        context.fillText(text, position.x, position.y);
+    }
+    else {
+        Atlantis.SpriteBatch._wrapText(context, text, position.x, position.y, position.width, spriteFont.size, spriteFont.strokeStyle && spriteFont.lineWidth);  
+    }
 };
 
 Atlantis.SpriteBatch.prototype._drawBatchItem = function (texture2D, destinationRectangle, sourceRectangle, color, rotation, origin, scale, effect, layerDepth, type) {                
@@ -367,4 +374,33 @@ Atlantis.SpriteBatch.prototype._sortBatchItem = function (itemA, itemB) {
         
         return 0;
     }
+};
+
+Atlantis.SpriteBatch._wrapText = function (context, text, x, y, maxWidth, lineHeight, strokeText) {
+    var words = text.split(" ");
+    var line = "";
+
+    for (var n = 0; n < words.length; n++) {
+        var testLine = line + words[n] + ' ';
+        var metrics = context.measureText(testLine);
+        var testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+            if (strokeText) {
+                context.strokeText(line, x, y);
+            }
+
+            context.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+        }
+        else {
+            line = testLine;
+        }
+    }
+
+    if (strokeText) {
+        context.strokeText(line, x, y);
+    }
+
+    context.fillText(line, x, y);
 };

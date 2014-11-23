@@ -134,6 +134,11 @@ Atlantis.GraphicsDevice.prototype.getFrontBuffer = function () {
 Atlantis.GraphicsDevice.prototype.clear = function (color) {
     this._backBuffer.clear(color);
     this._frontBuffer.clear(color);
+
+    if (this.disableSmoothing) {
+        this._backBuffer.getContext().imageSmoothingEnabled = false;
+        this._fbContext.imageSmoothingEnabled = false;
+    }
 };
 
 /**
@@ -141,10 +146,6 @@ Atlantis.GraphicsDevice.prototype.clear = function (color) {
  * @method present
  */
 Atlantis.GraphicsDevice.prototype.present = function () {
-    if (this.disableSmoothing) {
-        this._fbContext.imageSmoothingEnabled = false;
-    }
-
     if (this.forceDisableSmoothing) {
         this._backBufferCache = this._resizePixelCanvas(this._bbCanvas, { x: Atlantis.Game.scaleFactor.x, y: Atlantis.Game.scaleFactor.y });
     }

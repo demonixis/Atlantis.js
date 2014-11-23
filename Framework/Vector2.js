@@ -41,13 +41,13 @@ Atlantis.Point.prototype.toString = function () {
 * @class Vector2
 */
 Atlantis.Vector2 = function (x, y) {
-    if (x instanceof Atlantis.Vector2) {
-        this.x = x.x;
-        this.y = x.y;
+    if (x && typeof(x.x) === "number" && typeof(x.y) === "number") {
+        this.x = +x.x;
+        this.y = +x.y;
     }
     else {
-        this.x = x ? x : 0;
-        this.y = y ? y : 0;
+        this.x = +x|0;
+        this.y = +y|0;
     }
 };
 
@@ -219,20 +219,8 @@ Atlantis.Vector2.prototype.distance = function (vector2) {
 * @param {Atlantis.Vector2} Another vector.
 */
 Atlantis.Vector2.distance = function (vec1, vec2) {
-    var vec = new vector2(vec1);
+    var vec = new Atlantis.Vector2(vec1);
     return vec.distance(vec2);
-};
-
-/**
-* Gets distance between this vector and the vector passed in parameter.
-* @method getDistance
-* @param {Atlantis.Vector2} vector2 The vector2 to use to determine the distance.
-* @return {Number} The distance between this vector and the vector passed in parameter.
-*/
-Atlantis.Vector2.prototype.distance = function (vector2) {
-    var v1 = this.x - vector2.x;
-    var v2 = this.y - vector2.y;
-    return Math.sqrt((v1 * v1) + (v2 * v2));
 };
 
 /**

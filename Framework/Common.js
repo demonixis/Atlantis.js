@@ -22,21 +22,14 @@ Atlantis.ajax = function(parameters) {
     var params = parameters || {};
     var url = parameters.url;
     var callback = parameters.success || function () {};
-    var xhr;
+    var xhr = new XMLHttpRequest();
     
     if (typeof(WinJS) !== "undefined") {
         WinJS.xhr({ url: url }).then(callback);
     }
     else {
-        if (window.XMLHttpRequest) {
-            xhr = new XMLHttpRequest();
-        }
-        else {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
         if (params.method === "POST") {
-            xhr.open("POST", url, params.async);
+            xhr.open("POST", url);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     callback(xhr.responseText);
@@ -47,7 +40,7 @@ Atlantis.ajax = function(parameters) {
         else {
             var gUrl = params.data ? ([url, "?", params.data].join("")) : url;
             
-            xhr.open("GET", gUrl, params.async);
+            xhr.open("GET", gUrl);
             xhr.onreadystatechange = function() { 
                 if(xhr.readyState == 4) {
                     callback(xhr.responseText);
