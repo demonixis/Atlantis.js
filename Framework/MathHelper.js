@@ -62,6 +62,20 @@ Atlantis.MathHelper = {
         return Math.abs(value1 - value2);
     },
 
+    hermite: function (value1, tangent1, value2, tangent2, amount) {
+        var sCubed = amount * amount * amount;
+        var sSquared = amount * amount;
+
+        if (amount === 0) {
+            return value1;
+        }
+        else if (amount === 1) {
+            return value2;
+        }
+
+        return (2 * value1 - 2 * value2 + tangent2 + tangent1) * sCubed + (3 * value2 - 3 * value1 - 2 * tangent1 - tangent2) * sSquared + tangent1 * amount + value1;
+    },
+
     /**
 	 *
 	 * @method lerp
@@ -70,6 +84,12 @@ Atlantis.MathHelper = {
         amount = amount < 0 ? 0 : amount;
         amount = amount > 1 ? 1 : amount;
         return value1 + (value2 - value1) * amount;
+    },
+
+    smoothStep: function (value1, value2, amount) {
+        var result = this.clamp(amount, 0, 1);
+        result = this.hermite(value1, 0, value2, 0, result);
+        return result;
     },
 
     /**

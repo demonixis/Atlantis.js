@@ -22,7 +22,7 @@ Atlantis.Sprite = function (_textureName, params) {
     this._texture = null;
     this._dead = false;
     this._initialized = false;
-    this._sourceRectangle = null;
+    this.sourceRectangle = null;
     this._textureName = (typeof(_textureName) === "string") ? _textureName : "";
 
     this.color = null;
@@ -50,7 +50,7 @@ Atlantis.Sprite = function (_textureName, params) {
 
     // Animation
     this.spriteAnimator = new Atlantis.SpriteAnimator();
-	this.hasAnimationss = false;
+	this.hasAnimations = false;
     this.deleteIf = null;
 
     var that = this;
@@ -200,6 +200,19 @@ Atlantis.Sprite.prototype.initialize = function (callback) {
     }
 };
 
+Atlantis.Sprite.prototype.copy = function (sprite) {
+    this._dead = sprite._dead;
+    this._textureName = sprite._textureName;
+    this.visible = sprite.visible;
+    this.enabled = sprite.enabled;
+    this._initialized = sprite._initialized;
+    this._texture = sprite._texture;
+    this.rectangle = sprite.rectangle;
+    this.sourceRectangle = sprite.sourceRectangle;
+    this.hasAnimations = sprite.hasAnimations;
+    this.spriteAnimator = sprite.spriteAnimator;
+};
+
 /**
  *
  * @method collides
@@ -271,7 +284,7 @@ Atlantis.Sprite.prototype.addAnimation = function (name, indices, frameRate, two
         }
         
         this.spriteAnimator.add(name, indices, frameRate);
-        this._sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
+        this.sourceRectangle = this.spriteAnimator.animations[name].rectangles[0];
     }
 };
 
@@ -282,7 +295,7 @@ Atlantis.Sprite.prototype.addAnimation = function (name, indices, frameRate, two
 */
 Atlantis.Sprite.prototype.play = function (animationName) {
     if (this._initialized) {
-        this._sourceRectangle = this.spriteAnimator.play(animationName);
+        this.sourceRectangle = this.spriteAnimator.play(animationName);
     }
 };
 
@@ -317,7 +330,7 @@ Atlantis.Sprite.prototype.update = function (gameTime) {
     if (this.hasAnimations && this._initialized) {
         this.spriteAnimator.update(gameTime);
         if (this.lastDistance.x == 0 && this.lastDistance.y == 0 && this.spriteAnimator.currentAnimationName !== "") {
-            this._sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
+            this.sourceRectangle = this.spriteAnimator.getCurrentAnimation().rectangles[0];   
         }
     }
 };
@@ -383,7 +396,7 @@ Atlantis.Sprite.prototype.postUpdate = function () {
 */
 Atlantis.Sprite.prototype.draw = function (spriteBatch) { 
      if (this._initialized) {
-        spriteBatch.draw(this._texture, this.rectangle, this._sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
+        spriteBatch.draw(this._texture, this.rectangle, this.sourceRectangle, this.color, this.rotation, this.origin, this.scale, this.effect, this.layerDepth);
     }
 };
 

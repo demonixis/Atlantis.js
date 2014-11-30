@@ -65,10 +65,16 @@ Atlantis.LevelManager.prototype.draw = function (gameTime) {
 * @method loadLevel
 * @param {Altantis.level} levelParam Instance of the level to add.
 */
-Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
+Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex, reinitialize) {
+    var reinit = typeof(reinitialize) === "boolean" ? reinitialize : true;
+    
     if (!this.initialized) {
         this._autoLoadLevel = nameOrIndex;
         return;
+    }
+
+    if (this.activeLevel) {
+        this.activeLevel.onDisabled();
     }
 
     this.activeLevel = null;
@@ -81,8 +87,13 @@ Atlantis.LevelManager.prototype.loadLevel = function (nameOrIndex) {
     }
 
     if (this.activeLevel) {
-        this.activeLevel.initialize();
+        if (reinit) {
+            this.activeLevel.initialize();
+        }
+
         this.activeLevel.active = true;
+
+        this.activeLevel.onEnabled();
     }
 };
 

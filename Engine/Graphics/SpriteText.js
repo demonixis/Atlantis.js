@@ -38,10 +38,11 @@ Atlantis.SpriteText.prototype.measureText = function (text) {
 
 Atlantis.SpriteText.prototype.measureTextHeight = function (text, maxWidth, lineHeight) {
 	var text = text || this.text;
+    var maxWidth = maxWidth || this.width;
     var words = text.split(" ");
     var line = "";
     var testLine = "";
-    var y = lineHeight;
+    var y = lineHeight || this.spriteFont.size;
     var metrics = null;
     var testWidth = 0;
     var context = Atlantis.app.game.graphicsDevice.getBackBuffer().getContext();

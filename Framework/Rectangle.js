@@ -49,10 +49,10 @@ Atlantis.Rectangle.prototype.divide = function (rectangle) {
 };
 
 Atlantis.Rectangle.prototype.fromRectangle = function (rectangle) {
-    this.x = rectangle.x|0;
-    this.y = rectangle.y|0;
-    this.width = rectangle.width|0;
-    this.height = rectangle.height|0;
+    this.x = rectangle.x ? +rectangle.x : 0;
+    this.y = rectangle.y ? +rectangle.y : 0;
+    this.width = rectangle.width ? +rectangle.width : 0;
+    this.height = rectangle.height ? +rectangle.height : 0;
 };
 
 /**

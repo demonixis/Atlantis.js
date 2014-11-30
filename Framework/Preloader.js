@@ -19,12 +19,6 @@ Atlantis.Preloader = function (game) {
 	this.screenHeight = game.graphicsDevice.preferredBackBufferHeight; 
 	this.screenWidthPerTwo = this.screenWidth / 2;
 	this.screenHeightPerTwo = this.screenHeight / 2;
-	this.logoRect = {
-		x: this.screenWidth - 96 - 15,
-		y: this.screenHeight - 96 - 15, 
-		width: 96,
-		height: 96
-	};
 	this.spriteFont = new Atlantis.SpriteFont("Arial", 32);
 };
 
@@ -35,7 +29,7 @@ Atlantis.Preloader = function (game) {
  * @param {Number} progress The loading progression in percent.
  */
 Atlantis.Preloader.prototype.onProgress = function (context, progress) {
-	var progressMessage = ["Game loading ", progress.progress, "%"].join("");
+	var progressMessage = ["Game loading ", Math.round(progress.progress), "%"].join("");
     var size = context.measureText(progressMessage),
         x = (this.screenWidthPerTwo) - (size.width / 2),
         y = (this.screenHeightPerTwo) - (this.spriteFont.size / 2);

@@ -36,3 +36,11 @@ Atlantis.Level.prototype.draw = function (gameTime) {
 	this.scene.draw(this.spriteBatch);
 	this.spriteBatch.end();
 };
+
+Atlantis.Level.prototype.onEnabled = function () {
+
+};
+
+Atlantis.Level.prototype.onDisabled = function () {
+
+};
