@@ -196,6 +196,10 @@ Atlantis.SpriteGroup.prototype.countDead = function () {
 	return deads;
 };
 
+Atlantis.SpriteGroup.prototype.size = function () {
+	return this._length;
+};
+
 /** 
  * @method forEach
  * @param {Function} callback
@@ -203,7 +207,7 @@ Atlantis.SpriteGroup.prototype.countDead = function () {
 Atlantis.SpriteGroup.prototype.forEach = function (callback) {
 	for (var i = 0; i < this._length; i++) {
 		if (this._sprites[i] !== null && this._sprites[i].alive) {
-			callback(this._sprites[i]);
+			callback(this._sprites[i], i);
 		}
 	}
 };
@@ -379,4 +383,14 @@ Atlantis.SpriteGroup.prototype.replace = function (oldSprite, newSprite) {
 	}
 
 	return null;
+};
+
+Atlantis.SpriteGroup.toArray = function () {
+	var sprites = [];
+
+	for (var i = 0; i < this._length; i++) {
+		sprites.push(this._sprites[i]);
+	}
+
+	return sprites;
 };

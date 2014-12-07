@@ -33,7 +33,12 @@ Atlantis.SpriteText.prototype.draw = function (spriteBatch) {
 };
 
 Atlantis.SpriteText.prototype.measureText = function (text) {
-	return  Atlantis.app.game.graphicsDevice.getBackBuffer().getContext().measureText(text || this.text);
+    var context = Atlantis.app.game.graphicsDevice.getBackBuffer().getContext();
+    var oldFont = context.font;
+    context.font = this.spriteFont.getFont();
+	var size = context.measureText(text || this.text);
+    context.font = oldFont;
+    return size;
 };
 
 Atlantis.SpriteText.prototype.measureTextHeight = function (text, maxWidth, lineHeight) {

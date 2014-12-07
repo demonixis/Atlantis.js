@@ -31,3 +31,10 @@ Atlantis.SpriteFont = function (fontName, size, style) {
 Atlantis.SpriteFont.prototype.getFont = function () {
     return [this.style, " ", this.size, "px ", this.fontName].join("");
 };
+
+Atlantis.SpriteFont.prototype.clone = function () {
+	var sClone = new Atlantis.SpriteFont(this.fontName, this.size, this.style);
+	sClone.strokeStyle = this.strokeStyle;
+	sClone.lineWidth = this.lineWidth;
+	return sClone;
+};
