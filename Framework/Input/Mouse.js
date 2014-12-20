@@ -96,17 +96,9 @@ Atlantis.Mouse = function (domElement) {
 		that._scroll = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
 	};
 
-	// For MSIE 11+
-	if (window.PointerEvent) {
-		domElement.addEventListener("pointerdown", onMouseEvent, false);
-		domElement.addEventListener("pointermove", onMouseEvent, false);
-		domElement.addEventListener("pointerup", onMouseEvent, false);
-	}
-	else {
-		domElement.addEventListener("mousedown", onMouseEvent, false);
-		domElement.addEventListener("mousemove", onMouseEvent, false);
-		domElement.addEventListener("mouseup", onMouseEvent, false);
-	}
+	domElement.addEventListener("mousedown", onMouseEvent, false);
+	domElement.addEventListener("mousemove", onMouseEvent, false);
+	domElement.addEventListener("mouseup", onMouseEvent, false);
 
 	//domElement.addEventListener("click", onMouseEvent, false);
 	domElement.addEventListener("mousewheel", onMouseScroll, false);

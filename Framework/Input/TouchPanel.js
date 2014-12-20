@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AtlantisEngine.js a lightweight JavaScript game engine.
  * @module Atlantis
  * @submodule Framework
@@ -77,7 +77,17 @@ Atlantis.TouchPanel = function (domElement) {
 		new Atlantis.TouchPanelState({})
 	];
 
+	var eventNames = {
+		up: "touchend",
+		down: "touchstart",
+		cancel: "touchcancel",
+		move: "touchmove",
+		callback: null
+	};
+
 	var that = this;
+	var lastEventType = null;
+	var isPointerEvent = false;
 
 	var wrapEvent = function (id, event) {		
 		if (!that._states[id]) {
@@ -96,14 +106,26 @@ Atlantis.TouchPanel = function (domElement) {
 		that._states[id].position.x *= Atlantis.Game.scaleFactor.x;
 		that._states[id].position.y *= Atlantis.Game.scaleFactor.y;
 
-		if (event.type == "pointerdown" || event.type == "touchstart") {
+		// Special hack for pointer event because in lot of cases, a pointermove event
+		// is triggered.
+		if (isPointerEvent) {
+			var result = (lastEventType === eventNames.down && event.type === eventNames.move);
+			lastEventType = event.type;
+
+			if (result) {
+				lastEventType = null;
+				return;
+			}
+		}
+
+		if (event.type == eventNames.down) {
 			that._states[id].state = Atlantis.TouchLocationState.Pressed;
 		}
-		else if (event.type == "pointermove" || event.type == "touchmove") {
+		else if (event.type == eventNames.move) {
 			event.preventDefault();
 			that._states[id].state = Atlantis.TouchLocationState.Moved;
 		}
-		else if (event.type == "pointerup" || event.type == "touchend") {
+		else if (event.type == eventNames.up) {
 			that._states[id].state = Atlantis.TouchLocationState.Released;
 		}
 		else { 
@@ -125,23 +147,45 @@ Atlantis.TouchPanel = function (domElement) {
 	};
 	
 	var onPointerHandler = function (event) {
-		event.preventDefault();
-		wrapEvent(0, event);
+	    event.preventDefault();
+	    if (event.type === "MSPointerUp" || event.type === "MSPointerCancel" || event.type === "pointerup" || event.type === "pointercancel") {
+	        that._states[0].state = (event.type === "MSPointerUp" || event.type === "pointerup") ? Atlantis.TouchLocationState.Released : Atlantis.TouchLocationState.Invalid;
+	    }
+	    else {
+	        wrapEvent(0, event);
+	    }
 	};
 
+	var maxTouchPoints = +navigator.maxTouchPoints || +navigator.msMaxTouchPoints;
+	if (maxTouchPoints === 0) {
+		return;
+	}
+
 	// IE11+
-	if (window.PointerEvent) {
-		domElement.addEventListener("pointerdown", onPointerHandler, false);
-		domElement.addEventListener("pointermove", onPointerHandler, false);
-		domElement.addEventListener("pointerend", onPointerHandler, false);
-		domElement.addEventListener("pointercancel", onPointerHandler, false);
+	if (window.PointerEvent) { // IE11+
+		eventNames.up = "pointerup";
+		eventNames.down = "pointerdown";
+		eventNames.move = "pointermove";
+		eventNames.cancel = "pointercancel";
+		eventNames.callback = onPointerHandler;
 	}
-	else {
-		domElement.addEventListener("touchstart", onTouchHandler, false);
-		domElement.addEventListener("touchmove", onTouchHandler, false);
-		domElement.addEventListener("touchend", onTouchHandler, false);
-		domElement.addEventListener("touchcancel", onTouchHandler, false);
+	else if (window.MSPointerEvent) { // IE10
+		eventNames.up = "MSPointerUp";
+		eventNames.down = "MSPointerDown";
+		eventNames.move = "MSPointerMove";
+		eventNames.cancel = "MSPointerCancel";
+		eventNames.callback = onPointerHandler;
 	}
+	else { // Touch events
+		eventNames.callback = onTouchHandler;
+	}
+
+	isPointerEvent = (eventNames.down !== "touchstart");
+
+	domElement.addEventListener(eventNames.down, eventNames.callback, false);
+	domElement.addEventListener(eventNames.move, eventNames.callback, false);
+	domElement.addEventListener(eventNames.up, eventNames.callback, false);
+	domElement.addEventListener(eventNames.cancel, eventNames.callback, false);
 };
 
 /**

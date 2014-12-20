@@ -8,7 +8,7 @@ This project is separated in two parts: A Framework which is very close to XNA a
 ![](https://raw.githubusercontent.com/demonixis/Atlantis.js/master/Demos/web/tiles/atlantis_demos.png)
 
 ### The Framework
-# Preloader
+* Preloader
 * Content Manager
 * Sprite batch (most of XNA's SpriteBatch functions are supported)
 * Upscaling
