@@ -103,3 +103,7 @@ Atlantis.GameApplication.prototype.initialize = function () {
     //Atlantis.input.touch = touchComponent;
 };
 
+Atlantis.GameApplication.prototype.setScreenSize = function (width, height) {
+    this.graphicsDevice._frontBuffer.setSize(width, height);
+    this.graphicsDevice.applyChanges();
+};

@@ -28,6 +28,8 @@ Atlantis.Game = (function () {
         var height = height || window.innerHeight;
         this.domElement = document.body;
         
+        // FIXME : This part is totaly awefull
+
         if (typeof(domElement) instanceof HTMLElement) {
             this.domElement = domElement;    
         }
@@ -46,6 +48,7 @@ Atlantis.Game = (function () {
             this.settings.canvas = this.domElement;
         }
         
+        this.version = "0.0.0.1";
         this.gameTime = new Atlantis.GameTime();
         this.components = new Atlantis.GameComponentCollection();
         this.content = new Atlantis.ContentManager();
@@ -64,8 +67,6 @@ Atlantis.Game = (function () {
 
         _instance = this;
     };
-    
-    game.version = "0.2a";
 
     /**
      * Gets the scale factor relative to the backbuffer.
@@ -106,7 +107,7 @@ Atlantis.Game = (function () {
     };
 
     /**
-    * Load content.
+    * Load the content.
     * @method loadContent
     */
     game.prototype.loadContent = function () {
@@ -114,7 +115,7 @@ Atlantis.Game = (function () {
     };
 
     /**
-    * Unload content.
+    * Unload the content.
     * @method unloadContent
     */
     game.prototype.unloadContent = function () {
@@ -122,16 +123,19 @@ Atlantis.Game = (function () {
     };
 
     /**
-    * Update
+    * Update the logic of the game.
     * @method update
+    * @param {GameTime} gameTime The game time.
     */
     game.prototype.update = function (gameTime) {
         this.components.update(gameTime);
     };
 
     /**
-    * In this method the screen must be cleared and components are drawn. All draw code come here.
+    * Draw the content on the screen.
     * @method draw
+    * @param {GameTime} gameTime The game time.
+    * @param {CanvasRenderingContext2D} context The 2D context.
     */
     game.prototype.draw = function (gameTime, context) {
         if (this.settings.autoClear) {
@@ -142,15 +146,17 @@ Atlantis.Game = (function () {
     };
     
     /**
-     *
-     *
+     * Called when the `draw` method has done its work.
+     * @method afterDraw
+     * @param {GameTime} gameTime The game time.
      */
     game.prototype.afterDraw = function (gameTime) {
         this.graphicsDevice.present();  
     };
 
     /** 
-    * Methods called by the main loop on each frame who call update and draw methods.
+    * Start the game by initializing the engine. The preloader is activated 
+    * afterwards the components are initialized and the main loop is started.
     * @method run
     */
     game.prototype.run = function () {
@@ -188,7 +194,7 @@ Atlantis.Game = (function () {
     };
     
     /**
-     * Set the game in pause mode. The canvas is no more updated and drawn.
+     * Sets the game in pause mode.
      * @method pause
      */
     game.prototype.pause = function () {

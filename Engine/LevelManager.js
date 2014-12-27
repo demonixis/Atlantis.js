@@ -184,9 +184,22 @@ Atlantis.LevelManager.prototype.getLevelByName = function (name) {
  * @param {String} name The name of the level to load.
  * @return {Atlantis.Level} Return the level if it exists, otherwise return null.
  */
-Atlantis.LevelManager.prototype.getLoadedLevelIndex = function (name) {
+Atlantis.LevelManager.prototype.getLoadedLevelIndex = function () {
     if (this.activeLevel) {
         return this.levels.indexOf(this.activeLevel);
+    }
+    return -1;
+};
+
+/**
+ * Get a level by its name
+ * @method getLevelByName
+ * @param {String} name The name of the level to load.
+ * @return {Atlantis.Level} Return the level if it exists, otherwise return null.
+ */
+Atlantis.LevelManager.prototype.getLoadedLevelName = function () {
+    if (this.activeLevel) {
+        return this.activeLevel.name;
     }
     return -1;
 };

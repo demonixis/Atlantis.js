@@ -21,6 +21,12 @@ Atlantis.ContentManager = function (rootDirectory) {
 
 Atlantis.ContentManager.PreloadTimerInterval = 250;
 
+/**
+ * Start the preloading process by using the `preloader` Array.
+ * @method preload
+ * @param {Function} progressCallback The callback to call when an asset has been loaded.
+ * @param {Function} doneCallback The callback to call when all the assets are loaded.
+ */
 Atlantis.ContentManager.prototype.preload = function (progressCallback, doneCallback) {
     var countAssets = this.preloader.length,
         nbLoaded = 0;
@@ -102,7 +108,13 @@ Atlantis.ContentManager.prototype.load = function (assetName, callback) {
     }
 };
 
-// Load an image from an url
+/**
+ * Load and store an image.
+ * @method loadImage
+ * @param {String} imageName The path of the image.
+ * @param {Function} callback (optional) The callback to call when the image is loaded.
+ * @return {Image} Returns the image.
+ */
 Atlantis.ContentManager.prototype.loadImage = function (imageName, callback) {
     var image = new Image();
     image.onload = function () {
@@ -121,7 +133,13 @@ Atlantis.ContentManager.prototype.loadImage = function (imageName, callback) {
     return image;
 };
 
-// Load a music from an url
+/**
+ * Load and store a sound or a music.
+ * @method loadAudio
+ * @param {String} audioName The path of the media.
+ * @param {Function} callback (optional) The callback to call when the media is loaded.
+ * @return {HTMLAudioElement} Returns the image.
+ */
 Atlantis.ContentManager.prototype.loadAudio = function (audioName, callback) {
     var audio = document.createElement("audio");
     audio.src = audioName;
@@ -133,7 +151,13 @@ Atlantis.ContentManager.prototype.loadAudio = function (audioName, callback) {
 };
 
 
-// Load a video from an url
+/**
+ * Load and store a video.
+ * @method loadVideo
+ * @param {String} videoName The path of the video.
+ * @param {Function} callback (optional) The callback to call when the video is loaded.
+ * @return {HTMLVideoElement} Returns the video.
+ */
 Atlantis.ContentManager.prototype.loadVideo = function (videoName, callback) {
     var video = document.createElement("video");
     video.onload = callback;
@@ -142,7 +166,14 @@ Atlantis.ContentManager.prototype.loadVideo = function (videoName, callback) {
     return video;
 };
 
-// Load a resource from an url
+/**
+ * Load and store a resources file. If the file's extension is `.json` then it's parsed using `JSON.parse` function.
+ * @method loadResource
+ * @param {String} resourceUrl The path of the resource file.
+ * @param {String} ext The extension of the resource file.
+ * @param {Function} callback (optional) The callback to call when the resource file is loaded.
+ * @return {HTMLVideoElement} Returns the resource.
+ */
 Atlantis.ContentManager.prototype.loadResource = function (resourceUrl, ext, callback) {
     var that = this;
     Atlantis.ajax({
@@ -160,7 +191,7 @@ Atlantis.ContentManager.prototype.loadResource = function (resourceUrl, ext, cal
 };
 
 /**
- * Dispose all _assets
+ * Dispose all assets
  * @method dispose
  */
 Atlantis.ContentManager.prototype.dispose = function () {
