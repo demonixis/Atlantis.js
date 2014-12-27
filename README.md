@@ -5,6 +5,13 @@ AtlantisEngine.js
 AtlantisEngine.js is a work in progress JavaScript 2D Game Engine using HTML5 and canvas 2D. It is mainly inspired by XNA and Flixel.
 This project is separated in two parts: A Framework which is very close to XNA api, and an engine which is inspired by Flixel.
 
+#### The first game using Atlantis.js is live ! 
+![](http://40.media.tumblr.com/c72b85147ed9fea4d9ffc7be424d0bcf/tumblr_ngkzmlCZHH1s15knro3_400.png)
+
+Play it [here](http://demonixis.itch.io/lheritage-maudit/)
+
+#### Some demos
+
 ![](https://raw.githubusercontent.com/demonixis/Atlantis.js/master/Demos/web/tiles/atlantis_demos.png)
 
 ### The Framework
