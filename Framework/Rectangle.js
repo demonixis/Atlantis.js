@@ -49,10 +49,10 @@ Atlantis.Rectangle.prototype.divide = function (rectangle) {
 };
 
 Atlantis.Rectangle.prototype.fromRectangle = function (rectangle) {
-    this.x = rectangle.x ? +rectangle.x : 0;
-    this.y = rectangle.y ? +rectangle.y : 0;
-    this.width = rectangle.width ? +rectangle.width : 0;
-    this.height = rectangle.height ? +rectangle.height : 0;
+    this.x = +rectangle.x;
+    this.y = +rectangle.y;
+    this.width = +rectangle.width;
+    this.height = +rectangle.height;
 };
 
 /**
@@ -80,10 +80,10 @@ Atlantis.Rectangle.prototype.subtract = function (rectangle) {
 };
 
 /**
-* Determine if a Rectangle, Point or coordinates are contains in rectangle
+* Determine if a Rectangle, Point or coordinates are contained in the rectangle
 * @method contains
-* @param {Number|Point|Rectangle} X coordinate or an instance of Point or an instance of Rectangle.
-* @param {Number} Y coordinate.
+* @param {Number|Rectangle} value1 The X coordinate or an instance of Rectangle.
+* @param {Number} value2 The Y coordinate.
 */
 Atlantis.Rectangle.prototype.contains = function (value1, value2) { 
     if (value1 instanceof Atlantis.Rectangle) {
@@ -96,14 +96,18 @@ Atlantis.Rectangle.prototype.contains = function (value1, value2) {
 
 /**
 *
-* @method contains
+* @method intersects
 */
 Atlantis.Rectangle.prototype.intersects = function (rectangle) {
     return (rectangle.getLeft() < this.getRight()) && (this.getLeft() < rectangle.getRight()) && (rectangle.getTop() < this.getBottom()) && (this.getTop() < rectangle.getBottom());
 };
 
+/**
+*
+* @method toString
+*/
 Atlantis.Rectangle.prototype.toString = function () {
-    return ["x: ", this.x, " y: ", this.y, " width: ", this.width, " height: ", this.height].toString();
+    return ["x: ", this.x, " y: ", this.y, " width: ", this.width, " height: ", this.height].join("");
 }
 
 /**
