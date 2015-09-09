@@ -9,45 +9,45 @@
         <link rel="icon" href="../web/favicon.png" />
     </head>
     <body>
-        <script src="../../Build/Atlantis.Framework.min.js"></script>
+        <script src="../../dist/atlantis.framework.min.js"></script>
+        <script>
+            // 1. The first step is to create a class for you game
+
+            // This is the constructor of the game class.
+            // The canvas is created with a size of 640x480 and it's added to the DOM.
+            // We specify the path of the assets.
+            var SimpleTestGame = function () {
+                Atlantis.Game.call(this, 640, 480);
+                this.content.rootDirectory = "Content/";
+            };
+            SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
+
+            // First method called : Initialize your objects here. 
+            SimpleTestGame.prototype.initialize = function () {
+                Atlantis.Game.prototype.initialize.call(this);
+            };
+
+            // Second method called : Load your assets here.
+            SimpleTestGame.prototype.loadContent = function () {
+                Atlantis.Game.prototype.loadContent.call(this);
+            };
+
+            // Main loop
+            // Update the game logic here as Input, Physics, etc.
+            SimpleTestGame.prototype.update = function (gameTime) {
+                Atlantis.Game.prototype.update.call(this, gameTime);
+            };
+
+            // Draw sprites and text here.
+            // First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).
+            SimpleTestGame.prototype.draw = function (gameTime, context) {
+                Atlantis.Game.prototype.draw.call(this, gameTime, context);
+                this.graphicsDevice.clear(); 
+            };
+
+            // Finally you can start the game and have fun !
+            var game = new SimpleTestGame();
+            game.run();
+        </script>
     </body>
-    <script>
-        // 1. The first step is to create a class for you game
-
-        // This is the constructor of the game class.
-        // The canvas is created with a size of 640x480 and it's added to the DOM.
-        // We specify the path of the assets.
-        var SimpleTestGame = function () {
-            Atlantis.Game.call(this, 640, 480);
-            this.content.rootDirectory = "Content/";
-        };
-        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
-
-        // First method called : Initialize your objects here. 
-        SimpleTestGame.prototype.initialize = function () {
-            Atlantis.Game.prototype.initialize.call(this);
-        };
-
-        // Second method called : Load your assets here.
-        SimpleTestGame.prototype.loadContent = function () {
-            Atlantis.Game.prototype.loadContent.call(this);
-        };
-
-        // Main loop
-        // Update the game logic here as Input, Physics, etc.
-        SimpleTestGame.prototype.update = function (gameTime) {
-            Atlantis.Game.prototype.update.call(this, gameTime);
-        };
-
-        // Draw sprites and text here.
-        // First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).
-        SimpleTestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.Game.prototype.draw.call(this, gameTime, context);
-            this.graphicsDevice.clear(); 
-        };
-
-        // Finally you can start the game and have fun !
-        var game = new SimpleTestGame();
-        game.run();
-    </script>
 </html>

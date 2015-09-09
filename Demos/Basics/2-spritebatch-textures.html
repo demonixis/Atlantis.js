@@ -10,111 +10,111 @@
     </head>
     <body>
         <!-- Framework -->
-        <script src="../../Build/Atlantis.Framework.min.js"></script>
-    </body>
-    <script>
-        // 1. The first step is to create a class for you game
+        <script src="../../dist/atlantis.framework.min.js"></script>
+        <script>
+            // 1. The first step is to create a class for you game
 
-        // This is the constructor of the game class.
-        // The canvas is created with a size of 640x480 and it's added to the DOM.
-        // We specify the path of the assets.
-        var SimpleTestGame = function () {
-            Atlantis.Game.call(this, 640, 480);
-            this.content.rootDirectory = "Content/";
-            this.spriteBatch = null;
-            this.backgroundTexture = null;
-            this.playerTexture = null;
-            this.blockTexture = null;
-            this.hudTexture = null;
-            this.itemTexture = null;
-            this.blocks = [];
-            this.hudHearts = [];
-            this.items = [];
-            this.screenRect = { 
-                x: 0, 
-                y: 0, 
-                width: this.graphicsDevice.preferredBackBufferWidth, 
-                height: this.graphicsDevice.preferredBackBufferHeight
+            // This is the constructor of the game class.
+            // The canvas is created with a size of 640x480 and it's added to the DOM.
+            // We specify the path of the assets.
+            var SimpleTestGame = function () {
+                Atlantis.Game.call(this, 640, 480);
+                this.content.rootDirectory = "Content/";
+                this.spriteBatch = null;
+                this.backgroundTexture = null;
+                this.playerTexture = null;
+                this.blockTexture = null;
+                this.hudTexture = null;
+                this.itemTexture = null;
+                this.blocks = [];
+                this.hudHearts = [];
+                this.items = [];
+                this.screenRect = { 
+                    x: 0, 
+                    y: 0, 
+                    width: this.graphicsDevice.preferredBackBufferWidth, 
+                    height: this.graphicsDevice.preferredBackBufferHeight
+                };
             };
-        };
-        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
+            SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
-        // First method called : Initialize your objects here. 
-        SimpleTestGame.prototype.initialize = function () {
-            Atlantis.Game.prototype.initialize.call(this);
-            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
-        };
+            // First method called : Initialize your objects here. 
+            SimpleTestGame.prototype.initialize = function () {
+                Atlantis.Game.prototype.initialize.call(this);
+                this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+            };
 
-        // Second method called : Load your assets here.
-        SimpleTestGame.prototype.loadContent = function () {
-            Atlantis.Game.prototype.loadContent.call(this);
-            var that = this;
+            // Second method called : Load your assets here.
+            SimpleTestGame.prototype.loadContent = function () {
+                Atlantis.Game.prototype.loadContent.call(this);
+                var that = this;
 
-            this.backgroundTexture = this.content.load("bg_castle.png");
-            this.playerTexture = this.content.load("p1_stand.png");
+                this.backgroundTexture = this.content.load("bg_castle.png");
+                this.playerTexture = this.content.load("p1_stand.png");
 
-            // We can use a callback to know when the asset is loaded
-            this.blockTexture = this.content.load("grass.png", function (image) {
-                for (var i = 0; i < 10; i++) {
-                    that.blocks.push({ x: i * image.width, y: 350 }); 
+                // We can use a callback to know when the asset is loaded
+                this.blockTexture = this.content.load("grass.png", function (image) {
+                    for (var i = 0; i < 10; i++) {
+                        that.blocks.push({ x: i * image.width, y: 350 }); 
+                    }
+                });
+
+                // Load hud hearts
+                this.hudTexture = this.content.load("hud_heartFull.png", function (image) {
+                    for (var i = 0; i < 3; i++) {
+                        that.hudHearts.push({ x: 10 + (image.width + 5) * i, y: 20 });   
+                    }
+                });
+
+                // Load some items
+                this.itemTexture = this.content.load("boxItem.png", function (image) {
+                    for (var i = 0; i < 3; i++) {
+                        that.items.push({ x: 100 + (105 + image.width) * i, y: 150 });   
+                    }
+                });
+            };
+
+            // Main loop
+            // Update the game logic here as Input, Physics, etc.
+            SimpleTestGame.prototype.update = function (gameTime) {
+                Atlantis.Game.prototype.update.call(this, gameTime);
+            };
+
+            // Draw sprites and text here.
+            // First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).
+            SimpleTestGame.prototype.draw = function (gameTime, context) {
+                Atlantis.Game.prototype.draw.call(this, gameTime, context);
+                this.graphicsDevice.clear(); 
+
+                this.spriteBatch.begin();
+
+                // Draw the background at 0, 0
+                this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
+
+                // Draw some blocks
+                for (var i = 0, l = this.blocks.length; i < l; i++) {
+                    this.spriteBatch.draw(this.blockTexture, this.blocks[i]);   
                 }
-            });
 
-            // Load hud hearts
-            this.hudTexture = this.content.load("hud_heartFull.png", function (image) {
-                for (var i = 0; i < 3; i++) {
-                    that.hudHearts.push({ x: 10 + (image.width + 5) * i, y: 20 });   
+                // Draw items
+                for (var i = 0, l = this.items.length; i < l; i++) {
+                    this.spriteBatch.draw(this.itemTexture, this.items[i]);   
                 }
-            });
 
-            // Load some items
-            this.itemTexture = this.content.load("boxItem.png", function (image) {
-                for (var i = 0; i < 3; i++) {
-                    that.items.push({ x: 100 + (105 + image.width) * i, y: 150 });   
+                // Draw HUD with a small rotation and a color, for that we change the origin of the image to its center.
+                for (var i = 0, l = this.hudHearts.length; i < l; i++) {
+                    this.spriteBatch.draw(this.hudTexture, this.hudHearts[i], null, "#002599", Math.PI / 8, { x: this.hudTexture.width >> 1, y: this.hudTexture.height >> 1 });   
                 }
-            });
-        };
 
-        // Main loop
-        // Update the game logic here as Input, Physics, etc.
-        SimpleTestGame.prototype.update = function (gameTime) {
-            Atlantis.Game.prototype.update.call(this, gameTime);
-        };
+                // Finally draw the player
+                this.spriteBatch.draw(this.playerTexture, { x: 400, y: 250 });
 
-        // Draw sprites and text here.
-        // First we need to clear the screen (note that you can specify the flag autoClear in constructor's parameters to avoid this step).
-        SimpleTestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.Game.prototype.draw.call(this, gameTime, context);
-            this.graphicsDevice.clear(); 
+                this.spriteBatch.end();
+            };
 
-            this.spriteBatch.begin();
-
-            // Draw the background at 0, 0
-            this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
-
-            // Draw some blocks
-            for (var i = 0, l = this.blocks.length; i < l; i++) {
-                this.spriteBatch.draw(this.blockTexture, this.blocks[i]);   
-            }
-
-            // Draw items
-            for (var i = 0, l = this.items.length; i < l; i++) {
-                this.spriteBatch.draw(this.itemTexture, this.items[i]);   
-            }
-
-            // Draw HUD with a small rotation and a color, for that we change the origin of the image to its center.
-            for (var i = 0, l = this.hudHearts.length; i < l; i++) {
-                this.spriteBatch.draw(this.hudTexture, this.hudHearts[i], null, "#002599", Math.PI / 8, { x: this.hudTexture.width >> 1, y: this.hudTexture.height >> 1 });   
-            }
-
-            // Finally draw the player
-            this.spriteBatch.draw(this.playerTexture, { x: 400, y: 250 });
-
-            this.spriteBatch.end();
-        };
-
-        // Finally you can start the game and have fun !
-        var game = new SimpleTestGame();
-        game.run();
-    </script>
+            // Finally you can start the game and have fun !
+            var game = new SimpleTestGame();
+            game.run();
+        </script>
+    </body>
 </html>

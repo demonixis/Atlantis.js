@@ -10,10 +10,10 @@
     </head>
     <body>
          <!-- Engine -->
-        <script src="../../Build/Atlantis.min.js"></script>
+        <script src="../../dist/atlantis.min.js"></script>
         <script>
             // The Game class
-            var TestGame = function () {
+            var PlatformerGame = function () {
                 Atlantis.GameApplication.call(this, 640, 480);
                 this.content.rootDirectory = "Content/";
                 this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
@@ -24,10 +24,10 @@
                 this.camera.follow(this.player);
               
             };
-            TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+            PlatformerGame.prototype = Object.create(Atlantis.GameApplication.prototype);
         
             // Initialization
-            TestGame.prototype.initialize = function () {
+            PlatformerGame.prototype.initialize = function () {
                 Atlantis.GameApplication.prototype.initialize.call(this);
                 this.player.initialize();
                 
@@ -39,7 +39,7 @@
             };
 
             // Update the game logic here as Input, Physics, etc.
-            TestGame.prototype.update = function (gameTime) {
+            PlatformerGame.prototype.update = function (gameTime) {
                 Atlantis.GameApplication.prototype.update.call(this, gameTime);
                 
                 // Fake jump
@@ -67,7 +67,7 @@
             };
 
             // Draw sprites and text here.
-            TestGame.prototype.draw = function (gameTime, context) {
+            PlatformerGame.prototype.draw = function (gameTime, context) {
                 Atlantis.GameApplication.prototype.draw.call(this, gameTime, context);
                 this.graphicsDevice.clear(); 
                 this.spriteBatch.begin();
@@ -77,7 +77,7 @@
             };
         
             // Start the game !
-            var game = new TestGame();
+            var game = new PlatformerGame();
             game.run();
         </script>
     </body>

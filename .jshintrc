@@ -1,0 +1,26 @@
+{
+    "esnext": false,
+    "camelcase": false,
+    "indent": 4,
+    "newcap": true,
+    "quotmark": "double",
+    "freeze": true,
+    "latedef": true,
+    "undef": true,
+    "unused": "vars",
+    "asi": false,
+    "laxbreak": false,
+    "strict": false,
+    "shadow": false,
+    "laxcomma": true,
+    "boss": false,
+    "supernew": true,
+    "expr": true,
+    "globalstrict": true,
+    "devel": false,
+    "browser": true,
+    "maxerr": 100,
+    "predef": [
+        "console"
+    ]
+}

@@ -9,8 +9,8 @@
 	},
 		"devDependencies": {
 		"gulp-concat": "2.x",
-		"gulp-clean": "0.3.x",
 		"gulp": "3.x",
-		"gulp-uglify": "1.x"
+		"gulp-uglify": "1.x",
+		"gulp-sourcemaps": "1.x"
 	}
 }

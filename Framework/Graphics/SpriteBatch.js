@@ -78,6 +78,8 @@ Atlantis.SpriteBatch.prototype.begin = function (spriteSortMode, transformMatrix
         this._batchStarted = true;
         this._spriteSortMode = typeof(spriteSortMode) === "number" ? spriteSortMode : Atlantis.SpriteSortMode.Immediate;
 
+        this._transformMatrix = transformMatrix;
+
         if (this._transformMatrix) {
             this._context.save();
             

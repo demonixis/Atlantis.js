@@ -12,7 +12,7 @@
     </head>
     <body>
         <!-- Engine -->
-        <script src="../../Build/Atlantis.min.js"></script>
+        <script src="../../dist/atlantis.min.js"></script>
 
         <script>
             var GameStatus = {
@@ -239,6 +239,7 @@
                 this.content.preloader.push("powerUp4.wav");
                 this.levelManager.add(new PlayState());
             };
+
             FlappyGame.prototype = Object.create(Atlantis.GameApplication.prototype);
 
             FlappyGame.prototype.initialize = function () {

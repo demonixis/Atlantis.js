@@ -10,105 +10,105 @@
     </head>
     <body>
         <!-- Framework -->
-        <script src="../../Build/Atlantis.Framework.min.js"></script>
-    </body>
-    <script>
-        // 1. The first step is to create a class for you game
+        <script src="../../dist/atlantis.framework.min.js"></script>
+        <script>
+            // 1. The first step is to create a class for you game
 
-        // This is the constructor of the game class.
-        // The canvas is created with a size of 640x480 and it's added to the DOM.
-        // We specify the path of the assets.
-        var SimpleTestGame = function () {
-            Atlantis.Game.call(this, 640, 480);
-            this.content.rootDirectory = "Content/";
-            this.spriteBatch = null;
-            this.backgroundTexture = null;
-            this.playerTexture = null;
-            this.playerPosition = { x: 400, y: 250 };
-            this.blockTexture = null;
-            this.blocks = [];
-            this.screenRect = { 
-                x: 0, 
-                y: 0, 
-                width: this.graphicsDevice.preferredBackBufferWidth, 
-                height: this.graphicsDevice.preferredBackBufferHeight
+            // This is the constructor of the game class.
+            // The canvas is created with a size of 640x480 and it's added to the DOM.
+            // We specify the path of the assets.
+            var SimpleTestGame = function () {
+                Atlantis.Game.call(this, 640, 480);
+                this.content.rootDirectory = "Content/";
+                this.spriteBatch = null;
+                this.backgroundTexture = null;
+                this.playerTexture = null;
+                this.playerPosition = { x: 400, y: 250 };
+                this.blockTexture = null;
+                this.blocks = [];
+                this.screenRect = { 
+                    x: 0, 
+                    y: 0, 
+                    width: this.graphicsDevice.preferredBackBufferWidth, 
+                    height: this.graphicsDevice.preferredBackBufferHeight
+                };
             };
-        };
-        SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
+            SimpleTestGame.prototype = Object.create(Atlantis.Game.prototype);
 
-        // Second method called : Load you assets here.
-        SimpleTestGame.prototype.loadContent = function () {
-            Atlantis.Game.prototype.loadContent.call(this);
+            // Second method called : Load you assets here.
+            SimpleTestGame.prototype.loadContent = function () {
+                Atlantis.Game.prototype.loadContent.call(this);
 
-            this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
+                this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
 
-            var that = this;
+                var that = this;
 
-            this.backgroundTexture = this.content.load("bg_castle.png");
-            this.playerTexture = this.content.load("p1_stand.png");
+                this.backgroundTexture = this.content.load("bg_castle.png");
+                this.playerTexture = this.content.load("p1_stand.png");
 
-            // We can use a callback to know when the asset is loaded
-            this.blockTexture = this.content.load("grass.png", function (image) {
-                for (var i = 0; i < 10; i++) {
-                    that.blocks.push({ x: i * image.width, y: 350 }); 
+                // We can use a callback to know when the asset is loaded
+                this.blockTexture = this.content.load("grass.png", function (image) {
+                    for (var i = 0; i < 10; i++) {
+                        that.blocks.push({ x: i * image.width, y: 350 }); 
+                    }
+                });
+            };
+
+            // Main loop
+            // Update the game logic here as Input, Physics, etc.
+            SimpleTestGame.prototype.update = function (gameTime) {
+                Atlantis.Game.prototype.update.call(this, gameTime);
+
+                var state = this.gamepad.getState();
+                
+                // The left stick
+                var horizontal = state.getAxis(0);
+                
+                if (horizontal) {
+                    // Define a dead zone.
+                    horizontal = (Math.abs(horizontal) <= 0.2) ? 0 : horizontal;
+
+                    this.playerPosition.x += horizontal * gameTime.getElapsedTime();
                 }
-            });
-        };
+                
+                // If A is pressed then we place the player on the middle of the screen.
+                if (state.isButtonDown(0)) {
+                    this.playerPosition.x = (this.graphicsDevice.preferredBackBufferWidth >> 1) - (this.playerTexture.width >> 1);
+                }
 
-        // Main loop
-        // Update the game logic here as Input, Physics, etc.
-        SimpleTestGame.prototype.update = function (gameTime) {
-            Atlantis.Game.prototype.update.call(this, gameTime);
+                // Allow to pass through the screen
+                if (this.playerPosition.x > this.graphicsDevice.preferredBackBufferWidth) {
+                    this.playerPosition.x = 0;
+                }
+                else if (this.playerPosition.x + this.playerTexture.width < 0) {
+                    this.playerPosition.x = this.graphicsDevice.preferredBackBufferWidth;
+                }
+            };
 
-            var state = this.gamepad.getState();
-            
-            // The left stick
-            var horizontal = state.getAxis(0);
-            
-            if (horizontal) {
-                // Define a dead zone.
-                horizontal = (Math.abs(horizontal) <= 0.2) ? 0 : horizontal;
+            // Draw sprites and text here.
+            SimpleTestGame.prototype.draw = function (gameTime, context) {
+                Atlantis.Game.prototype.draw.call(this, gameTime, context);
+                this.graphicsDevice.clear(); 
 
-                this.playerPosition.x += horizontal * gameTime.getElapsedTime();
-            }
-            
-            // If A is pressed then we place the player on the middle of the screen.
-            if (state.isButtonDown(0)) {
-                this.playerPosition.x = (this.graphicsDevice.preferredBackBufferWidth >> 1) - (this.playerTexture.width >> 1);
-            }
+                this.spriteBatch.begin();
 
-            // Allow to pass through the screen
-            if (this.playerPosition.x > this.graphicsDevice.preferredBackBufferWidth) {
-                this.playerPosition.x = 0;
-            }
-            else if (this.playerPosition.x + this.playerTexture.width < 0) {
-                this.playerPosition.x = this.graphicsDevice.preferredBackBufferWidth;
-            }
-        };
+                // Draw the background at 0, 0
+                this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
 
-        // Draw sprites and text here.
-        SimpleTestGame.prototype.draw = function (gameTime, context) {
-            Atlantis.Game.prototype.draw.call(this, gameTime, context);
-            this.graphicsDevice.clear(); 
+                // Draw some blocks
+                for (var i = 0, l = this.blocks.length; i < l; i++) {
+                    this.spriteBatch.draw(this.blockTexture, this.blocks[i]);   
+                }
 
-            this.spriteBatch.begin();
+                // Finally draw the player with its updated position.
+                this.spriteBatch.draw(this.playerTexture, this.playerPosition);
 
-            // Draw the background at 0, 0
-            this.spriteBatch.draw(this.backgroundTexture, this.screenRect);
+                this.spriteBatch.end();
+            };
 
-            // Draw some blocks
-            for (var i = 0, l = this.blocks.length; i < l; i++) {
-                this.spriteBatch.draw(this.blockTexture, this.blocks[i]);   
-            }
-
-            // Finally draw the player with its updated position.
-            this.spriteBatch.draw(this.playerTexture, this.playerPosition);
-
-            this.spriteBatch.end();
-        };
-
-        // Finally you can start the game and have fun !
-        var game = new SimpleTestGame();
-        game.run();
-    </script>
+            // Finally you can start the game and have fun !
+            var game = new SimpleTestGame();
+            game.run();
+        </script>
+    </body>
 </html>

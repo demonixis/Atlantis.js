@@ -29,7 +29,6 @@ Atlantis.Game = (function () {
         this.domElement = document.body;
         
         // FIXME : This part is totaly awefull
-
         if (typeof(domElement) instanceof HTMLElement) {
             this.domElement = domElement;    
         }

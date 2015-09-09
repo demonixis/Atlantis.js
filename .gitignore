@@ -3,5 +3,4 @@ robots.txt
 *.directory
 *.DS_Store
 Build/Docs/*
-Demos/PointNClick/*
-compiler.jar
+node_modules

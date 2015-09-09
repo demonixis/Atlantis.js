@@ -64,7 +64,7 @@
             </div>
         </div>
         <!-- Engine -->
-        <script src="../../Build/Atlantis.min.js"></script>
+        <script src="../../dist/atlantis.min.js"></script>
         <script>
             var TouchController = function () {
                 var $ = function (d) { return document.getElementById(d); };
@@ -108,7 +108,7 @@
             };
 
             // The Game class
-            var TestGame = function () {
+            var TopDownRPG = function () {
                 Atlantis.GameApplication.call(this, 640, 480, "gameContainer");
                 this.content.rootDirectory = "Content/";
                 this.spriteBatch = new Atlantis.SpriteBatch(this.graphicsDevice);
@@ -124,10 +124,11 @@
                     this.touchController.hide();
                 }
             };
-            TestGame.prototype = Object.create(Atlantis.GameApplication.prototype);
+            
+            TopDownRPG.prototype = Object.create(Atlantis.GameApplication.prototype);
         
             // Load you assets here.
-            TestGame.prototype.initialize = function () {
+            TopDownRPG.prototype.initialize = function () {
                 Atlantis.GameApplication.prototype.initialize.call(this);
                 this.player.initialize(function (player) {
                     player.prepareAnimation(64, 64);
@@ -145,7 +146,7 @@
             };
 
             // Update the game logic here as Input, Physics, etc.
-            TestGame.prototype.update = function (gameTime) {
+            TopDownRPG.prototype.update = function (gameTime) {
                 Atlantis.GameApplication.prototype.update.call(this, gameTime);
                 
                 this.player.update(gameTime);
@@ -187,7 +188,7 @@
             };
 
             // Draw sprites and text here.
-            TestGame.prototype.draw = function (gameTime) {
+            TopDownRPG.prototype.draw = function (gameTime) {
                 Atlantis.GameApplication.prototype.draw.call(this, gameTime);
                 this.graphicsDevice.clear(); 
                 this.spriteBatch.begin();
@@ -197,7 +198,7 @@
             };
         
             // Start the game !
-            var game = new TestGame();
+            var game = new TopDownRPG();
             game.run();
         </script>
     </body>
