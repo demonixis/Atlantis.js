@@ -19,7 +19,7 @@ Atlantis.Random = {
 	 * @method value
 	 * @return {Number} Return a random value.
 	 */
-	value: function () {
+	value: function() {
 		return Math.random();
 	},
 
@@ -30,7 +30,7 @@ Atlantis.Random = {
 	 * @param {Number} max The maximum value.
 	 * @return {Number} Return a random value between min and max.
 	 */
-	randomFloat: function (min, max) {
+	randomFloat: function(min, max) {
 		return Math.random() * (max - min) + min;
 	},
 
@@ -41,7 +41,7 @@ Atlantis.Random = {
 	 * @param {Number} max The maximum value.
 	 * @return {Number} Return a random value between min and max.
 	 */
-	randomInt: function (min, max) {
+	randomInt: function(min, max) {
 		return Math.floor(Math.random() * (max - min + 1)) + min;
 	},
 
@@ -52,7 +52,7 @@ Atlantis.Random = {
 	 * @param {Number} max The maximum value.
 	 * @return {Atlantis.Vector2} Return a random Vector2 between min and max.
 	 */
-	vector2: function (min, max) {
+	vector2: function(min, max) {
 		return new Atlantis.Vector2(this.randomFloat(min, max), this.randomFloat(min, max));
 	},
 
@@ -63,7 +63,7 @@ Atlantis.Random = {
 	 * @param {Number} max The maximum value.
 	 * @return {Atlantis.Vector3} Return a random vector3 between min and max.
 	 */
-	vector3: function (min, max) {
+	vector3: function(min, max) {
 		return new Atlantis.Vector3(this.randomFloat(min, max), this.randomFloat(min, max), this.randomFloat(min, max));
 	},
 
@@ -74,7 +74,7 @@ Atlantis.Random = {
 	 * @param {Number} max The maximum value.
 	 * @return {Atlantis.Vector4} Return a random vector4 between min and max.
 	 */
-	vector4: function (min, max) {
+	vector4: function(min, max) {
 		return new Atlantis.Vector4(this.randomFloat(min, max), this.randomFloat(min, max), this.randomFloat(min, max), this.randomFloat(min, max));
 	},
 
@@ -85,7 +85,7 @@ Atlantis.Random = {
 	 * @param {Number} max The maximum value.
 	 * @return {String} Return a random color in hexadecimal format.
 	 */
-	color: function () {
+	color: function() {
 		return ("#" + (Math.floor(Math.random() * 16777215).toString(16)));
 	},
 

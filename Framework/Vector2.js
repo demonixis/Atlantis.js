@@ -20,8 +20,8 @@ Atlantis.Point = function (x, y) {
     this.y = y ? +y : 0;
 };
 
-Atlantis.Point.fromPoint = function (x, y) {
-    return new Atlantis.Point(point.x, point.y);
+Atlantis.Point.clone = function (x, y) {
+    return new Atlantis.Point(this.x, this.y);
 };
 
 /**
@@ -43,8 +43,9 @@ Atlantis.Vector2 = function (x, y) {
     this.y = y ? +y : 0;
 };
 
-Atlantis.Vector2.fromVector = function (vector) {
-    return new Atlantis.Vector2(vector.x, vector.y);
+Atlantis.Vector2.prototype.fromVector = function(vector) {
+    this.x = vector.x;
+    this.y = vector.y;
 };
 
 /**
@@ -103,7 +104,7 @@ Atlantis.Vector2.prototype.add = function (value) {
 * @param {Atlantis.Vector2} Another vector.
 */
 Atlantis.Vector2.add = function (vec1, vec2) {
-    var vector = Atlantis.Vector2.fromVector(vec1);
+    var vector = vec1.clone();
     vector.add(vec2);
     return vector;
 };
@@ -137,7 +138,7 @@ Atlantis.Vector2.prototype.subtract = function (value) {
 * @param {Atlantis.Vector2} Another vector.
 */
 Atlantis.Vector2.subtract = function (vec1, vec2) {
-    var vector = Atlantis.Vector2.fromVector(vec1);
+    var vector = vec1.clone();
     vector.subtract(vec2);
     return vector;
 };
@@ -171,7 +172,7 @@ Atlantis.Vector2.prototype.divide = function (value) {
 * @param {Atlantis.Vector2} Another vector.
 */
 Atlantis.Vector2.divide = function (vec1, vec2) {
-    var vector = Atlantis.Vector2.fromVector(vec1);
+    var vector = vec1.clone();
     vector.divide(vec2);
     return vector;
 };
@@ -205,7 +206,7 @@ Atlantis.Vector2.prototype.multiply = function (value) {
 * @param {Atlantis.Vector2} Another vector.
 */
 Atlantis.Vector2.multiply = function (vec1, vec2) {
-    var vector = Atlantis.Vector2.fromVector(vec1);
+    var vector = vec1.clone();
     vector.multiply(vec2);
     return vector;
 };
@@ -276,8 +277,7 @@ Atlantis.Vector2.length = function (vec2) {
 * @return
 */
 Atlantis.Vector2.lerp = function (vec1, vec2, amount) {
-    var vector = Atlantis.Vector2.fromVector(vec1);
-    Atlantis.Vector2.lerpToRef(vec1, vec2, amount, vector);
+    Atlantis.Vector2.lerpToRef(vec1, vec2, amount, new Atlantis.Vector2());
     return vector;
 };
 
@@ -347,7 +347,7 @@ Atlantis.Vector2.prototype.negate = function (value) {
 * @return {Atlantis.Vector2} Return the negated vector.
 */
 Atlantis.Vector2.negate = function (vector) {
-    var vec = Atlantis.Vector2.fromVector(vector);
+    var vec = vector.clone();
     vec.x *= -1;
     vec.y *= -1;
     return vec;
@@ -368,7 +368,7 @@ Atlantis.Vector2.prototype.normalize = function () {
 * @param {Atlantis.Vector2} A vector to normalize.
 */
 Atlantis.Vector2.normalize = function (vector) {
-    var vec = Atlantis.Vector2.fromVector(vector);
+    var vec = vector.clone();
     vec.normalize();
     return vec;
 };
@@ -452,6 +452,10 @@ Atlantis.Vector2.transformNormalToRef = function (normal, matrix, result) {
 Atlantis.Vector2.prototype.set = function (x, y) {
     this.x = x;
     this.y = y;
+};
+
+Atlantis.Vector2.prototype.clone = function () {
+    return new Atlantis.Vector2(this.x, this.y);
 };
 
 /**

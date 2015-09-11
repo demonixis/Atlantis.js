@@ -13,17 +13,17 @@ var Atlantis = window.Atlantis || {};
  * @static
  */
 Atlantis.GamepadButton = {
-    A: 0, 
-    B: 1, 
-    X: 2, 
-    Y: 3, 
-    LeftShoulder: 4, 
+    A: 0,
+    B: 1,
+    X: 2,
+    Y: 3,
+    LeftShoulder: 4,
     RightShoulder: 5,
-    LeftTrigger: 6, 
+    LeftTrigger: 6,
     RightTrigger: 7,
-    Select: 8, 
-    Start: 9, 
-    L3: 10, 
+    Select: 8,
+    Start: 9,
+    L3: 10,
     R3: 11,
     DPadUp: 12,
     DPadDown: 13,
@@ -54,29 +54,27 @@ Atlantis.GamepadAxis = {
  * @param {Array} axis An array of axis values
  * @param {Array} buttons An array of buttons values (true/false)
  */
-Atlantis.GamepadState = function (axis, buttons) {
+Atlantis.GamepadState = function(axis, buttons) {
     this.axis = [];
     this.buttons = [];
-    
+
     if (axis) {
         for (var i = 0, l = axis.length; i < l; i++) {
-            this.axis.push(axis[i]);   
+            this.axis.push(axis[i]);
         }
-    }
-    else {
+    } else {
         for (var i = 0; i < 6; i++) {
-            this.axis.push(0);   
+            this.axis.push(0);
         }
     }
-    
+
     if (buttons) {
         for (var i = 0, l = buttons.length; i < l; i++) {
-            this.buttons.push(buttons[i]);   
+            this.buttons.push(buttons[i]);
         }
-    }
-    else {   
+    } else {
         for (var i = 0; i < 15; i++) {
-            this.buttons.push(false);   
+            this.buttons.push(false);
         }
     }
 };
@@ -87,7 +85,7 @@ Atlantis.GamepadState = function (axis, buttons) {
  * @param (Number|Atlantis.GamepadButton) The identifier of the button
  * @param {Boolean|Number} Return the value of the button.
  */
-Atlantis.GamepadState.prototype.isButtonDown = function (button) {
+Atlantis.GamepadState.prototype.isButtonDown = function(button) {
     return this.buttons[button];
 };
 
@@ -97,7 +95,7 @@ Atlantis.GamepadState.prototype.isButtonDown = function (button) {
  * @param (Number|Atlantis.GamepadButton) The identifier of the button
  * @param {Boolean|Number} Return the value of the button.
  */
-Atlantis.GamepadState.prototype.isButtonUp = function (button) {
+Atlantis.GamepadState.prototype.isButtonUp = function(button) {
     return !this.buttons[button];
 };
 
@@ -107,7 +105,7 @@ Atlantis.GamepadState.prototype.isButtonUp = function (button) {
  * @param (Number|Atlantis.GamepadAxis) The identifier of the axis
  * @param {Number} Return the value of the axis between -1 and 1.
  */
-Atlantis.GamepadState.prototype.getAxis = function (axis) {
+Atlantis.GamepadState.prototype.getAxis = function(axis) {
     return this.axis[axis];
 };
 
@@ -121,7 +119,7 @@ Atlantis.GamepadState.prototype.getAxis = function (axis) {
  * @constructor
  * @extends Atlantis.GameComponent
  */
-Atlantis.Gamepad = function () {
+Atlantis.Gamepad = function() {
     Atlantis.GameComponent.call(this);
     this._gamepads = [];
     this._states = {};
@@ -133,35 +131,35 @@ Atlantis.Gamepad.prototype = Object.create(Atlantis.GameComponent.prototype);
  * Initialize the component and start event listeners
  * @method initialize
  */
-Atlantis.Gamepad.prototype.initialize = function () {
+Atlantis.Gamepad.prototype.initialize = function() {
     var that = this;
 
     navigator.getGamepads = navigator.getGamepads || navigator.webkitGetGamepads || navigator.msGetGamepads || navigator.webkitGamepads;
- 
+
     this._gamepadsSupported = navigator.getGamepads ? true : false;
 
-    window.addEventListener("gamepadconnected", function (event) {
+    window.addEventListener("gamepadconnected", function(event) {
         that._addGamepad(event.gamepad);
     }, false);
-    
-    window.addEventListener("gamepaddisconnected", function (event) {
-        that._removeGamepad(event.gamepad);   
+
+    window.addEventListener("gamepaddisconnected", function(event) {
+        that._removeGamepad(event.gamepad);
     }, false);
 };
 
 // Add a gamepad
-Atlantis.Gamepad.prototype._addGamepad = function (gamepad) {
+Atlantis.Gamepad.prototype._addGamepad = function(gamepad) {
     this._gamepads.push(gamepad);
     this._states[gamepad.index] = new Atlantis.GamepadState();
 };
 
 // Remove a gamepad
-Atlantis.Gamepad.prototype._removeGamepad = function (gamepad) {
+Atlantis.Gamepad.prototype._removeGamepad = function(gamepad) {
     delete this._gamepads[gamepad.index];
     delete this._states[gamepad.index];
 };
 
-Atlantis.Gamepad.prototype._updateGamepads = function () {
+Atlantis.Gamepad.prototype._updateGamepads = function() {
     var gamepads = navigator.getGamepads();
 
     for (var i = 0; i < gamepads.length; i++) {
@@ -178,7 +176,7 @@ Atlantis.Gamepad.prototype._updateGamepads = function () {
  * @method update
  * @param {Atlantis.GameTime} gameTime
  */
-Atlantis.Gamepad.prototype.update = function (gameTime) {
+Atlantis.Gamepad.prototype.update = function(gameTime) {
     if (this._gamepadsSupported) {
         this._updateGamepads();
 
@@ -189,7 +187,7 @@ Atlantis.Gamepad.prototype.update = function (gameTime) {
                 var btnVal = gamepad.buttons[j];
                 var pressed = (btnVal === 1.0) ? true : false;
 
-                if (typeof (btnVal) == "object") {
+                if (typeof(btnVal) == "object") {
                     pressed = btnVal.pressed;
                     btnVal = btnVal.value;
                 }
@@ -198,7 +196,7 @@ Atlantis.Gamepad.prototype.update = function (gameTime) {
             }
 
             for (var j = 0, m = gamepad.axes.length; j < m; j++) {
-                this._states[gamepad.index].axis[j] = +gamepad.axes[j]|0;   
+                this._states[gamepad.index].axis[j] = +gamepad.axes[j] | 0;
             }
         }
     }
@@ -209,12 +207,11 @@ Atlantis.Gamepad.prototype.update = function (gameTime) {
  * @method getState
  * @return {Atlantis.GamepadState} Return the state at this time.
  */
-Atlantis.Gamepad.prototype.getState = function (index) {
+Atlantis.Gamepad.prototype.getState = function(index) {
     var index = (typeof(index) !== "undefined") ? index : 0;
     if (this._gamepads[index]) {
         return new Atlantis.GamepadState(this._states[index].axis, this._states[index].buttons);
-    }
-    else {
+    } else {
         return new Atlantis.GamepadState()
     };
 };

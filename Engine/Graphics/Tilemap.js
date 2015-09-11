@@ -40,17 +40,17 @@ Atlantis.TilemapProjection = {
  * @constructor
  * @param {Atlantis.Tileset|Object} tileset (optional) An object that contains all necessary data to construct a tileset.
  */
-Atlantis.Tileset = function (tileset) {
+Atlantis.Tileset = function(tileset) {
     this.firstGID = +tileset.firstgid || 1;
     this.id = Atlantis.Tileset.Counter++;
     this.name = tileset.name || ["Tileset_", this.id].join("");
     this.texture = tileset.texture;
-    this.width = +tileset.imagewidth|0;
-    this.height = +tileset.imageheight|0;
-    this.margin = +tileset.margin|0;
-    this.padding = +tileset.spacing|0;
-    this.tileWidth = +tileset.tilewidth|0;
-    this.tileHeight = +tileset.tileheight|0;
+    this.width = +tileset.imagewidth | 0;
+    this.height = +tileset.imageheight | 0;
+    this.margin = +tileset.margin | 0;
+    this.padding = +tileset.spacing | 0;
+    this.tileWidth = +tileset.tilewidth | 0;
+    this.tileHeight = +tileset.tileheight | 0;
     this.properties = tileset.properties || {};
 };
 
@@ -62,19 +62,19 @@ Atlantis.Tileset.Counter = 0;
  * @constructor
  * @param {Atlantis.TilemapLayer|Object} layer (optional) An object that contains all necessary data to construct a layer.
  */
-Atlantis.TilemapLayer = function (layer) {
-    var layer = layer || {};
-    this.id = Atlantis.TilemapLayer.Counter++
-	this.data = layer.data || [];
-	this.type = layer.type || Atlantis.TilemapLayer.Tiles;
+Atlantis.TilemapLayer = function(layer) {
+    layer = layer || {};
+    this.id = Atlantis.TilemapLayer.Counter++;
+    this.data = layer.data || [];
+    this.type = layer.type || Atlantis.TilemapLayer.Tiles;
     this.visible = layer.visible;
     this.opacity = +layer.opacity;
     this.name = layer.name || ["Layer_", this.id].join("");
-    this.width = +layer.width|0;
-	this.height = +layer.height|0;
-    this.offset = { 
-        x: +layer.x|0, 
-        y: +layer.y|0 
+    this.width = +layer.width | 0;
+    this.height = +layer.height | 0;
+    this.offset = {
+        x: +layer.x | 0,
+        y: +layer.y | 0
     };
     this.properties = layer.properties || {};
     this.backgroundId = +layer.backgroundId || +this.properties.backgroundId || 0;
@@ -90,24 +90,24 @@ Atlantis.TilemapLayer.Counter = 0;
  * @constructor
  * @param {Atlantis.Tilemap|Object} tilemap (optional) An object that contains tilemap data.
  */
-Atlantis.Tilemap = function (tilemap) {
-    var tilemap = tilemap || {};
+Atlantis.Tilemap = function(tilemap) {
+    tilemap = tilemap || {};
     this.id = Atlantis.Tilemap.Counter++;
     this.name = tilemap.name || ["Tilemap_", this.id].join("");
-    this.version = +tilemap.version|0;
+    this.version = +tilemap.version | 0;
     this.projection = tilemap.orientation || tilemap.projection || Atlantis.TilemapProjection.Orthogonal;
 
     this.layers = tilemap.layers || [];
     this.tilesets = tilemap.tilesets || [];
     this.backgrounds = tilemap.backgrounds || [];
-    
-    this.width = +tilemap.width|0;
-    this.height = +tilemap.height|0;
-    this.tileWidth = +tilemap.tilewidth|0, 
-    this.tileHeight = +tilemap.tileheight|0 
+
+    this.width = +tilemap.width | 0;
+    this.height = +tilemap.height | 0;
+    this.tileWidth = +tilemap.tilewidth | 0;
+    this.tileHeight = +tilemap.tileheight | 0;
     this.mapWidth = this.width * this.tileWidth;
     this.mapHeight = this.height * this.tileHeight;
-    
+
     this.properties = tilemap.properties || {};
     this.loaded = (typeof(tilemap.loaded) !== "undefined") ? tilemap.loaded : false;
     this.visible = (typeof(tilemap.visible) !== "undefined") ? tilemap.visible : true;
@@ -117,7 +117,7 @@ Atlantis.Tilemap = function (tilemap) {
 
 Atlantis.Tilemap.Counter = 0;
 
-Atlantis.Tilemap.prototype.update = function (camera) {
+Atlantis.Tilemap.prototype.update = function(camera) {
     // TODO : Add collision detection 
 };
 
@@ -127,14 +127,13 @@ Atlantis.Tilemap.prototype.update = function (camera) {
  * @param {Atlantis.SpriteBatch} spriteBatch An instance of SpriteBatch for drawing the tileset.
  * @param {Atlantis.Camera2D} camera The camera to use to defined what must be drawn.
  */
-Atlantis.Tilemap.prototype.draw = function (spriteBatch, camera) {
+Atlantis.Tilemap.prototype.draw = function(spriteBatch, camera) {
     if (this.visible && this.loaded) {
         for (var i = 0, l = this.layers.length; i < l; i++) {
             if (this.layers[i].visible) {
                 if (this.layers[i].type === Atlantis.TilemapLayerType.Background) {
-                    this.drawBackground(spriteBatch, this.layers[i], this.backgrounds[this.layers[i].backgroundId])
-                }
-                else if (this.layers[i].type === Atlantis.TilemapLayerType.Tiles) {
+                    this.drawBackground(spriteBatch, this.layers[i], this.backgrounds[this.layers[i].backgroundId]);
+                } else if (this.layers[i].type === Atlantis.TilemapLayerType.Tiles) {
                     this.drawLayer(spriteBatch, camera, this.layers[i], this.tilesets[this.layers[i].tilesetId]);
                 }
             }
@@ -149,8 +148,11 @@ Atlantis.Tilemap.prototype.draw = function (spriteBatch, camera) {
  * @param {Atlantis.TilemapLayer} layer The layer to draw.
  * @param {Image|Canvas} background An image or canvas to draw as background.
  */
-Atlantis.Tilemap.prototype.drawBackground = function (spriteBatch, layer, background) {
-    spriteBatch.draw(background, { x: layer.offset.x, y: layer.offset.y });
+Atlantis.Tilemap.prototype.drawBackground = function(spriteBatch, layer, background) {
+    spriteBatch.draw(background, {
+        x: layer.offset.x,
+        y: layer.offset.y
+    });
 };
 
 /**
@@ -161,14 +163,13 @@ Atlantis.Tilemap.prototype.drawBackground = function (spriteBatch, layer, backgr
  * @param {Atlantis.TilemapLayer} layer The layer to draw.
  * @param {Atlantis.Tileset} The tileset to use for drawing the layer.
  */
-Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, tileset) { 
-     var nbTileX = Math.floor((tileset.width - tileset.margin * 4) / tileset.tileWidth),
-         nbTileY = Math.floor((tileset.height - tileset.margin * 4) / tileset.tileHeight);
-   
+Atlantis.Tilemap.prototype.drawLayer = function(spriteBatch, camera, layer, tileset) {
+    var nbTileX = Math.floor((tileset.width - tileset.margin * 4) / tileset.tileWidth);
+
     // posX/Y   : Relative position to the camera
     // start/End/X/Y : Start/End position for the render loop  
     var posX = camera.x / this.tileWidth,
-        posY = camera.y / this.tileHeight
+        posY = camera.y / this.tileHeight,
         startX = Math.floor(posX),
         startY = Math.floor(posY),
         stopX = Math.min(Math.round((camera.x + Atlantis.screen.width) / tileset.tileWidth) + 1, layer.width),
@@ -182,7 +183,7 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
         isoX = 0,
         isoY = 0,
         tileId = 0;
-    
+
     for (var x = startX; x < stopX; x++) {
         for (var y = startY; y < stopY; y++) {
             tileId = layer.data[x + y * layer.width] - tileset.firstGID;
@@ -191,8 +192,8 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
             if (tileId >= 0) {
                 srcX = tileId % nbTileX;
                 srcY = Math.floor(tileId / nbTileX);
-                srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
-                
+                srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);
+
                 destX = ((x + layer.offset.x) - posX) * this.tileWidth;
                 destY = ((y + layer.offset.y) - posY) * this.tileHeight;
 
@@ -203,17 +204,16 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
                     destY = isoY;
                 }
 
-                spriteBatch.draw(tileset.texture, { 
-                    x: destX, 
-                    y: destY, 
-                    width: this.tileWidth, 
+                spriteBatch.draw(tileset.texture, {
+                    x: destX,
+                    y: destY,
+                    width: this.tileWidth,
                     height: this.tileHeight
-                }, 
-                { 
-                    x: tileset.margin + srcX * (tileset.tileWidth + tileset.padding), 
-                    y: tileset.margin + srcY * (tileset.tileHeight + tileset.padding), 
-                    width: tileset.tileWidth - tileset.padding, 
-                    height: tileset.tileHeight - tileset.padding 
+                }, {
+                    x: tileset.margin + srcX * (tileset.tileWidth + tileset.padding),
+                    y: tileset.margin + srcY * (tileset.tileHeight + tileset.padding),
+                    width: tileset.tileWidth - tileset.padding,
+                    height: tileset.tileHeight - tileset.padding
                 });
             }
         }
@@ -228,8 +228,11 @@ Atlantis.Tilemap.prototype.drawLayer = function (spriteBatch, camera, layer, til
  * @param {Number} y The y coordinate on isometric world.
  * @return {Object} Return an object with transformed coordinates.
  */
-Atlantis.Tilemap.isoToScreen = function (x, y) {
-    return { x: (2 * y + x) / 2, y: (2 * y - x) / 2 };
+Atlantis.Tilemap.isoToScreen = function(x, y) {
+    return {
+        x: (2 * y + x) / 2,
+        y: (2 * y - x) / 2
+    };
 };
 
 /**
@@ -240,8 +243,11 @@ Atlantis.Tilemap.isoToScreen = function (x, y) {
  * @param {Number} y The y coordinate on screen.
  * @return {Object} Return an object with transformed coordinates.
  */
-Atlantis.Tilemap.screenToIso = function (x, y) {
-    return { x: (x - y), y: (x + y) / 2 };
+Atlantis.Tilemap.screenToIso = function(x, y) {
+    return {
+        x: (x - y),
+        y: (x + y) / 2
+    };
 };
 
 /**
@@ -252,22 +258,26 @@ Atlantis.Tilemap.screenToIso = function (x, y) {
  * @param {Number} y The postion of the tile on Y axis.
  * @return {Number} Return the id of the tile at this position if exists, otherwise return 0.
  */
-Atlantis.Tilemap.prototype.getTileIdAt = function (layerIndex, x, y) {
+Atlantis.Tilemap.prototype.getTileIdAt = function(layerIndex, x, y) {
     if (this.layers[layerIndex]) {
         var layer = this.layers[layerIndex];
-        var x = Math.floor(x / this.tileWidth);
-        var y = Math.floor(y / this.tileHeight);
-        return layer.data[x + y * layer.width];
+        var tx = Math.floor(x / this.tileWidth);
+        var ty = Math.floor(y / this.tileHeight);
+        return layer.data[tx + ty * layer.width];
     }
-    
+
     return 0;
 };
 
-Atlantis.Tilemap.prototype.getTileRectAt = function (layerIndex, x, y) {
-    var rect = { x: 0, y: 0, width: this.tileWidth, height: this.tileHeight };
+Atlantis.Tilemap.prototype.getTileRectAt = function(layerIndex, x, y) {
+    var rect = {
+        x: 0,
+        y: 0,
+        width: this.tileWidth,
+        height: this.tileHeight
+    };
 
     if (this.layers[layerIndex]) {
-        var layer = this.layers[layerIndex];
         rect.x = Math.floor(x / this.tileWidth);
         rect.y = Math.floor(y / this.tileHeight);
     }
@@ -287,7 +297,7 @@ Atlantis.Tilemap.prototype.getTileRectAt = function (layerIndex, x, y) {
  * @param {Number} y The postion of the tile on Y axis.
  * @return {HTMLCanvas} Return a canvas element of the specified tile if exists, otherwise return null.
  */
-Atlantis.Tilemap.prototype.getTileAt = function (tileset, layerIndex, x, y) {
+Atlantis.Tilemap.prototype.getTileAt = function(tileset, layerIndex, x, y) {
     if (this.layers[layerIndex]) {
         var layer = this.layers[layerIndex],
             tileId = this.getTileIdAt(layerIndex, x, y),
@@ -302,32 +312,27 @@ Atlantis.Tilemap.prototype.getTileAt = function (tileset, layerIndex, x, y) {
 
             if (tileId >= 0) {
                 var nbTileX = tileset.imagewidth / tileset.tilewidth,
-                    nbTileY = tileset.imageheight / tileset.tileheight,
                     srcX = tileId % nbTileX,
                     srcY = Math.floor(tileId / nbTileX);
 
-                srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);   
-                    
-                context.drawImage(tileset.texture, 
-                    { 
-                        x: srcX * tileset.tileWidth, 
-                        y: srcY * tileset.tileHeight, 
-                        width: tileset.tileWidth, 
-                        height: tileset.tileHeight 
-                    },
-                    { 
-                        x: 0, 
-                        y: 0, 
-                        width: this.tileWidth, 
-                        height: this.tileHeight
-                    }
-                );
+                srcX = (srcY > 0) ? (srcX % (nbTileX * srcY)) : (srcX % nbTileX);
+
+                context.drawImage(tileset.texture, {
+                    x: srcX * tileset.tileWidth,
+                    y: srcY * tileset.tileHeight,
+                    width: tileset.tileWidth,
+                    height: tileset.tileHeight
+                }, {
+                    x: 0,
+                    y: 0,
+                    width: this.tileWidth,
+                    height: this.tileHeight
+                });
 
                 this._cacheTilesCanvas[cacheId] = canvas;
                 return canvas;
             }
-        }
-        else {
+        } else {
             return this._cacheTilesCanvas[cacheId];
         }
     }

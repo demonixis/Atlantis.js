@@ -21,10 +21,10 @@ Atlantis.TmxLoader = {
      * @param {Function} callback
      * @return {Atlantis.Tilemap} Return a tilemap.
      */
-    load: function (mapPath, callback) {
+    load: function(mapPath, callback) {
         var tilemap = new Atlantis.Tilemap();
 
-        Atlantis.app.content.load(mapPath, function (map) {
+        Atlantis.app.content.load(mapPath, function(map) {
             var i = 0,
                 l = 0;
 
@@ -51,12 +51,12 @@ Atlantis.TmxLoader = {
             tilemap.mapWidth = tilemap.width * tilemap.tileWidth;
             tilemap.mapHeight = tilemap.height * tilemap.tileHeight;
             tilemap.projection = map.orientation;
-            tilemap.version = map.version
+            tilemap.version = map.version;
             tilemap.properties = map.properties;
             tilemap.visible = true;
             tilemap.loaded = true;
-            
-            if (callback) { 
+
+            if (callback) {
                 callback(tilemap);
             }
         });

@@ -14,15 +14,17 @@ var Atlantis = window.Atlantis || {};
  * @static
  */
 Atlantis.MusicState = {
-    Playing: 1, Stopped: 2, Paused: 3
+    Playing: 1,
+    Stopped: 2,
+    Paused: 3
 };
 
 /**
-* An audio manager to play sound and musics.
-* @constructor 
-* @class AudioManager
-*/
-Atlantis.AudioManager = function () {
+ * An audio manager to play sound and musics.
+ * @constructor 
+ * @class AudioManager
+ */
+Atlantis.AudioManager = function() {
     this.repeatMusic = false;
     this.currentMusic = null;
     this.volume = 1;
@@ -33,7 +35,7 @@ Atlantis.AudioManager = function () {
  * Play a sound or a music one time
  * @method playOneShot
  */
-Atlantis.AudioManager.prototype.playOneShot = function (audioClip) {
+Atlantis.AudioManager.prototype.playOneShot = function(audioClip) {
     audioClip.play();
 };
 
@@ -43,7 +45,7 @@ Atlantis.AudioManager.prototype.playOneShot = function (audioClip) {
  * @param {AudioElement} music An HTML Audio Element that contains the music.
  * @param {Boolean} repeat Sets to true for enable repeat.
  */
-Atlantis.AudioManager.prototype.play = function (music, repeat) {
+Atlantis.AudioManager.prototype.play = function(music, repeat) {
     this.stopMusic();
     this.currentMusic = music;
     this.repeat = repeat;
@@ -55,7 +57,7 @@ Atlantis.AudioManager.prototype.play = function (music, repeat) {
  * Stop the current played music.
  * @method stopMusic
  */
-Atlantis.AudioManager.prototype.stop = function () {
+Atlantis.AudioManager.prototype.stop = function() {
     this.currentMusic.stop();
     this.currentState = Atlantis.MusicState.Stopped;
 };
@@ -64,7 +66,7 @@ Atlantis.AudioManager.prototype.stop = function () {
  * Pause the current played music.
  * @method pauseMusic
  */
-Atlantis.AudioManager.prototype.pause = function () {
+Atlantis.AudioManager.prototype.pause = function() {
     if (this.currentState == Atlantis.MusicState.Playing) {
         this.currentMusic.pause();
         this.currentState = Atlantis.MusicState.Paused;
@@ -75,7 +77,7 @@ Atlantis.AudioManager.prototype.pause = function () {
  * Resume a paused music.
  * @method resume
  */
-Atlantis.AudioManager.prototype.resume = function () {
+Atlantis.AudioManager.prototype.resume = function() {
     if (this.currentState == Atlantis.MusicState.Paused) {
         this.currentMusic.play();
         this.currentState = Atlantis.MusicState.Playing;

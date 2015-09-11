@@ -17,13 +17,13 @@ var Atlantis = window.Atlantis || {};
  * @static
  */
 Atlantis.TouchLocationState = {
-	Invalid: 1, 
-    Moved: 2, 
-    Pressed: 3, 
-    Released: 4
+	Invalid: 1,
+	Moved: 2,
+	Pressed: 3,
+	Released: 4
 };
 
-Atlantis.TouchCollection = function (touchStates) {
+Atlantis.TouchCollection = function(touchStates) {
 	Array.call(this);
 
 	var touchStates = touchStates || [];
@@ -34,7 +34,7 @@ Atlantis.TouchCollection = function (touchStates) {
 
 Atlantis.TouchCollection.prototype = Object.create(Array.prototype);
 
-Atlantis.TouchCollection.prototype.clone = function () {
+Atlantis.TouchCollection.prototype.clone = function() {
 	var states = [];
 
 	for (var i = 0, l = this.length; i < l; i++) {
@@ -50,7 +50,7 @@ Atlantis.TouchCollection.prototype.clone = function () {
  * @constructor
  * @param {Object} panelState An object that contains states and position of the touch event.
  */
-Atlantis.TouchPanelState = function (panelState) {
+Atlantis.TouchPanelState = function(panelState) {
 	this.state = panelState.state || Atlantis.TouchLocationState.Invalid;
 	this.position = panelState.position ? panelState.position : new Atlantis.Vector2(0, 0);
 };
@@ -60,8 +60,14 @@ Atlantis.TouchPanelState = function (panelState) {
  * @method clone
  * @return {Atlantis.TouchPanelState} Return a clone of this instance.
  */
-Atlantis.TouchPanelState.prototype.clone = function () {
-	return new Atlantis.TouchPanelState({ state: this.state, position: { x: this.position.x, y: this.position.y } });
+Atlantis.TouchPanelState.prototype.clone = function() {
+	return new Atlantis.TouchPanelState({
+		state: this.state,
+		position: {
+			x: this.position.x,
+			y: this.position.y
+		}
+	});
 };
 
 /**
@@ -70,7 +76,7 @@ Atlantis.TouchPanelState.prototype.clone = function () {
  * @constructor
  * @param {HTMLElement} The DOM element to use for events (default is document.body).
  */
-Atlantis.TouchPanel = function (domElement) {
+Atlantis.TouchPanel = function(domElement) {
 	this._states = [
 		new Atlantis.TouchPanelState({}),
 		new Atlantis.TouchPanelState({}),
@@ -89,16 +95,15 @@ Atlantis.TouchPanel = function (domElement) {
 	var lastEventType = null;
 	var isPointerEvent = false;
 
-	var wrapEvent = function (id, event) {		
+	var wrapEvent = function(id, event) {
 		if (!that._states[id]) {
 			that._states[id] = new Atlantis.TouchPanelState();
 		}
-		
+
 		if (event.touches) {
 			that._states[id].position.x = event.touches[id].pageX - domElement.offsetLeft;
 			that._states[id].position.y = event.touches[id].pageY - domElement.offsetTop;
-		}
-		else {
+		} else {
 			that._states[id].position.x = event.clientX - domElement.offsetLeft;
 			that._states[id].position.y = event.clientY - domElement.offsetTop;
 		}
@@ -120,40 +125,35 @@ Atlantis.TouchPanel = function (domElement) {
 
 		if (event.type == eventNames.down) {
 			that._states[id].state = Atlantis.TouchLocationState.Pressed;
-		}
-		else if (event.type == eventNames.move) {
+		} else if (event.type == eventNames.move) {
 			event.preventDefault();
 			that._states[id].state = Atlantis.TouchLocationState.Moved;
-		}
-		else if (event.type == eventNames.up) {
+		} else if (event.type == eventNames.up) {
 			that._states[id].state = Atlantis.TouchLocationState.Released;
-		}
-		else { 
+		} else {
 			that._states[id].state = Atlantis.TouchLocationState.Invalid;
 		}
 	};
-	
-	var onTouchHandler = function (event) {
+
+	var onTouchHandler = function(event) {
 		if (event.type === "touchend" || event.type === "touchcancel") {
 			for (var i = 0, l = that._states.length; i < l; i++) {
 				that._states[i].state = event.type === "touchend" ? Atlantis.TouchLocationState.Released : Atlantis.TouchLocationState.Invalid;
 			}
-		}
-		else {
+		} else {
 			for (var i = 0, l = event.touches.length; i < l; i++) {
 				wrapEvent(i, event);
 			}
 		}
 	};
-	
-	var onPointerHandler = function (event) {
-	    event.preventDefault();
-	    if (event.type === "MSPointerUp" || event.type === "MSPointerCancel" || event.type === "pointerup" || event.type === "pointercancel") {
-	        that._states[0].state = (event.type === "MSPointerUp" || event.type === "pointerup") ? Atlantis.TouchLocationState.Released : Atlantis.TouchLocationState.Invalid;
-	    }
-	    else {
-	        wrapEvent(0, event);
-	    }
+
+	var onPointerHandler = function(event) {
+		event.preventDefault();
+		if (event.type === "MSPointerUp" || event.type === "MSPointerCancel" || event.type === "pointerup" || event.type === "pointercancel") {
+			that._states[0].state = (event.type === "MSPointerUp" || event.type === "pointerup") ? Atlantis.TouchLocationState.Released : Atlantis.TouchLocationState.Invalid;
+		} else {
+			wrapEvent(0, event);
+		}
 	};
 
 	var maxTouchPoints = +navigator.maxTouchPoints || +navigator.msMaxTouchPoints;
@@ -168,15 +168,13 @@ Atlantis.TouchPanel = function (domElement) {
 		eventNames.move = "pointermove";
 		eventNames.cancel = "pointercancel";
 		eventNames.callback = onPointerHandler;
-	}
-	else if (window.MSPointerEvent) { // IE10
+	} else if (window.MSPointerEvent) { // IE10
 		eventNames.up = "MSPointerUp";
 		eventNames.down = "MSPointerDown";
 		eventNames.move = "MSPointerMove";
 		eventNames.cancel = "MSPointerCancel";
 		eventNames.callback = onPointerHandler;
-	}
-	else { // Touch events
+	} else { // Touch events
 		eventNames.callback = onTouchHandler;
 	}
 
@@ -193,8 +191,10 @@ Atlantis.TouchPanel = function (domElement) {
  * @method getCapabilities
  * @return {Object} Return an object which contains touch panel capabilities.
  */
-Atlantis.TouchPanel.prototype.getCapabilities = function () {
-    return { hasTouch: !!("ontouchstart" in window) || !!("ongesturechange" in window)  }
+Atlantis.TouchPanel.prototype.getCapabilities = function() {
+	return {
+		hasTouch: !!("ontouchstart" in window) || !!("ongesturechange" in window)
+	}
 };
 
 /** 
@@ -204,11 +204,10 @@ Atlantis.TouchPanel.prototype.getCapabilities = function () {
  * @return {Atlantis.TouchCollection|Atlantis.TouchPanelState} if no finger is passed, it return an array of Atlantis.TouchPanelState,
  *         otherwise it returns an Atlantis.TouchPanelState of the finger id passed in parameter.
  */
-Atlantis.TouchPanel.prototype.getState = function (id) {
+Atlantis.TouchPanel.prototype.getState = function(id) {
 	if (typeof(id) === "number") {
-		return new Atlantis.TouchPanelState(this._states[id] ? this._states[id] : {}) ;
-	}
-	else {
+		return new Atlantis.TouchPanelState(this._states[id] ? this._states[id] : {});
+	} else {
 		return new Atlantis.TouchCollection(this._states);
 	}
 };

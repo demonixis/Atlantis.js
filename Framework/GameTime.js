@@ -9,19 +9,19 @@
 var Atlantis = window.Atlantis || {};
 
 /**
-* Create a game time object who's responsible to get time informations.
-* @constructor
-* @class GameTime
-*/
-Atlantis.GameTime = function () {
+ * Create a game time object who's responsible to get time informations.
+ * @constructor
+ * @class GameTime
+ */
+Atlantis.GameTime = function() {
     this.reset();
 };
 
 /**
-* Reset the game timer.
-* @method reset
-*/
-Atlantis.GameTime.prototype.reset = function () {
+ * Reset the game timer.
+ * @method reset
+ */
+Atlantis.GameTime.prototype.reset = function() {
     this.elapsedTime = 0;
     this.totalGameTime = 0;
     this.currentTime = +new Date();
@@ -29,10 +29,10 @@ Atlantis.GameTime.prototype.reset = function () {
 };
 
 /**
-* Update the game time.
-* @method update
-*/
-Atlantis.GameTime.prototype.update = function () {
+ * Update the game time.
+ * @method update
+ */
+Atlantis.GameTime.prototype.update = function() {
     var now = +new Date();
     this.elapsedTime = now - this.currentTime;
     this.totalGameTime += this.elapsedTime;
@@ -41,20 +41,20 @@ Atlantis.GameTime.prototype.update = function () {
 };
 
 /**
-* Gets the elapsed time since last frame.
-* @method getElapsedTime
-* @return {Number} The elapsed time since last frame.
-*/
-Atlantis.GameTime.prototype.getElapsedTime = function () {
+ * Gets the elapsed time since last frame.
+ * @method getElapsedTime
+ * @return {Number} The elapsed time since last frame.
+ */
+Atlantis.GameTime.prototype.getElapsedTime = function() {
     return this.elapsedTime;
 };
 
 /**
-* Gets the total elapsed time since the begining.
-* @method getTotalGameTime
-* @return {Number} The total elapsed time.
-*/
-Atlantis.GameTime.prototype.getTotalGameTime = function () {
+ * Gets the total elapsed time since the begining.
+ * @method getTotalGameTime
+ * @return {Number} The total elapsed time.
+ */
+Atlantis.GameTime.prototype.getTotalGameTime = function() {
     return this.totalGameTime;
 };
 
@@ -63,6 +63,6 @@ Atlantis.GameTime.prototype.getTotalGameTime = function () {
  * @method getFPS
  * @return {Number} Return the current FPS.
  */
-Atlantis.GameTime.prototype.getFPS = function () {
+Atlantis.GameTime.prototype.getFPS = function() {
     return this.fps;
 };

@@ -14,12 +14,12 @@ var Atlantis = window.Atlantis || {};
  * @constructor
  * @param {Atlantis.Game} game
  */
-Atlantis.Preloader = function (game) {
-	this.screenWidth = game.graphicsDevice.preferredBackBufferWidth;
-	this.screenHeight = game.graphicsDevice.preferredBackBufferHeight; 
-	this.screenWidthPerTwo = this.screenWidth / 2;
-	this.screenHeightPerTwo = this.screenHeight / 2;
-	this.spriteFont = new Atlantis.SpriteFont("Arial", 32);
+Atlantis.Preloader = function(game) {
+    this.screenWidth = game.graphicsDevice.preferredBackBufferWidth;
+    this.screenHeight = game.graphicsDevice.preferredBackBufferHeight;
+    this.screenWidthPerTwo = this.screenWidth / 2;
+    this.screenHeightPerTwo = this.screenHeight / 2;
+    this.spriteFont = new Atlantis.SpriteFont("Arial", 32);
 };
 
 /**
@@ -28,8 +28,8 @@ Atlantis.Preloader = function (game) {
  * @param {Object} context The canvas context.
  * @param {Number} progress The loading progression in percent.
  */
-Atlantis.Preloader.prototype.onProgress = function (context, progress) {
-	var progressMessage = ["Game loading ", Math.round(progress.progress), "%"].join("");
+Atlantis.Preloader.prototype.onProgress = function(context, progress) {
+    var progressMessage = ["Game loading ", Math.round(progress.progress), "%"].join("");
     var size = context.measureText(progressMessage),
         x = (this.screenWidthPerTwo) - (size.width / 2),
         y = (this.screenHeightPerTwo) - (this.spriteFont.size / 2);

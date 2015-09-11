@@ -31,15 +31,15 @@ Atlantis.input = {};
 Atlantis.screen = {};
 
 /**
-* The engine class that initialize an Atlantis.Game object and setup managers and scene.
-* @constructor 
-* @class Engine
-* @extends Atlantis.Game
-* @param {Number} width Desired screen width.
-* @param {Number} height Desired screen height
-* @param {Number} domElement The DOM element to use for canvas (optional).
-*/
-Atlantis.GameApplication = function (width, height, domElement, params) {
+ * The engine class that initialize an Atlantis.Game object and setup managers and scene.
+ * @constructor 
+ * @class Engine
+ * @extends Atlantis.Game
+ * @param {Number} width Desired screen width.
+ * @param {Number} height Desired screen height
+ * @param {Number} domElement The DOM element to use for canvas (optional).
+ */
+Atlantis.GameApplication = function(width, height, domElement, params) {
     Atlantis.Game.call(this, width, height, domElement, params);
 
     this.audioManager = new Atlantis.AudioManager();
@@ -54,30 +54,30 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
         content: that.content,
         components: that.components,
         storage: that.storageManager,
-        levelManager: that.levelManager,
+        levelManager: that.levelManager
     };
-    
+
     Atlantis.input = {
         keys: null,
         mouse: null,
         touch: null,
-        gamepad: null  
+        gamepad: null
     };
 
     Atlantis.screen = {
-        width: width,  
+        width: width,
         widthPerTwo: width / 2,
         height: height,
         heightPerTwo: height / 2,
-        getCanvasWidth: function () {
-            return that.graphicsDevice.getFrontBuffer().getWidth();   
+        getCanvasWidth: function() {
+            return that.graphicsDevice.getFrontBuffer().getWidth();
         },
-        getCanvasHeight: function () {
-            return that.graphicsDevice.getFrontBuffer().getHeight(); 
+        getCanvasHeight: function() {
+            return that.graphicsDevice.getFrontBuffer().getHeight();
         }
     };
-    
-     document.addEventListener(Atlantis.events.ResolutionChanged, function (event) {
+
+    document.addEventListener(Atlantis.events.ResolutionChanged, function(event) {
         Atlantis.screen.width = event.width;
         Atlantis.screen.widthPerTwo = event.width / 2;
         Atlantis.screen.height = event.height;
@@ -87,12 +87,12 @@ Atlantis.GameApplication = function (width, height, domElement, params) {
 
 Atlantis.GameApplication.prototype = Object.create(Atlantis.Game.prototype);
 
-Atlantis.GameApplication.prototype.initialize = function () {
+Atlantis.GameApplication.prototype.initialize = function() {
     Atlantis.Game.prototype.initialize.call(this);
 
     Atlantis.screen.width = this.graphicsDevice.preferredBackBufferWidth;
     Atlantis.screen.height = this.graphicsDevice.preferredBackBufferHeight;
-    
+
     var keyboardComponent = new Atlantis.KeyboardComponent(this);
     this.components.add(keyboardComponent);
 
@@ -103,7 +103,7 @@ Atlantis.GameApplication.prototype.initialize = function () {
     //Atlantis.input.touch = touchComponent;
 };
 
-Atlantis.GameApplication.prototype.setScreenSize = function (width, height) {
+Atlantis.GameApplication.prototype.setScreenSize = function(width, height) {
     this.graphicsDevice._frontBuffer.setSize(width, height);
     this.graphicsDevice.applyChanges();
 };

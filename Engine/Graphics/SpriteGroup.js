@@ -1,4 +1,4 @@
- /**
+/**
  * AtlantisEngine.js a lightweight JavaScript game engine.
  *
  * @module Atlantis
@@ -14,35 +14,39 @@ var Atlantis = window.Atlantis || {};
  * @extends Sprite
  * @constructor
  */
-Atlantis.SpriteGroup = function () {
+Atlantis.SpriteGroup = function() {
 	Atlantis.Sprite.call(this);
-    this._initialized = false;
-	this._sprites = [];	
+	this._initialized = false;
+	this._sprites = [];
 	this._length = 0;
 	this._needBoundingCompute = true;
 
 	var that = this;
-	Atlantis._createProperty(this, "x", 
-        function () { return that.rectangle.x; },
-        function (value) { 
-        	var diff = value - that.rectangle.x;
-        	that.rectangle.x = value; 
-        	for (var i = 0, l = that._sprites.length; i < l; i++) {
-        		that._sprites[i].translate(diff, 0);
-        	}
-        	that._needBoundingCompute = true;
-        });
+	Atlantis._createProperty(this, "x",
+		function() {
+			return that.rectangle.x;
+		},
+		function(value) {
+			var diff = value - that.rectangle.x;
+			that.rectangle.x = value;
+			for (var i = 0, l = that._sprites.length; i < l; i++) {
+				that._sprites[i].translate(diff, 0);
+			}
+			that._needBoundingCompute = true;
+		});
 
-    Atlantis._createProperty(this, "y", 
-        function () { return that.rectangle.y; },
-        function (value) {
-        	var diff = value - that.rectangle.y;
-        	that.rectangle.x = value; 
-        	for (var i = 0, l = that._sprites.length; i < l; i++) {
-        		that._sprites[i].translate(0, diff);
-        	}
-        	that._needBoundingCompute = true;
-        });
+	Atlantis._createProperty(this, "y",
+		function() {
+			return that.rectangle.y;
+		},
+		function(value) {
+			var diff = value - that.rectangle.y;
+			that.rectangle.x = value;
+			for (var i = 0, l = that._sprites.length; i < l; i++) {
+				that._sprites[i].translate(0, diff);
+			}
+			that._needBoundingCompute = true;
+		});
 };
 Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
 
@@ -51,17 +55,16 @@ Atlantis.SpriteGroup.prototype = Object.create(Atlantis.Sprite.prototype);
  * @method initialize
  * @param {Function} callback
  */
-Atlantis.SpriteGroup.prototype.initialize = function (callback) {
-	var callback = (typeof(callback) === "function") ? callback : function () {};
-	
+Atlantis.SpriteGroup.prototype.initialize = function(callback) {
+	callback = (typeof(callback) === "function") ? callback : function() {};
+
 	if (!this._initialized) {
 		for (var i = 0; i < this._length; i++) {
 			this._sprites[i].initialize();
 		}
 		this._initialized = true;
 		callback(this);
-	}
-	else {
+	} else {
 		callback(this);
 	}
 };
@@ -71,18 +74,18 @@ Atlantis.SpriteGroup.prototype.initialize = function (callback) {
  * @method update
  * @param {Atlantis.GameTime} gameTime An instance of GameTime.
  */
-Atlantis.SpriteGroup.prototype.update = function (gameTime) {
+Atlantis.SpriteGroup.prototype.update = function(gameTime) {
 	Atlantis.Sprite.prototype.update.call(this, gameTime);
 
 	if (!this._dead && this.enabled) {
 		// Update
 		for (var i = 0; i < this._length; i++) {
-            if (this._sprites[i] !== null && this._sprites[i].alive && this._sprites[i].enabled) {
-            	this._sprites[i].preUpdate(gameTime);
-		    	this._sprites[i].update(gameTime);
-    		    this._sprites[i].postUpdate(gameTime);
-            }
-    	}
+			if (this._sprites[i] !== null && this._sprites[i].alive && this._sprites[i].enabled) {
+				this._sprites[i].preUpdate(gameTime);
+				this._sprites[i].update(gameTime);
+				this._sprites[i].postUpdate(gameTime);
+			}
+		}
 	}
 };
 
@@ -91,20 +94,20 @@ Atlantis.SpriteGroup.prototype.update = function (gameTime) {
  * @method preUpdate
  * @param {Atlantis.GameTime} gameTime
  */
-Atlantis.SpriteGroup.prototype.postUpdate = function (gameTime) { }
+Atlantis.SpriteGroup.prototype.postUpdate = function(gameTime) {};
 
 /**
  * Draw all members on screen.
  * @method draw
  * @param {Atlantis.SpriteBatch}
  */
-Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
+Atlantis.SpriteGroup.prototype.draw = function(spriteBatch) {
 	if (this.visible) {
 		for (var i = 0; i < this._length; i++) {
-            if (this._sprites[i] !== null && this._sprites[i].alive && this._sprites[i].visible) {
-    		     this._sprites[i].draw(spriteBatch);
-            }
-    	}
+			if (this._sprites[i] !== null && this._sprites[i].alive && this._sprites[i].visible) {
+				this._sprites[i].draw(spriteBatch);
+			}
+		}
 	}
 };
 
@@ -112,12 +115,12 @@ Atlantis.SpriteGroup.prototype.draw = function (spriteBatch) {
  * Clear the collection.
  * @method clear
  */
-Atlantis.SpriteGroup.prototype.clear = function () {
-    this._sprites.length = 0;
-    this._length = 0;
+Atlantis.SpriteGroup.prototype.clear = function() {
+	this._sprites.length = 0;
+	this._length = 0;
 };
 
-Atlantis.SpriteGroup.prototype.collides = function (sprite) {
+Atlantis.SpriteGroup.prototype.collides = function(sprite) {
 	if (this.collidesWithGroup(sprite)) {
 		var i = 0,
 			collides = false;
@@ -144,7 +147,7 @@ Atlantis.SpriteGroup.prototype.collides = function (sprite) {
  * @param {Boolean} computeBoundingRect
  * @return {Boolean}
  */
-Atlantis.SpriteGroup.prototype.collidesWithGroup = function (sprite, computeBoundingRect) {
+Atlantis.SpriteGroup.prototype.collidesWithGroup = function(sprite, computeBoundingRect) {
 	if (computeBoundingRect || this._needBoundingCompute) {
 		this.computeBoundingRect();
 	}
@@ -155,7 +158,7 @@ Atlantis.SpriteGroup.prototype.collidesWithGroup = function (sprite, computeBoun
  * Compute the bounding size of the group.
  * @method computeBoundingSize
  */
-Atlantis.SpriteGroup.prototype.computeBoundingRect = function () {
+Atlantis.SpriteGroup.prototype.computeBoundingRect = function() {
 	this.rectangle.setSize(0, 0);
 
 	for (var i = 0; i < this._length; i++) {
@@ -171,7 +174,7 @@ Atlantis.SpriteGroup.prototype.computeBoundingRect = function () {
  * @method countLiving
  * @return {Number} Return the number of living sprites.
  */
-Atlantis.SpriteGroup.prototype.countLiving = function () {
+Atlantis.SpriteGroup.prototype.countLiving = function() {
 	var livings = 0;
 
 	for (var i = 0; i < this._length; i++) {
@@ -186,7 +189,7 @@ Atlantis.SpriteGroup.prototype.countLiving = function () {
  * @method countDead
  * @return {Number} Return the number of dead sprites.
  */
-Atlantis.SpriteGroup.prototype.countDead = function () {
+Atlantis.SpriteGroup.prototype.countDead = function() {
 	var deads = 0;
 
 	for (var i = 0; i < this._length; i++) {
@@ -196,7 +199,7 @@ Atlantis.SpriteGroup.prototype.countDead = function () {
 	return deads;
 };
 
-Atlantis.SpriteGroup.prototype.size = function () {
+Atlantis.SpriteGroup.prototype.size = function() {
 	return this._length;
 };
 
@@ -204,7 +207,7 @@ Atlantis.SpriteGroup.prototype.size = function () {
  * @method forEach
  * @param {Function} callback
  */
-Atlantis.SpriteGroup.prototype.forEach = function (callback) {
+Atlantis.SpriteGroup.prototype.forEach = function(callback) {
 	for (var i = 0; i < this._length; i++) {
 		if (this._sprites[i] !== null && this._sprites[i].alive) {
 			callback(this._sprites[i], i);
@@ -217,7 +220,7 @@ Atlantis.SpriteGroup.prototype.forEach = function (callback) {
  * @method get
  * @param {Number} index The index of the sprite on the group.
  */
-Atlantis.SpriteGroup.prototype.get = function (index) {
+Atlantis.SpriteGroup.prototype.get = function(index) {
 	var sprite = null;
 
 	if (index > -1 && index < this._sprites.length) {
@@ -232,7 +235,7 @@ Atlantis.SpriteGroup.prototype.get = function (index) {
  * @method getFirstDead
  * @return {Atlantis.Sprite} Return the first killed sprite otherwise return null.
  */
-Atlantis.SpriteGroup.prototype.getFirstDead = function () {
+Atlantis.SpriteGroup.prototype.getFirstDead = function() {
 	var i = 0,
 		sprite = null;
 
@@ -249,7 +252,7 @@ Atlantis.SpriteGroup.prototype.getFirstDead = function () {
  * @method getFirstAlive
  * @return {Atlantis.Sprite} Return the first alive sprite, otherwise return null.
  */
-Atlantis.SpriteGroup.prototype.getFirstAlive = function () {
+Atlantis.SpriteGroup.prototype.getFirstAlive = function() {
 	var i = 0,
 		sprite = null;
 
@@ -266,7 +269,7 @@ Atlantis.SpriteGroup.prototype.getFirstAlive = function () {
  * @method getFirstNull
  * @return {Number} Return the index of the first null element in the group otherwise return -1.
  */
-Atlantis.SpriteGroup.prototype.getFirstNull = function () {
+Atlantis.SpriteGroup.prototype.getFirstNull = function() {
 	var index = -1,
 		i = 0;
 
@@ -278,7 +281,7 @@ Atlantis.SpriteGroup.prototype.getFirstNull = function () {
 	return index;
 };
 
-Atlantis.SpriteGroup.prototype.kill = function () {
+Atlantis.SpriteGroup.prototype.kill = function() {
 	Atlantis.Sprite.prototype.kill.call(this);
 
 	for (var i = 0; i < this._length; i++) {
@@ -288,7 +291,7 @@ Atlantis.SpriteGroup.prototype.kill = function () {
 	}
 };
 
-Atlantis.SpriteGroup.prototype.revive = function () {
+Atlantis.SpriteGroup.prototype.revive = function() {
 	Atlantis.Sprite.prototype.revive.call(this);
 
 	for (var i = 0; i < this._length; i++) {
@@ -303,15 +306,14 @@ Atlantis.SpriteGroup.prototype.revive = function () {
  * @method add
  * @param {Atlantis.Sprite} sprite The sprite to add.
  */
-Atlantis.SpriteGroup.prototype.add = function (sprite) {
+Atlantis.SpriteGroup.prototype.add = function(sprite) {
 	if (sprite instanceof Atlantis.Sprite && this._sprites.indexOf(sprite) === -1) {
 		var nullIndex = this.getFirstNull();
 
-		if (nullIndex === -1) { 
+		if (nullIndex === -1) {
 			this._sprites.push(sprite);
 			this._length++;
-		}
-		else {
+		} else {
 			this._sprites[nullIndex] = sprite;
 		}
 
@@ -331,7 +333,7 @@ Atlantis.SpriteGroup.prototype.add = function (sprite) {
  * @param {Number} index The index of the sprite to remove.
  * @param {Boolean} splice Whether the object should be cut from the array entirely or not.
  */
-Atlantis.SpriteGroup.prototype.removeAt = function (index, splice) {
+Atlantis.SpriteGroup.prototype.removeAt = function(index, splice) {
 	var result = null;
 
 	if (this._sprites[index]) {
@@ -340,8 +342,7 @@ Atlantis.SpriteGroup.prototype.removeAt = function (index, splice) {
 
 		if (splice) {
 			this._sprites.splice(index, 1);
-		}
-		else {
+		} else {
 			this._sprites[index] = null;
 		}
 
@@ -358,7 +359,7 @@ Atlantis.SpriteGroup.prototype.removeAt = function (index, splice) {
  * @param {Atlantis.Sprite} sprite The sprite to remove.
  * @param {Boolean} splice Whether the object should be cut from the array entirely or not.
  */
-Atlantis.SpriteGroup.prototype.remove = function (sprite, splice) {
+Atlantis.SpriteGroup.prototype.remove = function(sprite, splice) {
 	var index = this._sprites.indexOf(sprite);
 	return this.removeAt(index, splice);
 };
@@ -370,7 +371,7 @@ Atlantis.SpriteGroup.prototype.remove = function (sprite, splice) {
  * @param {Atlantis.Sprite} newSprite The new sprite to replace the old sprite.
  * @return {Atlantis.Sprite} Return the new sprite if the replace operation success, otherwise return null.
  */
-Atlantis.SpriteGroup.prototype.replace = function (oldSprite, newSprite) {
+Atlantis.SpriteGroup.prototype.replace = function(oldSprite, newSprite) {
 	var index = this._sprites.indexOf(oldSprite);
 
 	if (index > -1) {
@@ -385,7 +386,7 @@ Atlantis.SpriteGroup.prototype.replace = function (oldSprite, newSprite) {
 	return null;
 };
 
-Atlantis.SpriteGroup.toArray = function () {
+Atlantis.SpriteGroup.toArray = function() {
 	var sprites = [];
 
 	for (var i = 0; i < this._length; i++) {

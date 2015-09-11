@@ -8,11 +8,14 @@
 var Atlantis = window.Atlantis || {};
 
 /**
-* Define a button state which is released or pressed.
-* @class ButtonState
-* @static
-*/
-Atlantis.ButtonState = { Released: 0, Pressed: 1 };
+ * Define a button state which is released or pressed.
+ * @class ButtonState
+ * @static
+ */
+Atlantis.ButtonState = {
+	Released: 0,
+	Pressed: 1
+};
 
 // ---
 // --- MouseState implementation
@@ -27,7 +30,7 @@ Atlantis.ButtonState = { Released: 0, Pressed: 1 };
  * @param {Number} scroolWheelValue The value of the scroll
  * @param {Array} buttons An array with the states of each buttons
  */
-Atlantis.MouseState = function (x, y, scrollWheelValue, buttons) {
+Atlantis.MouseState = function(x, y, scrollWheelValue, buttons) {
 	this.x = x;
 	this.y = y;
 	this.scrollWheelValue = scrollWheelValue;
@@ -41,8 +44,8 @@ Atlantis.MouseState = function (x, y, scrollWheelValue, buttons) {
  * @method clone
  * @return {Atlantis.MouseState} Return a clone of this instance.
  */
-Atlantis.MouseState.prototype.clone = function () {
-    return new Atlantis.MouseState(this.x, this.y, this.scrollWheelValue, [this.leftButton, this.middleButton, this.rightButton]);
+Atlantis.MouseState.prototype.clone = function() {
+	return new Atlantis.MouseState(this.x, this.y, this.scrollWheelValue, [this.leftButton, this.middleButton, this.rightButton]);
 };
 
 // ---
@@ -55,7 +58,7 @@ Atlantis.MouseState.prototype.clone = function () {
  * @constructor
  * @param {HTMLElement} domElement The DOM element to use (default is document.body).
  */
-Atlantis.Mouse = function (domElement) {
+Atlantis.Mouse = function(domElement) {
 	var domElement = (domElement instanceof HTMLElement) ? domElement : document.body;
 	this._x = 0;
 	this._y = 0;
@@ -64,17 +67,17 @@ Atlantis.Mouse = function (domElement) {
 	this._buttons[0] = false; // Left
 	this._buttons[1] = false; // Middle
 	this._buttons[2] = false; // Right
-    this.preventDefault = true;
+	this.preventDefault = true;
 
 	var that = this;
 
-	var resetButtonState = function () {
+	var resetButtonState = function() {
 		that._buttons[0] = false;
 		that._buttons[1] = false;
 		that._buttons[2] = false;
 	};
 
-	var onMouseEvent = function (event) {
+	var onMouseEvent = function(event) {
 		that._x = (event.pageX - domElement.offsetLeft) * Atlantis.Game.scaleFactor.x;
 		that._y = (event.pageY - domElement.offsetTop) * Atlantis.Game.scaleFactor.y;
 
@@ -83,16 +86,15 @@ Atlantis.Mouse = function (domElement) {
 		}
 
 		resetButtonState();
-     
+
 		if ((event.type === "mousedown") || (event.type === "pointerdown")) {
-			that._buttons[event.button] =  true;
-		}
-		else {
+			that._buttons[event.button] = true;
+		} else {
 			that._buttons[event.button] = false;
 		}
 	};
 
-	var onMouseScroll = function (event) {
+	var onMouseScroll = function(event) {
 		that._scroll = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
 	};
 
@@ -110,6 +112,6 @@ Atlantis.Mouse = function (domElement) {
  * @method getState
  * @return {Atlantis.MouseState} Return the state of the mouse at this time.
  */
-Atlantis.Mouse.prototype.getState = function () {
+Atlantis.Mouse.prototype.getState = function() {
 	return new Atlantis.MouseState(this._x, this._y, this._scroll, this._buttons);
 };
