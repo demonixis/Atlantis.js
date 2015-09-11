@@ -218,7 +218,7 @@ Atlantis.SpriteBatch.drawString = function(context, spriteFont, text, position, 
 
     if (spriteFont.strokeStyle && spriteFont.lineWidth) {
         context.lineWidth = spriteFont.lineWidth;
-        context.strokeStyle = spriteFont.strokeStyle
+        context.strokeStyle = spriteFont.strokeStyle;
 
         if (!spriteFont.wrapText) {
             context.strokeText(text, position.x, position.y);
@@ -387,7 +387,7 @@ Atlantis.SpriteBatch._wrapText = function(context, text, x, y, maxWidth, lineHei
     var line = "";
 
     for (var n = 0; n < words.length; n++) {
-        var testLine = line + words[n] + ' ';
+        var testLine = line + words[n] + " ";
         var metrics = context.measureText(testLine);
         var testWidth = metrics.width;
         if (testWidth > maxWidth && n > 0) {
@@ -396,7 +396,7 @@ Atlantis.SpriteBatch._wrapText = function(context, text, x, y, maxWidth, lineHei
             }
 
             context.fillText(line, x, y);
-            line = words[n] + ' ';
+            line = words[n] + " ";
             y += lineHeight;
         } else {
             line = testLine;

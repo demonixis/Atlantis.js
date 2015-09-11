@@ -112,6 +112,6 @@ Atlantis.MathHelper = {
      * @method isPowerOfTwo
      */
     isPowerOfTwo: function(value) {
-        return (value > 0) && ((value & (value - 1)) == 0);
+        return (value > 0) && ((value & (value - 1)) === 0);
     }
 };

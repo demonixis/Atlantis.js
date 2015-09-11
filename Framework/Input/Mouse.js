@@ -59,7 +59,7 @@ Atlantis.MouseState.prototype.clone = function() {
  * @param {HTMLElement} domElement The DOM element to use (default is document.body).
  */
 Atlantis.Mouse = function(domElement) {
-	var domElement = (domElement instanceof HTMLElement) ? domElement : document.body;
+	domElement = (domElement instanceof HTMLElement) ? domElement : document.body;
 	this._x = 0;
 	this._y = 0;
 	this._scroll = 0;

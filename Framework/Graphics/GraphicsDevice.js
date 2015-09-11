@@ -31,7 +31,7 @@ Atlantis.ScaleMode = {
  * @param {Object} settings A list of options (webGL, backBufferWidth/Height, canvas).
  */
 Atlantis.GraphicsDevice = function(width, height, settings) {
-    var settings = settings || {};
+    settings = settings || {};
     settings.width = width;
     settings.height = height;
 
@@ -155,7 +155,7 @@ Atlantis.GraphicsDevice.prototype.present = function() {
  * @param {HTMLElement} The node to use (default is the canvas element).
  */
 Atlantis.GraphicsDevice.prototype.toggleFullscreen = function(element) {
-    var element = element instanceof HTMLElement ? element : this._frontBuffer.getCanvas();
+    element = element instanceof HTMLElement ? element : this._frontBuffer.getCanvas();
     var fs = this.isFullscreen();
 
     element.requestFullScreen = element.requestFullScreen || element.webkitRequestFullscreen || element.mozRequestFullScreen || element.msRequestFullscreen || function() {

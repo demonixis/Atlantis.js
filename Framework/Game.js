@@ -23,8 +23,8 @@ Atlantis.Game = (function() {
     var game = function(width, height, domElement, params) {
         this.settings = params || {};
         
-        var width = width || window.innerWidth;
-        var height = height || window.innerHeight;
+        width = width || window.innerWidth;
+        height = height || window.innerHeight;
         this.domElement = document.body;
 
         // FIXME : This part is totaly awefull

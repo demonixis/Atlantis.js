@@ -9,7 +9,7 @@
 var Atlantis = window.Atlantis || {};
 
 /**
- * Create a point structure.
+ * Describes a point.
  * @constructor
  * @class Point
  * @param {Number} x A value for X coordinate.
@@ -34,7 +34,7 @@ Atlantis.Point.prototype.toString = function () {
 };
 
 /**
-* Create a new Vector2
+* Describes a 2D-vector.
 * @constructor
 * @class Vector2
 */
@@ -53,7 +53,7 @@ Atlantis.Vector2.prototype.fromVector = function(vector) {
  * @method Zero
  */
 Atlantis.Vector2.Zero = function () {
-    return new Vector2();
+    return new Atlantis.Vector2(0.0, 0.0);
 };
 
 /**
@@ -61,7 +61,7 @@ Atlantis.Vector2.Zero = function () {
  * @method One
  */
 Atlantis.Vector2.One = function () {
-    return new Vector2(1.0, 1.0);
+    return new Atlantis.Vector2(1.0, 1.0);
 };
 
 /**
@@ -69,7 +69,7 @@ Atlantis.Vector2.One = function () {
  * @method UnitX
  */
 Atlantis.Vector2.UnitX = function () {
-    return new Vector2(1.0, 0.0);
+    return new Atlantis.Vector2(1.0, 0.0);
 };
 
 /**
@@ -77,7 +77,7 @@ Atlantis.Vector2.UnitX = function () {
  * @method UnitY
  */
 Atlantis.Vector2.UnitY = function () {
-    return new Vector2(0.0, 1.0);
+    return new Atlantis.Vector2(0.0, 1.0);
 };
 
 /**
@@ -277,7 +277,8 @@ Atlantis.Vector2.length = function (vec2) {
 * @return
 */
 Atlantis.Vector2.lerp = function (vec1, vec2, amount) {
-    Atlantis.Vector2.lerpToRef(vec1, vec2, amount, new Atlantis.Vector2());
+    var vector = new Atlantis.Vector2.Zero();
+    Atlantis.Vector2.lerpToRef(vec1, vec2, amount, vector);
     return vector;
 };
 
@@ -314,7 +315,7 @@ Atlantis.Vector2.minToRef = function (vec1, vec2, result) {
 * @return Return a vector that correspond of the maximum of the two vectors.
 */
 Atlantis.Vector2.max = function (vec1, vec2) {
-    var result = new Vector2();
+    var result = Atlantis.Vector2.Zero();
     Atlantis.Vector2.maxToRef(vec1, vec2, result);
     return result;
 };
@@ -403,12 +404,12 @@ Atlantis.Vector2.smoothStep = function (value1, value2, amount) {
     var result = new Atlantis.Vector2();
     Atlantis.Vector2.smoothStepToRef(value1, value2, amount, result);
     return result;
-}
+};
 
 Atlantis.Vector2.smoothStepToRef = function (value1, value2, amount, result) {
     result.x = Atlantis.MathHelper.smoothStep(value1.x, value2.x, amount);
     result.y = Atlantis.MathHelper.smoothStep(value1.y, value2.y, amount);
-}
+};
 
 /**
 * Gets a transformed vector from a position and a matrix.

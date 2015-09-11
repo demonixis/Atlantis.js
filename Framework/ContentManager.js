@@ -31,8 +31,9 @@ Atlantis.ContentManager.prototype.preload = function(progressCallback, doneCallb
     var countAssets = this.preloader.length,
         nbLoaded = 0;
 
-    var progressCallback = (typeof(progressCallback) === "function") ? progressCallback : function() {};
-    var doneCallback = (typeof(doneCallback) === "function") ? doneCallback : function() {};
+    progressCallback = (typeof(progressCallback) === "function") ? progressCallback : function() {};
+    doneCallback = (typeof(doneCallback) === "function") ? doneCallback : function() {};
+
     var onLoaded = function(asset) {
         nbLoaded++;
     };
@@ -77,7 +78,7 @@ Atlantis.ContentManager.prototype.preload = function(progressCallback, doneCallb
  * @param {Function} callback A callback function called when the asset is loaded.
  */
 Atlantis.ContentManager.prototype.load = function(assetName, callback) {
-    var callback = (typeof(callback) === "function") ? callback : function() {};
+    callback = (typeof(callback) === "function") ? callback : function() {};
 
     var temp = assetName.split(".");
     var ext = temp[(temp.length - 1)];
@@ -101,6 +102,7 @@ Atlantis.ContentManager.prototype.load = function(assetName, callback) {
             case "mp4":
             case "ogv":
                 this.loadVideo(assetName, callback);
+                break;
             case "xml":
             case "json":
             case "js":

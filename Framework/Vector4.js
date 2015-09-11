@@ -9,7 +9,7 @@
 var Atlantis = window.Atlantis || {};
 
 /**
- * A vector4 class.
+ * Describes a 4D-vector.
  * @constructor
  * @class Vector4
  * @param {Number|Atlantis.Vector4} Value for x coordinate or a Vector4 object.
@@ -24,6 +24,11 @@ Atlantis.Vector4 = function(x, y, z, w) {
     this.z = w ? +w : 0;
 };
 
+/**
+ * Copy a vector to this vector.
+ * @method fromVector
+ * @param {Vector4} vector The vector to use.
+ */
 Atlantis.Vector4.prototype.fromVector = function(vector) {
     this.x = vector.x;
     this.y = vector.y;
@@ -54,7 +59,7 @@ Atlantis.Vector4.prototype.lerp = function(vector, amount) {
  * @return {Atlantis.Vector4} Return a interpolated Vector3.
  */
 Atlantis.Vector4.lerp = function(vec1, vec2, amount) {
-    var vector = new Vector4(vec1);
+    var vector = new Atlantis.Vector4(vec1);
     vector.lerp(vec2, amount);
     return vector;
 };

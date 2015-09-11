@@ -9,8 +9,7 @@
 var Atlantis = window.Atlantis || {};
 
 /**
- * Create a vector with three coordinates. If you pass a Vector3 in first parameter,
- * its filed are copied to the new vector (work like a copy constructor).
+ * Describes a 3D-vector.
  * @constructor
  * @class Vector3
  * @param {Number|Atlantis.Vector3} The X value or a Vector3 object     * @param {Number} The Y value.
@@ -142,7 +141,7 @@ Atlantis.Vector3.prototype.add = function(vector) {
  * @return {Atlantis.Vector3} Return a new Vector3
  */
 Atlantis.Vector3.add = function(vec1, vec2) {
-    var result = new Vector3(vec1);
+    var result = new Atlantis.Vector3(vec1);
     result.add(vec2);
     return result;
 };
@@ -176,7 +175,7 @@ Atlantis.Vector3.subtract = function(vec1, vec2) {
     var result = new Atlantis.Vector3(vec1);
     result.subtract(vec2);
     return result;
-}
+};
 
 /**
  * divide a Vector3 to the current vector.
@@ -184,13 +183,13 @@ Atlantis.Vector3.subtract = function(vec1, vec2) {
  * @param {Atlantis.Vector3} vector The Vector3 to divide.
  */
 Atlantis.Vector3.prototype.divide = function(vector) {
-    if (vector.x != 0) {
+    if (vector.x !== 0) {
         this.x /= vector.x;
     }
-    if (vector.y != 0) {
+    if (vector.y !== 0) {
         this.y /= vector.y;
     }
-    if (vector.z != 0) {
+    if (vector.z !== 0) {
         this.z /= vector.z;
     }
 };
@@ -207,7 +206,7 @@ Atlantis.Vector3.divide = function(vec1, vec2) {
     var vector = new Atlantis.Vector3(vec1);
     vector.divide(vec2);
     return vector;
-}
+};
 
 /**
  * multiply a Vector3 to the current vector.
@@ -319,14 +318,14 @@ Atlantis.Vector3.prototype.lerp = function(vector, amount) {
  * @static
  * @param {Atlantis.Vector3} vec1 First vector
  * @param {Atlantis.Vector3} vec2 Second vector
- * @param amount Value between 0 and 1 indicating the weight of vec2.
+ * @param {Number} amount Value between 0 and 1 indicating the weight of vec2.
  * @return {Atlantis.Vector3} Return a interpolated Vector3.
  */
-Atlantis.Vector3.lerp = function(vec1, vec2) {
+Atlantis.Vector3.lerp = function(vec1, vec2, amount) {
     var x = Atlantis.MathHelper.lerp(vec1.x, vec2.x, amount);
     var y = Atlantis.MathHelper.lerp(vec1.y, vec2.y, amount);
     var z = Atlantis.MathHelper.lerp(vec1.z, vec2.z, amount);
-    return new Atlantis.Vector3(x, y, z);;
+    return new Atlantis.Vector3(x, y, z);
 };
 
 /**
@@ -359,7 +358,7 @@ Atlantis.Vector3.max = function(vec1, vec2) {
     vector.y = (vec1.y > vec2.y) ? vec1.y : vec2.y;
     vector.z = (vec1.z > vec2.z) ? vec1.z : vec2.z;
     return vector;
-}
+};
 
 /**
  * Negate the vector.
@@ -390,9 +389,9 @@ Atlantis.Vector3.negate = function(vector) {
  * @method normalize
  */
 Atlantis.Vector3.prototype.normalize = function() {
-    var factor = distance(this, new Atlantis.Vector3());
+    var factor = Atlantis.Vector3.distance(this, new Atlantis.Vector3());
 
-    if (factor != 0) {
+    if (factor !== 0) {
         factor = 1.0 / factor;
         this.set(this.x * factor, this.y * factor, this.z * factor);
     }
@@ -405,7 +404,7 @@ Atlantis.Vector3.prototype.normalize = function() {
  * @return {Atlantis.Vector3} result A normalized vector.
  */
 Atlantis.Vector3.normalize = function(vector) {
-    var result = new Vector3(vector);
+    var result = new Atlantis.Vector3(vector);
     result.normalize();
     return result;
 };
@@ -419,7 +418,7 @@ Atlantis.Vector3.normalize = function(vector) {
  * @return {Atlantis.Vector3} A tranformed vector.
  */
 Atlantis.Vector3.transform = function(position, matrix) {
-    var vector = new Vector3(
+    var vector = new Atlantis.Vector3(
         (position.x * matrix.M11) + (position.y * matrix.M21) + (position.z * matrix.M31) + matrix.M41, (position.x * matrix.M12) + (position.y * matrix.M22) + (position.z * matrix.M32) + matrix.M42, (position.x * matrix.M13) + (position.y * matrix.M23) + (position.z * matrix.M33) + matrix.M43
     );
 

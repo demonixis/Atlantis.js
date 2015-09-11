@@ -9,7 +9,7 @@
 var Atlantis = Atlantis || {};
 
 /**
- * Create a rectangle structure.
+ * Describes a rectangle structure.
  * @constructor
  * @class Rectangle
  * @param {Number} x A value for X coordinate.
@@ -103,7 +103,7 @@ Atlantis.Rectangle.prototype.intersects = function(rectangle) {
 
 Atlantis.Rectangle.prototype.toString = function() {
     return ["x: ", this.x, " y: ", this.y, " width: ", this.width, " height: ", this.height].toString();
-}
+};
 
 /**
  * gets the position.
@@ -119,7 +119,7 @@ Atlantis.Rectangle.prototype.toVector2 = function() {
  */
 Atlantis.Rectangle.prototype.toPoint = function() {
     return new Atlantis.Point(this.x, this.y);
-}
+};
 
 // ---
 // --- Getters and setters

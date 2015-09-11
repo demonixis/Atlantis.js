@@ -9,7 +9,7 @@
 var Atlantis = Atlantis || {};
 
 /**
- * Define a quaternion.
+ * Describes a quaternion.
  * @class Quaternion
  * @constructor
  * @param {Number|Quaternion} x Value for X coordinate.
@@ -60,7 +60,7 @@ Atlantis.Quaternion.prototype.add = function(quaternion) {
  * @return {Atlantis.Quaternion} Return a new quaternion.
  */
 Atlantis.Quaternion.add = function(quaternion1, quaternion2) {
-    var result = new Quaternion(quaternion1);
+    var result = new Atlantis.Quaternion(quaternion1);
     result.add(quaternion2);
     return result;
 };
@@ -83,7 +83,7 @@ Atlantis.Quaternion.prototype.conjugate = function() {
  * @return {Atlantis.Quaternion} Return a new conjugate Quaternion.
  */
 Atlantis.Quaternion.conjugate = function(quaternion) {
-    var result = new Quaternion(quaternion);
+    var result = new Atlantis.Quaternion(quaternion);
     result.conjugate();
     return result;
 };
@@ -96,7 +96,7 @@ Atlantis.Quaternion.conjugate = function(quaternion) {
  * @return Return a quaternion with three rotations.
  */
 Atlantis.Quaternion.createFromYawPitchRoll = function(yaw, pitch, roll) {
-    var result = new Quaternion();
+    var result = new Atlantis.Quaternion();
 
     var halfYaw = yaw * 0.5;
     var halfPitch = pitch * 0.5;

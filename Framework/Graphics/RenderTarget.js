@@ -16,7 +16,7 @@ var Atlantis = window.Atlantis || {};
  * @param {HTMLCanvas} (optional) A canvas to use with this renderTarget
  */
 Atlantis.RenderTarget = function(width, height, canvas) {
-    this._canvas = canvas
+    this._canvas = canvas;
 
     if (!this._canvas) {
         this._canvas = document.createElement("canvas");

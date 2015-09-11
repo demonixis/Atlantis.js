@@ -26,7 +26,7 @@ Atlantis.TouchLocationState = {
 Atlantis.TouchCollection = function(touchStates) {
 	Array.call(this);
 
-	var touchStates = touchStates || [];
+	touchStates = touchStates || [];
 	for (var i = 0, l = touchStates.length; i < l; i++) {
 		this.push(new Atlantis.TouchPanelState(touchStates[i]));
 	}
@@ -136,12 +136,15 @@ Atlantis.TouchPanel = function(domElement) {
 	};
 
 	var onTouchHandler = function(event) {
+		var i = 0,
+			l = 0;
+
 		if (event.type === "touchend" || event.type === "touchcancel") {
-			for (var i = 0, l = that._states.length; i < l; i++) {
+			for (i = 0, l = that._states.length; i < l; i++) {
 				that._states[i].state = event.type === "touchend" ? Atlantis.TouchLocationState.Released : Atlantis.TouchLocationState.Invalid;
 			}
 		} else {
-			for (var i = 0, l = event.touches.length; i < l; i++) {
+			for (i = 0, l = event.touches.length; i < l; i++) {
 				wrapEvent(i, event);
 			}
 		}
@@ -194,7 +197,7 @@ Atlantis.TouchPanel = function(domElement) {
 Atlantis.TouchPanel.prototype.getCapabilities = function() {
 	return {
 		hasTouch: !!("ontouchstart" in window) || !!("ongesturechange" in window)
-	}
+	};
 };
 
 /** 

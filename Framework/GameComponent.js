@@ -248,14 +248,14 @@ Atlantis.GameComponentCollection.prototype.remove = function(gameComponent) {
 };
 
 /**
- * Get a component from the collection
+ * Get a component from the collection by its index
  * @method get
+ * @param {Number} index The index of the component.
+ * @return {Component} Returns the component if it exists, otherwise it returns `null`.
  */
 Atlantis.GameComponentCollection.prototype.get = function(index) {
-    var component = null;
-    var pIndex = this.components.indexOf(gameComponent);
-    if (pIndex > -1) {
-        component = this.components[index];
+    if (index > -1 && index < this.components.length) {
+        return this.components[index];
     }
 
     return null;
